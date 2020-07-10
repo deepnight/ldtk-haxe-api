@@ -1,0 +1,16 @@
+{
+	"name": "heaps-led",
+	"url" : "https://github.com/deepnight/led-api",
+	"license": "Apache",
+	"tags": ["Heaps","Hashlink","L-Ed"],
+	"description": "TODO",
+	"version": "0.0.1",
+	"classPath": "src/",
+	"releasenote": "",
+	"contributors": ["sbenard"],
+	"dependencies": {
+		"heaps": "",
+		"format": "",
+		"deepnightLibs": ""
+	}
+}
