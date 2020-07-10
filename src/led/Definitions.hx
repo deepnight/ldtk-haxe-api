@@ -8,6 +8,7 @@ class Definitions {
 	public var layers: Array<led.def.LayerDef> = [];
 	public var entities: Array<led.def.EntityDef> = [];
 	public var tilesets: Array<led.def.TilesetDef> = [];
+	public var enums: Array<led.def.EnumDef> = [];
 
 
 	public function new(project:Project) {
@@ -188,6 +189,32 @@ class Definitions {
 		for(td in tilesets)
 			if( td.uid==uid )
 				return td;
+		return null;
+	}
+
+
+	/**  ENUM DEFS  *****************************************/
+
+	public function createEnumDef() : led.def.EnumDef {
+		var uid = _project.makeUniqId();
+		var ed = new led.def.EnumDef(uid, "Enum#"+uid);
+		enums.push(ed);
+		_project.tidy();
+		return ed;
+	}
+
+	function isEnumNameValid(name:String) {
+		name = led.def.EnumDef.cleanUpString(name);
+		for(ed in enums)
+			if( ed.name==name )
+				return false;
+		return true;
+	}
+
+	public function getEnumDef(uid:Int) : Null<led.def.EnumDef> {
+		for(ed in enums)
+			if( ed.uid==uid )
+				return ed;
 		return null;
 	}
 
