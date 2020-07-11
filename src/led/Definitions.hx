@@ -197,7 +197,7 @@ class Definitions {
 
 	public function createEnumDef() : led.def.EnumDef {
 		var uid = _project.makeUniqId();
-		var ed = new led.def.EnumDef(uid, "Enum#"+uid);
+		var ed = new led.def.EnumDef(uid, "LedEnum"+uid);
 		enums.push(ed);
 		_project.tidy();
 		return ed;

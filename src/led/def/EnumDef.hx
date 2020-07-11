@@ -37,19 +37,30 @@ class EnumDef {
 	}
 
 	public static inline function cleanUpString(str:String) {
-		return StringTools.trim(str);
+		str = StringTools.trim(str);
+		var reg = ~/[^0-9a-zA-Z_]+/gm;
+		str = reg.replace(str, "_");
+		return str;
 	}
 
 	function hasValue(v:String) {
-		v = cleanUpString(v);
+		v = cleanUpString(v).toLowerCase();
+		if( v.length==0 )
+			return false;
+
 		for(ev in values)
-			if( ev==v )
+			if( ev.toLowerCase()==v )
 				return true;
 		return false;
 	}
 
+	public function isValueNameValid(v:String) {
+		v = cleanUpString(v);
+		return v.length>0 && !hasValue(v);
+	}
+
 	public function addValue(v:String) {
-		if( hasValue(v) )
+		if( !isValueNameValid(v) )
 			return false;
 
 		v = cleanUpString(v);
