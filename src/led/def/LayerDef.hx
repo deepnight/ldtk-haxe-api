@@ -32,10 +32,6 @@ class LayerDef {
 		return '$name($type, ${gridSize}px)';
 	}
 
-	public function clone() {
-		return fromJson( Project.DATA_VERSION, toJson() );
-	}
-
 	public static function fromJson(dataVersion:Int, json:Dynamic) {
 		var o = new LayerDef( JsonTools.readInt(json.uid), JsonTools.readEnum(LayerType, json.type, false));
 		o.name = JsonTools.readString(json.name);

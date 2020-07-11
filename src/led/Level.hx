@@ -29,10 +29,6 @@ class Level {
 		return Type.getClassName(Type.getClass(this));
 	}
 
-	public function clone() {
-		return fromJson( _project, toJson() );
-	}
-
 	public function toJson() {
 		var layersJson = [];
 		for(li in layerInstances)

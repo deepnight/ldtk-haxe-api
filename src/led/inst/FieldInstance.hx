@@ -24,10 +24,6 @@ class FieldInstance {
 			+ ' [ $internalValue ]';
 	}
 
-	public function clone() {
-		return fromJson( _project, toJson() );
-	}
-
 	public static function fromJson(project:Project, json:Dynamic) {
 		var o = new FieldInstance( project, JsonTools.readInt(json.defId) );
 		o.internalValue = JsonTools.readEnum(ValueWrapper, json.internalValue, true);

@@ -70,10 +70,6 @@ class TilesetDef {
 	public inline function hasAtlas() return fileBase64!=null;
 
 
-	public function clone() {
-		return fromJson( Project.DATA_VERSION, toJson() );
-	}
-
 	public function toJson() {
 		return {
 			uid: uid,

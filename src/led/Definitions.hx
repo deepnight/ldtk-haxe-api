@@ -15,10 +15,6 @@ class Definitions {
 		this._project = project;
 	}
 
-	public function clone() {
-		return fromJson( _project, toJson() );
-	}
-
 	public function toJson() : Dynamic {
 		return {
 			layers: layers.map( function(ld) return ld.toJson() ),

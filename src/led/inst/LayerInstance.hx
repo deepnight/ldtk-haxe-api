@@ -33,10 +33,6 @@ class LayerInstance {
 	}
 
 
-	public function clone() {
-		return fromJson( _project, toJson() );
-	}
-
 	public function toJson() {
 		return {
 			levelId: levelId,
@@ -242,7 +238,7 @@ class LayerInstance {
 	}
 
 	public function duplicateEntityInstance(ei:EntityInstance) : EntityInstance {
-		var copy = ei.clone();
+		var copy = EntityInstance.fromJson( _project, ei.toJson() );
 		entityInstances.push(copy);
 		return copy;
 	}

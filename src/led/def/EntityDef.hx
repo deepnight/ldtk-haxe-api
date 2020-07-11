@@ -32,10 +32,6 @@ class EntityDef {
 			+ "]";
 	}
 
-	public function clone() {
-		return fromJson( Project.DATA_VERSION, toJson() );
-	}
-
 	public static function fromJson(dataVersion:Int, json:Dynamic) {
 		var o = new EntityDef( JsonTools.readInt(json.uid) );
 		o.name = JsonTools.readString( json.name );

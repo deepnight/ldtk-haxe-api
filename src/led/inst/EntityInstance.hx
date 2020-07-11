@@ -24,10 +24,6 @@ class EntityInstance {
 		return 'Instance<${def.name}>@$x,$y';
 	}
 
-	public function clone() {
-		return fromJson(_project, toJson());
-	}
-
 	public function toJson() {
 		var fieldsJson = [];
 		for(fi in fieldInstances)

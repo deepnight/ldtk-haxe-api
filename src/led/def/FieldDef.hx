@@ -35,10 +35,6 @@ class FieldDef {
 			+ ( type==F_Int || type==F_Float ? '[$min-$max]' : "" );
 	}
 
-	public function clone() {
-		return fromJson( Project.DATA_VERSION, toJson() );
-	}
-
 	public static function fromJson(dataVersion:Int, json:Dynamic) {
 		var o = new FieldDef( JsonTools.readInt(json.uid), JsonTools.readEnum(led.LedTypes.FieldType, json.type, false) );
 		o.name = JsonTools.readString(json.name);
