@@ -24,6 +24,7 @@ class Definitions {
 			layers: layers.map( function(ld) return ld.toJson() ),
 			entities: entities.map( function(ed) return ed.toJson() ),
 			tilesets: tilesets.map( function(td) return td.toJson() ),
+			enums: enums.map( function(ed) return ed.toJson() ),
 		}
 	}
 
@@ -38,6 +39,9 @@ class Definitions {
 
 		for( tilesetJson in JsonTools.readArray(json.tilesets) )
 			d.tilesets.push( led.def.TilesetDef.fromJson(p.dataVersion, tilesetJson) );
+
+		for( enumJson in JsonTools.readArray(json.enums) )
+			d.enums.push( led.def.EnumDef.fromJson(p.dataVersion, enumJson) );
 
 		return d;
 	}
@@ -201,6 +205,12 @@ class Definitions {
 		enums.push(ed);
 		_project.tidy();
 		return ed;
+	}
+
+	public function removeEnumDef(ed:led.def.EnumDef) {
+		if( !enums.remove(ed) )
+			throw "EnumDef not found";
+		_project.tidy();
 	}
 
 	function isEnumNameValid(name:String) {
