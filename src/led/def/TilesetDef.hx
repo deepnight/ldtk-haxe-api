@@ -215,6 +215,7 @@ class TilesetDef {
 		return img;
 	}
 
+	#if editor
 	public function drawAtlasToCanvas(canvas:js.jquery.JQuery) {
 		if( !canvas.is("canvas") )
 			throw "Not a canvas";
@@ -253,6 +254,7 @@ class TilesetDef {
 			ctx.drawImage(img, toX, toY);
 		}
 	}
+	#end
 
 	#end
 }

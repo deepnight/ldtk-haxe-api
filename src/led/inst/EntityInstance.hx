@@ -50,6 +50,7 @@ class EntityInstance {
 		return ei;
 	}
 
+	// TODO get rid of this parameter
 	public function getCx(ld:led.def.LayerDef) {
 		return Std.int( ( x + (def.pivotX==1 ? -1 : 0) ) / ld.gridSize );
 	}
@@ -74,10 +75,31 @@ class EntityInstance {
 			fi.tidy(_project);
 	}
 
+
+	// ** FIELDS **********************************
+
 	public function getFieldInstance(fieldDef:led.def.FieldDef) {
 		if( !fieldInstances.exists(fieldDef.uid) )
 			fieldInstances.set(fieldDef.uid, new led.inst.FieldInstance(_project, fieldDef.uid));
 		return fieldInstances.get( fieldDef.uid );
+	}
+
+	public function getStringField(name:String) : Null<String> {
+		var fd = def.getFieldDef(name);
+		fd.require(F_String);
+		return getFieldInstance(fd).getString();
+	}
+
+	public function getFloatField(name:String) : Null<Float> {
+		var fd = def.getFieldDef(name);
+		fd.require(F_Float);
+		return getFieldInstance(fd).getFloat();
+	}
+
+	public function getIntField(name:String) : Null<Int> {
+		var fd = def.getFieldDef(name);
+		fd.require(F_Int);
+		return getFieldInstance(fd).getInt();
 	}
 
 }

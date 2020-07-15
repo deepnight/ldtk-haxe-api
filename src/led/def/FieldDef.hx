@@ -75,7 +75,7 @@ class FieldDef {
 	}
 	#end
 
-	inline function require(type:led.LedTypes.FieldType) {
+	public inline function require(type:led.LedTypes.FieldType) {
 		if( this.type!=type )
 			throw "Only available on "+type+" fields";
 	}

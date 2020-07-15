@@ -101,9 +101,13 @@ class EntityDef {
 		return moved;
 	}
 
-	public function getFieldDef(id:Int) : Null<FieldDef> {
+	// TODO either
+	public function getFieldDef(?name:String, ?id:Int) : Null<FieldDef> {
+		if( name==null && id==null )
+			throw "Need 1 parameter";
+
 		for(fd in fieldDefs)
-			if( fd.uid==id )
+			if( fd.uid==id || fd.name==name )
 				return fd;
 		return null;
 	}

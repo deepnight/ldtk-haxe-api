@@ -103,9 +103,9 @@ class Project {
 		tidy();
 	}
 
-	public function getLevel(uid:Int) : Null<Level> {
+	public function getLevel(?name:String, ?uid:Int) : Null<Level> {
 		for(l in levels)
-			if( l.uid==uid )
+			if( l.uid==uid || l.getName()==name )
 				return l;
 		return null;
 	}
