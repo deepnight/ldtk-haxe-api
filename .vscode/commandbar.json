@@ -1,0 +1,24 @@
+{
+	"skipTerminateQuickPick": true,
+	"skipSwitchToOutput": false,
+	"skipErrorMessage": true,
+	"commands": [
+		{
+			"text": "⚡ Build",
+			"color": "yellow",
+			"commandType":"palette",
+			"command": "workbench.action.tasks.runTask|Neko",
+			"alignment": "right",
+			"skipTerminateQuickPick": false,
+			"priority": -21
+		},
+		{
+			"text": "⚡ Run",
+			"color": "yellow",
+			"command": "neko bin/test.n",
+			"alignment": "right",
+			"skipTerminateQuickPick": false,
+			"priority": -22
+		}
+	]
+}
