@@ -50,7 +50,7 @@ class LedParser {
 			var layersJson : Array<Dynamic> = cast json.layerInstances;
 			var layers : Array<{ id:String, e:Expr }> = [];
 			for(json in layersJson) {
-				trace(json._identifier);
+				trace(json.__identifier);
 				var layerFields = makeObjectFields(json, [
 					"pxOffsetX",
 					"pxOffsetY",
@@ -59,7 +59,7 @@ class LedParser {
 				// TODO add layer content
 
 				layers.push({
-					id: json._identifier,
+					id: json.__identifier,
 					e: { expr:EObjectDecl(layerFields), pos:p },
 				});
 			}
