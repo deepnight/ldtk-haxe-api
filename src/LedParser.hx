@@ -56,7 +56,6 @@ class LedParser {
 			for(json in layersJson) {
 				var cWid : Int = json.__cWid;
 				var cHei : Int = json.__cHei;
-				// trace(json.__identifier+" : "+json.__type);
 				var layerFields = makeObjectFields(json, [
 					"pxOffsetX",
 					"pxOffsetY",
@@ -67,7 +66,6 @@ class LedParser {
 
 				switch( json.__type ) {
 					case "IntGrid":
-						// startTimer();
 						// Build IntGrid layer
 						var intGrid : Array<Dynamic> = json.intGrid;
 						var grid : Array<Array<Int>> = [];
@@ -86,16 +84,12 @@ class LedParser {
 						var lines : Array<Expr> = [];
 						for( cx in 0...cWid) {
 							var cols = [];
-							for( cy in 0...cHei) {
-								// trace(cx);
+							for( cy in 0...cHei)
 								cols.push( macro $v{grid[cx][cy]} );
-							}
-							// trace(cols);
 							lines.push({
 								expr: EArrayDecl(cols),
 								pos: p,
 							});
-							// lines.push( macro $a{cols} );
 						}
 						layerFields.push({
 							field: "intGrid",
@@ -104,7 +98,6 @@ class LedParser {
 								pos:p,
 							},
 						});
-						// endTimer();
 
 
 					case _:
@@ -134,11 +127,6 @@ class LedParser {
 			field: "levels",
 			expr: { expr:EObjectDecl(levels.map( function(l) return { field:l.id, expr:l.e, quotes:null })), pos:p },
 		});
-
-
-		// var test = [ [ 5 ] ];
-		// var e = macro $v{test};
-		// trace(e.expr);
 
 
 		var out = { expr: EObjectDecl(projectFields), pos:p }
