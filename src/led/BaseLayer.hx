@@ -10,7 +10,7 @@ class BaseLayer {
 	public var pxOffsetX: Int;
 	public var pxOffsetY : Int;
 
-	public function new(json:LayerJson) {
+	public function new(json:LayerInstJson) {
 		identifier = json.__identifier;
 		type = json.__type;
 		cWid = json.__cWid;

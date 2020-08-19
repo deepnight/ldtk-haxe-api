@@ -5,7 +5,7 @@ typedef ProjectJson = {
 
 	var levels : Array<LevelJson>;
 	var defs : {
-		layers : Array<{ identifier:String }>,
+		layers : Array<LayerDefJson>,
 	}
 }
 
@@ -14,14 +14,19 @@ typedef LevelJson = {
 	var identifier : String;
 	var pxWid : Int;
 	var pxHei : Int;
-	var layerInstances : Array<LayerJson>;
+	var layerInstances : Array<LayerInstJson>;
 }
 
-typedef LayerJson = {
+typedef LayerInstJson = {
 	var __type : String;
 	var __identifier : String;
 	var __cWid : Int;
 	var __cHei : Int;
 	var pxOffsetX : Int;
 	var pxOffsetY : Int;
+}
+
+typedef LayerDefJson = {
+	var identifier : String;
+	var type : String;
 }
