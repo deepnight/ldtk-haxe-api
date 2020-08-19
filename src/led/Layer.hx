@@ -1,6 +1,6 @@
 package led;
 
-class BaseLayer {
+class Layer {
 	public var identifier : String;
 	public var type : String; // TODO enum?
 	public var cWid : Int;

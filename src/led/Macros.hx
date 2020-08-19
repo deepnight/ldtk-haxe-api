@@ -52,24 +52,58 @@ class Macros {
 
 		timer("types");
 
+		// Create layers specialized classes
+		var layerTypes : Map<String, TypeDefinition> = new Map();
+		for(l in json.defs.layers) {
+			switch l.type {
+				case "IntGrid":
+					var parentType : TypePath = { pack: ["led"], name:"Layer_IntGrid" }
+					var layerType : TypeDefinition = {
+						pos : pos,
+						name : modName+"_Layer_"+l.identifier,
+						pack : modPack,
+						kind : TDClass(parentType),
+						fields : (macro class {
+							override public function new(json) {
+								super(json);
+								trace("New specialized IntGrid layer");
+							}
+						}).fields,
+					}
+					layerTypes.set(l.identifier, layerType);
+					Context.defineType(layerType);
 
-		// Create Level extended class
-		var parentType : TypePath = { pack: ["led"], name:"Level" }
+				case _: trace("TODO "+l.type);
+			}
+		}
+
+
+
+		// Create Level specialized class
+		var parentTypePath : TypePath = { pack: ["led"], name:"Level" }
 		var levelType : TypeDefinition = {
 			pos : pos,
 			name : modName+"_Level",
 			pack : modPack,
-			kind : TDClass(parentType),
+			kind : TDClass(parentTypePath),
 			fields : (macro class {
 				override public function new(json) {
 					super(json);
 
 					// Init quick access
-					// for(l in _layers)
-						// Reflect.setField(layers, l.identifier, l);
+					for(l in _layers)
+						Reflect.setField(this, "l_"+l.identifier, l);
 				}
 
-				public function resolveLayer(id:String) : Null<led.BaseLayer> {
+				override function _instanciateLayer(json:led.JsonTypes.LayerInstJson) {
+					var c = Type.resolveClass($v{mod}+"_Layer_"+json.__identifier);
+					if( c==null )
+						return null;
+					else
+						return cast Type.createInstance(c, [json]);
+				}
+
+				public function resolveLayer(id:String) : Null<led.Layer> {
 					for(l in _layers)
 						if( l.identifier==id )
 							return l;
@@ -77,6 +111,14 @@ class Macros {
 				}
 			}).fields,
 		}
+		for(l in json.defs.layers)
+			if( l.type=="IntGrid" )
+			levelType.fields.push({
+				name: "l_"+l.identifier,
+				access: [APublic],
+				kind: FVar( Context.getType(mod+"_Layer_"+l.identifier).toComplexType() ),
+				pos: pos,
+			});
 		Context.defineType(levelType);
 
 
@@ -105,24 +147,29 @@ class Macros {
 
 
 		// Create Project extended class
-		var parentType : TypePath = { pack: ["led"], name:"Project" }
+		var parentTypePath : TypePath = { pack: ["led"], name:"Project" }
+		var levelTypePath : TypePath = { pack:modPack, name:levelType.name }
 		types.push({
 			pos : pos,
 			name : modName,
 			pack : modPack,
-			kind : TDClass(parentType),
+			kind : TDClass(parentTypePath),
 			fields : (macro class {
 				override public function new() {
 					super();
-					fromJson( $v{fileContent} );
+					fromJson( haxe.Json.parse( $v{fileContent} ) );
 
 					// Init levels quick access
-					for(l in _levels)
+					for(l in _untypedLevels)
 						Reflect.setField(levels, l.identifier, l);
 				}
 
+				override function _instanciateLevel(json) {
+					return new $levelTypePath(json);
+				}
+
 				public function resolveLevel(id:String) : Null<led.Level> {
-					for(l in _levels)
+					for(l in _untypedLevels)
 						if( l.identifier==id )
 							return l;
 					return null;

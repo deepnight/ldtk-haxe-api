@@ -3,7 +3,7 @@ class Main {
 
 	public function new() {
 		var p = new Test();
-		p.levels.Level0;
+		// trace(p.levels.Level0.l_Collisions);
 
 		// var sub = new somePackage.TestPack();
 	}

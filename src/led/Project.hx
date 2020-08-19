@@ -8,18 +8,21 @@ using haxe.macro.Tools;
 
 class Project {
 	public var name : String;
-	public var _levels : Array<led.Level>;
+	var _untypedLevels : Array<led.Level>;
 
 	public function new() {
 	}
 
-	public function fromJson(projectFileContent:String) {
-		var json : led.JsonTypes.ProjectJson = haxe.Json.parse(projectFileContent);
+	public function fromJson(json:led.JsonTypes.ProjectJson) {
 		name = json.name;
 
-		_levels = [];
+		_untypedLevels = [];
 		for(json in json.levels)
-			_levels.push( new Level(json) );
+			_untypedLevels.push( _instanciateLevel(json) );
+	}
+
+	function _instanciateLevel(json:led.JsonTypes.LevelJson) {
+		return null; // overriden from the Macros
 	}
 
 	public static function build(projectFilePath:String) {

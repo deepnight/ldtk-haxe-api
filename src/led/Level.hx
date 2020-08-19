@@ -4,7 +4,7 @@ class Level {
 	public var identifier : String;
 	public var pxWid : Int;
 	public var pxHei : Int;
-	var _layers : Array<BaseLayer>;
+	var _layers : Array<Layer>;
 
 	public function new(json:led.JsonTypes.LevelJson) {
 		identifier = json.identifier;
@@ -12,10 +12,10 @@ class Level {
 		pxHei = json.pxHei;
 		_layers = [];
 		for(json in json.layerInstances)
-			switch json.__type {
-				case "IntGrid": _layers.push( new led.BaseLayer(json) );
-				case _ : trace("WARNING: unsupported layer type "+json.__type+". Please update the Led API.");
-				// case _ : throw "Unsupported layer type "+json.__type+". Please update the Led API.";
-			}
+			_layers.push( _instanciateLayer(json) );
+	}
+
+	function _instanciateLayer(json:led.JsonTypes.LayerInstJson) : led.Layer {
+		return null; // overriden from the Macros
 	}
 }
