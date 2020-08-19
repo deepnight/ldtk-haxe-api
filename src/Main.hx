@@ -3,7 +3,6 @@ class Main {
 
 	public function new() {
 		var p = new Test();
-		p.
 	}
 }
 

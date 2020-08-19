@@ -47,7 +47,7 @@ class Macros {
 		// 	kind: FVar(null, { expr:EObjectDecl(layers), pos:pos }),
 		// 	pos: pos,
 		// 	access: [ APublic ],
-		});
+		// });
 
 
 		// Build levels access
