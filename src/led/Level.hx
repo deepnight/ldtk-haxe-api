@@ -1,14 +1,12 @@
 package led;
 
-import led.ApiTypes;
-
 class Level {
 	public var identifier : String;
 	public var pxWid : Int;
 	public var pxHei : Int;
 	var _layers : Array<BaseLayer>;
 
-	public function new(json:LevelJson) {
+	public function new(json:led.JsonTypes.LevelJson) {
 		identifier = json.identifier;
 		pxWid = json.pxWid;
 		pxHei = json.pxHei;

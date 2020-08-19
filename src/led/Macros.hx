@@ -6,7 +6,7 @@ import haxe.macro.Expr;
 using haxe.macro.Tools;
 #end
 
-import led.ApiTypes;
+import led.JsonTypes;
 
 class Macros {
 

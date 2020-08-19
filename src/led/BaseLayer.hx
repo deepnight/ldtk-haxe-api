@@ -1,7 +1,5 @@
 package led;
 
-import led.ApiTypes;
-
 class BaseLayer {
 	public var identifier : String;
 	public var type : String; // TODO enum?
@@ -10,7 +8,7 @@ class BaseLayer {
 	public var pxOffsetX: Int;
 	public var pxOffsetY : Int;
 
-	public function new(json:LayerInstJson) {
+	public function new(json:led.JsonTypes.LayerInstJson) {
 		identifier = json.__identifier;
 		type = json.__type;
 		cWid = json.__cWid;

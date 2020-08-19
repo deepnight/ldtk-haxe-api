@@ -6,8 +6,6 @@ import haxe.macro.Expr;
 using haxe.macro.Tools;
 #end
 
-import led.ApiTypes;
-
 class Project {
 	public var name : String;
 	public var _levels : Array<led.Level>;
@@ -16,7 +14,7 @@ class Project {
 	}
 
 	public function fromJson(projectFileContent:String) {
-		var json : ProjectJson = haxe.Json.parse(projectFileContent);
+		var json : led.JsonTypes.ProjectJson = haxe.Json.parse(projectFileContent);
 		name = json.name;
 
 		_levels = [];
