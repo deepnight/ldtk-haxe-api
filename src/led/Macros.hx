@@ -55,7 +55,6 @@ class Macros {
 
 		// Create Level extended class
 		var parentType : TypePath = { pack: ["led"], name:"Level" }
-		var levelPath = mod + "_Level";
 		var levelType : TypeDefinition = {
 			pos : pos,
 			name : modName+"_Level",
@@ -66,8 +65,8 @@ class Macros {
 					super(json);
 
 					// Init quick access
-					// for(l in _levels)
-					// 	Reflect.setField(levels, l.identifier, l);
+					// for(l in _layers)
+						// Reflect.setField(layers, l.identifier, l);
 				}
 
 				public function resolveLayer(id:String) : Null<led.BaseLayer> {
