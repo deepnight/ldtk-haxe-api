@@ -7,7 +7,7 @@
         {
             "name": "Launch",
             "type": "haxe-eval",
-            "request": "launch"
+            "request": "launch",
         }
     ]
 }
