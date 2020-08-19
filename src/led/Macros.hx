@@ -35,21 +35,6 @@ class Macros {
 		var json : ProjectJson = haxe.Json.parse(fileContent);
 
 
-		// Build layers access
-		// var layers : Array<ObjectField> = [];
-		// for(l in json.defs.layers) {
-		// 	layers.push({
-		// 		field: l.identifier,
-		// 		expr: macro 0,
-		// 	});
-		// }
-		// projectFields.push({
-		// 	name: "layers",
-		// 	kind: FVar(null, { expr:EObjectDecl(layers), pos:pos }),
-		// 	pos: pos,
-		// 	access: [ APublic ],
-		// });
-
 		timer("types");
 
 		// Create layers specialized classes
@@ -57,23 +42,55 @@ class Macros {
 		for(l in json.defs.layers) {
 			switch l.type {
 				case "IntGrid":
-					var parentType : TypePath = { pack: ["led"], name:"Layer_IntGrid" }
+					var parentTypePath : TypePath = { pack: ["led"], name:"Layer_IntGrid" }
 					var layerType : TypeDefinition = {
 						pos : pos,
 						name : modName+"_Layer_"+l.identifier,
 						pack : modPack,
-						kind : TDClass(parentType),
+						kind : TDClass(parentTypePath),
 						fields : (macro class {
 							override public function new(json) {
 								super(json);
-								trace("New specialized IntGrid layer");
 							}
 						}).fields,
 					}
 					layerTypes.set(l.identifier, layerType);
-					Context.defineType(layerType);
+					registerTypeDefinitionModule(layerType, projectFilePath);
 
-				case _: trace("TODO "+l.type);
+				case "Tiles":
+					var parentTypePath : TypePath = { pack: ["led"], name:"Layer_Tiles" }
+					var layerType : TypeDefinition = {
+						pos : pos,
+						name : modName+"_Layer_"+l.identifier,
+						pack : modPack,
+						kind : TDClass(parentTypePath),
+						fields : (macro class {
+							override public function new(json) {
+								super(json);
+							}
+						}).fields,
+					}
+					layerTypes.set(l.identifier, layerType);
+					registerTypeDefinitionModule(layerType, projectFilePath);
+
+				case "Entities":
+					var parentTypePath : TypePath = { pack: ["led"], name:"Layer_Entities" }
+					var layerType : TypeDefinition = {
+						pos : pos,
+						name : modName+"_Layer_"+l.identifier,
+						pack : modPack,
+						kind : TDClass(parentTypePath),
+						fields : (macro class {
+							override public function new(json) {
+								super(json);
+							}
+						}).fields,
+					}
+					layerTypes.set(l.identifier, layerType);
+					registerTypeDefinitionModule(layerType, projectFilePath);
+
+				case _:
+					error("Unknown layer type "+l.type);
 			}
 		}
 
@@ -97,6 +114,7 @@ class Macros {
 
 				override function _instanciateLayer(json:led.JsonTypes.LayerInstJson) {
 					var c = Type.resolveClass($v{mod}+"_Layer_"+json.__identifier);
+					trace( $v{mod}+"_Layer_"+json.__identifier +" => "+(c!=null?"OK":"error!"));
 					if( c==null )
 						return null;
 					else
@@ -112,14 +130,13 @@ class Macros {
 			}).fields,
 		}
 		for(l in json.defs.layers)
-			if( l.type=="IntGrid" )
 			levelType.fields.push({
 				name: "l_"+l.identifier,
 				access: [APublic],
 				kind: FVar( Context.getType(mod+"_Layer_"+l.identifier).toComplexType() ),
 				pos: pos,
 			});
-		Context.defineType(levelType);
+		registerTypeDefinitionModule(levelType, projectFilePath);
 
 
 		// Build levels access
@@ -157,6 +174,7 @@ class Macros {
 			fields : (macro class {
 				override public function new() {
 					super();
+					// trace("DEBUG = " + $v{debug.join(", ")} );
 					fromJson( haxe.Json.parse( $v{fileContent} ) );
 
 					// Init levels quick access
@@ -168,10 +186,10 @@ class Macros {
 					return new $levelTypePath(json);
 				}
 
-				public function resolveLevel(id:String) : Null<led.Level> {
+				public function resolveLevel(id:String) : Null<$levelComplexType> {
 					for(l in _untypedLevels)
 						if( l.identifier==id )
-							return l;
+							return cast l;
 					return null;
 				}
 			}).fields.concat( projectFields ),
@@ -189,6 +207,13 @@ class Macros {
 
 	#if macro
 	static var hexColorReg = ~/^#([0-9abcdefABCDEF]{6})$/g;
+
+	static function registerTypeDefinitionModule(typeDef:TypeDefinition, projectFilePath:String) {
+		var mod = typeDef.pack.concat([ typeDef.name ]).join(".");
+		Context.defineModule(mod, [typeDef]);
+		Context.registerModuleDependency(mod, projectFilePath);
+
+	}
 
 	// Turn selected fields from an object in macro ObjectFields
 	// static function makeObjectFields(json:Dynamic, fields:Array<String>) : Array<ObjectField> {

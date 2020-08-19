@@ -15,6 +15,5 @@ class Layer {
 		cHei = json.__cHei;
 		pxOffsetX = json.pxOffsetX;
 		pxOffsetY = json.pxOffsetY;
-		trace(this);
 	}
 }

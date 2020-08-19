@@ -5,6 +5,5 @@ class Layer_IntGrid extends led.Layer {
 
 	public function new(json) {
 		super(json);
-		trace("New Default IntGrid layer");
 	}
 }

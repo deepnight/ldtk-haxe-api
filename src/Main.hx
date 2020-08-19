@@ -2,10 +2,12 @@ class Main {
 	static function main() new Main();
 
 	public function new() {
-		var p = new Test();
-		// trace(p.levels.Level0.l_Collisions);
+		var p = new test.IntGrid();
 
-		// var sub = new somePackage.TestPack();
+		var p = new test.Mini();
+
+		var p = new test.Gmtk();
+
 	}
 }
 
