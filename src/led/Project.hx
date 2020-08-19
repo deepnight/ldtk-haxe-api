@@ -15,7 +15,7 @@ class Project {
 	public function new() {
 	}
 
-	public function parse(projectFileContent:String) {
+	public function fromJson(projectFileContent:String) {
 		var json : ProjectJson = haxe.Json.parse(projectFileContent);
 		name = json.name;
 

@@ -35,23 +35,23 @@ class Macros {
 
 
 		// Build layers access
-		timer("types");
-		var layers : Array<ObjectField> = [];
-		for(l in json.defs.layers) {
-			layers.push({
-				field: l.identifier,
-				expr: macro 0,
-			});
-		}
-		projectFields.push({
-			name: "layers",
-			kind: FVar(null, { expr:EObjectDecl(layers), pos:pos }),
-			pos: pos,
-			access: [ APublic ],
+		// var layers : Array<ObjectField> = [];
+		// for(l in json.defs.layers) {
+		// 	layers.push({
+		// 		field: l.identifier,
+		// 		expr: macro 0,
+		// 	});
+		// }
+		// projectFields.push({
+		// 	name: "layers",
+		// 	kind: FVar(null, { expr:EObjectDecl(layers), pos:pos }),
+		// 	pos: pos,
+		// 	access: [ APublic ],
 		});
 
 
 		// Build levels access
+		timer("access");
 		var levels : Array<ObjectField> = json.levels.map( function(levelJson) {
 			return {
 				field: levelJson.identifier,
@@ -78,7 +78,7 @@ class Macros {
 			fields : (macro class {
 				override public function new() {
 					super();
-					parse( $v{fileContent} );
+					fromJson( $v{fileContent} );
 
 					// Init levels quick access
 					for(l in _levels)
