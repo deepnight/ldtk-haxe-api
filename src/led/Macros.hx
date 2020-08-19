@@ -74,6 +74,7 @@ class Macros {
 			registerTypeDefinitionModule(entityType, projectFilePath);
 		}
 
+		// Create an enum to represent all Entity identifiers
 		var entityEnum : TypeDefinition = {
 			name: "Entity",
 			pack: modPack,
@@ -151,6 +152,7 @@ class Macros {
 									return cast Type.createInstance(c, [json]);
 							}
 
+							// Identifier based Entity getter
 							public function getAll(k:Entity) {
 								return _entities.filter( function(e) {
 									return e.identifier == Std.string(k);
@@ -158,16 +160,16 @@ class Macros {
 							}
 						}).fields,
 					}
-					for(e in json.defs.entities) {
-						var entityComplexType = Context.getType(mod+"_Entity_"+e.identifier).toComplexType();
-						layerType.fields.push({
-							name: "e_"+e.identifier,
-							access: [APublic],
-							kind: FVar( macro : Array<$entityComplexType> ),
-							// kind: FVar( Context.getType(mod+"_Entity_"+e.identifier).toComplexType() ),
-							pos: pos,
-						});
-					}
+					// for(e in json.defs.entities) {
+					// 	var entityComplexType = Context.getType(mod+"_Entity_"+e.identifier).toComplexType();
+					// 	layerType.fields.push({
+					// 		name: "e_"+e.identifier,
+					// 		access: [APublic],
+					// 		kind: FVar( macro : Array<$entityComplexType> ),
+					// 		// kind: FVar( Context.getType(mod+"_Entity_"+e.identifier).toComplexType() ),
+					// 		pos: pos,
+					// 	});
+					// }
 					registerTypeDefinitionModule(layerType, projectFilePath);
 
 				case _:
