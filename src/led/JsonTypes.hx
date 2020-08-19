@@ -24,6 +24,7 @@ typedef LayerInstJson = {
 	var __cHei : Int;
 	var pxOffsetX : Int;
 	var pxOffsetY : Int;
+	var intGrid : Array<{ coordId:Int, v:Int }>;
 }
 
 typedef LayerDefJson = {
