@@ -140,163 +140,6 @@ class Macros {
 		#end
 	}
 
-	// public macro static function macroParse(filePath:String) {
-	// 	// Read file
-	// 	timer("read");
-	// 	var raw =
-	// 		try sys.io.File.read(filePath, false).readAll().toString()
-	// 		catch(e:Dynamic) {
-	// 			error("File not found "+filePath);
-	// 			return null;
-	// 		}
-
-	// 	timer("json");
-	// 	var json : Dynamic =
-	// 		try haxe.Json.parse(raw)
-	// 		catch(e:Dynamic) {
-	// 			error("Couldn't parse JSON "+filePath);
-	// 			return null;
-	// 		}
-
-	// 	timer("macro");
-
-	// 	var p = Context.currentPos();
-
-	// 	// Create project object
-	// 	var projectFields = makeObjectFields(json, [
-	// 		"name",
-	// 		"dataVersion",
-	// 		"defaultPivotX",
-	// 		"defaultPivotY",
-	// 		"bgColor",
-	// 	]);
-
-	// 	// Add levels
-	// 	var levelsJson : Array<Dynamic> = cast json.levels;
-	// 	var levels : Array<{ id:String, e:Expr }> = [];
-	// 	for(json in levelsJson) {
-	// 		var levelFields = makeObjectFields(json, [
-	// 			"identifier",
-	// 			"uid",
-	// 			"pxWid",
-	// 			"pxHei",
-	// 		]);
-	// 		levels.push({
-	// 			id: json.identifier,
-	// 			e: { expr:EObjectDecl(levelFields), pos:p }
-	// 		});
-
-	// 		// Add layer instances
-	// 		var layersJson : Array<Dynamic> = cast json.layerInstances;
-	// 		var layers : Array<{ id:String, e:Expr }> = [];
-	// 		for(json in layersJson) {
-	// 			var cWid : Int = json.__cWid;
-	// 			var cHei : Int = json.__cHei;
-	// 			var layerFields = makeObjectFields(json, [
-	// 				"pxOffsetX",
-	// 				"pxOffsetY",
-	// 			]);
-
-	// 			// Misc fields
-	// 			layerFields.push({ field: "cWid", expr: macro $v{cWid} });
-
-	// 			// Build specific layer data
-	// 			switch( json.__type ) {
-	// 				case "IntGrid":
-	// 					var intGrid : Map<Int,Int> = new Map();
-	// 					var jsonData : Array<Dynamic> = json.intGrid;
-	// 					for(ig in jsonData)
-	// 						intGrid.set( ig.coordId, ig.v );
-	// 					// trace(intGrid);
-
-	// 					var e = macro function get(cx:Int,cy:Int) {
-	// 						if( cx<0 || cx>=$v{cWid} || cy<0 || cy>=$v{cHei} )
-	// 							return -1;
-	// 						else
-	// 							return 666;
-	// 							// return $v{intGrid.get(cy*cWid + cx)};
-	// 					}
-	// 					layerFields.push({
-	// 						field: "get",
-	// 						expr: e,
-	// 					});
-
-	// 					var e = macro new led.BaseLayer($v{json});
-	// 					trace(e.expr);
-	// 					layerFields.push({
-	// 						field: "inst",
-	// 						expr: e,
-	// 					});
-
-
-	// 					// var intGrid : Array<Dynamic> = json.intGrid;
-	// 					// var grid : Array<Array<Int>> = [];
-	// 					// for(cx in 0...cWid) {
-	// 					// 	grid[cx] = [];
-	// 					// 	for(cy in 0...cHei)
-	// 					// 		grid[cx][cy] = -1;
-	// 					// }
-	// 					// for(ig in intGrid) {
-	// 					// 	var cx = coordIdToX( ig.coordId, cWid );
-	// 					// 	var cy = coordIdToY( ig.coordId, cWid );
-	// 					// 	grid[cx][cy] = ig.v;
-	// 					// }
-
-	// 					// // Build grid expr
-	// 					// var lines : Array<Expr> = [];
-	// 					// for( cx in 0...cWid) {
-	// 					// 	var cols = [];
-	// 					// 	for( cy in 0...cHei)
-	// 					// 		cols.push( macro $v{grid[cx][cy]} );
-	// 					// 	lines.push({
-	// 					// 		expr: EArrayDecl(cols),
-	// 					// 		pos: p,
-	// 					// 	});
-	// 					// }
-
-	// 					// layerFields.push({
-	// 					// 	field: "intGrid",
-	// 					// 	expr: {
-	// 					// 		expr: EArrayDecl(lines),
-	// 					// 		pos:p,
-	// 					// 	},
-	// 					// });
-
-
-	// 				case _:
-	// 					// warning('Unsupported layer type ${json.__type} ("${json.__identifier}")');
-	// 			}
-
-	// 			layers.push({
-	// 				id: json.__identifier,
-	// 				e: { expr:EObjectDecl(layerFields), pos:p },
-	// 			});
-	// 		}
-	// 		levelFields.push({
-	// 			field: "layers",
-	// 			expr: { expr:EObjectDecl(layers.map( function(l) return { field:l.id, expr:l.e, quotes:null })), pos:p },
-	// 		});
-	// 	}
-
-
-	// 	// Levels array access
-	// 	projectFields.push({
-	// 		field: "levels_arr",
-	// 		expr: { expr:EArrayDecl(levels.map( function(l) return l.e )), pos:p },
-	// 	});
-	// 	// Levels ID access
-	// 	projectFields.push({
-	// 		field: "levels",
-	// 		expr: { expr:EObjectDecl(levels.map( function(l) return { field:l.id, expr:l.e, quotes:null })), pos:p },
-	// 	});
-
-
-	// 	var out = { expr: EObjectDecl(projectFields), pos:p }
-	// 	timer();
-	// 	return out;
-	// }
-
-
 	#if macro
 	static var hexColorReg = ~/^#([0-9abcdefABCDEF]{6})$/g;
 
@@ -359,12 +202,12 @@ class Macros {
 	static var _t = -1.;
 	static var _timerName = "";
 	static inline function timer(?name="") {
-		// #if debug
+		#if debug
 		if( _t>=0 )
 			trace( Std.int( ( haxe.Timer.stamp()-_t ) * 1000 ) / 1000  + "s " + _timerName );
 		_timerName = name;
 		_t = haxe.Timer.stamp();
-		// #end
+		#end
 	}
 	#end
 }
