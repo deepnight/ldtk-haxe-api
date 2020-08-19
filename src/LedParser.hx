@@ -187,7 +187,6 @@ class LedParser {
 					case _:
 						// warning('Unsupported layer type ${json.__type} ("${json.__identifier}")');
 				}
-				// TODO add layer content
 
 				layers.push({
 					id: json.__identifier,
