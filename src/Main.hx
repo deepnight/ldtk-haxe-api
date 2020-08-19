@@ -6,7 +6,7 @@ class Main {
 
 		var p = new test.Mini();
 		var l = p.levels.Level0.l_Objects;
-		// l.getAll(test.);
+		trace("Mobs=" + l.getAll(Mob).length );
 
 		// var p = new test.Gmtk();
 

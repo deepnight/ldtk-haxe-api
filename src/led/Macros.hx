@@ -74,6 +74,22 @@ class Macros {
 			registerTypeDefinitionModule(entityType, projectFilePath);
 		}
 
+		var entityEnum : TypeDefinition = {
+			name: "Entity",
+			pack: modPack,
+			kind: TDEnum,
+			pos: pos,
+			fields: json.defs.entities.map( function(json) : Field {
+				return {
+					name: json.identifier,
+					pos: pos,
+					kind: FVar(null, null),
+				}
+			}),
+		}
+		registerTypeDefinitionModule(entityEnum, projectFilePath);
+
+
 		// Create Layers specialized classes
 		for(l in json.defs.layers) {
 			switch l.type {
@@ -133,6 +149,12 @@ class Macros {
 									return null;
 								else
 									return cast Type.createInstance(c, [json]);
+							}
+
+							public function getAll(k:Entity) {
+								return _entities.filter( function(e) {
+									return e.identifier == Std.string(k);
+								});
 							}
 						}).fields,
 					}

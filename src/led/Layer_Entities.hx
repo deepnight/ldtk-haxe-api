@@ -13,8 +13,4 @@ class Layer_Entities extends led.Layer {
 	function _instanciateEntity(json:led.JsonTypes.EntityInstJson) : Entity {
 		return null; // overriden by Macros.hx
 	}
-
-	public function getAll<T:led.Entity>(c:Class<T>) : Array<T> {
-		return [];
-	}
 }
