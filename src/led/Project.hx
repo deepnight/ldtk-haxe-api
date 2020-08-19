@@ -22,7 +22,7 @@ class Project {
 	}
 
 	function _instanciateLevel(json:led.JsonTypes.LevelJson) {
-		return null; // overriden from the Macros
+		return null; // overriden by Macros.hx
 	}
 
 	public static function build(projectFilePath:String) {

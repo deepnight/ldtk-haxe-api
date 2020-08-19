@@ -16,6 +16,6 @@ class Level {
 	}
 
 	function _instanciateLayer(json:led.JsonTypes.LayerInstJson) : led.Layer {
-		return null; // overriden from the Macros
+		return null; // overriden by Macros.hx
 	}
 }
