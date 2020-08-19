@@ -58,7 +58,6 @@ class Macros {
 										color: Std.parseInt( "0x"+v.color.substr(1) ),
 									});
 								}
-								trace(valueInfos);
 							}
 						}).fields,
 					}
@@ -221,39 +220,6 @@ class Macros {
 		Context.registerModuleDependency(mod, projectFilePath);
 
 	}
-
-	// Turn selected fields from an object in macro ObjectFields
-	// static function makeObjectFields(json:Dynamic, fields:Array<String>) : Array<ObjectField> {
-	// 	var objFields : Array<ObjectField> = [];
-	// 	for(field in fields) {
-	// 		var v : Dynamic = Reflect.field(json,field);
-
-	// 		var e = switch Type.typeof(v) {
-	// 			case TInt: EConst(CInt( Std.string(v) ));
-
-	// 			case TFloat: EConst(CFloat( Std.string(v) ));
-
-	// 			case TClass(String):
-	// 				var v = Std.downcast(v,String);
-	// 				if( hexColorReg.match(v) )
-	// 					EConst(CInt( parseColor(v) ));
-	// 				else
-	// 					EConst(CString( v ));
-
-	// 			case _:
-	// 				error("Unsupported type "+Type.typeof(v)+" ("+field+")");
-	// 				return null;
-	// 		}
-
-	// 		if( e!=null ) {
-	// 			// trace(field+" => "+e);
-	// 			objFields.push({ field:field, expr:{ expr:e, pos:Context.currentPos() } });
-	// 		}
-	// 	}
-
-	// 	return objFields;
-	// }
-
 
 	static inline function error(msg:Dynamic, ?p:Position) {
 		Context.fatalError( Std.string(msg), p==null ? Context.currentPos() : p );
