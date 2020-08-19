@@ -3,6 +3,9 @@ class Main {
 
 	public function new() {
 		var p = new Test();
+		p.levels.Level0;
+
+		// var sub = new somePackage.TestPack();
 	}
 }
 

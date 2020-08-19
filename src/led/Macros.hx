@@ -24,8 +24,9 @@ class Macros {
 		// Init stuff
 		timer("init");
 		var pos = Context.currentPos();
-		var curMod = Context.getLocalModule().split(".");
-		var modName = curMod.pop();
+		var mod = Context.getLocalModule();
+		var modPack = mod.split(".");
+		var modName = modPack.pop();
 		var types = new Array<haxe.macro.Expr.TypeDefinition>();
 		var projectFields : Array<Field> = [];
 
@@ -49,32 +50,68 @@ class Macros {
 		// 	access: [ APublic ],
 		// });
 
+		timer("types");
+
+
+		// Create Level extended class
+		var parentType : TypePath = { pack: ["led"], name:"Level" }
+		var levelPath = mod + "_Level";
+		var levelType : TypeDefinition = {
+			pos : pos,
+			name : modName+"_Level",
+			pack : modPack,
+			kind : TDClass(parentType),
+			fields : (macro class {
+				override public function new(json) {
+					super(json);
+
+					// Init quick access
+					// for(l in _levels)
+					// 	Reflect.setField(levels, l.identifier, l);
+				}
+
+				public function resolveLayer(id:String) : Null<led.BaseLayer> {
+					for(l in _layers)
+						if( l.identifier==id )
+							return l;
+					return null;
+				}
+			}).fields,
+		}
+		Context.defineType(levelType);
+
 
 		// Build levels access
-		timer("access");
-		var levels : Array<ObjectField> = json.levels.map( function(levelJson) {
+		var levelAccessFields : Array<ObjectField> = json.levels.map( function(levelJson) {
 			return {
 				field: levelJson.identifier,
 				expr: macro null,
 				quotes: null,
 			}
 		});
+		var levelComplexType = Context.getType(mod+"_Level").toComplexType();
+		var levelAccessType : ComplexType = TAnonymous(json.levels.map( function(levelJson) : Field {
+			return {
+				name: levelJson.identifier,
+				kind: FVar(macro : $levelComplexType),
+				pos: pos,
+			}
+		}));
 		projectFields.push({
 			name: "levels",
-			kind: FVar(null, { expr:EObjectDecl(levels), pos:pos }),
+			kind: FVar(levelAccessType, { expr:EObjectDecl(levelAccessFields), pos:pos }),
 			pos: pos,
 			access: [ APublic ],
 		});
 
 
-		// Create project extended class
-		timer("class");
-		var projectType : TypePath = { pack: ["led"], name:"Project" }
+		// Create Project extended class
+		var parentType : TypePath = { pack: ["led"], name:"Project" }
 		types.push({
 			pos : pos,
 			name : modName,
-			pack : curMod,
-			kind : TDClass(projectType),
+			pack : modPack,
+			kind : TDClass(parentType),
 			fields : (macro class {
 				override public function new() {
 					super();
@@ -97,9 +134,9 @@ class Macros {
 
 		// Register things
 		timer("reg");
-		var modPath = Context.getLocalModule();
-		Context.defineModule(modPath, types);
-		Context.registerModuleDependency(modPath, projectFilePath);
+		Context.defineModule(mod, types);
+		Context.registerModuleDependency(mod, projectFilePath);
+		timer("end");
 		return macro : Void;
 		#end
 	}

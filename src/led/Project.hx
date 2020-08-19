@@ -10,7 +10,7 @@ import led.ApiTypes;
 
 class Project {
 	public var name : String;
-	var _levels : Array<led.Level>;
+	public var _levels : Array<led.Level>;
 
 	public function new() {
 	}
