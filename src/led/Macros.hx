@@ -38,7 +38,6 @@ class Macros {
 		timer("types");
 
 		// Create layers specialized classes
-		var layerTypes : Map<String, TypeDefinition> = new Map();
 		for(l in json.defs.layers) {
 			switch l.type {
 				case "IntGrid":
@@ -61,7 +60,6 @@ class Macros {
 							}
 						}).fields,
 					}
-					layerTypes.set(l.identifier, layerType);
 					registerTypeDefinitionModule(layerType, projectFilePath);
 
 				case "Tiles":
@@ -77,7 +75,6 @@ class Macros {
 							}
 						}).fields,
 					}
-					layerTypes.set(l.identifier, layerType);
 					registerTypeDefinitionModule(layerType, projectFilePath);
 
 				case "Entities":
@@ -93,7 +90,6 @@ class Macros {
 							}
 						}).fields,
 					}
-					layerTypes.set(l.identifier, layerType);
 					registerTypeDefinitionModule(layerType, projectFilePath);
 
 				case _:
