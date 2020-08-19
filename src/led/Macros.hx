@@ -37,7 +37,44 @@ class Macros {
 
 		timer("types");
 
-		// Create layers specialized classes
+		// Create Entities specialized classes
+		for(e in json.defs.entities) {
+			// Create entity class
+			var parentTypePath : TypePath = { pack: ["led"], name:"Entity" }
+			var entityType : TypeDefinition = {
+				pos : pos,
+				name : modName+"_Entity_"+e.identifier,
+				pack : modPack,
+				kind : TDClass(parentTypePath),
+				fields : (macro class {
+					override public function new(json) {
+						super(json);
+					}
+				}).fields,
+			}
+
+			// Create field types
+			for(f in e.fieldDefs) {
+				var complexType = switch f.__type {
+					case "Int": f.canBeNull ? (macro : Null<Int>) : (macro : Int);
+					case "Float": f.canBeNull ? (macro : Null<Float>) : (macro : Float);
+					case "String": f.canBeNull ? (macro : Null<String>) : (macro : String);
+					case "Bool": macro : Bool;
+					case _: macro : Int; // HACK missing Enum support
+					// case _: error("Unsupported field type "+f.__type+" in Entity "+e.identifier);
+				}
+				entityType.fields.push({
+					name: "f_"+f.identifier,
+					access: [ APublic ],
+					kind: FVar( complexType ),
+					pos: pos,
+				});
+			}
+
+			registerTypeDefinitionModule(entityType, projectFilePath);
+		}
+
+		// Create Layers specialized classes
 		for(l in json.defs.layers) {
 			switch l.type {
 				case "IntGrid":
@@ -88,7 +125,26 @@ class Macros {
 							override public function new(json) {
 								super(json);
 							}
+
+							override function _instanciateEntity(json) {
+								var c = Type.resolveClass($v{mod}+"_Entity_"+json.__identifier);
+								trace( "Entity class: "+$v{mod}+"_Entity_"+json.__identifier +" => "+(c!=null?"Found":"ERROR!!"));
+								if( c==null )
+									return null;
+								else
+									return cast Type.createInstance(c, [json]);
+							}
 						}).fields,
+					}
+					for(e in json.defs.entities) {
+						var entityComplexType = Context.getType(mod+"_Entity_"+e.identifier).toComplexType();
+						layerType.fields.push({
+							name: "e_"+e.identifier,
+							access: [APublic],
+							kind: FVar( macro : Array<$entityComplexType> ),
+							// kind: FVar( Context.getType(mod+"_Entity_"+e.identifier).toComplexType() ),
+							pos: pos,
+						});
 					}
 					registerTypeDefinitionModule(layerType, projectFilePath);
 
@@ -117,7 +173,7 @@ class Macros {
 
 				override function _instanciateLayer(json:led.JsonTypes.LayerInstJson) {
 					var c = Type.resolveClass($v{mod}+"_Layer_"+json.__identifier);
-					trace( $v{mod}+"_Layer_"+json.__identifier +" => "+(c!=null?"OK":"error!"));
+					trace( "Layer class: "+$v{mod}+"_Layer_"+json.__identifier +" => "+(c!=null?"Found":"ERROR!!"));
 					if( c==null )
 						return null;
 					else
@@ -207,6 +263,9 @@ class Macros {
 		#end
 	}
 
+
+
+
 	#if macro
 	static var hexColorReg = ~/^#([0-9abcdefABCDEF]{6})$/g;
 
@@ -214,10 +273,11 @@ class Macros {
 		var mod = typeDef.pack.concat([ typeDef.name ]).join(".");
 		Context.defineModule(mod, [typeDef]);
 		Context.registerModuleDependency(mod, projectFilePath);
+		trace("Registered type: "+mod);
 
 	}
 
-	static inline function error(msg:Dynamic, ?p:Position) {
+	static inline function error(msg:Dynamic, ?p:Position) : Dynamic {
 		Context.fatalError( Std.string(msg), p==null ? Context.currentPos() : p );
 		return null;
 	}
