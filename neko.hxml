@@ -1,6 +1,8 @@
 -cp src
 -main Main
--debug
+# -debug
 -lib deepnightLibs
+-D dump=pretty
+# --times
 
 -neko bin/test.n
