@@ -30,4 +30,5 @@ typedef LayerInstJson = {
 typedef LayerDefJson = {
 	var identifier : String;
 	var type : String;
+	var intGridValues : Array<{ identifier:String, color:String }>;
 }

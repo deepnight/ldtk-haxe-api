@@ -51,6 +51,14 @@ class Macros {
 						fields : (macro class {
 							override public function new(json) {
 								super(json);
+
+								for(v in $v{l.intGridValues} ) {
+									valueInfos.push({
+										identifier: v.identifier,
+										color: Std.parseInt( "0x"+v.color.substr(1) ),
+									});
+								}
+								trace(valueInfos);
 							}
 						}).fields,
 					}
@@ -174,7 +182,6 @@ class Macros {
 			fields : (macro class {
 				override public function new() {
 					super();
-					// trace("DEBUG = " + $v{debug.join(", ")} );
 					fromJson( haxe.Json.parse( $v{fileContent} ) );
 
 					// Init levels quick access
@@ -257,8 +264,12 @@ class Macros {
 		Context.warning( Std.string(msg), p==null ? Context.currentPos() : p );
 	}
 
-	static inline function parseColor(hex:String) : String {
-		return "0x"+hex.substr(1,999);
+	static inline function hexColorToStr(hex:String) : String {
+		return "0x"+hex.substr(1);
+	}
+
+	static inline function hexColorToInt(hex:String) : UInt {
+		return Std.parseInt( "0x"+hex.substr(1) );
 	}
 
 	static inline function coordIdToX(coordId:Int, cWid:Int) {
