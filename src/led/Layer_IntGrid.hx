@@ -2,6 +2,10 @@ package led;
 
 class Layer_IntGrid extends led.Layer {
 	var valueInfos : Array<{ identifier:Null<String>, color:UInt }> = [];
+
+	/**
+		IntGrid integer values
+	**/
 	public var intGrid : Map<Int,Int> = new Map();
 
 	public function new(json) {
@@ -48,6 +52,7 @@ class Layer_IntGrid extends led.Layer {
 	public inline function getColor(cx:Int, cy:Int) : Null<UInt> {
 		return !has(cx,cy) ? null : valueInfos[ getInt(cx,cy) ].color;
 	}
+
 
 
 	inline function getCoordId(cx,cy) return cx+cy*cWid;
