@@ -36,10 +36,76 @@ class Macros {
 
 		timer("types");
 
+		// Create project custom Enums
+		for(e in json.defs.enums) {
+			var enumTypeDef : TypeDefinition = {
+				name: modName+"_Enum_"+e.identifier,
+				pack: modPack,
+				kind: TDEnum,
+				pos: pos,
+				fields: e.values.map( function(json) : Field {
+					return {
+						name: json.id,
+						pos: pos,
+						kind: FVar(null, null),
+					}
+				}),
+			}
+			registerTypeDefinitionModule(enumTypeDef, projectFilePath);
+		}
+
+
+		// Create an enum to represent all Entity identifiers
+		var entityEnum : TypeDefinition = {
+			name: modName+"_EntityEnum",
+			pack: modPack,
+			kind: TDEnum,
+			pos: pos,
+			fields: json.defs.entities.map( function(json) : Field {
+				return {
+					name: json.identifier,
+					pos: pos,
+					kind: FVar(null, null),
+				}
+			}),
+		}
+		registerTypeDefinitionModule(entityEnum, projectFilePath);
+
+
+		// Create a base Entity class for this project (with enum type)
+		var entityEnumType = Context.getType(entityEnum.name).toComplexType();
+		var entityEnumRef : Expr = {
+			expr: EConst(CIdent( entityEnum.name )),
+			pos:pos,
+		}
+		var parentTypePath : TypePath = { pack: ["led"], name:"Entity" }
+		var baseEntityType : TypeDefinition = {
+			pos : pos,
+			name : modName+"_Entity",
+			pack : modPack,
+			kind : TDClass(parentTypePath),
+			fields : (macro class {
+				public var entityType : $entityEnumType;
+
+				override public function new(json) {
+					this._enumTypePrefix = $v{mod+"_Enum_"};
+					super(json);
+
+					entityType = Type.createEnum($entityEnumRef, json.__identifier);
+				}
+
+				public inline function is(e:$entityEnumType) {
+					return entityType==e;
+				}
+			}).fields,
+		}
+		registerTypeDefinitionModule(baseEntityType, projectFilePath);
+
+
 		// Create Entities specialized classes
 		for(e in json.defs.entities) {
 			// Create entity class
-			var parentTypePath : TypePath = { pack: ["led"], name:"Entity" }
+			var parentTypePath : TypePath = { pack: baseEntityType.pack, name:baseEntityType.name }
 			var entityType : TypeDefinition = {
 				pos : pos,
 				name : modName+"_Entity_"+e.identifier,
@@ -59,8 +125,15 @@ class Macros {
 					case "Float": f.canBeNull ? (macro : Null<Float>) : (macro : Float);
 					case "String": f.canBeNull ? (macro : Null<String>) : (macro : String);
 					case "Bool": macro : Bool;
-					case _: macro : Int; // HACK missing Enum support
-					// case _: error("Unsupported field type "+f.__type+" in Entity "+e.identifier);
+					case "Color": f.canBeNull ? (macro : Null<UInt>) : (macro : UInt);
+
+					case _.indexOf("LocalEnum.") => 0:
+						var type = f.__type.substr( f.__type.indexOf(".")+1 );
+						var enumType = Context.getType( modName+"_Enum_"+type ).toComplexType();
+						macro : $enumType;
+
+					case _:
+						error("Unsupported field type "+f.__type+" in Entity "+e.identifier);
 				}
 				entityType.fields.push({
 					name: "f_"+f.identifier,
@@ -72,22 +145,6 @@ class Macros {
 
 			registerTypeDefinitionModule(entityType, projectFilePath);
 		}
-
-		// Create an enum to represent all Entity identifiers
-		var entityEnum : TypeDefinition = {
-			name: "Entity",
-			pack: modPack,
-			kind: TDEnum,
-			pos: pos,
-			fields: json.defs.entities.map( function(json) : Field {
-				return {
-					name: json.identifier,
-					pos: pos,
-					kind: FVar(null, null),
-				}
-			}),
-		}
-		registerTypeDefinitionModule(entityEnum, projectFilePath);
 
 
 		// Create Layers specialized classes
@@ -132,6 +189,7 @@ class Macros {
 
 				case "Entities":
 					var parentTypePath : TypePath = { pack: ["led"], name:"Layer_Entities" }
+					var baseEntityComplexType = Context.getType(baseEntityType.name).toComplexType();
 					var layerType : TypeDefinition = {
 						pos : pos,
 						name : modName+"_Layer_"+l.identifier,
@@ -152,8 +210,8 @@ class Macros {
 							}
 
 							// Identifier based Entity getter
-							public inline function getAllUntyped() {
-								return _entities;
+							public inline function getAllUntyped() : Array<$baseEntityComplexType> {
+								return cast _entities;
 							}
 						}).fields,
 					}

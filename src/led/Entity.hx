@@ -1,6 +1,7 @@
 package led;
 
 class Entity {
+	var _enumTypePrefix : String;
 	public var identifier : String;
 	public var cx : Int;
 	public var cy : Int;
@@ -20,10 +21,21 @@ class Entity {
 				f.__value==null
 					? null
 					: switch f.__type {
-						case "Int", "Float", "Bool", "String" : f.__value;
+						case "Int", "Float", "Bool", "String" :
+							f.__value;
+
+						case _.indexOf("LocalEnum.") => 0:
+							var type = _enumTypePrefix + f.__type.substr( f.__type.indexOf(".")+1 );
+							var e = Type.resolveEnum( type );
+							Type.createEnum(e, f.__value);
+
+
+						// case _.indexOf("ExternEnum.") => 0:
+						// 	var type = f.__type.substr( f.__type.indexOf(".")+1 );
+
 						case _ :
-							null; // HACK
-							// trace("Unknown field type "+f.__type+" for "+identifier+"."+f.__identifier); null;
+							trace("Unknown field type "+f.__type+" for "+identifier+"."+f.__identifier);
+							null;
 					}
 			);
 		}

@@ -8,8 +8,7 @@ class Main {
 		var p = new test.Mini();
 		var l = p.levels.Level0.l_Objects;
 		for(e in l.all_Mob)
-			trace(e.identifier+" is "+e.f_mobType+" elite="+e.f_elite);
-
+			trace(e.identifier+" is "+e.f_type+" elite="+e.f_elite);
 
 		// var p = new test.Gmtk();
 		// for(e in p.levels.Credits.l_Entities.all_Label)  trace(e.f_Text);
