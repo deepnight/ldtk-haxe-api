@@ -8,6 +8,7 @@ typedef ProjectJson = {
 		layers : Array<LayerDefJson>,
 		entities: Array<EntityDefJson>,
 		enums: Array<EnumDefJson>,
+		externalEnums: Array<EnumDefJson>,
 	}
 }
 
@@ -24,7 +25,9 @@ typedef EntityDefJson = {
 
 typedef EnumDefJson = {
 	var identifier : String;
+	var uid : Int;
 	var values : Array<{ id:String }>;
+	var externalRelPath : Null<String>;
 }
 
 typedef FieldDefJson = {

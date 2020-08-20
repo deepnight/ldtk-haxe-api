@@ -30,8 +30,11 @@ class Entity {
 							Type.createEnum(e, f.__value);
 
 
-						// case _.indexOf("ExternEnum.") => 0:
-						// 	var type = f.__type.substr( f.__type.indexOf(".")+1 );
+						case _.indexOf("ExternEnum.") => 0:
+							var type = _enumTypePrefix + f.__type.substr( f.__type.indexOf(".")+1 );
+							var e = Type.resolveEnum( type ); // TODO ne semble pas capable de résoudre un alias ?
+							trace(type+" => "+e);
+							Type.createEnum(e, f.__value);
 
 						case _ :
 							trace("Unknown field type "+f.__type+" for "+identifier+"."+f.__identifier);
@@ -40,4 +43,8 @@ class Entity {
 			);
 		}
 	}
+
+	// function _resolveExternalEnum<T>(name:String) : Enum<T> {
+	// 	return null;
+	// }
 }

@@ -1,8 +1,9 @@
 -cp src
--main Main
+-cp ../led/app/userFiles
 -debug
 -lib deepnightLibs
 -D dump=pretty
 # --times
 
+-main Main
 -neko bin/test.n

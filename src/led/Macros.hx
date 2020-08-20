@@ -9,6 +9,8 @@ using haxe.macro.Tools;
 import led.JsonTypes;
 
 class Macros {
+	static var locateCache : Map<String,String>;
+
 	public static function buildTypes(projectFilePath:String) {
 		#if !macro
 		throw "This can only be called in a macro";
@@ -22,6 +24,7 @@ class Macros {
 
 		// Init stuff
 		timer("init");
+		locateCache = new Map();
 		var pos = Context.currentPos();
 		var mod = Context.getLocalModule();
 		var modPack = mod.split(".");
@@ -72,6 +75,48 @@ class Macros {
 		registerTypeDefinitionModule(entityEnum, projectFilePath);
 
 
+		// Link external HX Enums to actual HX files
+		var hxPackageReg = ~/package[ \t]+([\w.]+)[ \t]*;/gim;
+		var externEnumAliases : Map<String, String> = new Map(); // TODO vraiment utile ? Problème avec Type.resolveEnum ?
+		for(e in json.defs.externalEnums){
+			var p = new haxe.io.Path(e.externalRelPath);
+			var fileName = p.file+"."+p.ext;
+			switch p.ext {
+				case null: // (should not happen, as the extension is enforced in editor)
+
+				case _.toLowerCase()=>"hx":
+					// HX files
+					var path = locateFile(fileName);
+					if( path==null ) {
+						error("External Enum file \""+fileName+"\" found in LED Project but it can't be found in the current classPaths.");
+						continue;
+					}
+
+					var fileContent = sys.io.File.read(path, false).readAll().toString();
+					var enumMod = ( hxPackageReg.match(fileContent) ? hxPackageReg.matched(1)+"." : "" ) + p.file;
+
+					var complextType =
+						try Context.getType(enumMod+"."+e.identifier).toComplexType()
+						catch(e:Dynamic) {
+							error("Cannot resolve the external HX Enum "+e.ide+" from "+enumMod+", maybe the package is wrong?");
+						}
+
+					var alias : TypeDefinition = {
+						name: modName+"_Enum_"+e.identifier,
+						pack: modPack,
+						kind: TDAlias(complextType),
+						pos: pos,
+						fields: [],
+					}
+					registerTypeDefinitionModule(alias, projectFilePath);
+					externEnumAliases.set( e.identifier, alias.name );
+
+				case _:
+					error("Unsupported external enum file format "+p.ext);
+			}
+		}
+
+
 		// Create a base Entity class for this project (with enum type)
 		var entityEnumType = Context.getType(entityEnum.name).toComplexType();
 		var entityEnumRef : Expr = {
@@ -94,11 +139,29 @@ class Macros {
 					entityType = Type.createEnum($entityEnumRef, json.__identifier);
 				}
 
+				// override function _resolveExternalEnum<T>(name:String) : Enum<T> {
+				// 	var alias : String = $v{modName+"_Enum_"} + name;
+				// 	trace(alias);
+				// 	Type.
+				// 	return cast Type.resolveEnum(alias);
+				// }
+
 				public inline function is(e:$entityEnumType) {
 					return entityType==e;
 				}
 			}).fields,
 		}
+
+		// Dirty way to force compiler to keep these classes
+		// HACK
+		var i = 0;
+		for(alias in externEnumAliases)
+			baseEntityType.fields.push({
+				name: "_extEnumImport"+(i++),
+				pos: pos,
+				kind: FVar( Context.getType(alias).toComplexType() ),
+				access: [],
+			});
 		registerTypeDefinitionModule(baseEntityType, projectFilePath);
 
 
@@ -115,6 +178,7 @@ class Macros {
 					override public function new(json) {
 						super(json);
 					}
+
 				}).fields,
 			}
 
@@ -131,6 +195,15 @@ class Macros {
 						var type = f.__type.substr( f.__type.indexOf(".")+1 );
 						var enumType = Context.getType( modName+"_Enum_"+type ).toComplexType();
 						macro : $enumType;
+
+					case _.indexOf("ExternEnum.") => 0:
+						var type = f.__type.substr( f.__type.indexOf(".")+1 );
+						var t =
+							try Context.getType( externEnumAliases.get(type) ).toComplexType()
+							catch(e:Dynamic) {
+								error("Cannot resolve the external HX Enum "+type+", maybe the package is wrong?");
+							}
+						macro : $t;
 
 					case _:
 						error("Unsupported field type "+f.__type+" in Entity "+e.identifier);
@@ -345,9 +418,46 @@ class Macros {
 
 
 
-
 	#if macro
 	static var hexColorReg = ~/^#([0-9abcdefABCDEF]{6})$/g;
+
+	// Search a file in all classPaths + sub folders
+	static function locateFile(searchFileName:String) : Null<String> {
+		if( locateCache.exists(searchFileName) )
+			return locateCache.get(searchFileName);
+
+		var pending = Context.getClassPath().map( function(p) return StringTools.replace(p,"\\","/") );
+		var cur = pending.pop();
+		while( cur!=null ) {
+			if( !sys.FileSystem.exists(cur) ) {
+				cur = pending.pop();
+				continue;
+			}
+
+			if( cur.indexOf("haxe/std")>0 ) { // ignore notoriously heavy folder
+				cur = pending.pop();
+				continue;
+			}
+
+			for(f in sys.FileSystem.readDirectory(cur) ) {
+				var f = cur + ( cur.length>0 && cur.charAt(cur.length-1)!="/" ? "/" : "" ) + f;
+				if( sys.FileSystem.isDirectory(f) )
+					pending.push(f);
+				else {
+					var p = new haxe.io.Path(f);
+					var name = p.file + ( p.ext!=null ? "."+p.ext : "" );
+					if( name==searchFileName ) {
+						// Found!
+						locateCache.set(searchFileName, f);
+						return f;
+					}
+				}
+			}
+			cur = pending.pop();
+		}
+
+		return null;
+	}
 
 	static function registerTypeDefinitionModule(typeDef:TypeDefinition, projectFilePath:String) {
 		var mod = typeDef.pack.concat([ typeDef.name ]).join(".");
