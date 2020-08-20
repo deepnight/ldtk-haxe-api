@@ -9,7 +9,6 @@ using haxe.macro.Tools;
 import led.JsonTypes;
 
 class Macros {
-
 	public static function buildTypes(projectFilePath:String) {
 		#if !macro
 		throw "This can only be called in a macro";
@@ -153,23 +152,22 @@ class Macros {
 							}
 
 							// Identifier based Entity getter
-							public function getAll(k:Entity) {
-								return _entities.filter( function(e) {
-									return e.identifier == Std.string(k);
-								});
+							public inline function getAllUntyped() {
+								return _entities;
 							}
 						}).fields,
 					}
-					// for(e in json.defs.entities) {
-					// 	var entityComplexType = Context.getType(mod+"_Entity_"+e.identifier).toComplexType();
-					// 	layerType.fields.push({
-					// 		name: "e_"+e.identifier,
-					// 		access: [APublic],
-					// 		kind: FVar( macro : Array<$entityComplexType> ),
-					// 		// kind: FVar( Context.getType(mod+"_Entity_"+e.identifier).toComplexType() ),
-					// 		pos: pos,
-					// 	});
-					// }
+
+					// Typed entity-arrays getters
+					for(e in json.defs.entities) {
+						var entityComplexType = Context.getType(mod+"_Entity_"+e.identifier).toComplexType();
+						layerType.fields.push({
+							name: "all_"+e.identifier,
+							access: [APublic],
+							kind: FVar( macro : Array<$entityComplexType> ),
+							pos: pos,
+						});
+					}
 					registerTypeDefinitionModule(layerType, projectFilePath);
 
 				case _:
@@ -297,8 +295,8 @@ class Macros {
 		var mod = typeDef.pack.concat([ typeDef.name ]).join(".");
 		Context.defineModule(mod, [typeDef]);
 		Context.registerModuleDependency(mod, projectFilePath);
-		trace("Registered type: "+mod);
 
+		trace("Registered type: "+mod);
 	}
 
 	static inline function error(msg:Dynamic, ?p:Position) : Dynamic {
