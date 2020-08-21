@@ -2,7 +2,7 @@ package led;
 
 class Layer {
 	public var identifier : String;
-	public var type : String; // TODO enum?
+	public var type : String; // TODO enum
 	public var cWid : Int;
 	public var cHei : Int;
 	public var pxOffsetX: Int;
