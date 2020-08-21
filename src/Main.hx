@@ -10,7 +10,7 @@ class Main {
 
 	public function new() {
 		var p = new test.Mini();
-		var l = p.levels.Level0.l_Objects;
+		var l = p.all_levels.Level0.l_Objects;
 		var e = l.all_Hero[0];
 		trace(e.f_testA);
 		var v = switch e.f_inventory {
@@ -22,7 +22,7 @@ class Main {
 		trace(v);
 
 		// var p = new test.Gmtk();
-		// for(e in p.levels.Credits.l_Entities.all_Label)  trace(e.f_Text+" col="+e.f_Color_hex+"/"+e.f_Color_int);
+		// for(e in p.all_levels.Credits.l_Entities.all_Label)  trace(e.f_Text+" col="+e.f_Color_hex+"/"+e.f_Color_int);
 	}
 }
 

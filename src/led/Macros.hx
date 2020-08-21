@@ -414,7 +414,7 @@ class Macros {
 			}
 		}));
 		projectFields.push({
-			name: "levels",
+			name: "all_levels",
 			kind: FVar(levelAccessType, { expr:EObjectDecl(levelAccessFields), pos:pos }),
 			pos: pos,
 			access: [ APublic ],
@@ -437,7 +437,7 @@ class Macros {
 
 					// Init levels quick access
 					for(l in _untypedLevels)
-						Reflect.setField(levels, l.identifier, l);
+						Reflect.setField(all_levels, l.identifier, l);
 				}
 
 				override function _instanciateLevel(json) {
