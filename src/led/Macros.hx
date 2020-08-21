@@ -37,9 +37,8 @@ class Macros {
 		var json : ProjectJson = haxe.Json.parse(fileContent);
 
 
-		timer("types");
-
 		// Create project custom Enums
+		timer("localEnums");
 		for(e in json.defs.enums) {
 			var enumTypeDef : TypeDefinition = {
 				name: modName+"_Enum_"+e.identifier,
@@ -58,7 +57,8 @@ class Macros {
 		}
 
 
-		// Create an enum to represent all Entity identifiers
+		// Create an enum to represent all Entity IDs
+		timer("entityIds");
 		var entityEnum : TypeDefinition = {
 			name: modName+"_EntityEnum",
 			pack: modPack,
@@ -76,9 +76,9 @@ class Macros {
 
 
 		// Link external HX Enums to actual HX files
+		timer("externEnumParsing");
 		var hxPackageReg = ~/package[ \t]+([\w.]+)[ \t]*;/gim;
-		// var externEnumAliases : Map<String, String> = new Map(); // TODO vraiment utile ? Problème avec Type.resolveEnum ?
-		var externEnumModules : Map<String,String> = new Map();
+		var externEnumTypes : Map<String,{ path:String, ct:ComplexType}> = new Map();
 		for(e in json.defs.externalEnums){
 			var p = new haxe.io.Path(e.externalRelPath);
 			var fileName = p.file+"."+p.ext;
@@ -94,26 +94,19 @@ class Macros {
 					}
 
 					var fileContent = sys.io.File.read(path, false).readAll().toString();
-					var enumMod = ( hxPackageReg.match(fileContent) ? hxPackageReg.matched(1)+"." : "" ) + p.file;
+					var enumPack = hxPackageReg.match(fileContent) ? hxPackageReg.matched(1)+"." : "";
+					var enumMod = enumPack + p.file;
 
-					var enumComplexType =
+					var ct =
 						try Context.getType(enumMod+"."+e.identifier).toComplexType()
 						catch(e:Dynamic) {
 							error("Cannot resolve the external HX Enum "+e.ide+" from "+enumMod+", maybe the package is wrong?");
 						}
 
-					trace(e.identifier+" => "+enumMod);
-					externEnumModules.set(e.identifier, enumMod+"."+e.identifier);
-
-					// var alias : TypeDefinition = {
-					// 	name: modName+"_Enum_"+e.identifier,
-					// 	pack: modPack,
-					// 	kind: TDAlias(enumComplexType),
-					// 	pos: pos,
-					// 	fields: [],
-					// }
-					// registerTypeDefinitionModule(alias, projectFilePath);
-					// externEnumAliases.set( e.identifier, alias.name );
+					externEnumTypes.set(e.identifier, {
+						path: enumPack+e.identifier,
+						ct: ct
+					});
 
 				case _:
 					error("Unsupported external enum file format "+p.ext);
@@ -121,25 +114,28 @@ class Macros {
 		}
 
 
+		// Prepare a switch to resolve extern enum ID to runtime type identifier
+		timer("entityClass");
+		var cases : Array<Case> = [];
+		for(e in externEnumTypes.keyValueIterator()) {
+			cases.push({
+				values: [ macro $v{e.key} ],
+				expr: macro $v{e.value.path},
+			});
+		}
+		var switchExpr : Expr = {
+			expr: ESwitch( macro name, cases, macro throw "Unknown external enum name" ),
+			pos: pos,
+		}
+
 		// Create a base Entity class for this project (with enum type)
 		var entityEnumType = Context.getType(entityEnum.name).toComplexType();
 		var entityEnumRef : Expr = {
 			expr: EConst(CIdent( entityEnum.name )),
 			pos:pos,
 		}
+
 		var parentTypePath : TypePath = { pack: ["led"], name:"Entity" }
-		var exterEnumIdToTypeCases : Array<Case> = [];
-		for(e in externEnumModules.keyValueIterator()) {
-			exterEnumIdToTypeCases.push({
-				values: [ macro $v{e.key} ],
-				expr: macro $v{e.value},
-			});
-		}
-		var switchExpr : Expr = {
-			expr: ESwitch( macro name, exterEnumIdToTypeCases, macro null ),
-			pos: pos,
-		}
-		trace(switchExpr);
 		var baseEntityType : TypeDefinition = {
 			pos : pos,
 			name : modName+"_Entity",
@@ -156,17 +152,7 @@ class Macros {
 				}
 
 				override function _resolveExternalEnum<T>(name:String) : Enum<T> {
-					trace("resolving: "+name);
-					var realName = $switchExpr;
-					trace("real="+realName);
-					trace("enum="+Type.resolveEnum(realName));
-					return cast Type.resolveEnum(realName);
-					// return switch( name ) {
-					// 	// $exterEnumIdToTypeCases
-					// 	case _: throw "Cannot resolve enum "+name;
-					// }
-					// var alias : String = $v{modName+"_Enum_"} + name;
-					// return cast Type.resolveEnum(alias);
+					return cast Type.resolveEnum($switchExpr);
 				}
 
 				public inline function is(e:$entityEnumType) {
@@ -175,21 +161,19 @@ class Macros {
 			}).fields,
 		}
 
-		// Dirty way to force compiler to keep these classes
-		// HACK maybe not necessary, depends on resolve method
-		var i = 0;
-		for(e in externEnumModules.keyValueIterator())
-		// for(alias in externEnumAliases)
+		// Dirty way to force compiler to keep/import these classes
+		for(e in externEnumTypes.keyValueIterator())
 			baseEntityType.fields.push({
 				name: "_extEnum_"+e.key,
 				pos: pos,
-				kind: FVar( Context.getType(e.value).toComplexType() ),
+				kind: FVar( e.value.ct ),
 				access: [],
 			});
 		registerTypeDefinitionModule(baseEntityType, projectFilePath);
 
 
-		// Create Entities specialized classes
+		// Create Entities specialized classes (each one mihgt have specific custom fields)
+		timer("specEntityClasses");
 		for(e in json.defs.entities) {
 			// Create entity class
 			var parentTypePath : TypePath = { pack: baseEntityType.pack, name:baseEntityType.name }
@@ -222,12 +206,8 @@ class Macros {
 
 					case _.indexOf("ExternEnum.") => 0:
 						var typeId = f.__type.substr( f.__type.indexOf(".")+1 );
-						var t =
-							try Context.getType( externEnumModules.get(typeId) ).toComplexType()
-							catch(e:Dynamic) {
-								error("Cannot resolve the external HX Enum "+typeId+", maybe the package is wrong?");
-							}
-						macro : $t;
+						var ct = externEnumTypes.get(typeId).ct;
+						macro : $ct;
 
 					case _:
 						error("Unsupported field type "+f.__type+" in Entity "+e.identifier);
@@ -245,6 +225,7 @@ class Macros {
 
 
 		// Create Layers specialized classes
+		timer("layerClasses");
 		for(l in json.defs.layers) {
 			switch l.type {
 				case "IntGrid":
@@ -333,6 +314,7 @@ class Macros {
 
 
 		// Create Level specialized class
+		timer("levelClass");
 		var parentTypePath : TypePath = { pack: ["led"], name:"Level" }
 		var levelType : TypeDefinition = {
 			pos : pos,
@@ -400,6 +382,7 @@ class Macros {
 
 
 		// Create Project extended class
+		timer("projectClass");
 		var parentTypePath : TypePath = { pack: ["led"], name:"Project" }
 		var levelTypePath : TypePath = { pack:modPack, name:levelType.name }
 		types.push({

@@ -33,16 +33,12 @@ class Entity {
 						case _.indexOf("ExternEnum.") => 0:
 							var type = f.__type.substr( f.__type.indexOf(".")+1 );
 							var e = _resolveExternalEnum(type);
-							trace(type+" => "+e);
+							if( e==null )
+								throw "Couldn't create an instance of enum "+type+"! Please check if the PROJECT enum still matches the EXTERNAL FILE declaring it.";
 							Type.createEnum(e, f.__value);
-							// var type = _enumTypePrefix + f.__type.substr( f.__type.indexOf(".")+1 );
-							// var e = Type.resolveEnum( type ); // TODO ne semble pas capable de résoudre un alias ?
-							// trace(type+" => "+e);
-							// Type.createEnum(e, f.__value);
 
 						case _ :
-							trace("Unknown field type "+f.__type+" for "+identifier+"."+f.__identifier);
-							null;
+							throw "Unknown field type "+f.__type+" for "+identifier+"."+f.__identifier;
 					}
 			);
 		}
