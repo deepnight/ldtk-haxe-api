@@ -16,34 +16,35 @@ class Entity {
 		pixelX = json.x;
 		pixelY = json.y;
 
+		// Assign values to fields created in Macros
 		for(f in json.fieldInstances) {
-			Reflect.setField(this, "f_"+f.__identifier,
-				f.__value==null
-					? null
-					: switch f.__type {
-						case "Int", "Float", "Bool", "String" :
-							f.__value;
+			if( f.__value==null )
+				continue;
 
-						case "Color":
-							dn.Color.hexToInt(f.__value);
+			switch f.__type {
+				case "Int", "Float", "Bool", "String" :
+					Reflect.setField(this, "f_"+f.__identifier, f.__value);
 
-						case _.indexOf("LocalEnum.") => 0:
-							var type = _enumTypePrefix + f.__type.substr( f.__type.indexOf(".")+1 );
-							var e = Type.resolveEnum( type );
-							Type.createEnum(e, f.__value);
+				case "Color":
+					Reflect.setField(this, "f_"+f.__identifier+"_hex", f.__value);
+					Reflect.setField(this, "f_"+f.__identifier+"_int", dn.Color.hexToInt(f.__value));
+
+				case _.indexOf("LocalEnum.") => 0:
+					var type = _enumTypePrefix + f.__type.substr( f.__type.indexOf(".")+1 );
+					var e = Type.resolveEnum( type );
+					Reflect.setField(this, "f_"+f.__identifier, Type.createEnum(e, f.__value) );
 
 
-						case _.indexOf("ExternEnum.") => 0:
-							var type = f.__type.substr( f.__type.indexOf(".")+1 );
-							var e = _resolveExternalEnum(type);
-							if( e==null )
-								throw "Couldn't create an instance of enum "+type+"! Please check if the PROJECT enum still matches the EXTERNAL FILE declaring it.";
-							Type.createEnum(e, f.__value);
+				case _.indexOf("ExternEnum.") => 0:
+					var type = f.__type.substr( f.__type.indexOf(".")+1 );
+					var e = _resolveExternalEnum(type);
+					if( e==null )
+						throw "Couldn't create an instance of enum "+type+"! Please check if the PROJECT enum still matches the EXTERNAL FILE declaring it.";
+					Reflect.setField(this, "f_"+f.__identifier, Type.createEnum(e, f.__value) );
 
-						case _ :
-							throw "Unknown field type "+f.__type+" for "+identifier+"."+f.__identifier;
-					}
-			);
+				case _ :
+					throw "Unknown field type "+f.__type+" for "+identifier+"."+f.__identifier;
+			}
 		}
 	}
 

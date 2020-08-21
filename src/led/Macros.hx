@@ -191,32 +191,73 @@ class Macros {
 
 			// Create field types
 			for(f in e.fieldDefs) {
-				var complexType = switch f.__type {
-					case "Int": f.canBeNull ? (macro : Null<Int>) : (macro : Int);
-					case "Float": f.canBeNull ? (macro : Null<Float>) : (macro : Float);
-					case "String": f.canBeNull ? (macro : Null<String>) : (macro : String);
-					case "Bool": macro : Bool;
-					case "Color": f.canBeNull ? (macro : Null<UInt>) : (macro : UInt);
+				var fields : Array<{ name:String, ct:ComplexType }> = [];
+				switch f.__type {
+					case "Int":
+						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<Int>) : (macro : Int) });
+
+					case "Float":
+						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<Float>) : (macro : Float) });
+
+					case "String":
+						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<String>) : (macro : String) });
+
+					case "Bool":
+						fields.push({ name: f.identifier, ct: macro : Bool });
+
+					case "Color":
+						fields.push({ name: f.identifier+"_int", ct: f.canBeNull ? (macro : Null<UInt>) : (macro : UInt) });
+						fields.push({ name: f.identifier+"_hex", ct: f.canBeNull ? (macro : Null<String>) : (macro : String) });
 
 					case _.indexOf("LocalEnum.") => 0:
 						var type = f.__type.substr( f.__type.indexOf(".")+1 );
 						var enumType = Context.getType( modName+"_Enum_"+type ).toComplexType();
-						macro : $enumType;
+						fields.push({ name: f.identifier, ct: macro : $enumType });
 
 					case _.indexOf("ExternEnum.") => 0:
 						var typeId = f.__type.substr( f.__type.indexOf(".")+1 );
 						var ct = externEnumTypes.get(typeId).ct;
-						macro : $ct;
+						fields.push({ name: f.identifier, ct: macro : $ct });
 
 					case _:
 						error("Unsupported field type "+f.__type+" in Entity "+e.identifier);
 				}
-				entityType.fields.push({
-					name: "f_"+f.identifier,
-					access: [ APublic ],
-					kind: FVar( complexType ),
-					pos: pos,
-				});
+
+				for(f in fields)
+					entityType.fields.push({
+						name: "f_"+f.name,
+						access: [ APublic ],
+						kind: FVar(f.ct),
+						pos: pos,
+					});
+
+
+				// var complexType = switch f.__type {
+				// 	case "Int": f.canBeNull ? (macro : Null<Int>) : (macro : Int);
+				// 	case "Float": f.canBeNull ? (macro : Null<Float>) : (macro : Float);
+				// 	case "String": f.canBeNull ? (macro : Null<String>) : (macro : String);
+				// 	case "Bool": macro : Bool;
+				// 	case "Color": f.canBeNull ? (macro : Null<UInt>) : (macro : UInt);
+
+				// 	case _.indexOf("LocalEnum.") => 0:
+				// 		var type = f.__type.substr( f.__type.indexOf(".")+1 );
+				// 		var enumType = Context.getType( modName+"_Enum_"+type ).toComplexType();
+				// 		macro : $enumType;
+
+				// 	case _.indexOf("ExternEnum.") => 0:
+				// 		var typeId = f.__type.substr( f.__type.indexOf(".")+1 );
+				// 		var ct = externEnumTypes.get(typeId).ct;
+				// 		macro : $ct;
+
+				// 	case _:
+				// 		error("Unsupported field type "+f.__type+" in Entity "+e.identifier);
+				// }
+				// entityType.fields.push({
+				// 	name: "f_"+f.identifier,
+				// 	access: [ APublic ],
+				// 	kind: FVar( complexType ),
+				// 	pos: pos,
+				// });
 			}
 
 			registerTypeDefinitionModule(entityType, projectFilePath);

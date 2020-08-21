@@ -24,8 +24,7 @@ class Main {
 		trace(v);
 
 		// var p = new test.Gmtk();
-		// for(e in p.levels.Credits.l_Entities.all_Label)  trace(e.f_Text+" col="+e.f_Color);
-
+		// for(e in p.levels.Credits.l_Entities.all_Label)  trace(e.f_Text+" col="+e.f_Color_hex+"/"+e.f_Color_int);
 	}
 }
 
