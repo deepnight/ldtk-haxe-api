@@ -29,7 +29,6 @@ class Macros {
 		var mod = Context.getLocalModule();
 		var modPack = mod.split(".");
 		var modName = modPack.pop();
-		var types = new Array<haxe.macro.Expr.TypeDefinition>();
 		var projectFields : Array<Field> = [];
 
 		// Read JSON
@@ -385,7 +384,7 @@ class Macros {
 		timer("projectClass");
 		var parentTypePath : TypePath = { pack: ["led"], name:"Project" }
 		var levelTypePath : TypePath = { pack:modPack, name:levelType.name }
-		types.push({
+		var projectClass : TypeDefinition = {
 			pos : pos,
 			name : modName,
 			pack : modPack,
@@ -411,13 +410,10 @@ class Macros {
 					return null;
 				}
 			}).fields.concat( projectFields ),
-		});
+		}
+		registerTypeDefinitionModule(projectClass, projectFilePath);
 
 
-		// Register things
-		timer("reg");
-		Context.defineModule(mod, types);
-		Context.registerModuleDependency(mod, projectFilePath);
 		timer("end");
 		return macro : Void;
 		#end
