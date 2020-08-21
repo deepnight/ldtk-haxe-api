@@ -9,8 +9,6 @@ class Main {
 	static function main() new Main();
 
 	public function new() {
-		// var p = new test.IntGrid();
-
 		var p = new test.Mini();
 		var l = p.levels.Level0.l_Objects;
 		var e = l.all_Hero[0];
