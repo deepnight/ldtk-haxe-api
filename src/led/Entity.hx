@@ -24,6 +24,9 @@ class Entity {
 						case "Int", "Float", "Bool", "String" :
 							f.__value;
 
+						case "Color":
+							dn.Color.hexToInt(f.__value);
+
 						case _.indexOf("LocalEnum.") => 0:
 							var type = _enumTypePrefix + f.__type.substr( f.__type.indexOf(".")+1 );
 							var e = Type.resolveEnum( type );
