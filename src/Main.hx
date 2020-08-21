@@ -1,3 +1,10 @@
+enum Pouet {
+	A;
+	B;
+}
+
+typedef PouetAlias = Pouet;
+
 class Main {
 	static function main() new Main();
 
@@ -7,15 +14,22 @@ class Main {
 
 		var p = new test.Mini();
 		var l = p.levels.Level0.l_Objects;
-		for(e in l.all_Mob)
-			trace(e.identifier+" is "+e.f_type+" elite="+e.f_elite);
-		switch l.all_Hero[0].f_startItem {
-			case Food:
-			case Gold:
-			case Ammo:
-			case Key:
-		}
-
+		// var v = switch l.all_Hero[0].f_startItem {
+		// 	case Food: "f";
+		// 	case Gold: "g";
+		// 	case Ammo: "a";
+		// 	case Key: "k";
+		// }
+		// trace(v);
+		trace(l.all_Hero);
+		// for(e in l.all_Mob)
+		// 	trace(e.identifier+" is "+e.f_type+" elite="+e.f_elite);
+		// switch l.all_Hero[0].f_startItem {
+		// 	case Food:
+		// 	case Gold:
+		// 	case Ammo:
+		// 	case Key:
+		// }
 
 		// var p = new test.Gmtk();
 		// for(e in p.levels.Credits.l_Entities.all_Label)  trace(e.f_Text);

@@ -77,7 +77,8 @@ class Macros {
 
 		// Link external HX Enums to actual HX files
 		var hxPackageReg = ~/package[ \t]+([\w.]+)[ \t]*;/gim;
-		var externEnumAliases : Map<String, String> = new Map(); // TODO vraiment utile ? Problème avec Type.resolveEnum ?
+		// var externEnumAliases : Map<String, String> = new Map(); // TODO vraiment utile ? Problème avec Type.resolveEnum ?
+		var externEnumModules : Map<String,String> = new Map();
 		for(e in json.defs.externalEnums){
 			var p = new haxe.io.Path(e.externalRelPath);
 			var fileName = p.file+"."+p.ext;
@@ -95,21 +96,24 @@ class Macros {
 					var fileContent = sys.io.File.read(path, false).readAll().toString();
 					var enumMod = ( hxPackageReg.match(fileContent) ? hxPackageReg.matched(1)+"." : "" ) + p.file;
 
-					var complextType =
+					var enumComplexType =
 						try Context.getType(enumMod+"."+e.identifier).toComplexType()
 						catch(e:Dynamic) {
 							error("Cannot resolve the external HX Enum "+e.ide+" from "+enumMod+", maybe the package is wrong?");
 						}
 
-					var alias : TypeDefinition = {
-						name: modName+"_Enum_"+e.identifier,
-						pack: modPack,
-						kind: TDAlias(complextType),
-						pos: pos,
-						fields: [],
-					}
-					registerTypeDefinitionModule(alias, projectFilePath);
-					externEnumAliases.set( e.identifier, alias.name );
+					trace(e.identifier+" => "+enumMod);
+					externEnumModules.set(e.identifier, enumMod+"."+e.identifier);
+
+					// var alias : TypeDefinition = {
+					// 	name: modName+"_Enum_"+e.identifier,
+					// 	pack: modPack,
+					// 	kind: TDAlias(enumComplexType),
+					// 	pos: pos,
+					// 	fields: [],
+					// }
+					// registerTypeDefinitionModule(alias, projectFilePath);
+					// externEnumAliases.set( e.identifier, alias.name );
 
 				case _:
 					error("Unsupported external enum file format "+p.ext);
@@ -124,6 +128,18 @@ class Macros {
 			pos:pos,
 		}
 		var parentTypePath : TypePath = { pack: ["led"], name:"Entity" }
+		var exterEnumIdToTypeCases : Array<Case> = [];
+		for(e in externEnumModules.keyValueIterator()) {
+			exterEnumIdToTypeCases.push({
+				values: [ macro $v{e.key} ],
+				expr: macro $v{e.value},
+			});
+		}
+		var switchExpr : Expr = {
+			expr: ESwitch( macro name, exterEnumIdToTypeCases, macro null ),
+			pos: pos,
+		}
+		trace(switchExpr);
 		var baseEntityType : TypeDefinition = {
 			pos : pos,
 			name : modName+"_Entity",
@@ -139,12 +155,19 @@ class Macros {
 					entityType = Type.createEnum($entityEnumRef, json.__identifier);
 				}
 
-				// override function _resolveExternalEnum<T>(name:String) : Enum<T> {
-				// 	var alias : String = $v{modName+"_Enum_"} + name;
-				// 	trace(alias);
-				// 	Type.
-				// 	return cast Type.resolveEnum(alias);
-				// }
+				override function _resolveExternalEnum<T>(name:String) : Enum<T> {
+					trace("resolving: "+name);
+					var realName = $switchExpr;
+					trace("real="+realName);
+					trace("enum="+Type.resolveEnum(realName));
+					return cast Type.resolveEnum(realName);
+					// return switch( name ) {
+					// 	// $exterEnumIdToTypeCases
+					// 	case _: throw "Cannot resolve enum "+name;
+					// }
+					// var alias : String = $v{modName+"_Enum_"} + name;
+					// return cast Type.resolveEnum(alias);
+				}
 
 				public inline function is(e:$entityEnumType) {
 					return entityType==e;
@@ -153,13 +176,14 @@ class Macros {
 		}
 
 		// Dirty way to force compiler to keep these classes
-		// HACK
+		// HACK maybe not necessary, depends on resolve method
 		var i = 0;
-		for(alias in externEnumAliases)
+		for(e in externEnumModules.keyValueIterator())
+		// for(alias in externEnumAliases)
 			baseEntityType.fields.push({
-				name: "_extEnumImport"+(i++),
+				name: "_extEnum_"+e.key,
 				pos: pos,
-				kind: FVar( Context.getType(alias).toComplexType() ),
+				kind: FVar( Context.getType(e.value).toComplexType() ),
 				access: [],
 			});
 		registerTypeDefinitionModule(baseEntityType, projectFilePath);
@@ -197,11 +221,11 @@ class Macros {
 						macro : $enumType;
 
 					case _.indexOf("ExternEnum.") => 0:
-						var type = f.__type.substr( f.__type.indexOf(".")+1 );
+						var typeId = f.__type.substr( f.__type.indexOf(".")+1 );
 						var t =
-							try Context.getType( externEnumAliases.get(type) ).toComplexType()
+							try Context.getType( externEnumModules.get(typeId) ).toComplexType()
 							catch(e:Dynamic) {
-								error("Cannot resolve the external HX Enum "+type+", maybe the package is wrong?");
+								error("Cannot resolve the external HX Enum "+typeId+", maybe the package is wrong?");
 							}
 						macro : $t;
 
@@ -464,7 +488,7 @@ class Macros {
 		Context.defineModule(mod, [typeDef]);
 		Context.registerModuleDependency(mod, projectFilePath);
 
-		trace("Registered type: "+mod);
+		// trace("Registered type: "+mod);
 	}
 
 	static inline function error(msg:Dynamic, ?p:Position) : Dynamic {
