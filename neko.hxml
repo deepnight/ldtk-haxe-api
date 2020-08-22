@@ -1,6 +1,7 @@
 -cp src
 -cp ../led/app/userFiles
 -debug
+# -lib heaps
 -lib deepnightLibs
 -D dump=pretty
 # --times

@@ -18,4 +18,31 @@ class Layer_Tiles extends led.Layer {
 			? tiles.get( getCoordId(cx,cy) )
 			: -1;
 	}
+
+	/**
+		Return TRUE if the tileset atlas image is properly loaded and ready for tiles extraction
+	**/
+	public function isAtlasLoaded() {
+		#if heaps
+		return atlas!=null;
+		#else
+		return false;
+		#end
+	}
+
+
+	#if heaps
+	var atlas : Null<h2d.Tile>;
+
+	/**
+		Get h2d.Tile at coords
+	**/
+	public function getTileAt(cx,cy) : Null<h2d.Tile> {
+		var tid = getTileIdAt(cx,cy);
+		if( tid<0 )
+			return null;
+
+		return atlas.sub(0,0, 16,16); // TODO tile extraction
+	}
+	#end
 }
