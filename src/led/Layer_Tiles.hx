@@ -35,9 +35,17 @@ class Layer_Tiles extends led.Layer {
 	var atlas : Null<h2d.Tile>;
 
 	/**
+		Return atlas as h2d.Tile
+	**/
+	public function getAtlasTile() return atlas;
+
+	/**
 		Get h2d.Tile at coords
 	**/
 	public function getTileAt(cx,cy) : Null<h2d.Tile> {
+		if( !isAtlasLoaded() )
+			return null;
+		
 		var tid = getTileIdAt(cx,cy);
 		if( tid<0 )
 			return null;
