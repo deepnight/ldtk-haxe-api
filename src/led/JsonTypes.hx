@@ -55,6 +55,7 @@ typedef LayerInstJson = {
 
 	var intGrid : Array<{ coordId:Int, v:Int }>;
 	var entityInstances : Array<EntityInstJson>;
+	var gridTiles : Array<{ coordId:Int, v:Int }>;
 }
 
 typedef EntityInstJson = {

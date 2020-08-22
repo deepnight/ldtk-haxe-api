@@ -15,14 +15,6 @@ class Layer_IntGrid extends led.Layer {
 			intGrid.set(ig.coordId, ig.v);
 	}
 
-
-	/**
-		Return TRUE if coordinates are within layer bounds.
-	**/
-	public inline function isCoordValid(cx,cy) {
-		return cx>=0 && cx<cWid && cy>=0 && cy<cHei;
-	}
-
 	/**
 		Get the Integer value at selected coordinates (return -1 if none).
 	**/
@@ -51,17 +43,5 @@ class Layer_IntGrid extends led.Layer {
 	**/
 	public inline function getColor(cx:Int, cy:Int) : Null<UInt> {
 		return !has(cx,cy) ? null : valueInfos[ getInt(cx,cy) ].color;
-	}
-
-
-
-	inline function getCoordId(cx,cy) return cx+cy*cWid;
-
-	inline function getCx(coordId:Int) {
-		return coordId - Std.int(coordId/cWid)*cWid;
-	}
-
-	inline function getCy(coordId:Int) {
-		return Std.int(coordId/cWid);
 	}
 }

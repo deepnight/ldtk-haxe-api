@@ -16,4 +16,22 @@ class Layer {
 		pxOffsetX = json.pxOffsetX;
 		pxOffsetY = json.pxOffsetY;
 	}
+
+
+	/**
+		Return TRUE if coordinates are within layer bounds.
+	**/
+	public inline function isCoordValid(cx,cy) {
+		return cx>=0 && cx<cWid && cy>=0 && cy<cHei;
+	}
+
+	inline function getCx(coordId:Int) {
+		return coordId - Std.int(coordId/cWid)*cWid;
+	}
+
+	inline function getCy(coordId:Int) {
+		return Std.int(coordId/cWid);
+	}
+
+	inline function getCoordId(cx,cy) return cx+cy*cWid;
 }
