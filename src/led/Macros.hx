@@ -332,11 +332,9 @@ class Macros {
 
 
 				case "Tiles":
-					// var tsType = tilesetComplexTypes.get(l.tilesetDefUid);
 					var ts = tilesets.get(l.tilesetDefUid);
 					var tsComplexType = Context.getType( ts.typeName ).toComplexType();
 					var tsTypePath : TypePath = { pack: modPack, name: ts.typeName }
-					var json = ts.json;
 
 					var parentTypePath : TypePath = { pack: ["led"], name:"Layer_Tiles" }
 					var layerType : TypeDefinition = {
@@ -348,7 +346,7 @@ class Macros {
 							override public function new(json) {
 								super(json);
 
-								tileset = new $tsTypePath( $v{json} );
+								tileset = new $tsTypePath( $v{ts.json} );
 							}
 						}).fields,
 					}

@@ -28,6 +28,11 @@ class Tileset {
 		#end
 	}
 
+	inline function _requireAtlas() {
+		if( !isAtlasLoaded() )
+			throw "Tileset atlas image should be loaded first!";
+	}
+
 	// Search a file in all classPaths + sub folders
 	function locateResFile(searchFileName:String) : Null<String> {
 		var pending = [""];
@@ -67,14 +72,16 @@ class Tileset {
 	/**
 		Return atlas as h2d.Tile
 	**/
-	public function getAtlasTile() return atlas.clone();
+	public function getAtlasTile() {
+		_requireAtlas();
+		return atlas.clone();
+	}
 
 	/**
 		Get h2d.Tile from a Tile ID
 	**/
 	public inline function getTile(tileId:Int) : Null<h2d.Tile> {
-		if( !isAtlasLoaded() )
-			return null;
+		_requireAtlas();
 
 		if( tileId<0 )
 			return null;
