@@ -2,12 +2,15 @@ package led;
 
 class Layer_Tiles extends led.Layer {
 	var tiles : Map<Int,Int>;
+	var atlasPath : String;
 
 	public function new(json) {
 		super(json);
 		tiles = new Map();
 		for(t in json.gridTiles)
 			tiles.set(t.coordId, t.v);
+
+		loadAtlas();
 	}
 
 	/**
@@ -30,6 +33,21 @@ class Layer_Tiles extends led.Layer {
 		#end
 	}
 
+	public function loadAtlas() {
+		#if heaps
+		if( atlas!=null )
+			atlas.dispose();
+
+		try hxd.Res.loader
+		catch( e:Dynamic ) throw "hxd.Res wasn't initialized!";
+
+		// var fp = dn.FilePath.fromFile();
+		// hxd.Res.load()
+
+		#end
+		return isAtlasLoaded();
+	}
+
 
 	#if heaps
 	var atlas : Null<h2d.Tile>;
@@ -45,7 +63,7 @@ class Layer_Tiles extends led.Layer {
 	public function getTileAt(cx,cy) : Null<h2d.Tile> {
 		if( !isAtlasLoaded() )
 			return null;
-		
+
 		var tid = getTileIdAt(cx,cy);
 		if( tid<0 )
 			return null;

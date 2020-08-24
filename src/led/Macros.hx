@@ -230,37 +230,35 @@ class Macros {
 						kind: FVar(f.ct),
 						pos: pos,
 					});
-
-
-				// var complexType = switch f.__type {
-				// 	case "Int": f.canBeNull ? (macro : Null<Int>) : (macro : Int);
-				// 	case "Float": f.canBeNull ? (macro : Null<Float>) : (macro : Float);
-				// 	case "String": f.canBeNull ? (macro : Null<String>) : (macro : String);
-				// 	case "Bool": macro : Bool;
-				// 	case "Color": f.canBeNull ? (macro : Null<UInt>) : (macro : UInt);
-
-				// 	case _.indexOf("LocalEnum.") => 0:
-				// 		var type = f.__type.substr( f.__type.indexOf(".")+1 );
-				// 		var enumType = Context.getType( modName+"_Enum_"+type ).toComplexType();
-				// 		macro : $enumType;
-
-				// 	case _.indexOf("ExternEnum.") => 0:
-				// 		var typeId = f.__type.substr( f.__type.indexOf(".")+1 );
-				// 		var ct = externEnumTypes.get(typeId).ct;
-				// 		macro : $ct;
-
-				// 	case _:
-				// 		error("Unsupported field type "+f.__type+" in Entity "+e.identifier);
-				// }
-				// entityType.fields.push({
-				// 	name: "f_"+f.identifier,
-				// 	access: [ APublic ],
-				// 	kind: FVar( complexType ),
-				// 	pos: pos,
-				// });
 			}
 
 			registerTypeDefinitionModule(entityType, projectFilePath);
+		}
+
+
+		// Create tileset classes
+		timer("tilesetClasses");
+		var tilesets : Map<Int,{ typeName:String, json:TilesetDefJson }> = new Map();
+		for(e in json.defs.tilesets) {
+			// Create entity class
+			var parentTypePath : TypePath = { pack: ["led"], name:"Tileset" }
+			var tilesetType : TypeDefinition = {
+				pos : pos,
+				name : modName+"_Tileset_"+e.identifier,
+				pack : modPack,
+				kind : TDClass(parentTypePath),
+				fields : (macro class {
+					override public function new(json) {
+						super(json);
+					}
+
+				}).fields,
+			}
+			registerTypeDefinitionModule(tilesetType, projectFilePath);
+			tilesets.set(e.uid, {
+				typeName: tilesetType.name,
+				json: e,
+			});
 		}
 
 
@@ -290,20 +288,6 @@ class Macros {
 					}
 					registerTypeDefinitionModule(layerType, projectFilePath);
 
-				case "Tiles":
-					var parentTypePath : TypePath = { pack: ["led"], name:"Layer_Tiles" }
-					var layerType : TypeDefinition = {
-						pos : pos,
-						name : modName+"_Layer_"+l.identifier,
-						pack : modPack,
-						kind : TDClass(parentTypePath),
-						fields : (macro class {
-							override public function new(json) {
-								super(json);
-							}
-						}).fields,
-					}
-					registerTypeDefinitionModule(layerType, projectFilePath);
 
 				case "Entities":
 					var parentTypePath : TypePath = { pack: ["led"], name:"Layer_Entities" }
@@ -320,7 +304,7 @@ class Macros {
 
 							override function _instanciateEntity(json) {
 								var c = Type.resolveClass($v{mod}+"_Entity_"+json.__identifier);
-								trace( "Entity class: "+$v{mod}+"_Entity_"+json.__identifier +" => "+(c!=null?"Found":"ERROR!!"));
+								// trace( "Entity class: "+$v{mod}+"_Entity_"+json.__identifier +" => "+(c!=null?"Found":"ERROR!!"));
 								if( c==null )
 									return null;
 								else
@@ -345,6 +329,38 @@ class Macros {
 						});
 					}
 					registerTypeDefinitionModule(layerType, projectFilePath);
+
+
+				case "Tiles":
+					// var tsType = tilesetComplexTypes.get(l.tilesetDefUid);
+					var ts = tilesets.get(l.tilesetDefUid);
+					var tsComplexType = Context.getType( ts.typeName ).toComplexType();
+					var tsTypePath : TypePath = { pack: modPack, name: ts.typeName }
+					var json = ts.json;
+
+					var parentTypePath : TypePath = { pack: ["led"], name:"Layer_Tiles" }
+					var layerType : TypeDefinition = {
+						pos : pos,
+						name : modName+"_Layer_"+l.identifier,
+						pack : modPack,
+						kind : TDClass(parentTypePath),
+						fields : (macro class {
+							override public function new(json) {
+								super(json);
+
+								tileset = new $tsTypePath($v{json});
+							}
+						}).fields,
+					}
+					// Tileset class
+					layerType.fields.push({
+						name: "tileset",
+						access: [APublic],
+						kind: FVar( tsComplexType ),
+						pos: pos,
+					});
+					registerTypeDefinitionModule(layerType, projectFilePath);
+
 
 				case _:
 					error("Unknown layer type "+l.type);
@@ -372,7 +388,7 @@ class Macros {
 
 				override function _instanciateLayer(json:led.JsonTypes.LayerInstJson) {
 					var c = Type.resolveClass($v{mod}+"_Layer_"+json.__identifier);
-					trace( "Layer class: "+$v{mod}+"_Layer_"+json.__identifier +" => "+(c!=null?"Found":"ERROR!!"));
+					// trace( "Layer class: "+$v{mod}+"_Layer_"+json.__identifier +" => "+(c!=null?"Found":"ERROR!!"));
 					if( c==null )
 						return null;
 					else

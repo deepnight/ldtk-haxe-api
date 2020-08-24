@@ -9,6 +9,7 @@ typedef ProjectJson = {
 		entities: Array<EntityDefJson>,
 		enums: Array<EnumDefJson>,
 		externalEnums: Array<EnumDefJson>,
+		tilesets : Array<TilesetDefJson>,
 	}
 }
 
@@ -16,6 +17,7 @@ typedef LayerDefJson = {
 	var identifier : String;
 	var type : String;
 	var intGridValues : Array<{ identifier:String, color:String }>;
+	var tilesetDefUid : Int;
 }
 
 typedef EntityDefJson = {
@@ -36,6 +38,17 @@ typedef FieldDefJson = {
 	var canBeNull : Bool;
 }
 
+typedef TilesetDefJson = {
+	var identifier : String;
+	var uid : Int;
+	var relPath : String;
+	var tileGridSize : Int;
+	var tileGridSpacing : Int;
+
+	var pxWid : Int;
+	var pxHei : Int;
+	var savedSelections : Dynamic;
+}
 
 
 typedef LevelJson = {
