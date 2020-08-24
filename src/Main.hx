@@ -1,25 +1,20 @@
-enum Pouet {
-	A;
-	B;
-}
-
-typedef PouetAlias = Pouet;
-
 class Main {
-	static function main() new Main();
-
 	public function new() {
-		#if heaps
+		#if hl
 		hxd.Res.initEmbed();
 		#end
 
-		var p = new test.GameTest();
-		var l = p.all_levels.Level0.l_Bg;
-		#if heaps
-		// l.tileset.loadAtlasFromRes(hxd.Res.atlas.gif87a);
+		// var p = new test.GameTest();
+		// var l = p.all_levels.Level0.l_Bg;
+
+		#if hl
+		trace( hxd.Res.atlas.gif87a.getPixels().width );
+		hxd.Res.atlas.gif87a.toTexture();
+		// trace("ok");
+		// trace( l.tileset.getTile(hxd.Res.atlas.SystemShock.toTile(), 0) );
 		#end
 		// for(tid in 0...15)
-		// 	trace( tid+" => "+l.tileset.getTileX(tid)+","+l.tileset.getTileY(tid) );
+		// 	trace( tid+" => "+l.tileset.getAtlasX(tid)+","+l.tileset.getAtlasY(tid) );
 
 
 		// var p = new test.Mini();

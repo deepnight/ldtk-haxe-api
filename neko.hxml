@@ -1,10 +1,10 @@
 -cp src
 -cp ../led/app/userFiles
--debug
 -lib heaps
 -lib deepnightLibs
 # -D dump=pretty
 # --times
 
--main Main
+-debug
+-main BootNeko
 -neko bin/test.n

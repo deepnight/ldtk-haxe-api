@@ -4,8 +4,8 @@
 	"skipErrorMessage": true,
 	"commands": [
 		{
-			"text": "⚡ Build",
-			"color": "yellow",
+			"text": "🐯 Build",
+			"color": "orange",
 			"commandType":"palette",
 			"command": "workbench.action.tasks.runTask|Neko",
 			"alignment": "right",
@@ -13,12 +13,29 @@
 			"priority": -21
 		},
 		{
-			"text": "⚡ Run",
-			"color": "yellow",
+			"text": "🐯 Run",
+			"color": "orange",
 			"command": "neko bin/test.n",
 			"alignment": "right",
 			"skipTerminateQuickPick": false,
 			"priority": -22
+		},
+		{
+			"text": "⚙ Build",
+			"color": "yellow",
+			"commandType":"palette",
+			"command": "workbench.action.tasks.runTask|HL",
+			"alignment": "right",
+			"skipTerminateQuickPick": false,
+			"priority": -11
+		},
+		{
+			"text": "⚙ Run",
+			"color": "yellow",
+			"command": "hl bin/test.hl",
+			"alignment": "right",
+			"skipTerminateQuickPick": false,
+			"priority": -12
 		}
 	]
 }

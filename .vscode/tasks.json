@@ -12,7 +12,23 @@
                 "panel": "dedicated",
                 "clear": true
             },
-            "problemMatcher": ["$haxe"],
+            "problemMatcher": [
+                "$haxe"
+            ],
+            "group": "build"
+        },
+        {
+            "label": "HL",
+            "type": "hxml",
+            "file": "hl.hxml",
+            "presentation": {
+                "reveal": "never",
+                "panel": "dedicated",
+                "clear": true
+            },
+            "problemMatcher": [
+                "$haxe"
+            ],
             "group": {
                 "kind": "build",
                 "isDefault": true

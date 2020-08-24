@@ -1,0 +1,9 @@
+-cp src
+-lib heaps
+-lib deepnightLibs
+-lib hldx
+
+-D windowSize=2000x1400
+-debug
+-main BootHl
+-hl bin/test.hl
