@@ -348,7 +348,7 @@ class Macros {
 							override public function new(json) {
 								super(json);
 
-								tileset = new $tsTypePath($v{json});
+								tileset = new $tsTypePath( $v{json} );
 							}
 						}).fields,
 					}
