@@ -2,7 +2,7 @@ class Main {
 	var p : test.GameTest;
 
 	public function new() {
-		p = new test.GameTest( hxd.Res.gameTest.entry.getText() );
+		p = new test.GameTest(#if hl hxd.Res.gameTest.entry.getText() #end);
 
 		// var l = p.all_levels.Level0.l_Bg;
 
@@ -20,8 +20,8 @@ class Main {
 		// trace(v);
 
 
-		// var p = new test.Gmtk();
-		// for(e in p.all_levels.Credits.l_Entities.all_Label)  trace(e.f_Text+" col="+e.f_Color_hex+"/"+e.f_Color_int);
+		var p = new test.Gmtk();
+		for(e in p.all_levels.Credits.l_Entities.all_Label)  trace(e.f_Text+" col="+e.f_Color_hex+"/"+e.f_Color_int);
 
 
 		tilesetRender();
@@ -37,7 +37,7 @@ class Main {
 		for(cy in 0...l.cHei) {
 			if( !l.hasTileAt(cx,cy) )
 				continue;
-			
+
 			var t = l.tileset.getH2dTile(atlas, l.getTileIdAt(cx,cy));
 			var b = new h2d.Bitmap(t, BootHl.ME.s2d);
 			b.x = cx*l.gridSize;
