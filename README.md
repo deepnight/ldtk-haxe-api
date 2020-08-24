@@ -9,6 +9,8 @@ L-Ed is an open-source 2D level editor, available here: https://github.com/deepn
 ## Features
 
  - **Completely typed at compilation**: if you rename any element in your project (ie. level, layer, entity, etc.), the corresponding references in your code will break accordingly, avoiding typical errors or mistypings.
+ 
+ (TODO)
 
 
 # USAGE
@@ -39,7 +41,7 @@ private typedef _Tmp = haxe.macro.MacroType<[
 
 **Note**: "*_Tmp*" isn't actually used, but we still need an identifier here. Anything will do the job.
 
-This magic line will call the `led.Project.build()` *macro* which will parse the project JSON file, then use its content to dynamically construct types & classes definitions at compilate-time.
+This magic line will call the `led.Project.build` *macro* which will parse the project JSON file, then use its content to dynamically construct types & classes definitions at compilation-time.
 
 ## Instanciating the project
 
@@ -79,14 +81,14 @@ trace( someTreasure.f_customColor_hex); // color code in Hex format (#rrggbb)
 
 **Important notes**: the project JSON is embedded at compilation-time for easier usage.
 
-If you edit your levels afterwise, the embedded levels won't automatically update, unless you recompile your code.
+If you edit your levels afterwise, **the embedded levels won't automatically update**, unless you *recompile* your code.
 
-You can fix that by passing the dynamically loaded JSON to the constructor:
+You can "fix" that by passing the dynamically loaded JSON string to the constructor:
 
 ```js
-var jsonString = SomeFileAccessApi.readFile("myProject.json");
+var projectJsonString = SomeFileAccessApi.readFile("myProject.json");
 
-var p = new MyProject( jsonString ); // will override embedded JSON
+var p = new MyProject( projectJsonString ); // will override embedded JSON
 ```
 
 **Warning**: all the types & classes definitions are only generated at compilation time. This will only refresh the actual data.
@@ -96,7 +98,7 @@ You can also use the `parseJson()` method to dynamically update (ie. "hot-reload
 ```js
 /*
 I will pretend that this method is called by your hot-reload API
-when your project files changes on the disk.
+when the project files changes on the disk.
 */
 function onMyProjectFileChange(newFileContent:String) {
 	p.parseJson( newFileContent );
