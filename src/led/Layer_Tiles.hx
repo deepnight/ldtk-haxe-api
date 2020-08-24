@@ -6,6 +6,7 @@ class Layer_Tiles extends led.Layer {
 
 	public function new(json) {
 		super(json);
+
 		tiles = new Map();
 		for(t in json.gridTiles)
 			tiles.set(t.coordId, t.v);
