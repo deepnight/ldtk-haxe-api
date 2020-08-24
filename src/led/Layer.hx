@@ -10,9 +10,25 @@ enum LayerType {
 class Layer {
 	public var identifier : String;
 	public var type : LayerType;
+
+	/**
+		Grid-based layer width
+	**/
 	public var cWid : Int;
+
+	/**
+		Grid-based layer height
+	**/
 	public var cHei : Int;
+
+	/**
+		Pixel-based layer X offset
+	**/
 	public var pxOffsetX: Int;
+
+	/**
+		Pixel-based layer Y offset
+	**/
 	public var pxOffsetY : Int;
 
 	public function new(json:led.JsonTypes.LayerInstJson) {
@@ -20,7 +36,6 @@ class Layer {
 		type =
 			try LayerType.createByName(json.__type)
 			catch(e:Dynamic) Unknown;
-		// type = json.__type;
 		cWid = json.__cWid;
 		cHei = json.__cHei;
 		pxOffsetX = json.pxOffsetX;
@@ -29,7 +44,7 @@ class Layer {
 
 
 	/**
-		Return TRUE if coordinates are within layer bounds.
+		Return TRUE if grid-based coordinates are within layer bounds.
 	**/
 	public inline function isCoordValid(cx,cy) {
 		return cx>=0 && cx<cWid && cy>=0 && cy<cHei;

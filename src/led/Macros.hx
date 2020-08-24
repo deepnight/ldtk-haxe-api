@@ -62,6 +62,7 @@ class Macros {
 			name: modName+"_EntityEnum",
 			pack: modPack,
 			kind: TDEnum,
+			doc: "An enum representing all Entity IDs",
 			pos: pos,
 			fields: json.defs.entities.map( function(json) : Field {
 				return {
@@ -141,6 +142,9 @@ class Macros {
 			pack : modPack,
 			kind : TDClass(parentTypePath),
 			fields : (macro class {
+				/**
+					The entity type identifier represented using an enum
+				**/
 				public var entityType : $entityEnumType;
 
 				override public function new(json) {
@@ -223,11 +227,12 @@ class Macros {
 						error("Unsupported field type "+f.__type+" in Entity "+e.identifier);
 				}
 
-				for(f in fields)
+				for(fi in fields)
 					entityType.fields.push({
-						name: "f_"+f.name,
+						name: "f_"+fi.name,
 						access: [ APublic ],
-						kind: FVar(f.ct),
+						kind: FVar(fi.ct),
+						doc: "Entity field "+fi.name+" ("+f.__type+")",
 						pos: pos,
 					});
 			}
@@ -311,7 +316,9 @@ class Macros {
 									return cast Type.createInstance(c, [json]);
 							}
 
-							// Identifier based Entity getter
+							/**
+								Get all entity instances. This methods returns generic Entity classes, so you won't have access to entity field values. You should prefer using specialized array accesses from fields "all_entityName".
+							**/
 							public inline function getAllUntyped() : Array<$baseEntityComplexType> {
 								return cast _entities;
 							}
@@ -325,6 +332,7 @@ class Macros {
 							name: "all_"+e.identifier,
 							access: [APublic],
 							kind: FVar( macro : Array<$entityComplexType> ),
+							doc: "An array of all "+e.identifier+" instances",
 							pos: pos,
 						});
 					}

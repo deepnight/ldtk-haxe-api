@@ -21,6 +21,9 @@ class Layer_Tiles extends led.Layer {
 			: -1;
 	}
 
+	/**
+		Return TRUE if any tile exists at specified coords
+	**/
 	public inline function hasTileAt(cx,cy) {
 		return getTileIdAt(cx,cy)>=0;
 	}

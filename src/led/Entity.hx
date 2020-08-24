@@ -3,10 +3,27 @@ package led;
 class Entity {
 	var _enumTypePrefix : String;
 	public var identifier : String;
+
+	/**
+		Grid-based X coordinate
+	**/
 	public var cx : Int;
+
+	/**
+		Grid-based Y coordinate
+	**/
 	public var cy : Int;
+
+	/**
+		Pixel-based X coordinate
+	**/
 	public var pixelX : Int;
+
+	/**
+		Pixel-based Y coordinate
+	**/
 	public var pixelY : Int;
+	
 	var _fields : Map<String, Dynamic> = new Map();
 
 	public function new(json:led.JsonTypes.EntityInstJson) {
