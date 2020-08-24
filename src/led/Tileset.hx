@@ -14,13 +14,12 @@ class Tileset {
 		relPath = json.relPath;
 		pxWid = json.pxWid;
 		pxHei = json.pxHei;
-		trace("new tileset "+identifier);
 	}
 
 
-	/**
-		Return TRUE if the tileset atlas image is properly loaded and ready for tiles extraction
-	**/
+	// /**
+	// 	Return TRUE if the tileset atlas image is properly loaded and ready for tiles extraction
+	// **/
 	// public function isAtlasLoaded() {
 	// 	return false;
 	// }
@@ -66,12 +65,10 @@ class Tileset {
 
 
 	#if heaps
-	/** HEAPS API *******************************************************/
-
 	/**
 		Get h2d.Tile from a Tile ID
 	**/
-	public inline function getTile(atlasTile:h2d.Tile, tileId:Int) : Null<h2d.Tile> {
+	public inline function getH2dTile(atlasTile:h2d.Tile, tileId:Int) : Null<h2d.Tile> {
 		if( tileId<0 )
 			return null;
 		else
