@@ -9,7 +9,7 @@ class BootHl extends hxd.App {
 	// Engine ready
 	override function init() {
 		ME = this;
-		hxd.Res.initEmbed();
+		hxd.Res.initLocal();
 		new Main();
 	}
 }

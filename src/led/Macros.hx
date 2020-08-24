@@ -458,9 +458,17 @@ class Macros {
 			pack : modPack,
 			kind : TDClass(parentTypePath),
 			fields : (macro class {
-				override public function new() {
+
+				/**
+					If "overrideEmbedJson is provided, the embedded JSON from compilation-time will be ignored, and this JSON will be used instead.
+				**/
+				override public function new(?overrideEmbedJson:String) {
 					super();
-					fromJson( haxe.Json.parse( $v{fileContent} ) );
+					parseJson( overrideEmbedJson!=null ? overrideEmbedJson : $v{fileContent} );
+				}
+
+				override function parseJson(json) {
+					super.parseJson(json);
 
 					// Init levels quick access
 					for(l in _untypedLevels)

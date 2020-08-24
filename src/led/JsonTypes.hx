@@ -63,6 +63,7 @@ typedef LayerInstJson = {
 	var __identifier : String;
 	var __cWid : Int;
 	var __cHei : Int;
+	var __gridSize : Int;
 	var pxOffsetX : Int;
 	var pxOffsetY : Int;
 

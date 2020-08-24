@@ -14,6 +14,11 @@ class Layer {
 	/**
 		Grid-based layer width
 	**/
+	public var gridSize : Int;
+
+	/**
+		Grid-based layer width
+	**/
 	public var cWid : Int;
 
 	/**
@@ -36,9 +41,10 @@ class Layer {
 		type =
 			try LayerType.createByName(json.__type)
 			catch(e:Dynamic) Unknown;
+		gridSize = json.__gridSize;
 		cWid = json.__cWid;
 		cHei = json.__cHei;
-		pxOffsetX = json.pxOffsetX;
+		pxOffsetX = json.pxOffsetX; 
 		pxOffsetY = json.pxOffsetY;
 	}
 

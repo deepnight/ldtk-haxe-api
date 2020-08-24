@@ -15,10 +15,7 @@
             "problemMatcher": [
                 "$haxe"
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
+            "group": "build"
         },
         {
             "label": "HL",
@@ -32,7 +29,10 @@
             "problemMatcher": [
                 "$haxe"
             ],
-            "group": "build"
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ]
 }

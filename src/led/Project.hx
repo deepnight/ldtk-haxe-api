@@ -14,14 +14,16 @@ class Project {
 	}
 
 	/**
-		Replace current project using another project JSON structure. WARNING: types and classes are generated at compilation-time, not at runtime.
+		Replace current project using another project-JSON data. WARNING: types and classes are generated at compilation-time, not at runtime.
 	**/
-	public function fromJson(json:led.JsonTypes.ProjectJson) {
+	public function parseJson(jsonString:String) {
+		var json : led.JsonTypes.ProjectJson = haxe.Json.parse(jsonString);
 		name = json.name;
 
 		_untypedLevels = [];
 		for(json in json.levels)
 			_untypedLevels.push( _instanciateLevel(json) );
+		trace(_untypedLevels);
 	}
 
 	function _instanciateLevel(json:led.JsonTypes.LevelJson) {

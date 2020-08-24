@@ -4,7 +4,7 @@
 -lib deepnightLibs
 -lib hldx
 
--D windowSize=2000x1400
+-D windowSize=1000x1000
 -debug
 -main BootHl
 -hl bin/test.hl
