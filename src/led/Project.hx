@@ -23,7 +23,6 @@ class Project {
 		_untypedLevels = [];
 		for(json in json.levels)
 			_untypedLevels.push( _instanciateLevel(json) );
-		trace(_untypedLevels);
 	}
 
 	function _instanciateLevel(json:led.JsonTypes.LevelJson) {
