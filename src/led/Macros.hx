@@ -393,6 +393,9 @@ class Macros {
 						return cast Type.createInstance(c, [json]);
 				}
 
+				/**
+					Get a layer using its identifier. WARNING: the class of this layer will be more generic than when using proper "f_layerName" fields.
+				**/
 				public function resolveLayer(id:String) : Null<led.Layer> {
 					for(l in _layers)
 						if( l.identifier==id )
@@ -406,6 +409,7 @@ class Macros {
 				name: "l_"+l.identifier,
 				access: [APublic],
 				kind: FVar( Context.getType(mod+"_Layer_"+l.identifier).toComplexType() ),
+				doc: l.type+" layer",
 				pos: pos,
 			});
 		registerTypeDefinitionModule(levelType, projectFilePath);
@@ -429,6 +433,7 @@ class Macros {
 		}));
 		projectFields.push({
 			name: "all_levels",
+			doc: "A convenient way to access all levels in a type-safe environment",
 			kind: FVar(levelAccessType, { expr:EObjectDecl(levelAccessFields), pos:pos }),
 			pos: pos,
 			access: [ APublic ],
@@ -458,6 +463,9 @@ class Macros {
 					return new $levelTypePath(json);
 				}
 
+				/**
+					Get a level using its identifier
+				**/
 				public function resolveLevel(id:String) : Null<$levelComplexType> {
 					for(l in _untypedLevels)
 						if( l.identifier==id )

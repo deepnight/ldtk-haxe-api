@@ -13,6 +13,9 @@ class Project {
 	public function new() {
 	}
 
+	/**
+		Replace current project using another project JSON structure. WARNING: types and classes are generated at compilation-time, not at runtime.
+	**/
 	public function fromJson(json:led.JsonTypes.ProjectJson) {
 		name = json.name;
 
