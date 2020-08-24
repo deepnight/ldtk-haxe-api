@@ -1,4 +1,6 @@
 class BootHl extends hxd.App {
+	public static var ME : BootHl;
+
 	// Boot
 	static function main() {
 		new BootHl();
@@ -6,7 +8,9 @@ class BootHl extends hxd.App {
 
 	// Engine ready
 	override function init() {
+		ME = this;
 		hxd.Res.initEmbed();
+		new Main();
 	}
 }
 

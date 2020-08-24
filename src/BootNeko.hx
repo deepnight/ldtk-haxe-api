@@ -1,4 +1,4 @@
-class Main {
+class BootNeko {
 	static function main() new Main();
 }
 

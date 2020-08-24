@@ -1,4 +1,5 @@
 -cp src
+-cp ../led/app/userFiles
 -lib heaps
 -lib deepnightLibs
 -lib hldx
