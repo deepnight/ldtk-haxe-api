@@ -200,7 +200,8 @@
 					{ "id" : "Ninja", "tileId" : 13 }
 				],
 				"iconTilesetUid" : 14,
-				"externalRelPath" : null
+				"externalRelPath" : null,
+				"externalFileChecksum" : null
 			},
 			{
 				"identifier" : "ItemType",
@@ -211,7 +212,8 @@
 					{ "id" : "Food", "tileId" : 1086 }
 				],
 				"iconTilesetUid" : 18,
-				"externalRelPath" : null
+				"externalRelPath" : null,
+				"externalFileChecksum" : null
 			}
 		],
 		"externalEnums" : [
@@ -225,7 +227,8 @@
 					{ "id" : "Key", "tileId" : null }
 				],
 				"iconTilesetUid" : null,
-				"externalRelPath" : "../src/externEnums/GameEnums.hx"
+				"externalRelPath" : "../src/externEnums/GameEnums.hx",
+				"externalFileChecksum" : "c6cf23b5715490fffa677f12410459b2"
 			},
 			{
 				"identifier" : "EnemyType",
@@ -237,7 +240,8 @@
 					{ "id" : "Shooter", "tileId" : null }
 				],
 				"iconTilesetUid" : null,
-				"externalRelPath" : "../src/externEnums/GameEnums.hx"
+				"externalRelPath" : "../src/externEnums/GameEnums.hx",
+				"externalFileChecksum" : "c6cf23b5715490fffa677f12410459b2"
 			},
 			{
 				"identifier" : "SomeEnum",
@@ -248,7 +252,8 @@
 					{ "id" : "Pouet", "tileId" : null }
 				],
 				"iconTilesetUid" : null,
-				"externalRelPath" : "../src/externEnums/GameEnums.hx"
+				"externalRelPath" : "../src/externEnums/GameEnums.hx",
+				"externalFileChecksum" : "c6cf23b5715490fffa677f12410459b2"
 			}
 		]
 	},
