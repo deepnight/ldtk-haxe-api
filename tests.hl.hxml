@@ -1,0 +1,8 @@
+tests.hxml
+
+-lib heaps
+-lib hldx
+
+-D windowSize=1000x1000
+-main BootHl
+-hl tests/bin/test.hl

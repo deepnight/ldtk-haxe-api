@@ -4,9 +4,7 @@ class Main {
 	public function new() {
 		p = new test.GameTest(#if hl hxd.Res.gameTest.entry.getText() #end);
 
-		// var l = p.all_levels.Level0.l_Bg;
-
-		// var p = new test.Mini();
+		var p = new test.Mini();
 		// // p.all_levels.Level0.l_Objects.
 		// var l = p.all_levels.Level0.l_Objects;
 		// var e = l.all_Hero[0];

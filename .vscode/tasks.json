@@ -6,33 +6,39 @@
         {
             "label": "Neko",
             "type": "hxml",
-            "file": "neko.hxml",
+            "file": "tests.neko.hxml",
             "presentation": {
                 "reveal": "never",
                 "panel": "dedicated",
                 "clear": true
-            },
-            "problemMatcher": [
-                "$haxe"
-            ],
-            "group": "build"
+            }
         },
+
         {
             "label": "HL",
             "type": "hxml",
-            "file": "hl.hxml",
+            "file": "tests.hl.hxml",
             "presentation": {
                 "reveal": "never",
                 "panel": "dedicated",
                 "clear": true
             },
-            "problemMatcher": [
-                "$haxe"
-            ],
+            "group": "build"
+        },
+
+        {
+            "type": "haxe",
+            "args": "active configuration",
             "group": {
                 "kind": "build",
                 "isDefault": true
-            }
+            },
+            "label": "haxe: active configuration",
+            "presentation": {
+                "reveal": "never",
+                "panel": "dedicated",
+                "clear": true
+            },
         }
     ]
 }

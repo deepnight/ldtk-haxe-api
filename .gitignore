@@ -1,4 +1,3 @@
 .vscode/settings.json
-bin/*.n
-bin/*.hl
+tests/bin/*.*
 dump

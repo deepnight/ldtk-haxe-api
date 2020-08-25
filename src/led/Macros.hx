@@ -579,12 +579,12 @@ class Macros {
 	static var _t = -1.;
 	static var _timerName = "";
 	static inline function timer(?name="") {
-		#if debug
-		if( _t>=0 )
-			trace( Std.int( ( haxe.Timer.stamp()-_t ) * 1000 ) / 1000  + "s " + _timerName );
-		_timerName = name;
-		_t = haxe.Timer.stamp();
-		#end
+		// #if debug
+		// if( _t>=0 )
+		// 	trace( Std.int( ( haxe.Timer.stamp()-_t ) * 1000 ) / 1000  + "s " + _timerName );
+		// _timerName = name;
+		// _t = haxe.Timer.stamp();
+		// #end
 	}
 	#end
 }
