@@ -4,6 +4,23 @@
 	"skipErrorMessage": true,
 	"commands": [
 		{
+			"text": "⚙ Build",
+			"color": "yellow",
+			"commandType":"palette",
+			"command": "workbench.action.tasks.runTask|HL",
+			"alignment": "right",
+			"skipTerminateQuickPick": false,
+			"priority": -11
+		},
+		{
+			"text": "⚙ Run",
+			"color": "yellow",
+			"command": "hl bin/test.hl",
+			"alignment": "right",
+			"skipTerminateQuickPick": false,
+			"priority": -12
+		},
+		{
 			"text": "🐯 Build",
 			"color": "orange",
 			"commandType":"palette",
@@ -21,21 +38,13 @@
 			"priority": -22
 		},
 		{
-			"text": "⚙ Build",
-			"color": "yellow",
-			"commandType":"palette",
-			"command": "workbench.action.tasks.runTask|HL",
+			"text": "➠ Submit to haxelib",
+			"color": "white",
+			"command": "start haxelib submit .",
 			"alignment": "right",
 			"skipTerminateQuickPick": false,
-			"priority": -11
-		},
-		{
-			"text": "⚙ Run",
-			"color": "yellow",
-			"command": "hl bin/test.hl",
-			"alignment": "right",
-			"skipTerminateQuickPick": false,
-			"priority": -12
-		}
+			"priority": -30
+		  }
+
 	]
 }
