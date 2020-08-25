@@ -1,6 +1,13 @@
 {
+	"__header__" : {
+		"fileType" : "L-Ed Project JSON",
+		"app" : "L-Ed",
+		"appAuthor" : "Sebastien Benard",
+		"appVersion" : "Electron DBG v0.1",
+		"url" : "https://deepnight.net/"
+	},
 	"name" : "GameTest",
-	"dataVersion" : 1,
+	"jsonVersion" : 1,
 	"defaultPivotX" : 0.0,
 	"defaultPivotY" : 0.0,
 	"defaultGridSize" : 16,
@@ -224,11 +231,13 @@
 					{ "id" : "Ammo", "tileId" : null },
 					{ "id" : "Food", "tileId" : null },
 					{ "id" : "Gold", "tileId" : null },
-					{ "id" : "Key", "tileId" : null }
+					{ "id" : "Key", "tileId" : null },
+					{ "id" : "LongBow", "tileId" : null },
+					{ "id" : "MachineGun", "tileId" : null }
 				],
 				"iconTilesetUid" : null,
 				"externalRelPath" : "../src/externEnums/GameEnums.hx",
-				"externalFileChecksum" : "c6cf23b5715490fffa677f12410459b2"
+				"externalFileChecksum" : "3e6dd7884a808e4603dd30f58c532227"
 			},
 			{
 				"identifier" : "EnemyType",
@@ -241,7 +250,7 @@
 				],
 				"iconTilesetUid" : null,
 				"externalRelPath" : "../src/externEnums/GameEnums.hx",
-				"externalFileChecksum" : "c6cf23b5715490fffa677f12410459b2"
+				"externalFileChecksum" : "3e6dd7884a808e4603dd30f58c532227"
 			},
 			{
 				"identifier" : "SomeEnum",
@@ -253,7 +262,7 @@
 				],
 				"iconTilesetUid" : null,
 				"externalRelPath" : "../src/externEnums/GameEnums.hx",
-				"externalFileChecksum" : "c6cf23b5715490fffa677f12410459b2"
+				"externalFileChecksum" : "3e6dd7884a808e4603dd30f58c532227"
 			}
 		]
 	},
