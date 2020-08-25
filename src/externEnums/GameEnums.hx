@@ -5,6 +5,8 @@ enum DroppedItemType {
 	Gold;
 	Ammo;
 	Key;
+	MachineGun;
+	LongBow;
 	// SomeNewObject;
 }
 
