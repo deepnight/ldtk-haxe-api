@@ -4,7 +4,7 @@
 
 This is the Haxe API to load **L-Ed** projects.
 
-L-Ed is an open-source 2D level editor, available here: https://github.com/deepnight/led
+L-Ed is an open-source 2D level editor, available here: https://deepnight.net/tools/led-2d-level-editor/
 
 ## Features
 
