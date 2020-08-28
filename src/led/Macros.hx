@@ -222,17 +222,18 @@ class Macros {
 					case _.indexOf("LocalEnum.") => 0:
 						var type = f.__type.substr( f.__type.indexOf(".")+1 );
 						var enumType = Context.getType( modName+"_Enum_"+type ).toComplexType();
-						fields.push({ name: f.identifier, ct: macro : $enumType });
+						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<$enumType>) : (macro : $enumType) });
 
 					case _.indexOf("ExternEnum.") => 0:
 						var typeId = f.__type.substr( f.__type.indexOf(".")+1 );
 						var ct = externEnumTypes.get(typeId).ct;
-						fields.push({ name: f.identifier, ct: macro : $ct });
+						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<$ct>) : (macro : $ct) });
 
 					case _:
 						error("Unsupported field type "+f.__type+" in Entity "+e.identifier);
 				}
 
+				trace( macro : Null<Int> );
 				for(fi in fields)
 					entityType.fields.push({
 						name: "f_"+fi.name,
@@ -586,10 +587,10 @@ class Macros {
 	static var _timerName = "";
 	static inline function timer(?name="") {
 		#if debug
-		if( _t>=0 )
-			trace(_curMod+" => "+ Std.int( ( haxe.Timer.stamp()-_t ) * 1000 ) / 1000  + "s " + _timerName );
-		_timerName = name;
-		_t = haxe.Timer.stamp();
+		// if( _t>=0 )
+		// 	trace(_curMod+" => "+ Std.int( ( haxe.Timer.stamp()-_t ) * 1000 ) / 1000  + "s " + _timerName );
+		// _timerName = name;
+		// _t = haxe.Timer.stamp();
 		#end
 	}
 	#end
