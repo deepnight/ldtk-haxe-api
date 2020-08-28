@@ -3,10 +3,10 @@
   "url" : "https://github.com/deepnight/led-haxe-api",
   "license": "Apache",
   "tags": ["Haxe","Heaps","Hashlink","L-Ed","api"],
-  "description": "The haxe API for L-Ed project files",
-  "version": "0.0.1",
+  "description": "The haxe API for LEd JSON files - https://deepnight.net/tools/led-2d-level-editor/",
+  "version": "1.0.1",
   "classPath": "src/",
-  "releasenote": "Initial release",
+  "releasenote": "Fixes & support for LEd 0.0.2",
   "contributors": ["sbenard"],
   "dependencies": {
     "deepnightLibs":""
