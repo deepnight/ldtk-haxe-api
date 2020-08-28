@@ -114,12 +114,12 @@ var p = new MyProject( projectJsonString ); // will override embedded JSON
 
 **Warning**: all the types & classes definitions are only generated at compilation time. This will only refresh the actual data.
 
-You can also use the `parseJson()` method to dynamically update (ie. "hot-reload") your project data at runtime:
+You can also use the `parseJson()` method to dynamically update (eg. to implement "hot-reloading") your project data at runtime:
 
 ```haxe
 /*
 I will pretend that this method is called by your hot-reload API
-when the project files changes on the disk.
+when the project JSON changes on the disk.
 */
 function onMyProjectFileChange(newFileContent:String) {
 	p.parseJson( newFileContent );
