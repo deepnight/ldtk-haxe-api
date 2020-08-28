@@ -11,6 +11,10 @@ import led.JsonTypes;
 class Macros {
 	static var locateCache : Map<String,String>;
 
+	#if debug
+	static var _curMod : String;
+	#end
+
 	public static function buildTypes(projectFilePath:String) {
 		#if !macro
 		throw "This can only be called in a macro";
@@ -23,12 +27,14 @@ class Macros {
 			catch(e:Dynamic) error("Couldn't read "+projectFilePath);
 
 		// Init stuff
-		timer("init");
 		locateCache = new Map();
 		var pos = Context.currentPos();
 		var mod = Context.getLocalModule();
 		var modPack = mod.split(".");
 		var modName = modPack.pop();
+		#if debug
+		_curMod = modName;
+		#end
 		var projectFields : Array<Field> = [];
 
 		// Read JSON
@@ -579,12 +585,12 @@ class Macros {
 	static var _t = -1.;
 	static var _timerName = "";
 	static inline function timer(?name="") {
-		// #if debug
-		// if( _t>=0 )
-		// 	trace( Std.int( ( haxe.Timer.stamp()-_t ) * 1000 ) / 1000  + "s " + _timerName );
-		// _timerName = name;
-		// _t = haxe.Timer.stamp();
-		// #end
+		#if debug
+		if( _t>=0 )
+			trace(_curMod+" => "+ Std.int( ( haxe.Timer.stamp()-_t ) * 1000 ) / 1000  + "s " + _timerName );
+		_timerName = name;
+		_t = haxe.Timer.stamp();
+		#end
 	}
 	#end
 }
