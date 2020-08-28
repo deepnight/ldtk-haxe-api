@@ -1,14 +1,15 @@
 class Main {
-	var p : test.GameTest;
+	var gt : test.GameTest;
+	var mini : test.Mini;
 
 	public function new() {
-		// p = new test.GameTest(#if hl hxd.Res.gameTest.entry.getText() #end);
-		// trace(p.all_levels.Level0.l_Objects.all_Mob[0]);
+		gt = new test.GameTest(#if hl hxd.Res.gameTest.entry.getText() #end);
+		// trace(gt.all_levels.Level0.l_Objects.all_Mob[0]);
 
-		var p = new test.Mini();
-		var l = p.all_levels.Level0.l_Objects;
-		var e = l.all_Mob[0];
-		trace(e);
+		// mini = new test.Mini();
+		// var l = p.all_levels.Level0.l_Objects;
+		// var e = l.all_Mob[0];
+		// trace(e);
 		// var v = switch e.f_loot {
 		// 	case Food: "f";
 		// 	case Gold: "g";
@@ -39,7 +40,7 @@ class Main {
 	}
 
 	function intGridRender() {
-		var l = p.all_levels.Level0.l_Collisions;
+		var l = gt.all_levels.Level0.l_Collisions;
 
 		#if hl
 		var off = 500;

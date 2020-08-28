@@ -11,9 +11,12 @@
                 "reveal": "never",
                 "panel": "dedicated",
                 "clear": true
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
             }
         },
-
         {
             "label": "HL",
             "type": "hxml",
@@ -24,21 +27,6 @@
                 "clear": true
             },
             "group": "build"
-        },
-
-        {
-            "type": "haxe",
-            "args": "active configuration",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "label": "haxe: active configuration",
-            "presentation": {
-                "reveal": "never",
-                "panel": "dedicated",
-                "clear": true
-            }
         }
     ]
 }
