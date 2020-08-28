@@ -1,64 +1,86 @@
-# ABOUT
+# About
 
 ## What is this?
 
-This is the Haxe API to load **L-Ed Project JSON** files.
+This is the Haxe API to load **LEd Project JSON** files.
 
-*L-Ed is an open-source 2D level editor ([official page](https://deepnight.net/tools/led-2d-level-editor/))*
+*LEd is a modern and open-source 2D level editor.*
+
+[OFFICIAL PAGE](https://deepnight.net/tools/led-2d-level-editor) |
+[Source code](https://github.com/deepnight/led) |
+[Documentation](https://deepnight.net/led-doc/home/)
+
 
 ## Features
 
  - **Completely typed at compilation**: if you rename any element in your project (ie. level, layer, entity, etc.), the corresponding references in your code will break accordingly, avoiding typical errors or mistypings.
 
- (TODO)
+# Install
 
-
-# USAGE
-
-## Install
+## Latest stable version
 
 ```
 haxelib install led-haxe-api
 ```
 
-You can optionally use the latest GIT version by using:
+## Latest Git
+
+It is recommended to use the latest GIT version available if you also use a Git build of LEd.
 
 ```
-haxelib git led-haxe-api https://github.com/deepnight/led.git
+haxelib git led-haxe-api https://github.com/deepnight/led-haxe-api.git
 ```
 
+# Usage
 
-## Parsing your L-Ed project JSON
+## 1. Create the project class
 
-Create a HX file for each L-Ed project you want to load:
+Create a HX file for each L-Ed project JSON. The filename isn't important, pick whatever you like.
+
+This HX will host all the the typed data extracted from the JSON:
 
 <sub>**MyProject.hx:**</sub>
+
 ```js
-private typedef _Tmp = haxe.macro.MacroType<[
-	led.Project.build("../path/to/myProject.json")
-]>;
+private typedef _Tmp =
+	haxe.macro.MacroType<[ led.Project.build("../path/to/myProject.json") ]>;
 ```
 
-**Note**: "*_Tmp*" isn't actually used, but we still need an identifier here. Anything will do the job.
-
-This magic line will call the `led.Project.build` *macro* which will parse the project JSON file, then use its content to dynamically construct types & classes definitions at compilation-time.
-
-## Instanciating the project
-
-Create a project instance somewhere:
+## 2. Create a project instance
 
 <sub>**MyGame.hx:**</sub>
 ```js
 class MyGame {
 	public function new() {
 		var p = new MyProject();
+		trace( p.all_levels ); // Well done!
 	}
 }
 ```
 
+## Notes
+
+The "*_Tmp*" typedef isn't actually directly used. But for syntax validity purpose, we need an identifier here. Anything will do the job.
+
+This magic line will call the `led.Project.build` *macro* which will parse the project JSON file, then use its content to dynamically construct types & classes definitions at compilation-time.
+
+You can move the project HX class to a sub-package, just add the corresponding `package` line at the beginning:
+
+```js
+package assets;
+
+private typedef _Tmp =
+	haxe.macro.MacroType<[ led.Project.build("../path/to/myProject.json") ]>;
+```
+
+
+# Accessing all data
+
 The project content is easily accessed using various methods:
 
 ```js
+var p = new MyProject();
+
 // Access to a specific level
 var level = p.all_levels.MyFirstLevel;
 trace( level.pxWid );
@@ -77,7 +99,7 @@ trace( someTreasure.f_isTreasureHidden); // boolean custom field
 trace( someTreasure.f_customColor_hex); // color code in Hex format (#rrggbb)
 ```
 
-## Refresh project data without recompiling
+# Refresh project data without recompiling
 
 **Important notes**: the project JSON is embedded at compilation-time for easier usage.
 
