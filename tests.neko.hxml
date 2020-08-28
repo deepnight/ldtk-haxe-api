@@ -1,7 +1,5 @@
 tests.hxml
 
--lib heaps
-
-# -D dump=pretty
+-D dump=pretty
 -main BootNeko
 -neko tests/bin/test.n

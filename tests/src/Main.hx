@@ -6,16 +6,15 @@ class Main {
 		gt = new test.GameTest(#if hl hxd.Res.gameTest.entry.getText() #end);
 		// trace(gt.all_levels.Level0.l_Objects.all_Mob[0]);
 
-		// mini = new test.Mini();
-		// var l = p.all_levels.Level0.l_Objects;
-		// var e = l.all_Mob[0];
-		// trace(e);
-		// var v = switch e.f_loot {
-		// 	case Food: "f";
-		// 	case Gold: "g";
-		// 	case Ammo: "a";
-		// }
-		// trace(v);
+		mini = new test.Mini();
+		var l = mini.all_levels.Level0.l_Objects;
+		var e = l.all_Mob[0];
+		var v = switch e.f_type {
+			case Trash: "trash mob";
+			case Shooter: "shooter";
+			case Ninja: "ninjaaaa";
+		}
+		trace(v);
 
 		tilesetRender();
 		intGridRender();
