@@ -2,14 +2,14 @@
 
 ## What is this?
 
-This is the Haxe API to load **L-Ed** projects.
+This is the Haxe API to load **L-Ed Project JSON** files.
 
-L-Ed is an open-source 2D level editor, available here: https://deepnight.net/tools/led-2d-level-editor/
+*L-Ed is an open-source 2D level editor ([official page](https://deepnight.net/tools/led-2d-level-editor/))*
 
 ## Features
 
  - **Completely typed at compilation**: if you rename any element in your project (ie. level, layer, entity, etc.), the corresponding references in your code will break accordingly, avoiding typical errors or mistypings.
- 
+
  (TODO)
 
 
