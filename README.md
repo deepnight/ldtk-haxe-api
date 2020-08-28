@@ -40,7 +40,7 @@ This HX will host all the the typed data extracted from the JSON:
 
 <sub>**MyProject.hx:**</sub>
 
-```js
+```haxe
 private typedef _Tmp =
 	haxe.macro.MacroType<[ led.Project.build("../path/to/myProject.json") ]>;
 ```
@@ -48,7 +48,7 @@ private typedef _Tmp =
 ## 2. Create a project instance
 
 <sub>**MyGame.hx:**</sub>
-```js
+```haxe
 class MyGame {
 	public function new() {
 		var p = new MyProject();
@@ -65,7 +65,7 @@ This magic line will call the `led.Project.build` *macro* which will parse the p
 
 You can move the project HX class to a sub-package, just add the corresponding `package` line at the beginning:
 
-```js
+```haxe
 package assets;
 
 private typedef _Tmp =
@@ -77,7 +77,7 @@ private typedef _Tmp =
 
 The project content is easily accessed using various methods:
 
-```js
+```haxe
 var p = new MyProject();
 
 // Access to a specific level
@@ -106,7 +106,7 @@ If you edit your levels afterwise, **the embedded levels won't automatically upd
 
 You can "fix" that by passing the dynamically loaded JSON string to the constructor:
 
-```js
+```haxe
 var projectJsonString = SomeFileAccessApi.readFile("myProject.json");
 
 var p = new MyProject( projectJsonString ); // will override embedded JSON
@@ -116,7 +116,7 @@ var p = new MyProject( projectJsonString ); // will override embedded JSON
 
 You can also use the `parseJson()` method to dynamically update (ie. "hot-reload") your project data at runtime:
 
-```js
+```haxe
 /*
 I will pretend that this method is called by your hot-reload API
 when the project files changes on the disk.
