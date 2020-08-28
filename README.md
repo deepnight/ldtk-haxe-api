@@ -24,7 +24,7 @@ haxelib install led-haxe-api
 
 ## Latest Git
 
-It is recommended to use the latest GIT version available if you also use a Git build of LEd.
+It is recommended to use the Git version **if you built LEd from Git**.
 
 ```
 haxelib git led-haxe-api https://github.com/deepnight/led-haxe-api.git
