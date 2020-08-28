@@ -38,7 +38,7 @@
                 "reveal": "never",
                 "panel": "dedicated",
                 "clear": true
-            },
+            }
         }
     ]
 }
