@@ -2,25 +2,19 @@ class Main {
 	var p : test.GameTest;
 
 	public function new() {
-		p = new test.GameTest(#if hl hxd.Res.gameTest.entry.getText() #end);
+		// p = new test.GameTest(#if hl hxd.Res.gameTest.entry.getText() #end);
+		// trace(p.all_levels.Level0.l_Objects.all_Mob[0]);
 
 		var p = new test.Mini();
-		// // p.all_levels.Level0.l_Objects.
-		// var l = p.all_levels.Level0.l_Objects;
-		// var e = l.all_Hero[0];
-		// trace(e.f_testA);
-		// var v = switch e.f_inventory {
+		var l = p.all_levels.Level0.l_Objects;
+		var e = l.all_Mob[0];
+		trace(e);
+		// var v = switch e.f_loot {
 		// 	case Food: "f";
 		// 	case Gold: "g";
 		// 	case Ammo: "a";
-		// 	case Key: "k";
 		// }
 		// trace(v);
-
-
-		var p = new test.Gmtk();
-		for(e in p.all_levels.Credits.l_Entities.all_Label)  trace(e.f_Text+" col="+e.f_Color_hex+"/"+e.f_Color_int);
-
 
 		tilesetRender();
 		intGridRender();
