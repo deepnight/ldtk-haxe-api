@@ -94,8 +94,8 @@ for( treasure in entityLayer.all_Treasure )
 
 // Access to entity fields
 var someTreasure = entityLayer.all_Treasure[0];
-trace( someTreasure.f_isTreasureHidden); // boolean custom field
-trace( someTreasure.f_customColor_hex); // color code in Hex format (#rrggbb)
+trace( someTreasure.f_isTreasureHidden ); // boolean custom field
+trace( someTreasure.f_customColor_hex ); // color code in Hex format (#rrggbb)
 ```
 
 # Refresh project data without recompiling
