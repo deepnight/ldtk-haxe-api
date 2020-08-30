@@ -46,6 +46,8 @@ private typedef _Tmp =
 
 ## 2. Create a project instance
 
+Somewhere else, in your game code, add the following to instanciate the project data.
+
 <sub>**MyGame.hx:**</sub>
 ```haxe
 class MyGame {
