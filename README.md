@@ -6,8 +6,7 @@ This is the Haxe API to load **LEd Project JSON** files.
 
 *LEd is a modern and open-source 2D level editor.*
 
-[OFFICIAL PAGE](https://deepnight.net/tools/led-2d-level-editor) |
-[Documentation](https://deepnight.net/led-doc/home/)
+[LEd official page](https://deepnight.net/tools/led-2d-level-editor) |
 
 
 ## Features
