@@ -23,7 +23,7 @@ class Main {
 
 	function tilesetRender() {
 		#if hl
-		var l = p.all_levels.Level0.l_Bg;
+		var l = gt.all_levels.Level0.l_Bg;
 		var atlas = hxd.Res.atlas.gif87a.toTile();
 		for(cx in 0...l.cWid)
 		for(cy in 0...l.cHei) {
@@ -67,7 +67,7 @@ class Main {
 			// File changed
 			trace("reloaded!");
 			BootHl.ME.s2d.removeChildren();
-			p.parseJson( hxd.Res.gameTest.entry.getText() );
+			gt.parseJson( hxd.Res.gameTest.entry.getText() );
 			intGridRender();
 			tilesetRender();
 		});
