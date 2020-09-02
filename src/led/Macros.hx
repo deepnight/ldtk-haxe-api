@@ -233,7 +233,6 @@ class Macros {
 						error("Unsupported field type "+f.__type+" in Entity "+e.identifier);
 				}
 
-				trace( macro : Null<Int> );
 				for(fi in fields)
 					entityType.fields.push({
 						name: "f_"+fi.name,
