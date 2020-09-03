@@ -1,0 +1,12 @@
+--cmd echo Neko...
+
+--next
+tests.neko.hxml
+
+--cmd echo JS...
+--next
+tests.js.hxml
+
+--cmd echo HashLink...
+--next
+tests.hl.hxml

@@ -4,6 +4,17 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "All",
+            "type": "hxml",
+            "file": "all.hxml",
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "clear": true
+            },
+            "group": "build"
+        },
+        {
             "label": "Neko",
             "type": "hxml",
             "file": "tests.neko.hxml",

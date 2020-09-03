@@ -4,16 +4,16 @@
 	"skipErrorMessage": true,
 	"commands": [
 		{
-			"text": "⚙ Build HL",
-			"color": "yellow",
+			"text": " Build all",
+			"color": "white",
 			"commandType":"palette",
-			"command": "workbench.action.tasks.runTask|HL",
+			"command": "workbench.action.tasks.runTask|All",
 			"alignment": "right",
 			"skipTerminateQuickPick": false,
 			"priority": -11
 		},
 		{
-			"text": "Run HL",
+			"text": "⚙ Run HL",
 			"color": "yellow",
 			"command": "hl tests/bin/test.hl",
 			"alignment": "right",
@@ -21,16 +21,7 @@
 			"priority": -12
 		},
 		{
-			"text": "🐯 Build Neko",
-			"color": "orange",
-			"commandType":"palette",
-			"command": "workbench.action.tasks.runTask|Neko",
-			"alignment": "right",
-			"skipTerminateQuickPick": false,
-			"priority": -21
-		},
-		{
-			"text": "Run neko",
+			"text": "🐯 Run neko",
 			"color": "orange",
 			"command": "neko tests/bin/test.n",
 			"alignment": "right",
