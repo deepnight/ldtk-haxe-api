@@ -13,7 +13,7 @@
 			"priority": -11
 		},
 		{
-			"text": "Run",
+			"text": "Run HL",
 			"color": "yellow",
 			"command": "hl tests/bin/test.hl",
 			"alignment": "right",
@@ -30,7 +30,7 @@
 			"priority": -21
 		},
 		{
-			"text": "Run",
+			"text": "Run neko",
 			"color": "orange",
 			"command": "neko tests/bin/test.n",
 			"alignment": "right",
