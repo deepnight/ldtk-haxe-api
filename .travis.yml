@@ -8,8 +8,9 @@ haxe:
   - "4.0.5"
 
 install:
-  - yes | haxelib install tests.neko.hxml
+  - yes | haxelib install all.hxml
   - haxelib list
 
 script:
-  - haxe tests.neko.hxml
+  - haxe all.hxml
+  - neko tests/bin/test.n
