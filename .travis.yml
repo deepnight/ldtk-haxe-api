@@ -1,0 +1,15 @@
+language: haxe
+
+os: linux
+dist: trusty
+
+haxe:
+  - development
+  - "4.0.5"
+
+install:
+  - yes | haxelib install tests.neko.hxml
+  - haxelib list
+
+script:
+  - haxe tests.neko.hxml
