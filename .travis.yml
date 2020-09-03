@@ -9,6 +9,7 @@ haxe:
 
 install:
   - yes | haxelib install all.hxml
+  - haxelib git deepnightLibs https://github.com/deepnight/deepnightLibs.git
   - haxelib list
 
 script:
