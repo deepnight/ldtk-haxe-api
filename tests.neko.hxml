@@ -1,4 +1,4 @@
-tests.hxml
+tests.base.hxml
 
 -D dump=pretty
 -main BootNeko

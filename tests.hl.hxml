@@ -1,4 +1,4 @@
-tests.hxml
+tests.base.hxml
 
 -lib heaps
 -lib hldx
