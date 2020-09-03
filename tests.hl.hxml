@@ -4,5 +4,5 @@ tests.base.hxml
 -lib hldx
 
 -D windowSize=1000x1000
--main BootHl
+-main MainHl
 -hl tests/bin/test.hl

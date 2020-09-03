@@ -1,4 +1,4 @@
-class Main {
+class Test {
 	var gt : test.GameTest;
 	var mini : test.Mini;
 

@@ -1,5 +1,5 @@
 tests.base.hxml
 
 -D dump=pretty
--main BootNeko
+-main MainNeko
 -neko tests/bin/test.n

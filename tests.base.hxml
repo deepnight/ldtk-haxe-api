@@ -1,6 +1,5 @@
 -cp tests/src
 -cp src
--cp ../led/app/userFiles
 -lib deepnightLibs
 -D resourcesPath=tests/res
 
