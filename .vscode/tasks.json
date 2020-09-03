@@ -12,10 +12,7 @@
                 "panel": "dedicated",
                 "clear": true
             },
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
+            "group": "build"
         },
         {
             "label": "HL",
@@ -27,6 +24,26 @@
                 "clear": true
             },
             "group": "build"
+        },
+        {
+            "type": "haxe",
+            "args": "active configuration",
+            "problemMatcher": [
+                "$haxe-absolute",
+                "$haxe",
+                "$haxe-error",
+                "$haxe-trace"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "never",
+                "panel": "dedicated",
+                "clear": true
+            },
+            "label": "haxe: active configuration"
         }
     ]
 }
