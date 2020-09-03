@@ -6,12 +6,12 @@ package test;
 
 class Render {
 	var root : h2d.Object;
-	var project : data.GameTest;
+	var project : data.CiTest;
 
 	public function new() {
 		root = new h2d.Object( MainRenderable.ME.s2d );
 
-		project = new data.GameTest( #if hl hxd.Res.gameTest.entry.getText() #end );
+		project = new data.CiTest( #if hl hxd.Res.ciTest.entry.getText() #end );
 
 		tilesetRender();
 		intGridRender();
@@ -58,11 +58,11 @@ class Render {
 	}
 
 	function hotReloadTest() {
-		hxd.Res.gameTest.watch( function() {
+		hxd.Res.ciTest.watch( function() {
 			// File changed
 			trace("Hot-reloaded!");
 			root.removeChildren();
-			project.parseJson( hxd.Res.gameTest.entry.getText() );
+			project.parseJson( hxd.Res.ciTest.entry.getText() );
 			intGridRender();
 			tilesetRender();
 		});

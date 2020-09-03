@@ -4,10 +4,10 @@ import dn.CiAssert;
 import externEnums.GameEnums;
 
 class Data {
-	var project : data.GameTest;
+	var project : data.CiTest;
 
 	public function new() {
-		project = new data.GameTest();
+		project = new data.CiTest();
 
 		CiAssert.isNotNull( project );
 
