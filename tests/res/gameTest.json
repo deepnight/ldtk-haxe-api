@@ -1,9 +1,9 @@
 {
 	"__header__" : {
-		"fileType" : "L-Ed Project JSON",
-		"app" : "L-Ed",
+		"fileType" : "LEd Project JSON",
+		"app" : "LEd",
 		"appAuthor" : "Sebastien Benard",
-		"appVersion" : "0.1 Electron DBG",
+		"appVersion" : "0.0.4-alpha-debug",
 		"url" : "https://deepnight.net/"
 	},
 	"name" : "GameTest",
@@ -12,11 +12,11 @@
 	"defaultPivotY" : 0.0,
 	"defaultGridSize" : 16,
 	"bgColor" : "#7F8093",
-	"nextUid" : 38,
+	"nextUid" : 41,
 	"defs" : {
 		"layers" : [
 			{
-				"identifier" : "Objects",
+				"identifier" : "EntityTest",
 				"type" : "Entities",
 				"uid" : 4,
 				"gridSize" : 16,
@@ -29,7 +29,7 @@
 				"tilePivotY" : 0
 			},
 			{
-				"identifier" : "Collisions",
+				"identifier" : "IntGridTest",
 				"type" : "IntGrid",
 				"uid" : 13,
 				"gridSize" : 16,
@@ -44,7 +44,7 @@
 				"tilePivotY" : 0
 			},
 			{
-				"identifier" : "Bg",
+				"identifier" : "TileTest",
 				"type" : "Tiles",
 				"uid" : 15,
 				"gridSize" : 32,
@@ -58,6 +58,34 @@
 			}
 		],
 		"entities" : [
+			{
+				"identifier" : "Hero",
+				"uid" : 23,
+				"width" : 16,
+				"height" : 16,
+				"color" : "#94D9B3",
+				"renderMode" : "Rectangle",
+				"tilesetId" : null,
+				"tileId" : null,
+				"maxPerLevel" : 0,
+				"discardExcess" : true,
+				"pivotX" : 0.5,
+				"pivotY" : 1.0,
+				"fieldDefs" : [
+					{
+						"identifier" : "startWeapon",
+						"__type" : "LocalEnum.Weapons",
+						"uid" : 39,
+						"type" : { "id" : "F_Enum", "params" : [ 10 ] },
+						"canBeNull" : false,
+						"editorDisplayMode" : "ValueOnly",
+						"editorDisplayPos" : "Above",
+						"min" : null,
+						"max" : null,
+						"defaultOverride" : null
+					}
+				]
+			},
 			{
 				"identifier" : "Mob",
 				"uid" : 2,
@@ -74,7 +102,7 @@
 				"fieldDefs" : [
 					{
 						"identifier" : "type",
-						"__type" : "LocalEnum.MobType",
+						"__type" : "LocalEnum.Mobs",
 						"uid" : 3,
 						"type" : { "id" : "F_Enum", "params" : [ 1 ] },
 						"canBeNull" : false,
@@ -85,12 +113,12 @@
 						"defaultOverride" : null
 					},
 					{
-						"identifier" : "loot",
-						"__type" : "LocalEnum.ItemType",
-						"uid" : 11,
-						"type" : { "id" : "F_Enum", "params" : [ 10 ] },
+						"identifier" : "lootDrop",
+						"__type" : "ExternEnum.DroppedItemType",
+						"uid" : 38,
+						"type" : { "id" : "F_Enum", "params" : [ 29 ] },
 						"canBeNull" : true,
-						"editorDisplayMode" : "ValueOnly",
+						"editorDisplayMode" : "Hidden",
 						"editorDisplayPos" : "Above",
 						"min" : null,
 						"max" : null,
@@ -145,34 +173,6 @@
 						"defaultOverride" : { "id" : "V_Float", "params" : [ 1 ] }
 					}
 				]
-			},
-			{
-				"identifier" : "Hero",
-				"uid" : 23,
-				"width" : 16,
-				"height" : 16,
-				"color" : "#94D9B3",
-				"renderMode" : "Rectangle",
-				"tilesetId" : null,
-				"tileId" : null,
-				"maxPerLevel" : 0,
-				"discardExcess" : true,
-				"pivotX" : 0.5,
-				"pivotY" : 1.0,
-				"fieldDefs" : [
-					{
-						"identifier" : "inventory",
-						"__type" : "ExternEnum.DroppedItemType",
-						"uid" : 32,
-						"type" : { "id" : "F_Enum", "params" : [ 29 ] },
-						"canBeNull" : false,
-						"editorDisplayMode" : "NameAndValue",
-						"editorDisplayPos" : "Above",
-						"min" : null,
-						"max" : null,
-						"defaultOverride" : null
-					}
-				]
 			}
 		],
 		"tilesets" : [
@@ -199,24 +199,25 @@
 		],
 		"enums" : [
 			{
-				"identifier" : "MobType",
+				"identifier" : "Mobs",
 				"uid" : 1,
 				"values" : [
 					{ "id" : "Trash", "tileId" : 7 },
 					{ "id" : "Shooter", "tileId" : 12 },
-					{ "id" : "Ninja", "tileId" : 13 }
+					{ "id" : "Shielder", "tileId" : 13 }
 				],
 				"iconTilesetUid" : 14,
 				"externalRelPath" : null,
 				"externalFileChecksum" : null
 			},
 			{
-				"identifier" : "ItemType",
+				"identifier" : "Weapons",
 				"uid" : 10,
 				"values" : [
-					{ "id" : "Gold", "tileId" : 1510 },
-					{ "id" : "Ammo", "tileId" : 1097 },
-					{ "id" : "Food", "tileId" : 1086 }
+					{ "id" : "LongBow", "tileId" : 1258 },
+					{ "id" : "Torch", "tileId" : 2007 },
+					{ "id" : "Grenade", "tileId" : 1745 },
+					{ "id" : "FireBall", "tileId" : 1998 }
 				],
 				"iconTilesetUid" : 18,
 				"externalRelPath" : null,
@@ -237,20 +238,7 @@
 				],
 				"iconTilesetUid" : null,
 				"externalRelPath" : "../src/externEnums/GameEnums.hx",
-				"externalFileChecksum" : "3e6dd7884a808e4603dd30f58c532227"
-			},
-			{
-				"identifier" : "EnemyType",
-				"uid" : 30,
-				"values" : [
-					{ "id" : "Behemoth", "tileId" : null },
-					{ "id" : "Crawler", "tileId" : null },
-					{ "id" : "Hunter", "tileId" : null },
-					{ "id" : "Shooter", "tileId" : null }
-				],
-				"iconTilesetUid" : null,
-				"externalRelPath" : "../src/externEnums/GameEnums.hx",
-				"externalFileChecksum" : "3e6dd7884a808e4603dd30f58c532227"
+				"externalFileChecksum" : "7509e5d1a599771eccdff7aaf69ac63b"
 			},
 			{
 				"identifier" : "SomeEnum",
@@ -262,21 +250,21 @@
 				],
 				"iconTilesetUid" : null,
 				"externalRelPath" : "../src/externEnums/GameEnums.hx",
-				"externalFileChecksum" : "3e6dd7884a808e4603dd30f58c532227"
+				"externalFileChecksum" : "7509e5d1a599771eccdff7aaf69ac63b"
 			}
 		]
 	},
 	"levels" : [
 		{
-			"identifier" : "Level0",
+			"identifier" : "LevelTest",
 			"uid" : 0,
-			"pxWid" : 256,
+			"pxWid" : 320,
 			"pxHei" : 320,
 			"layerInstances" : [
 				{
-					"__identifier" : "Objects",
+					"__identifier" : "EntityTest",
 					"__type" : "Entities",
-					"__cWid" : 16,
+					"__cWid" : 20,
 					"__cHei" : 20,
 					"__gridSize" : 16,
 					"levelId" : 0,
@@ -288,226 +276,18 @@
 					"entityInstances" : [
 						{
 							"__identifier" : "Mob",
-							"__cx" : 3,
-							"__cy" : 5,
-							"defUid" : 2,
-							"x" : 56,
-							"y" : 96,
-							"fieldInstances" : [
-								{
-									"__identifier" : "type",
-									"__value" : "Trash",
-									"__type" : "LocalEnum.MobType",
-									"defUid" : 3,
-									"realEditorValue" : { "id" : "V_String", "params" : [ "Trash" ] }
-								},
-								{
-									"__identifier" : "elite",
-									"__value" : false,
-									"__type" : "Bool",
-									"defUid" : 5,
-									"realEditorValue" : null
-								},
-								{
-									"__identifier" : "lifeOverride",
-									"__value" : null,
-									"__type" : "Int",
-									"defUid" : 6,
-									"realEditorValue" : null
-								},
-								{
-									"__identifier" : "scale",
-									"__value" : 1.0,
-									"__type" : "Float",
-									"defUid" : 7,
-									"realEditorValue" : null
-								},
-								{
-									"__identifier" : "loot",
-									"__value" : null,
-									"__type" : "LocalEnum.ItemType",
-									"defUid" : 11,
-									"realEditorValue" : null
-								},
-								{
-									"__identifier" : "lootCount",
-									"__value" : 1,
-									"__type" : "Int",
-									"defUid" : 12,
-									"realEditorValue" : null
-								}
-							]
-						},
-						{
-							"__identifier" : "Mob",
-							"__cx" : 12,
-							"__cy" : 5,
-							"defUid" : 2,
-							"x" : 200,
-							"y" : 96,
-							"fieldInstances" : [
-								{
-									"__identifier" : "type",
-									"__value" : "Ninja",
-									"__type" : "LocalEnum.MobType",
-									"defUid" : 3,
-									"realEditorValue" : { "id" : "V_String", "params" : [ "Ninja" ] }
-								},
-								{
-									"__identifier" : "elite",
-									"__value" : false,
-									"__type" : "Bool",
-									"defUid" : 5,
-									"realEditorValue" : null
-								},
-								{
-									"__identifier" : "lifeOverride",
-									"__value" : null,
-									"__type" : "Int",
-									"defUid" : 6,
-									"realEditorValue" : null
-								},
-								{
-									"__identifier" : "scale",
-									"__value" : 1.0,
-									"__type" : "Float",
-									"defUid" : 7,
-									"realEditorValue" : null
-								},
-								{
-									"__identifier" : "loot",
-									"__value" : "Ammo",
-									"__type" : "LocalEnum.ItemType",
-									"defUid" : 11,
-									"realEditorValue" : { "id" : "V_String", "params" : [ "Ammo" ] }
-								},
-								{
-									"__identifier" : "lootCount",
-									"__value" : 10,
-									"__type" : "Int",
-									"defUid" : 12,
-									"realEditorValue" : { "id" : "V_Int", "params" : [ 10 ] }
-								}
-							]
-						},
-						{
-							"__identifier" : "Mob",
-							"__cx" : 2,
-							"__cy" : 11,
-							"defUid" : 2,
-							"x" : 40,
-							"y" : 192,
-							"fieldInstances" : [
-								{
-									"__identifier" : "type",
-									"__value" : "Trash",
-									"__type" : "LocalEnum.MobType",
-									"defUid" : 3,
-									"realEditorValue" : { "id" : "V_String", "params" : [ "Trash" ] }
-								},
-								{
-									"__identifier" : "elite",
-									"__value" : false,
-									"__type" : "Bool",
-									"defUid" : 5,
-									"realEditorValue" : null
-								},
-								{
-									"__identifier" : "lifeOverride",
-									"__value" : null,
-									"__type" : "Int",
-									"defUid" : 6,
-									"realEditorValue" : null
-								},
-								{
-									"__identifier" : "scale",
-									"__value" : 1.0,
-									"__type" : "Float",
-									"defUid" : 7,
-									"realEditorValue" : null
-								},
-								{
-									"__identifier" : "loot",
-									"__value" : null,
-									"__type" : "LocalEnum.ItemType",
-									"defUid" : 11,
-									"realEditorValue" : null
-								},
-								{
-									"__identifier" : "lootCount",
-									"__value" : 1,
-									"__type" : "Int",
-									"defUid" : 12,
-									"realEditorValue" : null
-								}
-							]
-						},
-						{
-							"__identifier" : "Mob",
-							"__cx" : 8,
-							"__cy" : 11,
-							"defUid" : 2,
-							"x" : 136,
-							"y" : 192,
-							"fieldInstances" : [
-								{
-									"__identifier" : "type",
-									"__value" : "Ninja",
-									"__type" : "LocalEnum.MobType",
-									"defUid" : 3,
-									"realEditorValue" : { "id" : "V_String", "params" : [ "Ninja" ] }
-								},
-								{
-									"__identifier" : "elite",
-									"__value" : true,
-									"__type" : "Bool",
-									"defUid" : 5,
-									"realEditorValue" : { "id" : "V_Bool", "params" : [ true ] }
-								},
-								{
-									"__identifier" : "lifeOverride",
-									"__value" : 10,
-									"__type" : "Int",
-									"defUid" : 6,
-									"realEditorValue" : { "id" : "V_Int", "params" : [ 10 ] }
-								},
-								{
-									"__identifier" : "scale",
-									"__value" : 2.0,
-									"__type" : "Float",
-									"defUid" : 7,
-									"realEditorValue" : { "id" : "V_Float", "params" : [ 2 ] }
-								},
-								{
-									"__identifier" : "loot",
-									"__value" : "Gold",
-									"__type" : "LocalEnum.ItemType",
-									"defUid" : 11,
-									"realEditorValue" : { "id" : "V_String", "params" : [ "Gold" ] }
-								},
-								{
-									"__identifier" : "lootCount",
-									"__value" : 150,
-									"__type" : "Int",
-									"defUid" : 12,
-									"realEditorValue" : { "id" : "V_Int", "params" : [ 150 ] }
-								}
-							]
-						},
-						{
-							"__identifier" : "Mob",
 							"__cx" : 14,
-							"__cy" : 11,
+							"__cy" : 9,
 							"defUid" : 2,
 							"x" : 232,
-							"y" : 192,
+							"y" : 160,
 							"fieldInstances" : [
 								{
 									"__identifier" : "type",
-									"__value" : "Shooter",
-									"__type" : "LocalEnum.MobType",
+									"__value" : "Trash",
+									"__type" : "LocalEnum.Mobs",
 									"defUid" : 3,
-									"realEditorValue" : { "id" : "V_String", "params" : [ "Shooter" ] }
+									"realEditorValue" : { "id" : "V_String", "params" : [ "Trash" ] }
 								},
 								{
 									"__identifier" : "elite",
@@ -525,50 +305,50 @@
 								},
 								{
 									"__identifier" : "scale",
-									"__value" : 2.0,
+									"__value" : 1.0,
 									"__type" : "Float",
 									"defUid" : 7,
-									"realEditorValue" : { "id" : "V_Float", "params" : [ 2 ] }
-								},
-								{
-									"__identifier" : "loot",
-									"__value" : "Food",
-									"__type" : "LocalEnum.ItemType",
-									"defUid" : 11,
-									"realEditorValue" : { "id" : "V_String", "params" : [ "Food" ] }
+									"realEditorValue" : null
 								},
 								{
 									"__identifier" : "lootCount",
-									"__value" : 1,
+									"__value" : 100,
 									"__type" : "Int",
 									"defUid" : 12,
-									"realEditorValue" : null
+									"realEditorValue" : { "id" : "V_Int", "params" : [ 100 ] }
+								},
+								{
+									"__identifier" : "lootDrop",
+									"__value" : "Gold",
+									"__type" : "ExternEnum.DroppedItemType",
+									"defUid" : 38,
+									"realEditorValue" : { "id" : "V_String", "params" : [ "Gold" ] }
 								}
 							]
 						},
 						{
 							"__identifier" : "Hero",
-							"__cx" : 5,
-							"__cy" : 11,
+							"__cx" : 1,
+							"__cy" : 15,
 							"defUid" : 23,
-							"x" : 88,
-							"y" : 192,
+							"x" : 24,
+							"y" : 256,
 							"fieldInstances" : [
 								{
-									"__identifier" : "inventory",
-									"__value" : "Gold",
-									"__type" : "ExternEnum.DroppedItemType",
-									"defUid" : 32,
-									"realEditorValue" : { "id" : "V_String", "params" : [ "Gold" ] }
+									"__identifier" : "startWeapon",
+									"__value" : "LongBow",
+									"__type" : "LocalEnum.Weapons",
+									"defUid" : 39,
+									"realEditorValue" : { "id" : "V_String", "params" : [ "LongBow" ] }
 								}
 							]
 						}
 					]
 				},
 				{
-					"__identifier" : "Collisions",
+					"__identifier" : "IntGridTest",
 					"__type" : "IntGrid",
-					"__cWid" : 16,
+					"__cWid" : 20,
 					"__cHei" : 20,
 					"__gridSize" : 16,
 					"levelId" : 0,
@@ -576,149 +356,17 @@
 					"pxOffsetX" : 0,
 					"pxOffsetY" : 0,
 					"intGrid" : [
-						{ "coordId" : 0, "v" : 2 },
+						{ "coordId" : 0, "v" : 0 },
 						{ "coordId" : 1, "v" : 1 },
-						{ "coordId" : 2, "v" : 0 },
-						{ "coordId" : 98, "v" : 0 },
-						{ "coordId" : 99, "v" : 0 },
-						{ "coordId" : 108, "v" : 0 },
-						{ "coordId" : 109, "v" : 0 },
-						{ "coordId" : 192, "v" : 0 },
-						{ "coordId" : 193, "v" : 0 },
-						{ "coordId" : 194, "v" : 0 },
-						{ "coordId" : 195, "v" : 0 },
-						{ "coordId" : 196, "v" : 0 },
-						{ "coordId" : 197, "v" : 0 },
-						{ "coordId" : 198, "v" : 0 },
-						{ "coordId" : 199, "v" : 0 },
-						{ "coordId" : 200, "v" : 0 },
-						{ "coordId" : 201, "v" : 0 },
-						{ "coordId" : 202, "v" : 0 },
-						{ "coordId" : 203, "v" : 0 },
-						{ "coordId" : 204, "v" : 0 },
-						{ "coordId" : 205, "v" : 0 },
-						{ "coordId" : 206, "v" : 0 },
-						{ "coordId" : 207, "v" : 0 },
-						{ "coordId" : 208, "v" : 0 },
-						{ "coordId" : 209, "v" : 0 },
-						{ "coordId" : 210, "v" : 0 },
-						{ "coordId" : 211, "v" : 0 },
-						{ "coordId" : 212, "v" : 0 },
-						{ "coordId" : 213, "v" : 0 },
-						{ "coordId" : 214, "v" : 0 },
-						{ "coordId" : 215, "v" : 0 },
-						{ "coordId" : 216, "v" : 0 },
-						{ "coordId" : 217, "v" : 0 },
-						{ "coordId" : 218, "v" : 0 },
-						{ "coordId" : 219, "v" : 0 },
-						{ "coordId" : 220, "v" : 0 },
-						{ "coordId" : 221, "v" : 0 },
-						{ "coordId" : 222, "v" : 0 },
-						{ "coordId" : 223, "v" : 0 },
-						{ "coordId" : 224, "v" : 0 },
-						{ "coordId" : 225, "v" : 0 },
-						{ "coordId" : 226, "v" : 0 },
-						{ "coordId" : 227, "v" : 0 },
-						{ "coordId" : 228, "v" : 0 },
-						{ "coordId" : 229, "v" : 0 },
-						{ "coordId" : 230, "v" : 0 },
-						{ "coordId" : 231, "v" : 0 },
-						{ "coordId" : 232, "v" : 0 },
-						{ "coordId" : 233, "v" : 0 },
-						{ "coordId" : 234, "v" : 0 },
-						{ "coordId" : 235, "v" : 0 },
-						{ "coordId" : 236, "v" : 0 },
-						{ "coordId" : 237, "v" : 0 },
-						{ "coordId" : 238, "v" : 0 },
-						{ "coordId" : 239, "v" : 0 },
-						{ "coordId" : 240, "v" : 0 },
-						{ "coordId" : 241, "v" : 0 },
-						{ "coordId" : 242, "v" : 0 },
-						{ "coordId" : 243, "v" : 0 },
-						{ "coordId" : 244, "v" : 0 },
-						{ "coordId" : 245, "v" : 0 },
-						{ "coordId" : 246, "v" : 0 },
-						{ "coordId" : 247, "v" : 0 },
-						{ "coordId" : 248, "v" : 0 },
-						{ "coordId" : 249, "v" : 0 },
-						{ "coordId" : 250, "v" : 0 },
-						{ "coordId" : 251, "v" : 0 },
-						{ "coordId" : 252, "v" : 0 },
-						{ "coordId" : 253, "v" : 0 },
-						{ "coordId" : 254, "v" : 0 },
-						{ "coordId" : 255, "v" : 0 },
-						{ "coordId" : 256, "v" : 0 },
-						{ "coordId" : 257, "v" : 0 },
-						{ "coordId" : 258, "v" : 0 },
-						{ "coordId" : 259, "v" : 0 },
-						{ "coordId" : 260, "v" : 0 },
-						{ "coordId" : 261, "v" : 0 },
-						{ "coordId" : 262, "v" : 0 },
-						{ "coordId" : 263, "v" : 0 },
-						{ "coordId" : 264, "v" : 0 },
-						{ "coordId" : 265, "v" : 0 },
-						{ "coordId" : 266, "v" : 0 },
-						{ "coordId" : 267, "v" : 0 },
-						{ "coordId" : 268, "v" : 0 },
-						{ "coordId" : 269, "v" : 0 },
-						{ "coordId" : 270, "v" : 0 },
-						{ "coordId" : 271, "v" : 0 },
-						{ "coordId" : 272, "v" : 0 },
-						{ "coordId" : 273, "v" : 0 },
-						{ "coordId" : 274, "v" : 0 },
-						{ "coordId" : 275, "v" : 0 },
-						{ "coordId" : 276, "v" : 0 },
-						{ "coordId" : 277, "v" : 0 },
-						{ "coordId" : 278, "v" : 0 },
-						{ "coordId" : 279, "v" : 0 },
-						{ "coordId" : 280, "v" : 0 },
-						{ "coordId" : 281, "v" : 0 },
-						{ "coordId" : 282, "v" : 0 },
-						{ "coordId" : 283, "v" : 0 },
-						{ "coordId" : 284, "v" : 0 },
-						{ "coordId" : 285, "v" : 0 },
-						{ "coordId" : 286, "v" : 0 },
-						{ "coordId" : 287, "v" : 0 },
-						{ "coordId" : 288, "v" : 0 },
-						{ "coordId" : 289, "v" : 0 },
-						{ "coordId" : 290, "v" : 0 },
-						{ "coordId" : 291, "v" : 0 },
-						{ "coordId" : 292, "v" : 0 },
-						{ "coordId" : 293, "v" : 0 },
-						{ "coordId" : 294, "v" : 0 },
-						{ "coordId" : 295, "v" : 0 },
-						{ "coordId" : 296, "v" : 0 },
-						{ "coordId" : 297, "v" : 0 },
-						{ "coordId" : 298, "v" : 0 },
-						{ "coordId" : 299, "v" : 0 },
-						{ "coordId" : 300, "v" : 0 },
-						{ "coordId" : 301, "v" : 0 },
-						{ "coordId" : 302, "v" : 0 },
-						{ "coordId" : 303, "v" : 0 },
-						{ "coordId" : 304, "v" : 0 },
-						{ "coordId" : 305, "v" : 0 },
-						{ "coordId" : 306, "v" : 0 },
-						{ "coordId" : 307, "v" : 0 },
-						{ "coordId" : 308, "v" : 0 },
-						{ "coordId" : 309, "v" : 0 },
-						{ "coordId" : 310, "v" : 0 },
-						{ "coordId" : 311, "v" : 0 },
-						{ "coordId" : 312, "v" : 0 },
-						{ "coordId" : 313, "v" : 0 },
-						{ "coordId" : 314, "v" : 0 },
-						{ "coordId" : 315, "v" : 0 },
-						{ "coordId" : 316, "v" : 0 },
-						{ "coordId" : 317, "v" : 0 },
-						{ "coordId" : 318, "v" : 0 },
-						{ "coordId" : 319, "v" : 0 }
+						{ "coordId" : 2, "v" : 2 }
 					],
 					"gridTiles" : [],
 					"entityInstances" : []
 				},
 				{
-					"__identifier" : "Bg",
+					"__identifier" : "TileTest",
 					"__type" : "Tiles",
-					"__cWid" : 8,
+					"__cWid" : 10,
 					"__cHei" : 10,
 					"__gridSize" : 32,
 					"levelId" : 0,
@@ -727,86 +375,50 @@
 					"pxOffsetY" : 0,
 					"intGrid" : [],
 					"gridTiles" : [
-						{ "coordId" : 0, "v" : 7 },
-						{ "coordId" : 1, "v" : 7 },
-						{ "coordId" : 2, "v" : 7 },
-						{ "coordId" : 3, "v" : 7 },
-						{ "coordId" : 4, "v" : 7 },
-						{ "coordId" : 5, "v" : 7 },
-						{ "coordId" : 6, "v" : 7 },
-						{ "coordId" : 7, "v" : 7 },
-						{ "coordId" : 8, "v" : 7 },
-						{ "coordId" : 9, "v" : 7 },
-						{ "coordId" : 10, "v" : 7 },
-						{ "coordId" : 11, "v" : 16 },
-						{ "coordId" : 12, "v" : 16 },
-						{ "coordId" : 13, "v" : 7 },
-						{ "coordId" : 14, "v" : 7 },
-						{ "coordId" : 15, "v" : 7 },
-						{ "coordId" : 16, "v" : 7 },
-						{ "coordId" : 17, "v" : 7 },
-						{ "coordId" : 18, "v" : 7 },
-						{ "coordId" : 19, "v" : 16 },
-						{ "coordId" : 20, "v" : 16 },
-						{ "coordId" : 21, "v" : 7 },
-						{ "coordId" : 22, "v" : 7 },
-						{ "coordId" : 23, "v" : 7 },
-						{ "coordId" : 24, "v" : 7 },
-						{ "coordId" : 25, "v" : 11 },
-						{ "coordId" : 26, "v" : 7 },
-						{ "coordId" : 27, "v" : 7 },
-						{ "coordId" : 28, "v" : 7 },
-						{ "coordId" : 29, "v" : 7 },
-						{ "coordId" : 30, "v" : 11 },
-						{ "coordId" : 31, "v" : 7 },
-						{ "coordId" : 32, "v" : 7 },
-						{ "coordId" : 33, "v" : 17 },
-						{ "coordId" : 34, "v" : 15 },
-						{ "coordId" : 35, "v" : 15 },
-						{ "coordId" : 36, "v" : 7 },
-						{ "coordId" : 37, "v" : 7 },
-						{ "coordId" : 38, "v" : 17 },
-						{ "coordId" : 39, "v" : 7 },
-						{ "coordId" : 40, "v" : 7 },
-						{ "coordId" : 41, "v" : 17 },
-						{ "coordId" : 42, "v" : 15 },
-						{ "coordId" : 43, "v" : 15 },
-						{ "coordId" : 44, "v" : 7 },
-						{ "coordId" : 45, "v" : 7 },
-						{ "coordId" : 46, "v" : 17 },
-						{ "coordId" : 47, "v" : 7 },
-						{ "coordId" : 48, "v" : 23 },
-						{ "coordId" : 49, "v" : 22 },
-						{ "coordId" : 50, "v" : 22 },
-						{ "coordId" : 51, "v" : 22 },
-						{ "coordId" : 52, "v" : 23 },
-						{ "coordId" : 53, "v" : 22 },
-						{ "coordId" : 54, "v" : 23 },
-						{ "coordId" : 55, "v" : 22 },
-						{ "coordId" : 56, "v" : 23 },
-						{ "coordId" : 57, "v" : 23 },
+						{ "coordId" : 37, "v" : 15 },
+						{ "coordId" : 38, "v" : 15 },
+						{ "coordId" : 41, "v" : 11 },
+						{ "coordId" : 47, "v" : 15 },
+						{ "coordId" : 48, "v" : 15 },
+						{ "coordId" : 51, "v" : 17 },
+						{ "coordId" : 56, "v" : 22 },
+						{ "coordId" : 57, "v" : 22 },
 						{ "coordId" : 58, "v" : 22 },
-						{ "coordId" : 59, "v" : 23 },
-						{ "coordId" : 60, "v" : 23 },
-						{ "coordId" : 61, "v" : 22 },
-						{ "coordId" : 62, "v" : 22 },
-						{ "coordId" : 63, "v" : 22 },
-						{ "coordId" : 64, "v" : 22 },
-						{ "coordId" : 65, "v" : 22 },
-						{ "coordId" : 66, "v" : 22 },
-						{ "coordId" : 67, "v" : 22 },
-						{ "coordId" : 68, "v" : 22 },
-						{ "coordId" : 69, "v" : 23 },
-						{ "coordId" : 70, "v" : 22 },
-						{ "coordId" : 71, "v" : 23 },
-						{ "coordId" : 72, "v" : 23 },
-						{ "coordId" : 73, "v" : 22 },
-						{ "coordId" : 74, "v" : 22 },
-						{ "coordId" : 75, "v" : 22 },
-						{ "coordId" : 76, "v" : 23 },
-						{ "coordId" : 77, "v" : 22 },
-						{ "coordId" : 78, "v" : 22 },
-						{ "coordId" : 79, "v" : 22 }
+						{ "coordId" : 59, "v" : 22 },
+						{ "coordId" : 61, "v" : 17 },
+						{ "coordId" : 63, "v" : 11 },
+						{ "coordId" : 65, "v" : 3 },
+						{ "coordId" : 66, "v" : 3 },
+						{ "coordId" : 67, "v" : 3 },
+						{ "coordId" : 68, "v" : 3 },
+						{ "coordId" : 69, "v" : 3 },
+						{ "coordId" : 71, "v" : 17 },
+						{ "coordId" : 73, "v" : 17 },
+						{ "coordId" : 75, "v" : 2 },
+						{ "coordId" : 76, "v" : 2 },
+						{ "coordId" : 77, "v" : 2 },
+						{ "coordId" : 78, "v" : 2 },
+						{ "coordId" : 79, "v" : 2 },
+						{ "coordId" : 80, "v" : 3 },
+						{ "coordId" : 81, "v" : 3 },
+						{ "coordId" : 82, "v" : 3 },
+						{ "coordId" : 83, "v" : 3 },
+						{ "coordId" : 84, "v" : 3 },
+						{ "coordId" : 85, "v" : 2 },
+						{ "coordId" : 86, "v" : 2 },
+						{ "coordId" : 87, "v" : 2 },
+						{ "coordId" : 88, "v" : 2 },
+						{ "coordId" : 89, "v" : 2 },
+						{ "coordId" : 90, "v" : 2 },
+						{ "coordId" : 91, "v" : 2 },
+						{ "coordId" : 92, "v" : 2 },
+						{ "coordId" : 93, "v" : 2 },
+						{ "coordId" : 94, "v" : 2 },
+						{ "coordId" : 95, "v" : 2 },
+						{ "coordId" : 96, "v" : 2 },
+						{ "coordId" : 97, "v" : 2 },
+						{ "coordId" : 98, "v" : 2 },
+						{ "coordId" : 99, "v" : 2 }
 					],
 					"entityInstances" : []
 				}

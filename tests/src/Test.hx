@@ -20,8 +20,6 @@ class Test {
 	}
 
 	public static function die() {
-		print("Critical error, tests stopped.");
-		print("");
 		#if js
 		throw new js.lib.Error("Failed");
 		#else

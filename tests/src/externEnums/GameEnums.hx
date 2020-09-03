@@ -10,13 +10,6 @@ enum DroppedItemType {
 	// SomeNewObject;
 }
 
-enum EnemyType {
-	Crawler;
-	Shooter;
-	Behemoth;
-	Hunter;
-}
-
 enum SomeEnum {
 	Foo;
 	Bar;

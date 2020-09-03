@@ -22,7 +22,7 @@ class Render {
 	}
 
 	function tilesetRender() {
-		var level = project.all_levels.Level0.l_Bg;
+		var level = project.all_levels.LevelTest.l_TileTest;
 		var atlas = hxd.Res.atlas.gif87a.toTile();
 		for(cx in 0...level.cWid)
 		for(cy in 0...level.cHei) {
@@ -37,7 +37,7 @@ class Render {
 	}
 
 	function intGridRender() {
-		var l = project.all_levels.Level0.l_Collisions;
+		var l = project.all_levels.LevelTest.l_IntGridTest;
 
 		var off = 500;
 		// Bg
