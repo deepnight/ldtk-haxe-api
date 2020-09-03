@@ -1,15 +1,17 @@
+package test;
+
 #if( !hl && !js )
 #error "Not available on this build target"
 #end
 
-class TestRender {
+class Render {
 	var root : h2d.Object;
-	var gt : test.GameTest;
+	var project : data.GameTest;
 
 	public function new() {
 		root = new h2d.Object( MainRenderable.ME.s2d );
 
-		gt = new test.GameTest( #if hl hxd.Res.gameTest.entry.getText() #end );
+		project = new data.GameTest( #if hl hxd.Res.gameTest.entry.getText() #end );
 
 		tilesetRender();
 		intGridRender();
@@ -20,7 +22,7 @@ class TestRender {
 	}
 
 	function tilesetRender() {
-		var level = gt.all_levels.Level0.l_Bg;
+		var level = project.all_levels.Level0.l_Bg;
 		var atlas = hxd.Res.atlas.gif87a.toTile();
 		for(cx in 0...level.cWid)
 		for(cy in 0...level.cHei) {
@@ -35,7 +37,7 @@ class TestRender {
 	}
 
 	function intGridRender() {
-		var l = gt.all_levels.Level0.l_Collisions;
+		var l = project.all_levels.Level0.l_Collisions;
 
 		var off = 500;
 		// Bg
@@ -60,7 +62,7 @@ class TestRender {
 			// File changed
 			trace("Hot-reloaded!");
 			root.removeChildren();
-			gt.parseJson( hxd.Res.gameTest.entry.getText() );
+			project.parseJson( hxd.Res.gameTest.entry.getText() );
 			intGridRender();
 			tilesetRender();
 		});
