@@ -12,5 +12,9 @@ This is the Haxe API to load **LEd Project JSON** files.
 ## Features
 
  - **Completely typed at compilation**: if you rename any element in your project (ie. level, layer, entity, etc.), the corresponding references in your code will break accordingly, avoiding typical errors or mistypings.
+ 
+## Documentation
 
-See full documentation and tutorials here: https://deepnight.net/docs/led-documentation/json-format/haxe-api/
+Read full documentation and tutorials here: 
+
+https://deepnight.net/docs/led-documentation/json-format/haxe-api/
