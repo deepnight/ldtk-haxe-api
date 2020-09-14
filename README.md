@@ -13,17 +13,17 @@ This is the Haxe API to load **LEd Project JSON** files.
 
  - **Completely typed at compilation**: if you rename any element in your project (ie. level, layer, entity, etc.), the corresponding references in your code will break accordingly, avoiding typical errors or mistypings.
 
-## Documentation
+## Getting help
 
-You can check the sample HX files in ``samples`` folder.
+### Documentation
 
 Read full documentation and tutorials here:
 
 https://deepnight.net/docs/led-documentation/json-format/haxe-api/
 
-## Samples
+### Demo & samples
 
-See all ``*.hx`` files in samples.
+You can check the sample HX files in [samples](samples) folder. You can also build them by following these simple steps:
 
 Step 1: Generate the HXML files for each sample:
 
