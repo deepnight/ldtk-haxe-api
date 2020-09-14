@@ -23,6 +23,8 @@ https://deepnight.net/docs/led-documentation/json-format/haxe-api/
 
 ## Samples
 
+See all ``*.hx`` files in samples.
+
 Step 1: Generate the HXML files for each sample:
 
 ```
