@@ -8,7 +8,7 @@ haxe:
   - "4.1.3"
 
 install:
-  - yes | haxelib install all.hxml
+  - yes | haxelib install tests.hxml
   - haxelib git deepnightLibs https://github.com/deepnight/deepnightLibs.git
   - haxelib list
 
