@@ -19,3 +19,8 @@ script:
   - haxe genSamples.hxml
   - cd samples
   - haxe all.hxml
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
