@@ -4,9 +4,10 @@ class Layer_IntGrid extends led.Layer {
 	var valueInfos : Array<{ identifier:Null<String>, color:UInt }> = [];
 
 	/**
-		IntGrid integer values
+		IntGrid integer values, map is based on coordIds
 	**/
 	public var intGrid : Map<Int,Int> = new Map();
+
 
 	public function new(json) {
 		super(json);
