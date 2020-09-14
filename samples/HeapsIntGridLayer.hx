@@ -7,6 +7,8 @@ class HeapsIntGridLayer extends hxd.App {
 		super.init();
 
 		hxd.Res.initEmbed();
+		s2d.setScale(3);
+
 		var project = new _Project();
 
 		// Layer data
