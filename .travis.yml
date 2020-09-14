@@ -10,8 +10,8 @@ haxe:
 install:
   - yes | haxelib install tests.hxml
   - haxelib git deepnightLibs https://github.com/deepnight/deepnightLibs.git
+  - haxelib git heaps https://github.com/HeapsIO/heaps.git
   - haxelib install hlsdl
-  - haxelib install heaps
   - haxelib list
 
 script:
