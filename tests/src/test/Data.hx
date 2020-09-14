@@ -8,6 +8,7 @@ class Data {
 
 	public function new() {
 		project = new data.CiTest();
+		trace(project);
 
 		CiAssert.isNotNull( project );
 

@@ -278,26 +278,71 @@ class Macros {
 		for(l in json.defs.layers) {
 			switch l.type {
 				case "IntGrid":
-					var parentTypePath : TypePath = { pack: ["led"], name:"Layer_IntGrid" }
-					var layerType : TypeDefinition = {
-						pos : pos,
-						name : modName+"_Layer_"+l.identifier,
-						pack : modPack,
-						kind : TDClass(parentTypePath),
-						fields : (macro class {
-							override public function new(json) {
-								super(json);
 
-								for(v in $v{l.intGridValues} ) {
-									valueInfos.push({
-										identifier: v.identifier,
-										color: Std.parseInt( "0x"+v.color.substr(1) ),
-									});
+					if( l.autoTilesetDefUid==null ) {
+						// IntGrid
+						var parentTypePath : TypePath = { pack: ["led"], name:"Layer_IntGrid" }
+						var layerType : TypeDefinition = {
+							pos : pos,
+							name : modName+"_Layer_"+l.identifier,
+							pack : modPack,
+							kind : TDClass(parentTypePath),
+							fields : (macro class {
+								override public function new(json) {
+									super(json);
+
+									for(v in $v{l.intGridValues} ) {
+										valueInfos.push({
+											identifier: v.identifier,
+											color: Std.parseInt( "0x"+v.color.substr(1) ),
+										});
+									}
 								}
-							}
-						}).fields,
+							}).fields,
+						}
+
+						registerTypeDefinitionModule(layerType, projectFilePath);
 					}
-					registerTypeDefinitionModule(layerType, projectFilePath);
+					else {
+						// Auto-layer IntGrid
+						var parentTypePath : TypePath = { pack: ["led"], name:"Layer_IntGrid_AutoLayer" }
+						var ts = l.autoTilesetDefUid!=null ? tilesets.get(l.autoTilesetDefUid) : null;
+						var tsComplexType = ts!=null ? Context.getType( ts.typeName ).toComplexType() : null;
+						var tsTypePath : TypePath = ts!=null ? { pack: modPack, name: ts.typeName } : null;
+
+						var layerType : TypeDefinition = {
+							pos : pos,
+							name : modName+"_Layer_"+l.identifier,
+							pack : modPack,
+							kind : TDClass(parentTypePath),
+							fields : (macro class {
+								override public function new(json) {
+									super(json);
+
+									for(v in $v{l.intGridValues} ) {
+										valueInfos.push({
+											identifier: v.identifier,
+											color: Std.parseInt( "0x"+v.color.substr(1) ),
+										});
+									}
+
+									autoLayerTileset = ${ ts==null ? null : macro new $tsTypePath( $v{ts.json} ) }
+								}
+							}).fields,
+						}
+
+						// Auto-layer tileset class
+						layerType.fields.push({
+							name: "autoLayerTileset",
+							access: [APublic],
+							kind: FVar( tsComplexType ),
+							pos: pos,
+						});
+
+						registerTypeDefinitionModule(layerType, projectFilePath);
+					}
+
+
 
 
 				case "Entities":

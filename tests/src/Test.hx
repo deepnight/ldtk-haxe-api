@@ -7,7 +7,7 @@ class Test {
 			new test.Data();
 
 			#if( hl || js )
-			new test.Render();
+			new test.HeapsRender();
 			#end
 		}
 		catch( e:Dynamic ) {

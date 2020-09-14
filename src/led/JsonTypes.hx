@@ -17,6 +17,7 @@ typedef LayerDefJson = {
 	var identifier : String;
 	var type : String;
 	var intGridValues : Array<{ identifier:String, color:String }>;
+	var autoTilesetDefUid : Null<Int>;
 	var tilesetDefUid : Int;
 }
 
@@ -68,6 +69,7 @@ typedef LayerInstJson = {
 	var pxOffsetY : Int;
 
 	var intGrid : Array<{ coordId:Int, v:Int }>;
+	var autoTiles : Array<{ ruleUid:Int, tiles: Array<{ coordId:Int, tileId:Int, flips:Int }> }>;
 	var entityInstances : Array<EntityInstJson>;
 	var gridTiles : Array<{ coordId:Int, v:Int }>;
 }

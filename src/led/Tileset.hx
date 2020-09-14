@@ -2,7 +2,12 @@ package led;
 
 class Tileset {
 	public var identifier : String;
+
+	/**
+		Path to the atlas image file, relative to the Project file
+	**/
 	public var relPath : String;
+
 	public var tileGridSize : Int;
 	var pxWid : Int;
 	var pxHei : Int;
@@ -66,13 +71,23 @@ class Tileset {
 
 	#if heaps
 	/**
-		Get h2d.Tile from a Tile ID
+		Get a h2d.Tile from a Tile ID.
+
+		"flipBits" can be: 0=no flip, 1=flipX, 2=flipY, 3=bothXY
 	**/
-	public inline function getH2dTile(atlasTile:h2d.Tile, tileId:Int) : Null<h2d.Tile> {
+	public inline function getH2dTile(atlasTile:h2d.Tile, tileId:Int, flipBits:Int=0) : Null<h2d.Tile> {
 		if( tileId<0 )
 			return null;
-		else
-			return atlasTile.sub(getAtlasX(tileId), getAtlasY(tileId), tileGridSize, tileGridSize);
+		else {
+			var t = atlasTile.sub( getAtlasX(tileId), getAtlasY(tileId), tileGridSize, tileGridSize );
+			return switch flipBits {
+				case 0: t;
+				case 1: t.flipX(); t.setCenterRatio(0,0); t;
+				case 2: t.flipY(); t.setCenterRatio(0,0); t;
+				case 3: t.flipX(); t.flipY(); t.setCenterRatio(0,0); t;
+				case _: throw "Unsupported flipBits value";
+			};
+		}
 	}
 	#end
 
