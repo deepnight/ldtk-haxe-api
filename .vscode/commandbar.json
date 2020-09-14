@@ -13,9 +13,17 @@
 			"priority": -11
 		},
 		{
-			"text": "Build sample HXMLs",
+			"text": "Sample HXMLs",
 			"color": "#86a9ff",
 			"command": "haxe genSamples.hxml",
+			"alignment": "right",
+			"skipTerminateQuickPick": false,
+			"priority": -20
+		},
+		{
+			"text": "All samples",
+			"color": "#aad6ff",
+			"command": "cd samples  &&  haxe all.hxml",
 			"alignment": "right",
 			"skipTerminateQuickPick": false,
 			"priority": -22
