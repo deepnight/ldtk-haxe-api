@@ -13,5 +13,7 @@ install:
   - haxelib list
 
 script:
+  - haxe tests.hxml
+  - haxe genSamples.hxml
+  - cd samples
   - haxe all.hxml
-  - neko tests/bin/test.n
