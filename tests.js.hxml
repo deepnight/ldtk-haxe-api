@@ -1,6 +1,0 @@
-tests.base.hxml
-
--lib heaps
-
--main MainRenderable
--js tests/bin/test.js

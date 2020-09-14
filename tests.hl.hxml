@@ -1,8 +1,0 @@
-tests.base.hxml
-
--lib heaps
--lib hldx
-
--D windowSize=1000x1000
--main MainRenderable
--hl tests/bin/test.hl

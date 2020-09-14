@@ -4,26 +4,18 @@
 	"skipErrorMessage": true,
 	"commands": [
 		{
-			"text": " Build all",
-			"color": "white",
+			"text": "Run CI tests",
+			"color": "#cfdd40",
 			"commandType":"palette",
-			"command": "workbench.action.tasks.runTask|All",
+			"command": "workbench.action.tasks.runTask|NekoTests",
 			"alignment": "right",
 			"skipTerminateQuickPick": false,
 			"priority": -11
 		},
 		{
-			"text": "⚙ Run HL",
-			"color": "yellow",
-			"command": "hl tests/bin/test.hl",
-			"alignment": "right",
-			"skipTerminateQuickPick": false,
-			"priority": -12
-		},
-		{
-			"text": "🐯 Run neko",
-			"color": "orange",
-			"command": "neko tests/bin/test.n",
+			"text": "Build sample HXMLs",
+			"color": "#86a9ff",
+			"command": "haxe genSamples.hxml",
 			"alignment": "right",
 			"skipTerminateQuickPick": false,
 			"priority": -22

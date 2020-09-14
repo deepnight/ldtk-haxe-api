@@ -1,0 +1,11 @@
+-cp tests
+-cp samples
+-cp src
+-lib deepnightLibs
+-D resourcesPath=samples/res
+-debug
+
+-D dump=pretty
+-main Main
+-neko tests/bin/test.n
+--cmd neko tests/bin/test.n

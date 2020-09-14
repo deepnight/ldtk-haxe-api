@@ -4,33 +4,11 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "All",
+            "label": "NekoTests",
             "type": "hxml",
-            "file": "all.hxml",
+            "file": "tests.hxml",
             "presentation": {
                 "reveal": "always",
-                "panel": "dedicated",
-                "clear": true
-            },
-            "group": "build"
-        },
-        {
-            "label": "Neko",
-            "type": "hxml",
-            "file": "tests.neko.hxml",
-            "presentation": {
-                "reveal": "never",
-                "panel": "dedicated",
-                "clear": true
-            },
-            "group": "build"
-        },
-        {
-            "label": "HL",
-            "type": "hxml",
-            "file": "tests.hl.hxml",
-            "presentation": {
-                "reveal": "never",
                 "panel": "dedicated",
                 "clear": true
             },
