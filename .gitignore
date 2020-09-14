@@ -1,5 +1,6 @@
 .vscode/settings.json
 tests/bin
 samples/bin
-# samples/*.hxml
+samples/*.hxml
+!samples/gen.hxml
 dump
