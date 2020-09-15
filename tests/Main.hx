@@ -64,6 +64,13 @@ class Main {
 			CiAssert.isTrue( project.all_levels.LevelTest.l_TileTest.type==Tiles );
 			CiAssert.isTrue( project.all_levels.LevelTest.l_TileTest.getTileIdAt(0,0)==-1 );
 			CiAssert.isTrue( project.all_levels.LevelTest.l_TileTest.getTileIdAt(0,9)!=-1 );
+
+			// Auto-layer
+			CiAssert.isNotNull( project.all_levels.LevelTest.l_AutoLayerTest );
+			CiAssert.isNotNull( project.all_levels.LevelTest.l_AutoLayerTest.autoLayerTileset );
+			CiAssert.isNotNull( project.all_levels.LevelTest.l_AutoLayerTest.getAutoTiles(1,1) );
+			CiAssert.isTrue( project.all_levels.LevelTest.l_AutoLayerTest.hasAutoTiles(1,1) );
+			CiAssert.isTrue( project.all_levels.LevelTest.l_AutoLayerTest.getAutoTiles(1,1).length>1 );
 		}
 		catch( e:Dynamic ) {
 			// Unknown errors
@@ -72,7 +79,7 @@ class Main {
 		}
 
 		print("Success.");
-	} 
+	}
 
 
 	static function die() {
