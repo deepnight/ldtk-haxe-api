@@ -72,7 +72,7 @@ class Main {
 		}
 
 		print("Success.");
-	}
+	} 
 
 
 	static function die() {

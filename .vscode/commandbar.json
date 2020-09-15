@@ -21,9 +21,9 @@
 			"priority": -20
 		},
 		{
-			"text": "All samples",
+			"text": "Build all samples",
 			"color": "#aad6ff",
-			"command": "cd samples  &&  haxe all.hxml",
+			"command": "cd samples  &&  haxe all.hxml  &&  echo Done!",
 			"alignment": "right",
 			"skipTerminateQuickPick": false,
 			"priority": -22
