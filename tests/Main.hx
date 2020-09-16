@@ -40,6 +40,9 @@ class Main {
 			CiAssert.isTrue( project.all_levels.LevelTest.l_EntityTest.type==Entities );
 			CiAssert.isTrue( project.all_levels.LevelTest.l_EntityTest.all_Hero.length!=0 );
 			CiAssert.isTrue( project.all_levels.LevelTest.l_EntityTest.all_Mob.length!=0 );
+
+			// Enums
+			print("Enums...");
 			CiAssert.isTrue( project.all_levels.LevelTest.l_EntityTest.all_Hero[0].f_startWeapon==LongBow );
 			CiAssert.isTrue( project.all_levels.LevelTest.l_EntityTest.all_Mob[0].f_type==Trash);
 			CiAssert.isTrue( project.all_levels.LevelTest.l_EntityTest.all_Mob[0].entityType==Mob);
