@@ -33,10 +33,17 @@ class Macros {
 		var mod = Context.getLocalModule();
 		var modPack = mod.split(".");
 		var modName = modPack.pop();
+		// if( modPack.length==0 )
+			// warning("It is recommended to move this file to its own package to avoid potential name conflicts.");
 		#if debug
 		_curMod = modName;
 		#end
 		var projectFields : Array<Field> = [];
+
+		// Create a package name from the Module name
+		// var firstLetterReg = ~/(_*[A-Z])([A-Za-z_0-9]*)/g;
+		// firstLetterReg.match(mod);
+		// var projectTypesPack = firstLetterReg.matched(1).toLowerCase() + firstLetterReg.matched(2);
 
 		// Read JSON
 		timer("json");
@@ -53,7 +60,7 @@ class Macros {
 		timer("localEnums");
 		for(e in json.defs.enums) {
 			var enumTypeDef : TypeDefinition = {
-				name: modName+"_Enum_"+e.identifier,
+				name: "Enum_"+e.identifier,
 				pack: modPack,
 				kind: TDEnum,
 				pos: pos,
@@ -71,8 +78,8 @@ class Macros {
 
 		// Create an enum to represent all Entity IDs
 		timer("entityIds");
-		var entityEnum : TypeDefinition = {
-			name: modName+"_EntityEnum",
+		var allEntitiesEnum : TypeDefinition = {
+			name: "EntityEnum",
 			pack: modPack,
 			kind: TDEnum,
 			doc: "An enum representing all Entity IDs",
@@ -85,7 +92,7 @@ class Macros {
 				}
 			}),
 		}
-		registerTypeDefinitionModule(entityEnum, projectFilePath);
+		registerTypeDefinitionModule(allEntitiesEnum, projectFilePath);
 
 
 		// Link external HX Enums to actual HX files
@@ -96,13 +103,13 @@ class Macros {
 			var p = new haxe.io.Path(e.externalRelPath);
 			var fileName = p.file+"."+p.ext;
 			switch p.ext {
-				case null: // (should not happen, as the extension is enforced in editor)
+				case null: // (should not happen, as the file extension is enforced in editor)
 
 				case _.toLowerCase()=>"hx":
 					// HX files
 					var path = locateFile(fileName);
 					if( path==null ) {
-						error("External Enum file \""+fileName+"\" found in LED Project but it can't be found in the current classPaths.");
+						error("External Enum file \""+fileName+"\" is used in LED Project but it can't be found in the current classPaths.");
 						continue;
 					}
 
@@ -142,9 +149,9 @@ class Macros {
 		}
 
 		// Create a base Entity class for this project (with enum type)
-		var entityEnumType = Context.getType(entityEnum.name).toComplexType();
+		var entityEnumType = Context.getType(allEntitiesEnum.name).toComplexType();
 		var entityEnumRef : Expr = {
-			expr: EConst(CIdent( entityEnum.name )),
+			expr: EConst(CIdent( allEntitiesEnum.name )),
 			pos:pos,
 		}
 
@@ -161,7 +168,7 @@ class Macros {
 				public var entityType : $entityEnumType;
 
 				override public function new(json) {
-					this._enumTypePrefix = $v{mod+"_Enum_"};
+					this._enumTypePrefix = $v{modPack.concat(["Enum_"]).join(".")};
 					super(json);
 
 					entityType = Type.createEnum($entityEnumRef, json.__identifier);
@@ -195,7 +202,7 @@ class Macros {
 			var parentTypePath : TypePath = { pack: baseEntityType.pack, name:baseEntityType.name }
 			var entityType : TypeDefinition = {
 				pos : pos,
-				name : modName+"_Entity_"+e.identifier,
+				name : "Entity_"+e.identifier,
 				pack : modPack,
 				kind : TDClass(parentTypePath),
 				fields : (macro class {
@@ -228,7 +235,7 @@ class Macros {
 
 					case _.indexOf("LocalEnum.") => 0:
 						var type = f.__type.substr( f.__type.indexOf(".")+1 );
-						var enumType = Context.getType( modName+"_Enum_"+type ).toComplexType();
+						var enumType = Context.getType( "Enum_"+type ).toComplexType();
 						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<$enumType>) : (macro : $enumType) });
 
 					case _.indexOf("ExternEnum.") => 0:
@@ -262,7 +269,7 @@ class Macros {
 			var parentTypePath : TypePath = { pack: ["led"], name:"Tileset" }
 			var tilesetType : TypeDefinition = {
 				pos : pos,
-				name : modName+"_Tileset_"+e.identifier,
+				name : "Tileset_"+e.identifier,
 				pack : modPack,
 				kind : TDClass(parentTypePath),
 				fields : (macro class {
@@ -291,7 +298,7 @@ class Macros {
 						var parentTypePath : TypePath = { pack: ["led"], name:"Layer_IntGrid" }
 						var layerType : TypeDefinition = {
 							pos : pos,
-							name : modName+"_Layer_"+l.identifier,
+							name : "Layer_"+l.identifier,
 							pack : modPack,
 							kind : TDClass(parentTypePath),
 							fields : (macro class {
@@ -319,7 +326,7 @@ class Macros {
 
 						var layerType : TypeDefinition = {
 							pos : pos,
-							name : modName+"_Layer_"+l.identifier,
+							name : "Layer_"+l.identifier,
 							pack : modPack,
 							kind : TDClass(parentTypePath),
 							fields : (macro class {
@@ -357,7 +364,7 @@ class Macros {
 					var baseEntityComplexType = Context.getType(baseEntityType.name).toComplexType();
 					var layerType : TypeDefinition = {
 						pos : pos,
-						name : modName+"_Layer_"+l.identifier,
+						name : "Layer_"+l.identifier,
 						pack : modPack,
 						kind : TDClass(parentTypePath),
 						fields : (macro class {
@@ -366,8 +373,7 @@ class Macros {
 							}
 
 							override function _instanciateEntity(json) {
-								var c = Type.resolveClass($v{mod}+"_Entity_"+json.__identifier);
-								// trace( "Entity class: "+$v{mod}+"_Entity_"+json.__identifier +" => "+(c!=null?"Found":"ERROR!!"));
+								var c = Type.resolveClass($v{modPack.concat(["Entity_"]).join(".")}+json.__identifier);
 								if( c==null )
 									return null;
 								else
@@ -385,7 +391,7 @@ class Macros {
 
 					// Typed entity-arrays getters
 					for(e in json.defs.entities) {
-						var entityComplexType = Context.getType(mod+"_Entity_"+e.identifier).toComplexType();
+						var entityComplexType = Context.getType("Entity_"+e.identifier).toComplexType();
 						layerType.fields.push({
 							name: "all_"+e.identifier,
 							access: [APublic],
@@ -405,7 +411,7 @@ class Macros {
 					var parentTypePath : TypePath = { pack: ["led"], name:"Layer_Tiles" }
 					var layerType : TypeDefinition = {
 						pos : pos,
-						name : modName+"_Layer_"+l.identifier,
+						name : "Layer_"+l.identifier,
 						pack : modPack,
 						kind : TDClass(parentTypePath),
 						fields : (macro class {
@@ -451,8 +457,7 @@ class Macros {
 				}
 
 				override function _instanciateLayer(json:led.JsonTypes.LayerInstJson) {
-					var c = Type.resolveClass($v{mod}+"_Layer_"+json.__identifier);
-					// trace( "Layer class: "+$v{mod}+"_Layer_"+json.__identifier +" => "+(c!=null?"Found":"ERROR!!"));
+					var c = Type.resolveClass($v{modPack.concat(["Layer_"]).join(".")}+json.__identifier);
 					if( c==null )
 						return null;
 					else
@@ -474,7 +479,7 @@ class Macros {
 			levelType.fields.push({
 				name: "l_"+l.identifier,
 				access: [APublic],
-				kind: FVar( Context.getType(mod+"_Layer_"+l.identifier).toComplexType() ),
+				kind: FVar( Context.getType("Layer_"+l.identifier).toComplexType() ),
 				doc: l.type+" layer",
 				pos: pos,
 			});
@@ -606,11 +611,9 @@ class Macros {
 	}
 
 	static function registerTypeDefinitionModule(typeDef:TypeDefinition, projectFilePath:String) {
-		var mod = typeDef.pack.concat([ typeDef.name ]).join(".");
+		var mod = Context.getLocalModule();
 		Context.defineModule(mod, [typeDef]);
 		Context.registerModuleDependency(mod, projectFilePath);
-
-		// trace("Registered type: "+mod);
 	}
 
 	static inline function error(msg:Dynamic, ?p:Position) : Dynamic {

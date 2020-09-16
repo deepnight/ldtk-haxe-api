@@ -6,14 +6,19 @@ class Main {
 		print("Running tests...");
 
 		// Run tests
-		try {
-			var project = new CiTestProject();
+		var project = new ProjectNoPackage();
 
-			print("Project...");
+		try {
+			section("PROJECT (NO PACKAGE)...");
+
+			section("Project...");
 			CiAssert.isNotNull( project );
+			CiAssert.isNotNull( ProjectNoPackage.Enum_Mobs );
+			CiAssert.isNotNull( ProjectNoPackage.EntityEnum );
+			CiAssert.isNotNull( ProjectNoPackage.Tileset_Cavernas_by_Adam_Saltsman );
 
 			// Levels
-			print("Levels...");
+			section("Levels...");
 			CiAssert.isNotNull( project.all_levels );
 			CiAssert.isNotNull( project.all_levels.LevelTest );
 			CiAssert.isNotNull( project.resolveLevel("LevelTest") );
@@ -21,7 +26,7 @@ class Main {
 			CiAssert.isNotNull( project.levels[0].l_IntGridTest );
 
 			// IntGrid layer
-			print("IntGrid...");
+			section("IntGrid...");
 			CiAssert.isNotNull( project.all_levels.LevelTest.l_IntGridTest );
 			CiAssert.isTrue( project.all_levels.LevelTest.l_IntGridTest.type==IntGrid );
 			CiAssert.isTrue( project.all_levels.LevelTest.l_IntGridTest.getInt(0,0)==0 );
@@ -35,11 +40,14 @@ class Main {
 			CiAssert.isFalse( project.all_levels.LevelTest.l_IntGridTest.isCoordValid(999,0) );
 
 			// Entity layer
-			print("Entity...");
+			section("Entity...");
 			CiAssert.isNotNull( project.all_levels.LevelTest.l_EntityTest);
 			CiAssert.isTrue( project.all_levels.LevelTest.l_EntityTest.type==Entities );
 			CiAssert.isTrue( project.all_levels.LevelTest.l_EntityTest.all_Hero.length!=0 );
 			CiAssert.isTrue( project.all_levels.LevelTest.l_EntityTest.all_Mob.length!=0 );
+
+			// Enums
+			section("Enums...");
 			CiAssert.isTrue( project.all_levels.LevelTest.l_EntityTest.all_Hero[0].f_startWeapon==LongBow );
 			CiAssert.isTrue( project.all_levels.LevelTest.l_EntityTest.all_Mob[0].f_type==Trash);
 			CiAssert.isTrue( project.all_levels.LevelTest.l_EntityTest.all_Mob[0].entityType==Mob);
@@ -47,16 +55,16 @@ class Main {
 			CiAssert.isTrue( project.all_levels.LevelTest.l_EntityTest.all_Mob[0].f_lootCount>0);
 
 			// Switch check
-			print("Switch...");
-			switch project.all_levels.LevelTest.l_EntityTest.all_Mob[0].f_lootDrop {
-				case null:
-				case Food:
-				case Gold:
-				case Ammo:
-				case Key:
-				case MachineGun:
-				case LongBow:
-			}
+			section("Switch...");
+			CiAssert.isTrue( switch project.all_levels.LevelTest.l_EntityTest.all_Mob[0].f_lootDrop {
+				case null: false;
+				case Food: false;
+				case Gold: true;
+				case Ammo: false;
+				case Key: false;
+				case MachineGun: false;
+				case LongBow: false;
+			});
 			switch project.all_levels.LevelTest.l_EntityTest.all_Mob[0].f_type {
 				case Trash:
 				case Shooter:
@@ -64,7 +72,7 @@ class Main {
 			}
 
 			// Tile layer
-			print("Tile layer...");
+			section("Tile layer...");
 			CiAssert.isNotNull( project.all_levels.LevelTest.l_TileTest );
 			CiAssert.isNotNull( project.all_levels.LevelTest.resolveLayer("TileTest") );
 			CiAssert.isTrue( project.all_levels.LevelTest.l_TileTest.identifier=="TileTest" );
@@ -73,7 +81,7 @@ class Main {
 			CiAssert.isTrue( project.all_levels.LevelTest.l_TileTest.getTileIdAt(0,9)!=-1 );
 
 			// Tileset
-			print("Tileset...");
+			section("Tileset...");
 			CiAssert.isNotNull( project.all_levels.LevelTest.l_TileTest.tileset );
 			CiAssert.isNotNull( project.all_levels.LevelTest.l_TileTest.tileset.loadAtlasBytes(project) );
 			CiAssert.isTrue( project.all_levels.LevelTest.l_TileTest.tileset.loadAtlasBytes(project).length>0 );
@@ -82,7 +90,7 @@ class Main {
 			CiAssert.isTrue( project.all_levels.LevelTest.l_TileTest.tileset.getAtlasY(1)==0 );
 
 			// Auto-layer
-			print("Auto-Layer...");
+			section("Auto-Layer...");
 			CiAssert.isNotNull( project.all_levels.LevelTest.l_AutoLayerTest );
 			CiAssert.isNotNull( project.all_levels.LevelTest.l_AutoLayerTest.tileset );
 			CiAssert.isNotNull( project.all_levels.LevelTest.l_AutoLayerTest.tileset.loadAtlasBytes(project) );
@@ -90,6 +98,22 @@ class Main {
 			CiAssert.isNotNull( project.all_levels.LevelTest.l_AutoLayerTest.getAutoTiles(1,1) );
 			CiAssert.isTrue( project.all_levels.LevelTest.l_AutoLayerTest.hasAutoTiles(1,1) );
 			CiAssert.isTrue( project.all_levels.LevelTest.l_AutoLayerTest.getAutoTiles(1,1).length>1 );
+
+			// Project in a package
+			section("PROJECT (WITH PACKAGE)...");
+
+			var project = new packageTest.ProjectPackage();
+			CiAssert.isNotNull( project );
+			CiAssert.isNotNull( packageTest.ProjectPackage.Enum_Mobs );
+			CiAssert.isNotNull( packageTest.ProjectPackage.EntityEnum );
+			CiAssert.isNotNull( packageTest.ProjectPackage.Enum_Weapons );
+			CiAssert.isNotNull( packageTest.ProjectPackage.Tileset_Cavernas_by_Adam_Saltsman );
+			CiAssert.isNotNull( project.all_levels );
+			CiAssert.isNotNull( project.all_levels.LevelTest );
+			CiAssert.isTrue( project.all_levels.LevelTest.l_EntityTest.all_Mob.length>0 );
+			CiAssert.isNotNull( project.all_levels.LevelTest.l_EntityTest.all_Mob[0].f_lootDrop );
+			CiAssert.isTrue( project.all_levels.LevelTest.l_EntityTest.all_Hero[0].f_startWeapon == packageTest.ProjectPackage.Enum_Weapons.LongBow );
+
 		}
 		catch( e:Dynamic ) {
 			// Unknown errors
@@ -108,6 +132,11 @@ class Main {
 		#else
 		Sys.exit(1);
 		#end
+	}
+
+	static inline function section(v:String) {
+		print("");
+		print(v);
 	}
 
 	static function print(v:Dynamic) {
