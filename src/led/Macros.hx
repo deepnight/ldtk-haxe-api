@@ -606,11 +606,9 @@ class Macros {
 	}
 
 	static function registerTypeDefinitionModule(typeDef:TypeDefinition, projectFilePath:String) {
-		var mod = typeDef.pack.concat([ typeDef.name ]).join(".");
+		var mod = Context.getLocalModule();
 		Context.defineModule(mod, [typeDef]);
 		Context.registerModuleDependency(mod, projectFilePath);
-
-		// trace("Registered type: "+mod);
 	}
 
 	static inline function error(msg:Dynamic, ?p:Position) : Dynamic {
