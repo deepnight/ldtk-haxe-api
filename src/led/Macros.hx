@@ -298,7 +298,7 @@ class Macros {
 						var parentTypePath : TypePath = { pack: ["led"], name:"Layer_IntGrid" }
 						var layerType : TypeDefinition = {
 							pos : pos,
-							name : modName+"_Layer_"+l.identifier,
+							name : "Layer_"+l.identifier,
 							pack : modPack,
 							kind : TDClass(parentTypePath),
 							fields : (macro class {
@@ -326,7 +326,7 @@ class Macros {
 
 						var layerType : TypeDefinition = {
 							pos : pos,
-							name : modName+"_Layer_"+l.identifier,
+							name : "Layer_"+l.identifier,
 							pack : modPack,
 							kind : TDClass(parentTypePath),
 							fields : (macro class {
@@ -364,7 +364,7 @@ class Macros {
 					var baseEntityComplexType = Context.getType(baseEntityType.name).toComplexType();
 					var layerType : TypeDefinition = {
 						pos : pos,
-						name : modName+"_Layer_"+l.identifier,
+						name : "Layer_"+l.identifier,
 						pack : modPack,
 						kind : TDClass(parentTypePath),
 						fields : (macro class {
@@ -411,7 +411,7 @@ class Macros {
 					var parentTypePath : TypePath = { pack: ["led"], name:"Layer_Tiles" }
 					var layerType : TypeDefinition = {
 						pos : pos,
-						name : modName+"_Layer_"+l.identifier,
+						name : "Layer_"+l.identifier,
 						pack : modPack,
 						kind : TDClass(parentTypePath),
 						fields : (macro class {
@@ -457,8 +457,7 @@ class Macros {
 				}
 
 				override function _instanciateLayer(json:led.JsonTypes.LayerInstJson) {
-					var c = Type.resolveClass($v{mod}+"_Layer_"+json.__identifier);
-					// trace( "Layer class: "+$v{mod}+"_Layer_"+json.__identifier +" => "+(c!=null?"Found":"ERROR!!"));
+					var c = Type.resolveClass($v{modPack.concat(["Layer_"]).join(".")}+json.__identifier);
 					if( c==null )
 						return null;
 					else
@@ -480,7 +479,7 @@ class Macros {
 			levelType.fields.push({
 				name: "l_"+l.identifier,
 				access: [APublic],
-				kind: FVar( Context.getType(mod+"_Layer_"+l.identifier).toComplexType() ),
+				kind: FVar( Context.getType("Layer_"+l.identifier).toComplexType() ),
 				doc: l.type+" layer",
 				pos: pos,
 			});
