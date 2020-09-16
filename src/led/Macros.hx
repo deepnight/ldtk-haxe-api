@@ -202,7 +202,7 @@ class Macros {
 			var parentTypePath : TypePath = { pack: baseEntityType.pack, name:baseEntityType.name }
 			var entityType : TypeDefinition = {
 				pos : pos,
-				name : modName+"_Entity_"+e.identifier,
+				name : "Entity_"+e.identifier,
 				pack : modPack,
 				kind : TDClass(parentTypePath),
 				fields : (macro class {
@@ -373,8 +373,7 @@ class Macros {
 							}
 
 							override function _instanciateEntity(json) {
-								var c = Type.resolveClass($v{mod}+"_Entity_"+json.__identifier);
-								// trace( "Entity class: "+$v{mod}+"_Entity_"+json.__identifier +" => "+(c!=null?"Found":"ERROR!!"));
+								var c = Type.resolveClass($v{modPack.concat(["Entity_"]).join(".")}+json.__identifier);
 								if( c==null )
 									return null;
 								else
@@ -392,7 +391,7 @@ class Macros {
 
 					// Typed entity-arrays getters
 					for(e in json.defs.entities) {
-						var entityComplexType = Context.getType(mod+"_Entity_"+e.identifier).toComplexType();
+						var entityComplexType = Context.getType("Entity_"+e.identifier).toComplexType();
 						layerType.fields.push({
 							name: "all_"+e.identifier,
 							access: [APublic],
