@@ -4,7 +4,7 @@ class Demo {
 	static function main() {
 		var project = new _Project();
 
-		var myLevel = project.all_levels.LevelTest;
+		var myLevel = project.all_levels.MyFirstLevel;
 
 		// IntGrid layer access
 		var layer = myLevel.l_IntGridTest;

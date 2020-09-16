@@ -14,7 +14,7 @@ class HeapsIntGridLayer extends hxd.App {
 		var project = new _Project();
 
 		// Layer data
-		var layer = project.all_levels.LevelTest.l_IntGridTest;
+		var layer = project.all_levels.MyFirstLevel.l_IntGridTest;
 
 		// Render background
 		var g = new h2d.Graphics(s2d);

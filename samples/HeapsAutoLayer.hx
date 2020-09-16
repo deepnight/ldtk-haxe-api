@@ -16,7 +16,7 @@ class HeapsAutoLayer extends hxd.App {
 		var project = new _Project();
 
 		// Layer data
-		var layer = project.all_levels.LevelTest.l_AutoLayerTest;
+		var layer = project.all_levels.MyFirstLevel.l_AutoLayerTest;
 
 		// Load atlas h2d.Tile from the disk
 		var atlasTile = layer.tileset.loadAtlasTile(project);
