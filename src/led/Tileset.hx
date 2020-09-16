@@ -104,6 +104,16 @@ class Tileset {
 			};
 		}
 	}
+
+	/**
+		Get a h2d.Tile from a Auto-Layer tile.
+	**/
+	public inline function getAutoLayerH2dTile(atlasTile:h2d.Tile, autoLayerTile:led.Layer_IntGrid_AutoLayer.AutoTile) : Null<h2d.Tile> {
+		if( autoLayerTile.tileId<0 )
+			return null;
+		else
+			return getH2dTile(atlasTile, autoLayerTile.tileId, autoLayerTile.flips);
+	}
 	#end
 
 }
