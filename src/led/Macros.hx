@@ -38,6 +38,11 @@ class Macros {
 		#end
 		var projectFields : Array<Field> = [];
 
+		// Create a package name from the Module name
+		// var firstLetterReg = ~/(_*[A-Z])([A-Za-z_0-9]*)/g;
+		// firstLetterReg.match(mod);
+		// var projectTypesPack = firstLetterReg.matched(1).toLowerCase() + firstLetterReg.matched(2);
+
 		// Read JSON
 		timer("json");
 		var json : ProjectJson =
@@ -53,7 +58,7 @@ class Macros {
 		timer("localEnums");
 		for(e in json.defs.enums) {
 			var enumTypeDef : TypeDefinition = {
-				name: modName+"_Enum_"+e.identifier,
+				name: "Enum_"+e.identifier,
 				pack: modPack,
 				kind: TDEnum,
 				pos: pos,
@@ -161,7 +166,7 @@ class Macros {
 				public var entityType : $entityEnumType;
 
 				override public function new(json) {
-					this._enumTypePrefix = $v{mod+"_Enum_"};
+					this._enumTypePrefix = "Enum_"; // TODO simplify that
 					super(json);
 
 					entityType = Type.createEnum($entityEnumRef, json.__identifier);
@@ -228,7 +233,7 @@ class Macros {
 
 					case _.indexOf("LocalEnum.") => 0:
 						var type = f.__type.substr( f.__type.indexOf(".")+1 );
-						var enumType = Context.getType( modName+"_Enum_"+type ).toComplexType();
+						var enumType = Context.getType( "Enum_"+type ).toComplexType();
 						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<$enumType>) : (macro : $enumType) });
 
 					case _.indexOf("ExternEnum.") => 0:
@@ -262,7 +267,7 @@ class Macros {
 			var parentTypePath : TypePath = { pack: ["led"], name:"Tileset" }
 			var tilesetType : TypeDefinition = {
 				pos : pos,
-				name : modName+"_Tileset_"+e.identifier,
+				name : "Tileset_"+e.identifier,
 				pack : modPack,
 				kind : TDClass(parentTypePath),
 				fields : (macro class {
