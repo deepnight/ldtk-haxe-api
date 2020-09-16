@@ -12,6 +12,9 @@ This is the Haxe API to load **LEd Project JSON** files.
 ## Features
 
  - **Completely typed at compilation**: if you rename any element in your project (ie. level, layer, entity, etc.), the corresponding references in your code will break accordingly, avoiding typical errors or mistypings.
+ - **Full completion in VScode**: if you have vs-haxe installed, you will get full completion while exploring your project file, based on its actual content, right from VScode.
+ 
+# Usage
  
 ## Install 
 
