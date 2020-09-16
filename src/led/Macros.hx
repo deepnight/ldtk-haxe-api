@@ -1,10 +1,12 @@
 package led;
 
-#if macro
+#if( !macro && !display )
+#error "This class should not be used outside of macros"
+#end
+
 import haxe.macro.Context;
 import haxe.macro.Expr;
 using haxe.macro.Tools;
-#end
 
 import led.JsonTypes;
 
@@ -16,15 +18,14 @@ class Macros {
 	#end
 
 	public static function buildTypes(projectFilePath:String) {
-		#if !macro
-		throw "This can only be called in a macro";
-		#else
-
 		// Read project file
 		timer("read");
+		if( !sys.FileSystem.exists(projectFilePath) )
+			error("File not found "+projectFilePath);
+
 		var fileContent =
 			try sys.io.File.read(projectFilePath).readAll().toString()
-			catch(e:Dynamic) error("Couldn't read "+projectFilePath);
+			catch(e:Dynamic) error("Couldn't read file content "+projectFilePath);
 
 		// Init stuff
 		locateCache = new Map();
@@ -39,7 +40,13 @@ class Macros {
 
 		// Read JSON
 		timer("json");
-		var json : ProjectJson = haxe.Json.parse(fileContent);
+		var json : ProjectJson =
+			try haxe.Json.parse(fileContent)
+			catch(e:Dynamic) {
+				var jsonPos = Context.makePosition({ min:0, max:0, file:projectFilePath });
+				Context.info("Couldn't parse JSON "+projectFilePath, jsonPos);
+				error("Failed to parse project JSON");
+			}
 
 
 		// Create project custom Enums
@@ -550,12 +557,10 @@ class Macros {
 
 		timer("end");
 		return macro : Void;
-		#end
 	}
 
 
 
-	#if macro
 	static var hexColorReg = ~/^#([0-9abcdefABCDEF]{6})$/g;
 
 	// Search a file in all classPaths + sub folders
@@ -641,6 +646,5 @@ class Macros {
 		// _t = haxe.Timer.stamp();
 		#end
 	}
-	#end
 }
 
