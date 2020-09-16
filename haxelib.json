@@ -4,9 +4,9 @@
   "license": "Apache",
   "tags": ["Haxe","Heaps","Hashlink","L-Ed","api"],
   "description": "The haxe API for LEd JSON files - https://deepnight.net/tools/led-2d-level-editor/",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "classPath": "src/",
-  "releasenote": "Minor fixes",
+  "releasenote": "Added some Heaps related tileset methods",
   "contributors": ["sbenard"],
   "dependencies": {
     "deepnightLibs":""

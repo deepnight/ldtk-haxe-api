@@ -90,7 +90,7 @@ class Tileset {
 
 		"flipBits" can be: 0=no flip, 1=flipX, 2=flipY, 3=bothXY
 	**/
-	public inline function getH2dTile(atlasTile:h2d.Tile, tileId:Int, flipBits:Int=0) : Null<h2d.Tile> {
+	public inline function getHeapsTile(atlasTile:h2d.Tile, tileId:Int, flipBits:Int=0) : Null<h2d.Tile> {
 		if( tileId<0 )
 			return null;
 		else {
@@ -108,11 +108,11 @@ class Tileset {
 	/**
 		Get a h2d.Tile from a Auto-Layer tile.
 	**/
-	public inline function getAutoLayerH2dTile(atlasTile:h2d.Tile, autoLayerTile:led.Layer_IntGrid_AutoLayer.AutoTile) : Null<h2d.Tile> {
+	public inline function getAutoLayerHeapsTile(atlasTile:h2d.Tile, autoLayerTile:led.Layer_IntGrid_AutoLayer.AutoTile) : Null<h2d.Tile> {
 		if( autoLayerTile.tileId<0 )
 			return null;
 		else
-			return getH2dTile(atlasTile, autoLayerTile.tileId, autoLayerTile.flips);
+			return getHeapsTile(atlasTile, autoLayerTile.tileId, autoLayerTile.flips);
 	}
 	#end
 
