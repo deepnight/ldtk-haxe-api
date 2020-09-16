@@ -3,7 +3,7 @@ import externEnums.GameEnums;
 
 class Main {
 	static function main() {
-		print("Starting tests...");
+		print("Running tests...");
 
 		// Run tests
 		try {
