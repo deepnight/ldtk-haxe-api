@@ -11,6 +11,9 @@ class Main {
 		try {
 			section("Project (no package)...");
 			CiAssert.isNotNull( project );
+			CiAssert.isNotNull( ProjectNoPackage.Enum_Mobs );
+			CiAssert.isNotNull( ProjectNoPackage.EntityEnum );
+			CiAssert.isNotNull( ProjectNoPackage.Tileset_Cavernas_by_Adam_Saltsman );
 
 			// Levels
 			section("Levels...");
