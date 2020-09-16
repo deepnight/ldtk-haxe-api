@@ -326,14 +326,14 @@ class Macros {
 										});
 									}
 
-									autoLayerTileset = ${ ts==null ? null : macro new $tsTypePath( $v{ts.json} ) }
+									tileset = ${ ts==null ? null : macro new $tsTypePath( $v{ts.json} ) }
 								}
 							}).fields,
 						}
 
 						// Auto-layer tileset class
 						layerType.fields.push({
-							name: "autoLayerTileset",
+							name: "tileset",
 							access: [APublic],
 							kind: FVar( tsComplexType ),
 							pos: pos,

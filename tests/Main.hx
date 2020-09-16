@@ -82,7 +82,9 @@ class Main {
 			// Auto-layer
 			print("Auto-Layer...");
 			CiAssert.isNotNull( project.all_levels.LevelTest.l_AutoLayerTest );
-			CiAssert.isNotNull( project.all_levels.LevelTest.l_AutoLayerTest.autoLayerTileset );
+			CiAssert.isNotNull( project.all_levels.LevelTest.l_AutoLayerTest.tileset );
+			CiAssert.isNotNull( project.all_levels.LevelTest.l_AutoLayerTest.tileset.loadAtlasBytes(project) );
+			CiAssert.isTrue( project.all_levels.LevelTest.l_AutoLayerTest.tileset.loadAtlasBytes(project).length>0 );
 			CiAssert.isNotNull( project.all_levels.LevelTest.l_AutoLayerTest.getAutoTiles(1,1) );
 			CiAssert.isTrue( project.all_levels.LevelTest.l_AutoLayerTest.hasAutoTiles(1,1) );
 			CiAssert.isTrue( project.all_levels.LevelTest.l_AutoLayerTest.getAutoTiles(1,1).length>1 );
