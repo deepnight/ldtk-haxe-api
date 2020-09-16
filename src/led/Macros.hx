@@ -62,6 +62,7 @@ class Macros {
 			var enumTypeDef : TypeDefinition = {
 				name: "Enum_"+e.identifier,
 				pack: modPack,
+				doc: "Enumeration of all possible "+e.identifier+" values",
 				kind: TDEnum,
 				pos: pos,
 				fields: e.values.map( function(json) : Field {
@@ -160,6 +161,7 @@ class Macros {
 			pos : pos,
 			name : modName+"_Entity",
 			pack : modPack,
+			doc: "Project specific Entity class",
 			kind : TDClass(parentTypePath),
 			fields : (macro class {
 				/**
@@ -203,6 +205,7 @@ class Macros {
 			var entityType : TypeDefinition = {
 				pos : pos,
 				name : "Entity_"+e.identifier,
+				doc: "Specialized Entity class for "+e.identifier,
 				pack : modPack,
 				kind : TDClass(parentTypePath),
 				fields : (macro class {
@@ -271,6 +274,7 @@ class Macros {
 				pos : pos,
 				name : "Tileset_"+e.identifier,
 				pack : modPack,
+				doc: 'Tileset class of atlas "${e.relPath}"',
 				kind : TDClass(parentTypePath),
 				fields : (macro class {
 					override public function new(json) {
@@ -300,6 +304,7 @@ class Macros {
 							pos : pos,
 							name : "Layer_"+l.identifier,
 							pack : modPack,
+							doc: "IntGrid layer",
 							kind : TDClass(parentTypePath),
 							fields : (macro class {
 								override public function new(json) {
@@ -328,6 +333,7 @@ class Macros {
 							pos : pos,
 							name : "Layer_"+l.identifier,
 							pack : modPack,
+							doc: "IntGrid layer with auto-layer capabilities",
 							kind : TDClass(parentTypePath),
 							fields : (macro class {
 								override public function new(json) {
@@ -365,6 +371,7 @@ class Macros {
 					var layerType : TypeDefinition = {
 						pos : pos,
 						name : "Layer_"+l.identifier,
+						doc: "Entity layer",
 						pack : modPack,
 						kind : TDClass(parentTypePath),
 						fields : (macro class {
@@ -413,6 +420,7 @@ class Macros {
 						pos : pos,
 						name : "Layer_"+l.identifier,
 						pack : modPack,
+						doc: "Tile layer",
 						kind : TDClass(parentTypePath),
 						fields : (macro class {
 							override public function new(json) {
@@ -446,6 +454,7 @@ class Macros {
 			pos : pos,
 			name : modName+"_Level",
 			pack : modPack,
+			doc: "Project specific Level class",
 			kind : TDClass(parentTypePath),
 			fields : (macro class {
 				override public function new(json) {
