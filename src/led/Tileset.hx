@@ -57,6 +57,7 @@ class Tileset {
 		return Std.int( tileId / cWid ) * tileGridSize;
 	}
 
+	#if sys
 	/**
 		Read the atlas image haxe.io.Bytes from the disk
 	**/
@@ -70,6 +71,7 @@ class Tileset {
 			return null;
 		}
 	}
+	#end
 
 
 	#if heaps
