@@ -7,6 +7,13 @@ using haxe.macro.Tools;
 #end
 
 class Project {
+	/** Contains the full path to the project JSON, as provided to the macro (using slashes) **/
+	public var projectFilePath : String;
+
+	/** Contains the directory of the project JSON (using slashes, no trailing slash) **/
+	public var projectDir : Null<String>;
+
+	/** Project name **/
 	public var name : String;
 	var _untypedLevels : Array<led.Level>;
 

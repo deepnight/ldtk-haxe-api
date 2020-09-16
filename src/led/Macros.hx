@@ -501,6 +501,8 @@ class Macros {
 
 		// Create Project extended class
 		timer("projectClass");
+		var projectDir = StringTools.replace(projectFilePath, "\\", "/");
+		projectDir = projectDir.indexOf("/")<0 ? null : projectDir.substring(0, projectDir.lastIndexOf("/"));
 		var parentTypePath : TypePath = { pack: ["led"], name:"Project" }
 		var levelTypePath : TypePath = { pack:modPack, name:levelType.name }
 		var projectClass : TypeDefinition = {
@@ -515,6 +517,8 @@ class Macros {
 				**/
 				override public function new(?overrideEmbedJson:String) {
 					super();
+					projectDir = $v{projectDir};
+					projectFilePath = $v{projectFilePath};
 					parseJson( overrideEmbedJson!=null ? overrideEmbedJson : $v{fileContent} );
 				}
 
