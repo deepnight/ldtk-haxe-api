@@ -9,14 +9,17 @@ class Main {
 		try {
 			var project = new CiTestProject();
 
+			print("Project...");
 			CiAssert.isNotNull( project );
 
 			// Levels
+			print("Levels...");
 			CiAssert.isNotNull( project.all_levels );
 			CiAssert.isNotNull( project.all_levels.LevelTest );
 			CiAssert.isNotNull( project.resolveLevel("LevelTest") );
 
 			// IntGrid layer
+			print("IntGrid...");
 			CiAssert.isNotNull( project.all_levels.LevelTest.l_IntGridTest );
 			CiAssert.isTrue( project.all_levels.LevelTest.l_IntGridTest.type==IntGrid );
 			CiAssert.isTrue( project.all_levels.LevelTest.l_IntGridTest.getInt(0,0)==0 );
@@ -30,6 +33,7 @@ class Main {
 			CiAssert.isFalse( project.all_levels.LevelTest.l_IntGridTest.isCoordValid(999,0) );
 
 			// Entity layer
+			print("Entity...");
 			CiAssert.isNotNull( project.all_levels.LevelTest.l_EntityTest);
 			CiAssert.isTrue( project.all_levels.LevelTest.l_EntityTest.type==Entities );
 			CiAssert.isTrue( project.all_levels.LevelTest.l_EntityTest.all_Hero.length!=0 );
@@ -41,6 +45,7 @@ class Main {
 			CiAssert.isTrue( project.all_levels.LevelTest.l_EntityTest.all_Mob[0].f_lootCount>0);
 
 			// Switch check
+			print("Switch...");
 			switch project.all_levels.LevelTest.l_EntityTest.all_Mob[0].f_lootDrop {
 				case null:
 				case Food:
@@ -57,15 +62,25 @@ class Main {
 			}
 
 			// Tile layer
+			print("Tile layer...");
 			CiAssert.isNotNull( project.all_levels.LevelTest.l_TileTest );
 			CiAssert.isNotNull( project.all_levels.LevelTest.resolveLayer("TileTest") );
-			CiAssert.isNotNull( project.all_levels.LevelTest.l_TileTest.tileset );
 			CiAssert.isTrue( project.all_levels.LevelTest.l_TileTest.identifier=="TileTest" );
 			CiAssert.isTrue( project.all_levels.LevelTest.l_TileTest.type==Tiles );
 			CiAssert.isTrue( project.all_levels.LevelTest.l_TileTest.getTileIdAt(0,0)==-1 );
 			CiAssert.isTrue( project.all_levels.LevelTest.l_TileTest.getTileIdAt(0,9)!=-1 );
 
+			// Tileset
+			print("Tileset...");
+			CiAssert.isNotNull( project.all_levels.LevelTest.l_TileTest.tileset );
+			CiAssert.isNotNull( project.all_levels.LevelTest.l_TileTest.tileset.loadAtlasBytes(project) );
+			CiAssert.isTrue( project.all_levels.LevelTest.l_TileTest.tileset.loadAtlasBytes(project).length>0 );
+			var gridSize = project.all_levels.LevelTest.l_TileTest.tileset.tileGridSize;
+			CiAssert.isTrue( project.all_levels.LevelTest.l_TileTest.tileset.getAtlasX(1)==gridSize );
+			CiAssert.isTrue( project.all_levels.LevelTest.l_TileTest.tileset.getAtlasY(1)==0 );
+
 			// Auto-layer
+			print("Auto-Layer...");
 			CiAssert.isNotNull( project.all_levels.LevelTest.l_AutoLayerTest );
 			CiAssert.isNotNull( project.all_levels.LevelTest.l_AutoLayerTest.autoLayerTileset );
 			CiAssert.isNotNull( project.all_levels.LevelTest.l_AutoLayerTest.getAutoTiles(1,1) );
@@ -78,6 +93,7 @@ class Main {
 			die();
 		}
 
+		print("");
 		print("Success.");
 	}
 
