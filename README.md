@@ -8,6 +8,8 @@ This is the Haxe API to load **LEd Project JSON** files.
 
 [LEd official page](https://deepnight.net/tools/led-2d-level-editor)
 
+[![Build Status](https://travis-ci.com/deepnight/led-haxe-api.svg?branch=master)](https://travis-ci.com/deepnight/led-haxe-api)
+
 
 ## Features
 
