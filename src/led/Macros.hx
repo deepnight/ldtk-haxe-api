@@ -33,6 +33,8 @@ class Macros {
 		var mod = Context.getLocalModule();
 		var modPack = mod.split(".");
 		var modName = modPack.pop();
+		// if( modPack.length==0 )
+			// warning("It is recommended to move this file to its own package to avoid potential name conflicts.");
 		#if debug
 		_curMod = modName;
 		#end
@@ -76,8 +78,8 @@ class Macros {
 
 		// Create an enum to represent all Entity IDs
 		timer("entityIds");
-		var entityEnum : TypeDefinition = {
-			name: modName+"_EntityEnum",
+		var allEntitiesEnum : TypeDefinition = {
+			name: "EntityEnum",
 			pack: modPack,
 			kind: TDEnum,
 			doc: "An enum representing all Entity IDs",
@@ -90,7 +92,7 @@ class Macros {
 				}
 			}),
 		}
-		registerTypeDefinitionModule(entityEnum, projectFilePath);
+		registerTypeDefinitionModule(allEntitiesEnum, projectFilePath);
 
 
 		// Link external HX Enums to actual HX files
@@ -101,13 +103,13 @@ class Macros {
 			var p = new haxe.io.Path(e.externalRelPath);
 			var fileName = p.file+"."+p.ext;
 			switch p.ext {
-				case null: // (should not happen, as the extension is enforced in editor)
+				case null: // (should not happen, as the file extension is enforced in editor)
 
 				case _.toLowerCase()=>"hx":
 					// HX files
 					var path = locateFile(fileName);
 					if( path==null ) {
-						error("External Enum file \""+fileName+"\" found in LED Project but it can't be found in the current classPaths.");
+						error("External Enum file \""+fileName+"\" is used in LED Project but it can't be found in the current classPaths.");
 						continue;
 					}
 
@@ -147,9 +149,9 @@ class Macros {
 		}
 
 		// Create a base Entity class for this project (with enum type)
-		var entityEnumType = Context.getType(entityEnum.name).toComplexType();
+		var entityEnumType = Context.getType(allEntitiesEnum.name).toComplexType();
 		var entityEnumRef : Expr = {
-			expr: EConst(CIdent( entityEnum.name )),
+			expr: EConst(CIdent( allEntitiesEnum.name )),
 			pos:pos,
 		}
 
@@ -166,7 +168,7 @@ class Macros {
 				public var entityType : $entityEnumType;
 
 				override public function new(json) {
-					this._enumTypePrefix = "Enum_"; // TODO simplify that
+					this._enumTypePrefix = $v{modPack.concat(["Enum_"]).join(".")};
 					super(json);
 
 					entityType = Type.createEnum($entityEnumRef, json.__identifier);
