@@ -17,6 +17,8 @@ class Main {
 			CiAssert.isNotNull( project.all_levels );
 			CiAssert.isNotNull( project.all_levels.LevelTest );
 			CiAssert.isNotNull( project.resolveLevel("LevelTest") );
+			CiAssert.isTrue( project.levels.length>0 );
+			CiAssert.isNotNull( project.levels[0].l_IntGridTest );
 
 			// IntGrid layer
 			print("IntGrid...");

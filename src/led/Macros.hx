@@ -512,12 +512,14 @@ class Macros {
 		projectDir = projectDir.indexOf("/")<0 ? null : projectDir.substring(0, projectDir.lastIndexOf("/"));
 		var parentTypePath : TypePath = { pack: ["led"], name:"Project" }
 		var levelTypePath : TypePath = { pack:modPack, name:levelType.name }
+		var levelComplexType = Context.getType(levelType.name).toComplexType();
 		var projectClass : TypeDefinition = {
 			pos : pos,
 			name : modName,
 			pack : modPack,
 			kind : TDClass(parentTypePath),
 			fields : (macro class {
+				public var levels : Array<$levelComplexType> = [];
 
 				/**
 					If "overrideEmbedJson is provided, the embedded JSON from compilation-time will be ignored, and this JSON will be used instead.
@@ -531,6 +533,8 @@ class Macros {
 
 				override function parseJson(json) {
 					super.parseJson(json);
+
+					levels = cast _untypedLevels.copy();
 
 					// Init levels quick access
 					for(l in _untypedLevels)
