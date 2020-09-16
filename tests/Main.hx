@@ -6,9 +6,9 @@ class Main {
 		print("Running tests...");
 
 		// Run tests
-		try {
-			var project = new ProjectNoPackage();
+		var project = new ProjectNoPackage();
 
+		try {
 			section("Project (no package)...");
 			CiAssert.isNotNull( project );
 
