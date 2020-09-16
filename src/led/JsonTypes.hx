@@ -2,6 +2,7 @@ package led;
 
 typedef ProjectJson = {
 	var name : String;
+	var bgColor : String;
 
 	var levels : Array<LevelJson>;
 	var defs : {
