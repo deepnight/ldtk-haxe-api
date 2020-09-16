@@ -27,7 +27,7 @@ haxelib install led-haxe-api
 
 Please check the **full documentation and tutorials** here:
 
-https://deepnight.net/docs/led-documentation/json-format/haxe-api/
+https://deepnight.net/docs/led-documentation/dev/haxe-api/
 
 ## Demo & samples
 
