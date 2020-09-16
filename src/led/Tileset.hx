@@ -13,6 +13,7 @@ class Tileset {
 	var pxHei : Int;
 	var cWid(get,never) : Int; inline function get_cWid() return dn.M.ceil(pxWid/tileGridSize);
 
+
 	public function new(json:led.JsonTypes.TilesetDefJson) {
 		identifier = json.identifier;
 		tileGridSize = json.tileGridSize;
@@ -21,18 +22,6 @@ class Tileset {
 		pxHei = json.pxHei;
 	}
 
-
-	// /**
-	// 	Return TRUE if the tileset atlas image is properly loaded and ready for tiles extraction
-	// **/
-	// public function isAtlasLoaded() {
-	// 	return false;
-	// }
-
-	// inline function _requireAtlas() {
-	// 	if( !isAtlasLoaded() )
-	// 		throw "Tileset atlas image should be loaded first!";
-	// }
 
 	// Search a file in all classPaths + sub folders
 	// function locateResFile(searchFileName:String) : Null<String> {
@@ -68,8 +57,32 @@ class Tileset {
 		return Std.int( tileId / cWid ) * tileGridSize;
 	}
 
+	/**
+		Read the atlas image haxe.io.Bytes from the disk
+	**/
+	public function loadAtlasBytes(project:led.Project) : Null<haxe.io.Bytes> {
+		try {
+			var path = dn.FilePath.fromFile(project.projectDir+"/"+relPath);
+			var fi = sys.io.File.read(path.full,true);
+			return fi.readAll();
+		}
+		catch(e:Dynamic) {
+			return null;
+		}
+	}
+
 
 	#if heaps
+
+	/**
+		Read the atlas h2d.Tile directly from the file
+	**/
+	public function loadAtlasTile(project:led.Project) : Null<h2d.Tile> {
+		var bytes = loadAtlasBytes(project);
+		var tile = dn.ImageDecoder.decodeTile(bytes);
+		return tile;
+	}
+
 	/**
 		Get a h2d.Tile from a Tile ID.
 
