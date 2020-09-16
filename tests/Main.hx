@@ -9,7 +9,9 @@ class Main {
 		var project = new ProjectNoPackage();
 
 		try {
-			section("Project (no package)...");
+			section("PROJECT (NO PACKAGE)...");
+
+			section("Project...");
 			CiAssert.isNotNull( project );
 			CiAssert.isNotNull( ProjectNoPackage.Enum_Mobs );
 			CiAssert.isNotNull( ProjectNoPackage.EntityEnum );
@@ -98,13 +100,19 @@ class Main {
 			CiAssert.isTrue( project.all_levels.LevelTest.l_AutoLayerTest.getAutoTiles(1,1).length>1 );
 
 			// Project in a package
-			section("Project (with package)...");
+			section("PROJECT (WITH PACKAGE)...");
 
 			var project = new packageTest.ProjectPackage();
 			CiAssert.isNotNull( project );
 			CiAssert.isNotNull( packageTest.ProjectPackage.Enum_Mobs );
 			CiAssert.isNotNull( packageTest.ProjectPackage.EntityEnum );
+			CiAssert.isNotNull( packageTest.ProjectPackage.Enum_Weapons );
 			CiAssert.isNotNull( packageTest.ProjectPackage.Tileset_Cavernas_by_Adam_Saltsman );
+			CiAssert.isNotNull( project.all_levels );
+			CiAssert.isNotNull( project.all_levels.LevelTest );
+			CiAssert.isTrue( project.all_levels.LevelTest.l_EntityTest.all_Mob.length>0 );
+			CiAssert.isNotNull( project.all_levels.LevelTest.l_EntityTest.all_Mob[0].f_lootDrop );
+			CiAssert.isTrue( project.all_levels.LevelTest.l_EntityTest.all_Hero[0].f_startWeapon == packageTest.ProjectPackage.Enum_Weapons.LongBow );
 
 		}
 		catch( e:Dynamic ) {
