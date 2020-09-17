@@ -19,7 +19,7 @@ class HeapsAutoLayer extends hxd.App {
 		var layer = project.all_levels.MyFirstLevel.l_AutoLayerTest;
 
 		// Load atlas h2d.Tile from the disk
-		var atlasTile = layer.tileset.loadAtlasTile(project);
+		var atlasTile = hxd.Res.Cavernas_by_Adam_Saltsman.toTile();
 
 		for( cx in 0...layer.cWid )
 		for( cy in 0...layer.cHei )

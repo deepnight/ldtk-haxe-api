@@ -2,5 +2,5 @@
 tests/bin
 samples/bin
 samples/*.hxml
-!samples/gen.hxml
+samples/*.html
 dump

@@ -1,2 +1,2 @@
 -cp samples
---macro HxmlGenerator.run()
+--macro SampleHxmlGen.run()

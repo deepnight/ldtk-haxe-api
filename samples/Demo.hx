@@ -9,21 +9,22 @@ class Demo {
 		// IntGrid layer access
 		var layer = myLevel.l_IntGridTest;
 		for( cy in 0...layer.cHei ) {
+			var row = "";
 			for( cx in 0...layer.cWid )
 				if( layer.hasValue(cx,cy) )
-					Sys.print("#");
+					row+="#";
 				else
-					Sys.print(".");
-			Sys.println("");
+					row+=".";
+			print(row+"  "+cy);
 		}
 
 		// Entity access
 		for( mobEntity in myLevel.l_EntityTest.all_Mob )
-			Sys.println(mobEntity.identifier+" => elite="+mobEntity.f_elite);
+			print(mobEntity.identifier+" => elite="+mobEntity.f_elite);
 
 		// Enums
 		for( mobEntity in myLevel.l_EntityTest.all_Mob )
-			Sys.println(
+			print(
 				mobEntity.identifier+" => loot="+
 				switch mobEntity.f_lootDrop {
 					case null: "no loot";
@@ -35,6 +36,17 @@ class Demo {
 					case LongBow: "elven long bow";
 				}
 			);
+	}
+
+
+	static function print(msg:String) {
+		#if sys
+		Sys.println(msg);
+		#elseif js
+		js.html.Console.info(msg);
+		#else
+		trace(msg);
+		#end
 	}
 }
 
