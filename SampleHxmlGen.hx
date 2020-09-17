@@ -17,41 +17,53 @@ class SampleHxmlGen {
 			return f.indexOf(".hx")==f.length-3 && f.charAt(0)!="_";
 		});
 
+		var removeCmdRegEx = ~/--cmd (.*$)/gm;
 		var hxmls = [];
 		for(f in hxFiles) {
 			var name = f.substring(0, f.indexOf(".hx"));
 
 			// Build HXML
 			Sys.println('Creating $name.hxml...');
-			var hxml = BASE_HXML.copy();
-			hxml.push('-main $name');
-			hxml.push('-js bin/$name.js');
-			hxml.push('--cmd start $name.html');
-			sys.io.File.saveContent('$dir/$name.hxml', hxml.join("\n") );
+			var hxml = StringTools.replace(BASE_HXML, "%%", name);
+			hxml = StringTools.replace(hxml, "\t", "");
+			sys.io.File.saveContent('$dir/$name.hxml', hxml );
 
 			// Build HTML
 			Sys.println('Creating $name.html...');
 			var html = StringTools.replace( BASE_HTML, "%%", name );
 
 			sys.io.File.saveContent('$dir/$name.html', html );
-			hxmls.push( hxml.filter( function(line) return line.indexOf("--cmd")<0 ) );
+			hxmls.push( removeCmdRegEx.replace(hxml, "") );
 		}
 
-		var all = hxmls.map( function(hxml) return hxml.join("\n") ).join("\n\n--next\n");
+		var all = hxmls.join("--next\n");
 		sys.io.File.saveContent('$dir/all.hxml', all);
 
 		Sys.println('Generated ${hxmls.length} sample build files successfully.');
 	}
 
 
-	static var BASE_HXML = [
-		"-cp .",
-		"-cp ../src",
-		"-lib heaps",
-		"-lib deepnightLibs",
-		"-D resourcesPath=res",
-		"--dce full",
-	];
+	static var BASE_HXML = "
+		# %% (Javascript/WebGL)
+		-cp .
+		-cp ../src
+		-lib heaps
+		-lib deepnightLibs
+		--dce full
+		-main %%
+		-js bin/%%.js
+		--cmd %%.html
+
+		# %% (Hashlink)
+		--next
+		-cp .
+		-cp ../src
+		-lib heaps
+		-lib deepnightLibs
+		--dce full
+		-main %%
+		-hl bin/%%.hl
+	";
 
 
 	public static function print(msg:String) {

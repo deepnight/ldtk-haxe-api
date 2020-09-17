@@ -30,9 +30,13 @@ Please check the **full documentation and tutorials** here:
 
 https://deepnight.net/docs/led-documentation/haxe-api/
 
-## Demo & samples
+## Samples
 
 You can check the sample HX files in [samples](samples) folder.
+
+### Building samples
+
+Samples are built to WebGL/Javascript and Hashlink targets, but you can try them on other platforms too.
 
 To build them, you will first need both **Heaps** and **deepnightLibs** installed:
 
@@ -51,7 +55,7 @@ This will create all the build files for each sample, then compile all of them.
 
 To run one, use open the corresponding HTML file in a browser. You might need to check the browser console to see some outputs.
 
-If you need to compile a single sample:
+If you need to re-compile a single sample:
 
 ```
 cd samples
