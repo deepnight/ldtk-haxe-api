@@ -16,15 +16,15 @@ This is the Haxe API to load **LEd Project JSON** files.
 
  - **Completely typed at compilation**: if you rename any element in your project (ie. level, layer, entity, etc.), the corresponding references in your code will break accordingly, avoiding typical errors or mistypings.
  - **Full completion in VScode**: if you have vs-haxe installed, you will get full completion while exploring your project file, based on its actual content, right from VScode.
- 
+
 # Usage
- 
-## Install 
+
+## Install
 
 ```
 haxelib install led-haxe-api
 ```
-## Documentation 
+## Documentation
 
 Please check the **full documentation and tutorials** here:
 
@@ -32,15 +32,26 @@ https://deepnight.net/docs/led-documentation/haxe-api/
 
 ## Demo & samples
 
-You can check the sample HX files in [samples](samples) folder. You can also build them by following these simple steps:
+You can check the sample HX files in [samples](samples) folder.
 
-Step 1: Generate the HXML files for each sample:
+To build them, you will first need both **Heaps** and **deepnightLibs** installed:
+
+```
+haxelib git heaps https://github.com/HeapsIO/heaps.git
+haxelib git deepnightLibs https://github.com/deepnight/deepnightLibs.git
+```
+
+Then run:
 
 ```
 haxe genSamples.hxml
 ```
 
-Step 2: Build & test a sample (requires HashLink):
+This will create all the build files for each sample, then compile all of them.
+
+To run one, use open the corresponding HTML file in a browser. You might need to check the browser console to see some outputs.
+
+If you need to compile a single sample:
 
 ```
 cd samples
