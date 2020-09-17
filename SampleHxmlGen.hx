@@ -89,7 +89,7 @@ class SampleHxmlGen {
 						height: 480px;
 						margin: 20px;
 						border: 1px solid white;
-						background-color: black;
+						background-color: #555;
 					}
 					#error {
 						display: none;
