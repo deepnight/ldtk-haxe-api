@@ -7,15 +7,6 @@ class SampleHxmlGen {
 	public static function run() {
 		var dir = "samples"; // no trailing "/"
 
-		var baseHxml = [
-			"-cp .",
-			"-cp ../src",
-			"-lib heaps",
-			"-lib deepnightLibs",
-			"-D resourcesPath=res",
-			"--dce full",
-		];
-
 		// List all sample files
 		var hxFiles = sys.FileSystem.readDirectory(dir).filter( function(f) {
 			return f.indexOf(".hx")==f.length-3 && f.charAt(0)!="_";
@@ -27,7 +18,7 @@ class SampleHxmlGen {
 			Sys.println('Creating $name.hxml...');
 
 			// Build HXML
-			var hxml = baseHxml.copy();
+			var hxml = BASE_HXML.copy();
 			hxml.push('-main $name');
 			hxml.push('-js bin/$name.js');
 			hxml.push('--cmd start $name.html');
@@ -46,6 +37,16 @@ class SampleHxmlGen {
 		Sys.println("");
 		Sys.println('Generated ${hxmls.length} sample HXMLs successfully.');
 	}
+
+
+	static var BASE_HXML = [
+		"-cp .",
+		"-cp ../src",
+		"-lib heaps",
+		"-lib deepnightLibs",
+		"-D resourcesPath=res",
+		"--dce full",
+	];
 
 
 	static var BASE_HTML = '
