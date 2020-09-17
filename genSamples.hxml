@@ -1,2 +1,9 @@
 -cp samples
 --macro SampleHxmlGen.run()
+--macro SampleHxmlGen.print("Compiling all samples...")
+
+--next
+--cmd haxe -C samples all.hxml
+
+--next
+--macro SampleHxmlGen.print("Done!")
