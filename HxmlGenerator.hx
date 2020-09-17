@@ -1,4 +1,9 @@
-class _HxmlGenerator {
+/**
+	NOTE: this class isn't a sample nor a demo.
+	It generates the samples HXMLs automatically using a macro.
+**/
+
+class HxmlGenerator {
 	public static function run() {
 		var dir = "samples"; // no trailing "/"
 
