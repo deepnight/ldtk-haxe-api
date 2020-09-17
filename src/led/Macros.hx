@@ -149,7 +149,8 @@ class Macros {
 			pos: pos,
 		}
 
-		// Create a base Entity class for this project (with enum type)
+
+		// Base Entity class for this project (with enum type)
 		var entityEnumType = Context.getType(allEntitiesEnum.name).toComplexType();
 		var entityEnumRef : Expr = {
 			expr: EConst(CIdent( allEntitiesEnum.name )),
@@ -187,13 +188,13 @@ class Macros {
 		}
 
 		// Dirty way to force compiler to keep/import these classes
-		for(e in externEnumTypes.keyValueIterator())
-			baseEntityType.fields.push({
-				name: "_extEnum_"+e.key,
-				pos: pos,
-				kind: FVar( e.value.ct ),
-				access: [],
-			});
+		// for(e in externEnumTypes.keyValueIterator())
+		// 	baseEntityType.fields.push({
+		// 		name: "_extEnum_"+e.key,
+		// 		pos: pos,
+		// 		kind: FVar( e.value.ct ),
+		// 		access: [],
+		// 	});
 		registerTypeDefinitionModule(baseEntityType, projectFilePath);
 
 
@@ -468,7 +469,7 @@ class Macros {
 				override function _instanciateLayer(json:led.JsonTypes.LayerInstJson) {
 					var c = Type.resolveClass($v{modPack.concat(["Layer_"]).join(".")}+json.__identifier);
 					if( c==null )
-						return null;
+						throw "Couldn't instanciate layer "+json.__identifier;
 					else
 						return cast Type.createInstance(c, [json]);
 				}
@@ -623,6 +624,7 @@ class Macros {
 		var mod = Context.getLocalModule();
 		Context.defineModule(mod, [typeDef]);
 		Context.registerModuleDependency(mod, projectFilePath);
+		haxe.macro.Compiler.keep(mod);
 	}
 
 	static inline function error(msg:Dynamic, ?p:Position) : Dynamic {

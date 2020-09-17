@@ -3,6 +3,7 @@
 -cp src
 -lib deepnightLibs
 -D resourcesPath=samples/res
+--dce full
 -debug
 
 -D dump=pretty

@@ -117,7 +117,8 @@ class Main {
 		}
 		catch( e:Dynamic ) {
 			// Unknown errors
-			print("Unknown error: "+e);
+			section("Exception: "+e);
+			print("");
 			die();
 		}
 
