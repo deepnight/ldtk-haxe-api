@@ -24,7 +24,7 @@
 				"displayOpacity": 1.0,
 				"intGridValues": [ { "identifier": "walls", "color": "#B1C8FB" } ],
 				"autoTilesetDefUid": 46,
-				"rules": [
+				"autoRuleGroups": [
 					{
 						"uid": 59,
 						"name": "Props",
@@ -159,7 +159,7 @@
 				"displayOpacity": 1.0,
 				"intGridValues": [ { "identifier": null, "color": "#000000" } ],
 				"autoTilesetDefUid": null,
-				"rules": [ { "uid": 56, "name": "Default", "active": true, "collapsed": false, "rules": [] } ],
+				"autoRuleGroups": [ { "uid": 56, "name": "Default", "active": true, "collapsed": false, "rules": [] } ],
 				"tilesetDefUid": null,
 				"tilePivotX": 0,
 				"tilePivotY": 0
@@ -172,7 +172,7 @@
 				"displayOpacity": 0.62,
 				"intGridValues": [ { "identifier": "a", "color": "#FFFFFF" }, { "identifier": "b", "color": "#FF0000" }, { "identifier": "c", "color": "#00FF1E" } ],
 				"autoTilesetDefUid": null,
-				"rules": [ { "uid": 57, "name": "Default", "active": true, "collapsed": false, "rules": [] } ],
+				"autoRuleGroups": [ { "uid": 57, "name": "Default", "active": true, "collapsed": false, "rules": [] } ],
 				"tilesetDefUid": null,
 				"tilePivotX": 0,
 				"tilePivotY": 0
@@ -185,7 +185,7 @@
 				"displayOpacity": 1.0,
 				"intGridValues": [ { "identifier": null, "color": "#000000" } ],
 				"autoTilesetDefUid": null,
-				"rules": [ { "uid": 58, "name": "Default", "active": true, "collapsed": false, "rules": [] } ],
+				"autoRuleGroups": [ { "uid": 58, "name": "Default", "active": true, "collapsed": false, "rules": [] } ],
 				"tilesetDefUid": 14,
 				"tilePivotX": 0,
 				"tilePivotY": 0
