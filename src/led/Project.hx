@@ -46,7 +46,7 @@ class Project {
 		var json : led.JsonTypes.ProjectJson = haxe.Json.parse(jsonString);
 		name = json.name;
 		bgColor_hex = json.bgColor;
-		bgColor_int = dn.Color.hexToInt(json.bgColor);
+		bgColor_int = led.Project.hexToInt(json.bgColor);
 
 		_untypedLevels = [];
 		for(json in json.levels)
@@ -56,6 +56,20 @@ class Project {
 
 	function _instanciateLevel(json:led.JsonTypes.LevelJson) {
 		return null; // overriden by Macros.hx
+	}
+
+
+	@:noCompletion
+	public static inline function hexToInt(hex:String) {
+		return Std.parseInt( "0x"+hex.substr(1,999) );
+	}
+
+	@:noCompletion
+	public static inline function intToHex(c:Int, ?leadingZeros=6) : String {
+		var h = StringTools.hex(c);
+		while( h.length<leadingZeros )
+			h="0"+h;
+		return "#"+h;
 	}
 
 

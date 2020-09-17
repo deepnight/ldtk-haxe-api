@@ -11,7 +11,7 @@ class Tileset {
 	public var tileGridSize : Int;
 	var pxWid : Int;
 	var pxHei : Int;
-	var cWid(get,never) : Int; inline function get_cWid() return dn.M.ceil(pxWid/tileGridSize);
+	var cWid(get,never) : Int; inline function get_cWid() return Math.ceil(pxWid/tileGridSize);
 
 
 	public function new(json:led.JsonTypes.TilesetDefJson) {
@@ -57,7 +57,7 @@ class Tileset {
 		return Std.int( tileId / cWid ) * tileGridSize;
 	}
 
-	#if sys
+	#if( sys && deepnightLibs )
 	/**
 		Read the atlas image haxe.io.Bytes from the disk
 	**/
@@ -79,11 +79,13 @@ class Tileset {
 	/**
 		Read the atlas h2d.Tile directly from the file
 	**/
+	#if deepnightLibs
 	public function loadAtlasTile(project:led.Project) : Null<h2d.Tile> {
 		var bytes = loadAtlasBytes(project);
 		var tile = dn.ImageDecoder.decodeTile(bytes);
 		return tile;
 	}
+	#end
 
 	/**
 		Get a h2d.Tile from a Tile ID.

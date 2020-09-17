@@ -58,6 +58,6 @@ class Layer_IntGrid extends led.Layer {
 		Return null if none.
 	**/
 	public inline function getColorHex(cx:Int, cy:Int) : Null<String> {
-		return !hasValue(cx,cy) ? null : dn.Color.intToHex( valueInfos[ getInt(cx,cy) ].color );
+		return !hasValue(cx,cy) ? null : led.Project.intToHex( valueInfos[ getInt(cx,cy) ].color );
 	}
 }

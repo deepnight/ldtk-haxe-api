@@ -23,7 +23,7 @@ class Entity {
 		Pixel-based Y coordinate
 	**/
 	public var pixelY : Int;
-	
+
 	var _fields : Map<String, Dynamic> = new Map();
 
 	public function new(json:led.JsonTypes.EntityInstJson) {
@@ -44,7 +44,7 @@ class Entity {
 
 				case "Color":
 					Reflect.setField(this, "f_"+f.__identifier+"_hex", f.__value);
-					Reflect.setField(this, "f_"+f.__identifier+"_int", dn.Color.hexToInt(f.__value));
+					Reflect.setField(this, "f_"+f.__identifier+"_int", led.Project.hexToInt(f.__value));
 
 				case _.indexOf("LocalEnum.") => 0:
 					var type = _enumTypePrefix + f.__type.substr( f.__type.indexOf(".")+1 );
