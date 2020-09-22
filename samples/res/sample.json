@@ -12,7 +12,7 @@
 	"defaultPivotY": 0.0,
 	"defaultGridSize": 16,
 	"bgColor": "#7F8093",
-	"nextUid": 76,
+	"nextUid": 78,
 	"minifyJson": false,
 	"defs": {
 		"layers": [
@@ -406,6 +406,36 @@
 						"min": null,
 						"max": null,
 						"defaultOverride": { "id": "V_Int", "params": [ 16777215 ] }
+					},
+					{
+						"identifier": "localEnums",
+						"__type": "Array<LocalEnum.Weapons>",
+						"uid": 76,
+						"type": { "id": "F_Enum", "params": [ 10 ] },
+						"isArray": true,
+						"canBeNull": false,
+						"arrayMinLength": null,
+						"arrayMaxLength": null,
+						"editorDisplayMode": "NameAndValue",
+						"editorDisplayPos": "Above",
+						"min": null,
+						"max": null,
+						"defaultOverride": null
+					},
+					{
+						"identifier": "externEnums",
+						"__type": "Array<ExternEnum.DroppedItemType>",
+						"uid": 77,
+						"type": { "id": "F_Enum", "params": [ 29 ] },
+						"isArray": true,
+						"canBeNull": false,
+						"arrayMinLength": null,
+						"arrayMaxLength": null,
+						"editorDisplayMode": "NameAndValue",
+						"editorDisplayPos": "Above",
+						"min": null,
+						"max": null,
+						"defaultOverride": null
 					}
 				]
 			}
@@ -1011,6 +1041,26 @@
 								"__type": "Array<Color>",
 								"defUid": 74,
 								"realEditorValues": [ { "id": "V_Int", "params": [ 16711680 ] }, { "id": "V_Int", "params": [ 65280 ] }, { "id": "V_Int", "params": [ 255 ] } ]
+							},
+							{
+								"__identifier": "localEnums",
+								"__value": [ "FireBall" ],
+								"__type": "Array<LocalEnum.Weapons>",
+								"defUid": 76,
+								"realEditorValues": [ {
+									"id": "V_String",
+									"params": [ "FireBall" ]
+								} ]
+							},
+							{
+								"__identifier": "externEnums",
+								"__value": [ "Gold" ],
+								"__type": "Array<ExternEnum.DroppedItemType>",
+								"defUid": 77,
+								"realEditorValues": [ {
+									"id": "V_String",
+									"params": [ "Gold" ]
+								} ]
 							}
 						] }
 					]

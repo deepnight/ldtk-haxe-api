@@ -247,12 +247,12 @@ class Macros {
 						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<led.Point>) : (macro : led.Point) });
 
 					case _.indexOf("LocalEnum.") => 0:
-						var type = f.__type.substr( f.__type.indexOf(".")+1 );
+						var type = typeName.substr( typeName.indexOf(".")+1 );
 						var enumType = Context.getType( "Enum_"+type ).toComplexType();
 						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<$enumType>) : (macro : $enumType) });
 
 					case _.indexOf("ExternEnum.") => 0:
-						var typeId = f.__type.substr( f.__type.indexOf(".")+1 );
+						var typeId = typeName.substr( typeName.indexOf(".")+1 );
 						var ct = externEnumTypes.get(typeId).ct;
 						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<$ct>) : (macro : $ct) });
 

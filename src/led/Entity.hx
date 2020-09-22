@@ -34,7 +34,7 @@ class Entity {
 		pixelY = json.y;
 
 		// Assign values to fields created in Macros
-		var arrayReg = ~/Array<([a-z0-9_]+)>/gi;
+		var arrayReg = ~/Array<(.*)>/gi;
 		for(f in json.fieldInstances) {
 			if( f.__value==null )
 				continue;
@@ -56,20 +56,35 @@ class Entity {
 					}
 
 				case "Point":
-					Reflect.setField(this, "f_"+f.__identifier, new led.Point(f.__value.cx, f.__value.cy));
+					if( !isArray )
+						Reflect.setField(this, "f_"+f.__identifier, new led.Point(f.__value.cx, f.__value.cy));
+					else {
+						var arr : Array<{ cx:Int, cy:Int }> = f.__value;
+						Reflect.setField(this, "f_"+f.__identifier, arr.map( (pt)->new led.Point(pt.cx, pt.cy) ) );
+					}
 
 				case _.indexOf("LocalEnum.") => 0:
-					var type = _enumTypePrefix + f.__type.substr( f.__type.indexOf(".")+1 );
+					var type = _enumTypePrefix + typeName.substr( typeName.indexOf(".")+1 );
 					var e = Type.resolveEnum( type );
-					Reflect.setField(this, "f_"+f.__identifier, Type.createEnum(e, f.__value) );
+					if( !isArray )
+						Reflect.setField(this, "f_"+f.__identifier, Type.createEnum(e, f.__value) );
+					else {
+						var arr : Array<String> = f.__value;
+						Reflect.setField(this, "f_"+f.__identifier, arr.map( (k)->Type.createEnum(e,k) ) );
+					}
 
 
 				case _.indexOf("ExternEnum.") => 0:
-					var type = f.__type.substr( f.__type.indexOf(".")+1 );
+					var type = typeName.substr( typeName.indexOf(".")+1 );
 					var e = _resolveExternalEnum(type);
 					if( e==null )
 						throw "Couldn't create an instance of enum "+type+"! Please check if the PROJECT enum still matches the EXTERNAL FILE declaring it.";
-					Reflect.setField(this, "f_"+f.__identifier, Type.createEnum(e, f.__value) );
+					if( !isArray )
+						Reflect.setField(this, "f_"+f.__identifier, Type.createEnum(e, f.__value) );
+					else {
+						var arr : Array<String> = f.__value;
+						Reflect.setField(this, "f_"+f.__identifier, arr.map( (k)->Type.createEnum(e,k) ) );
+					}
 
 				case _ :
 					throw "Unknown field type "+typeName+" for "+identifier+"."+f.__identifier;

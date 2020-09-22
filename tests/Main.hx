@@ -13,6 +13,9 @@ class Main {
 
 			section("Project...");
 			CiAssert.isNotNull( project );
+
+			// Types
+			section("Types...");
 			CiAssert.isNotNull( ProjectNoPackage.Enum_Mobs );
 			CiAssert.isNotNull( ProjectNoPackage.EntityEnum );
 			CiAssert.isNotNull( ProjectNoPackage.Tileset_Cavernas_by_Adam_Saltsman );
@@ -56,6 +59,13 @@ class Main {
 			CiAssert.isNotNull( test );
 			CiAssert.isTrue( mob.f_scale==0.5 );
 
+			// Enums
+			section("Enums...");
+			CiAssert.isTrue( hero.f_startWeapon==LongBow );
+			CiAssert.isTrue( mob.f_type==Trash );
+			CiAssert.isTrue( mob.entityType==Mob );
+			CiAssert.isTrue( mob.f_lootDrop==externEnums.GameEnums.DroppedItemType.Gold );
+
 			// Arrays
 			CiAssert.isNotNull( test.f_ints );
 			CiAssert.isTrue( test.f_ints.length==3 );
@@ -68,20 +78,19 @@ class Main {
 			CiAssert.isTrue( test.f_bools[2]==true );
 			CiAssert.isTrue( test.f_colors_hex[0]=="#FF0000" );
 			CiAssert.isTrue( test.f_colors_int[0]==0xff0000 );
+			CiAssert.isTrue( test.f_localEnums.length>0 );
+			CiAssert.isTrue( test.f_localEnums[0]==FireBall );
+			CiAssert.isTrue( test.f_externEnums.length>0 );
+			CiAssert.isTrue( test.f_externEnums[0]==Gold );
 
 			// TODO add assert.isEqual(a,b) for easier debugging
 
-			// Enums
-			section("Enums...");
-			CiAssert.isTrue( hero.f_startWeapon==LongBow );
-			CiAssert.isTrue( mob.f_type==Trash );
-			CiAssert.isTrue( mob.entityType==Mob );
-			CiAssert.isTrue( mob.f_lootDrop==externEnums.GameEnums.DroppedItemType.Gold );
-
 			// Points / paths
+			section("Points/paths...");
 			CiAssert.isTrue( test.f_point.cx==19 );
 			CiAssert.isTrue( mob.f_path!=null );
-			// CiAssert.isTrue( mob.f_path.length>0 );
+			CiAssert.isTrue( mob.f_path.length>0 );
+			CiAssert.isTrue( mob.f_path[0].cy == mob.cy );
 
 			// Switch check
 			section("Switch...");
