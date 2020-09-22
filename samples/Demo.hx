@@ -20,7 +20,7 @@ class Demo {
 
 		// Entity access
 		for( mobEntity in myLevel.l_EntityTest.all_Mob )
-			print(mobEntity.identifier+" => elite="+mobEntity.f_elite);
+			print(mobEntity.identifier+" => scale="+mobEntity.f_scale);
 
 		// Enums
 		for( mobEntity in myLevel.l_EntityTest.all_Mob )
