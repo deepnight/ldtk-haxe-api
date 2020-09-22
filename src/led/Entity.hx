@@ -34,17 +34,29 @@ class Entity {
 		pixelY = json.y;
 
 		// Assign values to fields created in Macros
+		var arrayReg = ~/Array<([a-z0-9_]+)>/gi;
 		for(f in json.fieldInstances) {
 			if( f.__value==null )
 				continue;
 
-			switch f.__type {
+			var isArray = arrayReg.match(f.__type);
+			var typeName = isArray ? arrayReg.matched(1) : f.__type;
+
+			switch typeName {
 				case "Int", "Float", "Bool", "String" :
 					Reflect.setField(this, "f_"+f.__identifier, f.__value);
 
 				case "Color":
 					Reflect.setField(this, "f_"+f.__identifier+"_hex", f.__value);
-					Reflect.setField(this, "f_"+f.__identifier+"_int", led.Project.hexToInt(f.__value));
+					if( !isArray )
+						Reflect.setField(this, "f_"+f.__identifier+"_int", led.Project.hexToInt(f.__value));
+					else {
+						var arr : Array<String> = f.__value;
+						Reflect.setField(this, "f_"+f.__identifier+"_int", arr.map( (c)->led.Project.hexToInt(c) ) );
+					}
+
+				case "Point":
+					Reflect.setField(this, "f_"+f.__identifier, new led.Point(f.__value.cx, f.__value.cy));
 
 				case _.indexOf("LocalEnum.") => 0:
 					var type = _enumTypePrefix + f.__type.substr( f.__type.indexOf(".")+1 );
@@ -60,7 +72,7 @@ class Entity {
 					Reflect.setField(this, "f_"+f.__identifier, Type.createEnum(e, f.__value) );
 
 				case _ :
-					throw "Unknown field type "+f.__type+" for "+identifier+"."+f.__identifier;
+					throw "Unknown field type "+typeName+" for "+identifier+"."+f.__identifier;
 			}
 		}
 	}

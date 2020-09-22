@@ -45,14 +45,43 @@ class Main {
 			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_EntityTest.type==Entities );
 			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_EntityTest.all_Hero.length!=0 );
 			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_EntityTest.all_Mob.length!=0 );
+			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_EntityTest.all_Test.length!=0 );
+
+			// Entities
+			var hero = project.all_levels.MyFirstLevel.l_EntityTest.all_Hero[0];
+			var mob = project.all_levels.MyFirstLevel.l_EntityTest.all_Mob[0];
+			var test = project.all_levels.MyFirstLevel.l_EntityTest.all_Test[0];
+			CiAssert.isNotNull( hero );
+			CiAssert.isNotNull( mob );
+			CiAssert.isNotNull( test );
+			CiAssert.isTrue( mob.f_scale==0.5 );
+
+			// Arrays
+			CiAssert.isNotNull( test.f_ints );
+			CiAssert.isTrue( test.f_ints.length==3 );
+			CiAssert.isTrue( test.f_ints[0]==0 );
+			CiAssert.isTrue( test.f_ints[1]==1 );
+			CiAssert.isTrue( test.f_ints[2]==2 );
+			CiAssert.isTrue( test.f_strings[0]=="a" );
+			CiAssert.isTrue( test.f_floats[1]==0.5 );
+			CiAssert.isTrue( test.f_bools[0]==false );
+			CiAssert.isTrue( test.f_bools[2]==true );
+			CiAssert.isTrue( test.f_colors_hex[0]=="#FF0000" );
+			CiAssert.isTrue( test.f_colors_int[0]==0xff0000 );
+
+			// TODO add assert.isEqual(a,b) for easier debugging
 
 			// Enums
 			section("Enums...");
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_EntityTest.all_Hero[0].f_startWeapon==LongBow );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_EntityTest.all_Mob[0].f_type==Trash);
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_EntityTest.all_Mob[0].entityType==Mob);
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_EntityTest.all_Mob[0].f_lootDrop==externEnums.GameEnums.DroppedItemType.Gold );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_EntityTest.all_Mob[0].f_lootCount>0);
+			CiAssert.isTrue( hero.f_startWeapon==LongBow );
+			CiAssert.isTrue( mob.f_type==Trash );
+			CiAssert.isTrue( mob.entityType==Mob );
+			CiAssert.isTrue( mob.f_lootDrop==externEnums.GameEnums.DroppedItemType.Gold );
+
+			// Points / paths
+			CiAssert.isTrue( test.f_point.cx==19 );
+			CiAssert.isTrue( mob.f_path!=null );
+			// CiAssert.isTrue( mob.f_path.length>0 );
 
 			// Switch check
 			section("Switch...");

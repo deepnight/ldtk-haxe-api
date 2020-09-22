@@ -218,9 +218,15 @@ class Macros {
 			}
 
 			// Create field types
+			var arrayReg = ~/Array<(.*)>/gi;
 			for(f in e.fieldDefs) {
+				var isArray = arrayReg.match(f.__type);
+				var typeName = isArray ? arrayReg.matched(1) : f.__type;
+
+				// if( isArray ) continue; // HACK
+
 				var fields : Array<{ name:String, ct:ComplexType }> = [];
-				switch f.__type {
+				switch typeName {
 					case "Int":
 						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<Int>) : (macro : Int) });
 
@@ -237,6 +243,9 @@ class Macros {
 						fields.push({ name: f.identifier+"_int", ct: f.canBeNull ? (macro : Null<UInt>) : (macro : UInt) });
 						fields.push({ name: f.identifier+"_hex", ct: f.canBeNull ? (macro : Null<String>) : (macro : String) });
 
+					case "Point":
+						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<led.Point>) : (macro : led.Point) });
+
 					case _.indexOf("LocalEnum.") => 0:
 						var type = f.__type.substr( f.__type.indexOf(".")+1 );
 						var enumType = Context.getType( "Enum_"+type ).toComplexType();
@@ -248,10 +257,24 @@ class Macros {
 						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<$ct>) : (macro : $ct) });
 
 					case _:
-						error("Unsupported field type "+f.__type+" in Entity "+e.identifier);
+						error("Unsupported field type "+typeName+" in Entity "+e.identifier);
 				}
 
-				for(fi in fields)
+
+				for(fi in fields) {
+					if( isArray ) {
+						// Turn field into Array<...>
+						switch fi.ct {
+						case TPath(p):
+							fi.ct = TPath({
+								name: "Array",
+								pack: [],
+								params: [ TPType(fi.ct) ],
+							});
+						case _: error("Unexpected array subtype "+fi.ct.getName());
+						}
+					}
+
 					entityType.fields.push({
 						name: "f_"+fi.name,
 						access: [ APublic ],
@@ -259,6 +282,7 @@ class Macros {
 						doc: "Entity field "+fi.name+" ("+f.__type+")",
 						pos: pos,
 					});
+				}
 			}
 
 			registerTypeDefinitionModule(entityType, projectFilePath);
@@ -574,6 +598,7 @@ class Macros {
 		registerTypeDefinitionModule(projectClass, projectFilePath);
 
 
+		haxe.macro.Compiler.keep( Context.getLocalModule() );
 		timer("end");
 		return macro : Void;
 	}
@@ -624,7 +649,6 @@ class Macros {
 		var mod = Context.getLocalModule();
 		Context.defineModule(mod, [typeDef]);
 		Context.registerModuleDependency(mod, projectFilePath);
-		haxe.macro.Compiler.keep(mod);
 	}
 
 	static inline function error(msg:Dynamic, ?p:Position) : Dynamic {
