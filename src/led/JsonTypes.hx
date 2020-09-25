@@ -45,7 +45,8 @@ typedef TilesetDefJson = {
 	var uid : Int;
 	var relPath : String;
 	var tileGridSize : Int;
-	var tileGridSpacing : Int;
+	var spacing : Int;
+	var padding : Int;
 
 	var pxWid : Int;
 	var pxHei : Int;
@@ -72,7 +73,7 @@ typedef LayerInstJson = {
 	var intGrid : Array<{ coordId:Int, v:Int }>;
 	var autoTiles : Array<{ ruleUid:Int, tiles: Array<{ coordId:Int, tileId:Int, flips:Int }> }>;
 	var entityInstances : Array<EntityInstJson>;
-	var gridTiles : Array<{ coordId:Int, v:Int }>;
+	var gridTiles : Array<{ coordId:Int, tileId:Int }>;
 }
 
 typedef EntityInstJson = {

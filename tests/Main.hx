@@ -123,6 +123,7 @@ class Main {
 			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_TileTest.tileset );
 			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_TileTest.tileset.loadAtlasBytes(project) );
 			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_TileTest.tileset.loadAtlasBytes(project).length>0 );
+			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_TileTest.getTileIdAt(1,4)>=0 );
 			var gridSize = project.all_levels.MyFirstLevel.l_TileTest.tileset.tileGridSize;
 			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_TileTest.tileset.getAtlasX(1)==gridSize );
 			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_TileTest.tileset.getAtlasY(1)==0 );

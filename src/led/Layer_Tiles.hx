@@ -9,7 +9,7 @@ class Layer_Tiles extends led.Layer {
 
 		tiles = new Map();
 		for(t in json.gridTiles)
-			tiles.set(t.coordId, t.v);
+			tiles.set(t.coordId, t.tileId);
 	}
 
 	/**
