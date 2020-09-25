@@ -20,12 +20,15 @@ class Macros {
 	public static function buildTypes(projectFilePath:String) {
 		// Read project file
 		timer("read");
-		if( !sys.FileSystem.exists(projectFilePath) )
-			error("File not found "+projectFilePath);
+		var fi =
+			try sys.io.File.read(projectFilePath)
+			catch(e:Dynamic) error("File not found "+projectFilePath);
 
 		var fileContent =
-			try sys.io.File.read(projectFilePath).readAll().toString()
+			try fi.readAll().toString()
 			catch(e:Dynamic) error("Couldn't read file content "+projectFilePath);
+
+		fi.close();
 
 		// Init stuff
 		locateCache = new Map();
