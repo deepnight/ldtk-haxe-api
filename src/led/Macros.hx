@@ -117,7 +117,9 @@ class Macros {
 						continue;
 					}
 
-					var fileContent = sys.io.File.read(path, false).readAll().toString();
+					var fi = sys.io.File.read(path, false);
+					var fileContent = fi.readAll().toString();
+					fi.close();
 					var enumPack = hxPackageReg.match(fileContent) ? hxPackageReg.matched(1)+"." : "";
 					var enumMod = enumPack + p.file;
 
