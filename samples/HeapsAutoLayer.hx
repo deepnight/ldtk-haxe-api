@@ -15,15 +15,14 @@ class HeapsAutoLayer extends hxd.App {
 		// Read project JSON
 		var project = new _Project();
 
-		// Layer data
-		var layer = project.all_levels.MyFirstLevel.l_AutoLayerTest;
-
-		// Load atlas h2d.Tile from the disk
+		// Load atlas h2d.Tile from the Heaps resources (could be loaded in other ways)
 		var atlasTile = hxd.Res.Cavernas_by_Adam_Saltsman.toTile();
 
-		for( cx in 0...layer.cWid )
-		for( cy in 0...layer.cHei )
-		for( autoTile in layer.getAutoTiles(cx,cy) ) { // get all the generated auto-layer tiles in this cell
+		// Layer data
+		var layer = project.all_levels.MyFirstLevel.l_IntGrid_AutoLayer;
+
+		// Get all the generated auto-layer tiles in this layer
+		for( autoTile in layer.autoTiles ) {
 			// Get corresponding H2D.Tile from tileset
 			var tile = layer.tileset.getAutoLayerHeapsTile(atlasTile, autoTile);
 
