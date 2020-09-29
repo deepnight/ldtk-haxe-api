@@ -71,7 +71,14 @@ typedef LayerInstJson = {
 	var pxOffsetY : Int;
 
 	var intGrid : Array<{ coordId:Int, v:Int }>;
-	var autoTiles : Array<{ ruleUid:Int, tiles: Array<{ coordId:Int, tileId:Int, flips:Int }> }>;
+	var autoTiles : Array<{
+		ruleUid:Int,
+		results: Array<{
+			coordId:Int,
+			tiles:Array<{ tileId:Int, __x:Int, __y:Int }>,
+			flips:Int
+		}>
+	}>;
 	var entityInstances : Array<EntityInstJson>;
 	var gridTiles : Array<{ coordId:Int, tileId:Int }>;
 }

@@ -10,6 +10,9 @@ typedef AutoTile = {
 		Possible values: 0=> no flipping, 1=> X flip, 2=> Y flip, 3=> X and Y flips
 	**/
 	var flips: Int;
+
+	var renderX: Int;
+	var renderY: Int;
 }
 
 class Layer_IntGrid_AutoLayer extends led.Layer_IntGrid {
@@ -24,13 +27,18 @@ class Layer_IntGrid_AutoLayer extends led.Layer_IntGrid {
 
 		autoTiles = new Map();
 		for(jsonAutoTile in json.autoTiles)
-		for(t in jsonAutoTile.tiles) {
-			if( !autoTiles.exists(t.coordId) )
-				autoTiles.set(t.coordId, []);
-			autoTiles.get(t.coordId).push({
-				tileId: t.tileId,
-				flips: t.flips,
-			});
+		for(res in jsonAutoTile.results) {
+			if( !autoTiles.exists(res.coordId) )
+				autoTiles.set(res.coordId, []);
+
+			for(t in res.tiles) {
+				autoTiles.get(res.coordId).push({
+					tileId: t.tileId,
+					flips: res.flips,
+					renderX: t.__x,
+					renderY: t.__y,
+				});
+			}
 		}
 
 		for( at in autoTiles )

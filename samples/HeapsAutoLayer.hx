@@ -23,14 +23,14 @@ class HeapsAutoLayer extends hxd.App {
 
 		for( cx in 0...layer.cWid )
 		for( cy in 0...layer.cHei )
-		for( at in layer.getAutoTiles(cx,cy) ) { // get all the generated auto-layer tiles in this cell
-			// Get corresponding H2D tile from tileset
-			var tile = layer.tileset.getAutoLayerHeapsTile(atlasTile, at);
+		for( autoTile in layer.getAutoTiles(cx,cy) ) { // get all the generated auto-layer tiles in this cell
+			// Get corresponding H2D.Tile from tileset
+			var tile = layer.tileset.getAutoLayerHeapsTile(atlasTile, autoTile);
 
 			// Display it
 			var bitmap = new h2d.Bitmap(tile, s2d);
-			bitmap.x = cx*layer.gridSize;
-			bitmap.y = cy*layer.gridSize;
+			bitmap.x = autoTile.renderX; // we use the auto-generated coords directly, because it's easier :)
+			bitmap.y = autoTile.renderY;
 		}
 	}
 }
