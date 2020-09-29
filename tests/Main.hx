@@ -128,15 +128,22 @@ class Main {
 			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_TileTest.tileset.getAtlasX(1)==gridSize );
 			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_TileTest.tileset.getAtlasY(1)==0 );
 
-			// Auto-layer
-			section("Auto-Layer...");
-			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_AutoLayerTest );
-			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_AutoLayerTest.tileset );
-			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_AutoLayerTest.tileset.loadAtlasBytes(project) );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_AutoLayerTest.tileset.loadAtlasBytes(project).length>0 );
-			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_AutoLayerTest.getAutoTiles(1,1) );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_AutoLayerTest.hasAutoTiles(1,1) );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_AutoLayerTest.getAutoTiles(1,1).length>1 );
+			// Auto-layer (IntGrid)
+			section("Auto-Layer (IntGrid)...");
+			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_IntGrid_AutoLayer );
+			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_IntGrid_AutoLayer.tileset );
+			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_IntGrid_AutoLayer.tileset.loadAtlasBytes(project) );
+			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_IntGrid_AutoLayer.tileset.loadAtlasBytes(project).length>0 );
+			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_IntGrid_AutoLayer.autoTiles.length>100 );
+			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_IntGrid_AutoLayer.autoTiles[0] );
+			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_IntGrid_AutoLayer.autoTiles[0].renderX!=0 );
+
+			// Auto-layer (pure)
+			section("Auto-Layer (pure)...");
+			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_Pure_AutoLayer);
+			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_Pure_AutoLayer.tileset );
+			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_Pure_AutoLayer.tileset.loadAtlasBytes(project) );
+			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_Pure_AutoLayer.tileset.loadAtlasBytes(project).length>0 );
 
 			// Project in a package
 			section("PROJECT (WITH PACKAGE)...");

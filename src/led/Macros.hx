@@ -325,7 +325,7 @@ class Macros {
 		timer("layerClasses");
 		for(l in json.defs.layers) {
 			switch l.type {
-				case "IntGrid":
+				case "IntGrid", "AutoLayer":
 
 					if( l.autoTilesetDefUid==null ) {
 						// IntGrid
