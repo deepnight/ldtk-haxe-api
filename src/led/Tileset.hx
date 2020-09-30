@@ -63,7 +63,8 @@ class Tileset {
 	**/
 	public function loadAtlasBytes(project:led.Project) : Null<haxe.io.Bytes> {
 		try {
-			var path = dn.FilePath.fromFile(project.projectDir+"/"+relPath);
+			var filePath = dn.FilePath.fromFile(relPath);
+			var path = filePath.hasDriveLetter() ? filePath : dn.FilePath.fromFile(project.projectDir+"/"+relPath);
 			var fi = sys.io.File.read(path.full,true);
 			return fi.readAll();
 		}
