@@ -8,7 +8,7 @@ class SampleHxmlGen {
 		var dir = "samples"; // no trailing "/"
 
 		Sys.println("");
-		Sys.println('NOTE: please check the README file in the samples directory in case of trouble.');
+		Sys.println('NOTE: please check the README for more infos.');
 		Sys.println("");
 
 
