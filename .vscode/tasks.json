@@ -4,26 +4,27 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "NekoTests",
-            "type": "hxml",
-            "file": "tests/tests.neko.hxml",
+            "type": "haxe",
+            "args": "active configuration",
+            "problemMatcher": [
+                "$haxe-absolute",
+                "$haxe",
+                "$haxe-error",
+                "$haxe-trace"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "presentation": {
+                "echo": true,
                 "reveal": "always",
+                "focus": false,
                 "panel": "dedicated",
+                "showReuseMessage": true,
                 "clear": true
             },
-            "group": "build"
-        },
-        {
-            "label": "JsTests",
-            "type": "hxml",
-            "file": "tests/tests.js.hxml",
-            "presentation": {
-                "reveal": "always",
-                "panel": "dedicated",
-                "clear": true
-            },
-            "group": "build"
+            "label": "haxe: active configuration"
         }
     ]
 }
