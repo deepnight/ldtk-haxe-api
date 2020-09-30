@@ -83,8 +83,6 @@ class Main {
 			CiAssert.isTrue( test.f_externEnums.length>0 );
 			CiAssert.isTrue( test.f_externEnums[0]==Gold );
 
-			// TODO add assert.isEqual(a,b) for easier debugging
-
 			// Points / paths
 			section("Points/paths...");
 			CiAssert.isTrue( test.f_point.cx==19 );

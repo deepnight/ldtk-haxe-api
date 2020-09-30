@@ -228,8 +228,6 @@ class Macros {
 				var isArray = arrayReg.match(f.__type);
 				var typeName = isArray ? arrayReg.matched(1) : f.__type;
 
-				// if( isArray ) continue; // HACK
-
 				var fields : Array<{ name:String, ct:ComplexType }> = [];
 				switch typeName {
 					case "Int":
