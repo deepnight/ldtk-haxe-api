@@ -6,7 +6,7 @@
         {
             "label": "NekoTests",
             "type": "hxml",
-            "file": "tests.hxml",
+            "file": "tests/tests.neko.hxml",
             "presentation": {
                 "reveal": "always",
                 "panel": "dedicated",
@@ -15,24 +15,15 @@
             "group": "build"
         },
         {
-            "type": "haxe",
-            "args": "active configuration",
-            "problemMatcher": [
-                "$haxe-absolute",
-                "$haxe",
-                "$haxe-error",
-                "$haxe-trace"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            "label": "JsTests",
+            "type": "hxml",
+            "file": "tests/tests.js.hxml",
             "presentation": {
-                "reveal": "never",
+                "reveal": "always",
                 "panel": "dedicated",
                 "clear": true
             },
-            "label": "haxe: active configuration"
+            "group": "build"
         }
     ]
 }
