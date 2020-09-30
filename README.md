@@ -61,3 +61,23 @@ If you need to re-compile a single sample:
 cd samples
 haxe SomeSampleName.hxml
 ```
+
+## Unit tests
+
+You can build and run unit tests manually using the following commands **from the repository root**.
+
+### JS/WebGL target
+
+You will need Node interpreter to run the tests.
+
+```
+haxe tests\js.hxml
+```
+
+### Neko target
+
+You will need Neko VM interpreter to run the tests.
+
+```
+haxe tests\neko.hxml
+```
