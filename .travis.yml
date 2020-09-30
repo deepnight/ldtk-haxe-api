@@ -8,7 +8,8 @@ haxe:
   - "4.1.3"
 
 install:
-  - yes | haxelib install tests.hxml
+  - yes | haxelib install tests/js.hxml
+  - yes | haxelib install tests/neko.hxml
   - haxelib git deepnightLibs https://github.com/deepnight/deepnightLibs.git
   - haxelib git heaps https://github.com/HeapsIO/heaps.git
   - haxelib install hlsdl
