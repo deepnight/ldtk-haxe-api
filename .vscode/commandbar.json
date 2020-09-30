@@ -4,26 +4,25 @@
 	"skipErrorMessage": true,
 	"commands": [
 		{
-			"text": "Run CI tests",
+			"text": "JS tests",
 			"color": "#cfdd40",
-			"commandType":"palette",
-			"command": "workbench.action.tasks.runTask|NekoTests",
+			"command": "haxe tests/js.hxml",
 			"alignment": "right",
 			"skipTerminateQuickPick": false,
-			"priority": -11
+			"priority": -1
 		},
 		{
-			"text": "Sample HXMLs",
-			"color": "#86a9ff",
+			"text": "Neko tests",
+			"color": "#19dbdd",
+			"command": "haxe tests/neko.hxml",
+			"alignment": "right",
+			"skipTerminateQuickPick": false,
+			"priority": -2
+		},
+		{
+			"text": "Samples",
+			"color": "#ff8600",
 			"command": "haxe genSamples.hxml",
-			"alignment": "right",
-			"skipTerminateQuickPick": false,
-			"priority": -20
-		},
-		{
-			"text": "Build all samples",
-			"color": "#aad6ff",
-			"command": "cd samples  &&  haxe all.hxml  &&  echo Done!",
 			"alignment": "right",
 			"skipTerminateQuickPick": false,
 			"priority": -21
