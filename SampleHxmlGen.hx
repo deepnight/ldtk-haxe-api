@@ -66,7 +66,7 @@ class SampleHxmlGen {
 	";
 
 
-	public static function print(msg:String) {
+	public static function print(msg:String) { // Used in HXML macro calls
 		Sys.println("");
 		Sys.println(msg);
 	}
