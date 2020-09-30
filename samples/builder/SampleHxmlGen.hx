@@ -3,6 +3,8 @@
 	It generates the samples build files automatically using a macro.
 **/
 
+package samples.builder;
+
 class SampleHxmlGen {
 	public static function run() {
 		var dir = "samples"; // no trailing "/"
