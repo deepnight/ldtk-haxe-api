@@ -60,7 +60,7 @@ class Tileset {
 		Read the atlas h2d.Tile directly from the file
 	**/
 	#if( sys && deepnightLibs )
-	public function loadAtlasTile(project:led.Project) : Null<h2d.Tile> {
+	public function loadAtlasTileFromDisk(project:led.Project) : Null<h2d.Tile> {
 		var bytes = loadAtlasBytes(project);
 		var tile = dn.ImageDecoder.decodeTile(bytes);
 		return tile;
