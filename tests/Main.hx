@@ -31,6 +31,7 @@ class Main {
 			// IntGrid layer
 			section("IntGrid...");
 			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_IntGridTest );
+			CiAssert.equals( project.all_levels.MyFirstLevel.l_IntGridTest.type, led.Layer.LayerType.IntGrid );
 			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_IntGridTest.type==IntGrid );
 			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_IntGridTest.getInt(0,0)==0 );
 			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_IntGridTest.hasValue(0,0) );
@@ -45,6 +46,7 @@ class Main {
 			// Entity layer
 			section("Entity...");
 			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_EntityTest);
+			CiAssert.equals( project.all_levels.MyFirstLevel.l_EntityTest.type, led.Layer.LayerType.Entities );
 			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_EntityTest.type==Entities );
 			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_EntityTest.all_Hero.length!=0 );
 			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_EntityTest.all_Mob.length!=0 );
@@ -110,6 +112,7 @@ class Main {
 			// Tile layer
 			section("Tile layer...");
 			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_TileTest );
+			CiAssert.equals( project.all_levels.MyFirstLevel.l_TileTest.type, led.Layer.LayerType.Tiles );
 			CiAssert.isNotNull( project.all_levels.MyFirstLevel.resolveLayer("TileTest") );
 			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_TileTest.identifier=="TileTest" );
 			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_TileTest.type==Tiles );
@@ -143,6 +146,7 @@ class Main {
 			// Auto-layer (pure)
 			section("Auto-Layer (pure)...");
 			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_Pure_AutoLayer);
+			CiAssert.equals( project.all_levels.MyFirstLevel.l_Pure_AutoLayer.type, led.Layer.LayerType.IntGrid );
 			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_Pure_AutoLayer.tileset );
 			#if !js
 			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_Pure_AutoLayer.tileset.loadAtlasBytes(project) );
@@ -170,6 +174,7 @@ class Main {
 			section("Exception: "+e);
 			print("");
 			die();
+			return;
 		}
 
 		print("");
@@ -178,10 +183,12 @@ class Main {
 
 
 	static function die() {
-		#if js
-		throw new js.lib.Error("Failed");
+		#if hxnodejs
+			js.node.Require.require("process").exit(1);
+		#elseif js
+			// unsupported
 		#else
-		Sys.exit(1);
+			Sys.exit(1);
 		#end
 	}
 
