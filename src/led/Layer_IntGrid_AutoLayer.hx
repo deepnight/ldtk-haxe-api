@@ -34,18 +34,12 @@ class Layer_IntGrid_AutoLayer extends led.Layer_IntGrid {
 
 		autoTiles = [];
 
-		for(jsonAutoTile in json.autoTiles)
-		for(res in jsonAutoTile.results)
-		for(t in res.tiles) {
+		for(jsonAutoTile in json.autoLayerTiles)
 			autoTiles.push({
-				tileId: t.tileId,
-				renderX: t.__x,
-				renderY: t.__y,
-				flips: res.flips,
+				tileId: jsonAutoTile.d[2],
+				flips: jsonAutoTile.f,
+				renderX: jsonAutoTile.px[0],
+				renderY: jsonAutoTile.px[1],
 			});
-		}
-
-		// Array order is reversed to match the display order
-		autoTiles.reverse();
 	}
 }
