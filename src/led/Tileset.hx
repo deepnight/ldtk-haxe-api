@@ -54,7 +54,7 @@ class Tileset {
 	#end
 
 
-	#if heaps
+	#if( !macro && heaps )
 
 	/**
 		Read the atlas h2d.Tile directly from the file
