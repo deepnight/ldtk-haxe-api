@@ -131,6 +131,7 @@ typedef Tile = {
 		Internal data used by the editor.
 
 		For auto-layer tiles: `[ruleId, coordId, tileId]`
+		For tile-layer tiles: `[coordId, tileId]`
 	**/
 	var d: Array<Int>;
 }
