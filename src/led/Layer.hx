@@ -4,6 +4,7 @@ enum LayerType {
 	IntGrid;
 	Tiles;
 	Entities;
+	AutoLayer;
 	Unknown;
 }
 
