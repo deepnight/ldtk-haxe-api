@@ -146,7 +146,7 @@ class Main {
 			// Auto-layer (pure)
 			section("Auto-Layer (pure)...");
 			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_Pure_AutoLayer);
-			CiAssert.equals( project.all_levels.MyFirstLevel.l_Pure_AutoLayer.type, led.Layer.LayerType.IntGrid );
+			CiAssert.equals( project.all_levels.MyFirstLevel.l_Pure_AutoLayer.type, led.Layer.LayerType.AutoLayer );
 			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_Pure_AutoLayer.tileset );
 			#if !js
 			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_Pure_AutoLayer.tileset.loadAtlasBytes(project) );
