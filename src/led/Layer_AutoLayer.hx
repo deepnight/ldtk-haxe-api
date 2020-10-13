@@ -44,4 +44,30 @@ class Layer_AutoLayer extends led.Layer {
 				renderY: jsonAutoTile.px[1],
 			});
 	}
+
+	function _getTileset() : Tileset return null; // replaced by Macros.hx
+
+
+	#if( !macro && heaps )
+
+	/**
+		Render layer using provided Tileset atlas tile
+	**/
+	public function render(tilesetAtlasTile:h2d.Tile, ?parent:h2d.Object) : h2d.Object {
+		if( parent==null )
+			parent = new h2d.Object();
+
+		var tg = new h2d.TileGroup(tilesetAtlasTile, parent);
+		for( autoTile in autoTiles ) {
+			tg.add(
+				autoTile.renderX,
+				autoTile.renderY,
+				_getTileset().getAutoLayerHeapsTile(tilesetAtlasTile, autoTile)
+			);
+		}
+
+		return parent;
+	}
+
+	#end
 }

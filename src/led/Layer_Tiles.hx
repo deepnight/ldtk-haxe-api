@@ -27,4 +27,34 @@ class Layer_Tiles extends led.Layer {
 	public inline function hasTileAt(cx,cy) {
 		return getTileIdAt(cx,cy)>=0;
 	}
+
+	function _getTileset() : Tileset return null; // replaced by Macros.hx
+
+
+	#if( !macro && heaps )
+
+	/**
+		Render layer using provided Tileset atlas tile
+	**/
+	public function render(tilesetAtlasTile:h2d.Tile, ?parent:h2d.Object) {
+		if( parent==null )
+			parent = new h2d.Object();
+
+		var tg = new h2d.TileGroup(tilesetAtlasTile, parent);
+		for( cy in 0...cHei )
+		for( cx in 0...cWid ) {
+			if( hasTileAt(cx,cy) ) {
+				var tileId = getTileIdAt(cx,cy);
+				tg.add(
+					cx*gridSize + pxOffsetX,
+					cy*gridSize + pxOffsetY,
+					_getTileset().getHeapsTile(tilesetAtlasTile, tileId)
+				);
+			}
+		}
+
+		return parent;
+	}
+
+	#end
 }

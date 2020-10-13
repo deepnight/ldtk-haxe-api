@@ -376,6 +376,8 @@ class Macros {
 
 									tileset = ${ ts==null ? null : macro new $tsTypePath( $v{ts.json} ) }
 								}
+
+								override function _getTileset() return tileset;
 							}).fields,
 						}
 
@@ -409,6 +411,8 @@ class Macros {
 								super(json);
 								tileset = ${ ts==null ? null : macro new $tsTypePath( $v{ts.json} ) }
 							}
+							
+							override function _getTileset() return tileset;
 						}).fields,
 					}
 
@@ -486,6 +490,8 @@ class Macros {
 
 								tileset = new $tsTypePath( $v{ts.json} );
 							}
+
+							override function _getTileset() return tileset;
 						}).fields,
 					}
 					// Tileset class
