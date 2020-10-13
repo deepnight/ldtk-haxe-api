@@ -90,7 +90,7 @@ class Tileset {
 	/**
 		Get a h2d.Tile from a Auto-Layer tile.
 	**/
-	public inline function getAutoLayerHeapsTile(atlasTile:h2d.Tile, autoLayerTile:led.Layer_IntGrid_AutoLayer.AutoTile) : Null<h2d.Tile> {
+	public inline function getAutoLayerHeapsTile(atlasTile:h2d.Tile, autoLayerTile:led.Layer_AutoLayer.AutoTile) : Null<h2d.Tile> {
 		if( autoLayerTile.tileId<0 )
 			return null;
 		else
