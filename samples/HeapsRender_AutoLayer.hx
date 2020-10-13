@@ -1,8 +1,13 @@
-class HeapsAutoLayer extends hxd.App {
+/**
+	This sample demonstrates how to manually render an AutoLayer
+	using Heaps API. In this example, the auto-layer is an IntGrid layer
+	with rules.
+**/
+class HeapsRender_AutoLayer extends hxd.App {
 
 	static function main() {
 		// Boot
-		new HeapsAutoLayer();
+		new HeapsRender_AutoLayer();
 	}
 
 	override function init() {

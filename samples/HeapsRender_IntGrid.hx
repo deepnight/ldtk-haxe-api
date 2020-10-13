@@ -1,6 +1,11 @@
-class HeapsIntGridLayer extends hxd.App {
+/**
+	This sample demonstrates how to manually render an "IntGrid" layer
+	using Heaps API.
+**/
+
+class HeapsRender_IntGrid extends hxd.App {
 	static function main() {
-		new HeapsIntGridLayer();
+		new HeapsRender_IntGrid();
 	}
 
 	override function init() {
