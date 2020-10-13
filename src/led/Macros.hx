@@ -489,7 +489,7 @@ class Macros {
 					super(json);
 
 					// Init quick access
-					for(l in _layers)
+					for(l in allUntypedLayers)
 						Reflect.setField(this, "l_"+l.identifier, l);
 				}
 
@@ -505,7 +505,7 @@ class Macros {
 					Get a layer using its identifier. WARNING: the class of this layer will be more generic than when using proper "f_layerName" fields.
 				**/
 				public function resolveLayer(id:String) : Null<led.Layer> {
-					for(l in _layers)
+					for(l in allUntypedLayers)
 						if( l.identifier==id )
 							return l;
 					return null;
