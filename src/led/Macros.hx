@@ -323,7 +323,7 @@ class Macros {
 		timer("layerClasses");
 		for(l in json.defs.layers) {
 			switch l.type {
-				case "IntGrid", "AutoLayer":
+				case "IntGrid":
 
 					if( l.autoTilesetDefUid==null ) {
 						// IntGrid
@@ -391,6 +391,36 @@ class Macros {
 					}
 
 
+				case "AutoLayer":
+					// Pure Auto-layer
+					var parentTypePath : TypePath = { pack: ["led"], name:"Layer_AutoLayer" }
+					var ts = l.autoTilesetDefUid!=null ? tilesets.get(l.autoTilesetDefUid) : null;
+					var tsComplexType = ts!=null ? Context.getType( ts.typeName ).toComplexType() : null;
+					var tsTypePath : TypePath = ts!=null ? { pack: modPack, name: ts.typeName } : null;
+
+					var layerType : TypeDefinition = {
+						pos : pos,
+						name : "Layer_"+l.identifier,
+						pack : modPack,
+						doc: "IntGrid layer with auto-layer capabilities",
+						kind : TDClass(parentTypePath),
+						fields : (macro class {
+							override public function new(json) {
+								super(json);
+								tileset = ${ ts==null ? null : macro new $tsTypePath( $v{ts.json} ) }
+							}
+						}).fields,
+					}
+
+					// Auto-layer tileset class
+					layerType.fields.push({
+						name: "tileset",
+						access: [APublic],
+						kind: FVar( tsComplexType ),
+						pos: pos,
+					});
+
+					registerTypeDefinitionModule(layerType, projectFilePath);
 
 
 				case "Entities":
