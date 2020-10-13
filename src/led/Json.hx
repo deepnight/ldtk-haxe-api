@@ -1,6 +1,6 @@
 package led;
 
-@display("Json root hello")
+@display("Json root")
 typedef ProjectJson = {
 	/** File format version **/
 	var jsonVersion: String;
