@@ -28,10 +28,10 @@ class Entity {
 
 	public function new(json:led.JsonTypes.EntityInstJson) {
 		identifier = json.__identifier;
-		cx = json.__cx;
-		cy = json.__cy;
-		pixelX = json.x;
-		pixelY = json.y;
+		cx = json.__grid[0];
+		cy = json.__grid[1];
+		pixelX = json.px[0];
+		pixelY = json.px[1];
 
 		// Assign values to fields created in Macros
 		var arrayReg = ~/Array<(.*)>/gi;

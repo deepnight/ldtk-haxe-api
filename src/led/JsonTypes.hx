@@ -85,9 +85,7 @@ typedef LayerInstJson = {
 
 typedef EntityInstJson = {
 	var __identifier : String;
-	var __cx : Int;
-	var __cy : Int;
-	var x : Int;
-	var y : Int;
+	var __grid : Array<Int>;
+	var px : Array<Int>;
 	var fieldInstances : Array<{ __identifier:String, __value:Dynamic, __type:String }>;
 }
