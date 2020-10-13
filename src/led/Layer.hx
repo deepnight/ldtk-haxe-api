@@ -13,7 +13,7 @@ class Layer {
 	public var type : LayerType;
 
 	/**
-		Grid-based layer width
+		Grid size in pixels
 	**/
 	public var gridSize : Int;
 
