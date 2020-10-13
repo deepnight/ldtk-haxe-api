@@ -150,7 +150,7 @@ typedef Tile = {
 	/** "Flip flags", a 2-bits integer to represent the mirror transformations of the tile: Bit 0 = X flip, Bit 1 = Y flip **/
 	var f: Int;
 
-	/** Internal data used by the editor **/
+	/** Internal data used by the editor: [ruleId, coordId, tileId] **/
 	var d: Array<Int>;
 }
 
@@ -284,7 +284,55 @@ typedef LayerDefJson = {
 /** Not available yet **/
 @section("2.2")
 @display("Entity definition")
-typedef EntityDefJson = Dynamic;
+typedef EntityDefJson = {
+	/** Unique String identifier **/
+	var identifier: String;
+
+	/** Unique Int identifier **/
+	var uid: Int;
+
+	/** Pixel width **/
+	var width: Int;
+
+	/** Pixel height **/
+	var height: Int;
+
+	/** Base entity color **/
+	@color
+	var color: String;
+
+	@hide
+	var renderMode: Enum<Dynamic>;
+
+	/** Tileset ID used for optional tile display **/
+	var tilesetId: Int;
+
+	/** Tile ID used for optional tile display **/
+	var tileId: Int;
+
+	@hide
+	var tileRenderMode: Enum<Dynamic>;
+
+	/** Max instances per level **/
+	var maxPerLevel: Int;
+
+	@hide
+	var limitBehavior: Enum<Dynamic>;
+
+	/** Pivot X coordinate (from 0 to 1.0) **/
+	var pivotX: Float;
+
+	/** Pivot Y coordinate (from 0 to 1.0) **/
+	var pivotY: Float;
+
+	/** Array of field definitions **/
+	var fieldDefs: Array<FieldDefJson>;
+};
+
+/** Not available yet **/
+@section("2.2.1")
+@display("Field definition")
+typedef FieldDefJson = Dynamic;
 
 @section("2.3")
 @display("Tileset definition")

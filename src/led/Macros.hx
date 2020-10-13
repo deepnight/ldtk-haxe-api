@@ -8,7 +8,7 @@ import haxe.macro.Context;
 import haxe.macro.Expr;
 using haxe.macro.Tools;
 
-import led.JsonTypes;
+import led.Json;
 
 class Macros {
 	static var locateCache : Map<String,String>;
@@ -493,7 +493,7 @@ class Macros {
 						Reflect.setField(this, "l_"+l.identifier, l);
 				}
 
-				override function _instanciateLayer(json:led.JsonTypes.LayerInstJson) {
+				override function _instanciateLayer(json:led.Json.LayerInstanceJson) {
 					var c = Type.resolveClass($v{modPack.concat(["Layer_"]).join(".")}+json.__identifier);
 					if( c==null )
 						throw "Couldn't instanciate layer "+json.__identifier;

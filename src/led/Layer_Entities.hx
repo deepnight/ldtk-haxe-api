@@ -18,7 +18,7 @@ class Layer_Entities extends led.Layer {
 		}
 	}
 
-	function _instanciateEntity(json:led.JsonTypes.EntityInstJson) : Entity {
+	function _instanciateEntity(json:led.Json.EntityInstanceJson) : Entity {
 		return null; // overriden by Macros.hx
 	}
 }

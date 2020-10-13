@@ -14,34 +14,13 @@ class Tileset {
 	var cWid(get,never) : Int; inline function get_cWid() return Math.ceil(pxWid/tileGridSize);
 
 
-	public function new(json:led.JsonTypes.TilesetDefJson) {
+	public function new(json:led.Json.TilesetDefJson) {
 		identifier = json.identifier;
 		tileGridSize = json.tileGridSize;
 		relPath = json.relPath;
 		pxWid = json.pxWid;
 		pxHei = json.pxHei;
 	}
-
-
-	// Search a file in all classPaths + sub folders
-	// function locateResFile(searchFileName:String) : Null<String> {
-	// 	var pending = [""];
-	// 	var cur = pending.pop();
-	// 	while( cur!=null ) {
-	// 		var res = hxd.Res.load(cur=="" ? "." : cur);
-	// 		for(f in res) {
-	// 			if( f.name==searchFileName )
-	// 				return ( cur.length>0 ? cur+"/"  : "" ) + searchFileName;
-
-	// 			if( f.entry.isDirectory )
-	// 				pending.push( ( cur.length>0 ? cur+"/"  : "" ) + f.name );
-	// 		}
-	// 		cur = pending.pop();
-	// 	}
-
-	// 	return null;
-	// }
-
 
 	/**
 		Get X pixel coordinate (in atlas image) from a specified tile ID

@@ -36,7 +36,7 @@ class Layer {
 	**/
 	public var pxOffsetY : Int;
 
-	public function new(json:led.JsonTypes.LayerInstJson) {
+	public function new(json:led.Json.LayerInstanceJson) {
 		identifier = json.__identifier;
 		type =
 			try LayerType.createByName(json.__type)
@@ -44,7 +44,7 @@ class Layer {
 		gridSize = json.__gridSize;
 		cWid = json.__cWid;
 		cHei = json.__cHei;
-		pxOffsetX = json.pxOffsetX; 
+		pxOffsetX = json.pxOffsetX;
 		pxOffsetY = json.pxOffsetY;
 	}
 

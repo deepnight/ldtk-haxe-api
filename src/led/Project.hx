@@ -23,9 +23,6 @@ class Project {
 	/** Contains the directory of the project JSON (using slashes, no trailing slash) **/
 	public var projectDir : Null<String>;
 
-	/** Project name **/
-	public var name : String;
-
 	/** Project background color (as Int 0xrrggbb) **/
 	public var bgColor_int: UInt;
 
@@ -43,8 +40,7 @@ class Project {
 	**/
 	public function parseJson(jsonString:String) {
 		#if !macro
-		var json : led.JsonTypes.ProjectJson = haxe.Json.parse(jsonString);
-		name = json.name;
+		var json : led.Json.ProjectJson = haxe.Json.parse(jsonString);
 		bgColor_hex = json.bgColor;
 		bgColor_int = led.Project.hexToInt(json.bgColor);
 
@@ -54,7 +50,7 @@ class Project {
 		#end
 	}
 
-	function _instanciateLevel(json:led.JsonTypes.LevelJson) {
+	function _instanciateLevel(json:led.Json.LevelJson) {
 		return null; // overriden by Macros.hx
 	}
 

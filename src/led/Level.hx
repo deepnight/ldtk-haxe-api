@@ -6,7 +6,7 @@ class Level {
 	public var pxHei : Int;
 	var _layers : Array<Layer>;
 
-	public function new(json:led.JsonTypes.LevelJson) {
+	public function new(json:led.Json.LevelJson) {
 		identifier = json.identifier;
 		pxWid = json.pxWid;
 		pxHei = json.pxHei;
@@ -15,7 +15,7 @@ class Level {
 			_layers.push( _instanciateLayer(json) );
 	}
 
-	function _instanciateLayer(json:led.JsonTypes.LayerInstJson) : led.Layer {
+	function _instanciateLayer(json:led.Json.LayerInstanceJson) : led.Layer {
 		return null; // overriden by Macros.hx
 	}
 }
