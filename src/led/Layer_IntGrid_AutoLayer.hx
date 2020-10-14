@@ -34,15 +34,22 @@ class Layer_IntGrid_AutoLayer extends led.Layer_IntGrid {
 			parent = new h2d.Object();
 
 		var tg = new h2d.TileGroup(tilesetAtlasTile, parent);
+		renderInTileGroup(tg,false);
+
+		return parent;
+	}
+
+	public inline function renderInTileGroup(tg:h2d.TileGroup, clearContent:Bool) {
+		if( clearContent )
+			tg.clear();
+
 		for( autoTile in autoTiles ) {
 			tg.add(
 				autoTile.renderX,
 				autoTile.renderY,
-				_getTileset().getAutoLayerHeapsTile(tilesetAtlasTile, autoTile)
+				_getTileset().getAutoLayerHeapsTile(tg.tile, autoTile)
 			);
 		}
-
-		return parent;
 	}
 
 	#end
