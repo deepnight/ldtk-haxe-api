@@ -4,26 +4,19 @@ class Entity {
 	var _enumTypePrefix : String;
 	public var identifier : String;
 
-	/**
-		Grid-based X coordinate
-	**/
+	/** Grid-based X coordinate **/
 	public var cx : Int;
 
-	/**
-		Grid-based Y coordinate
-	**/
+	/** Grid-based Y coordinate **/
 	public var cy : Int;
 
-	/**
-		Pixel-based X coordinate
-	**/
+	/** Pixel-based X coordinate **/
 	public var pixelX : Int;
 
-	/**
-		Pixel-based Y coordinate
-	**/
+	/** Pixel-based Y coordinate **/
 	public var pixelY : Int;
 
+	/** Tile infos if the entity has one (it could have be overridden by a Field value, such as Enums) **/
 	public var tileInfos : Null<{ tilesetUid:Int, x:Int, y:Int, w:Int, h:Int }>;
 
 	var _fields : Map<String, Dynamic> = new Map();

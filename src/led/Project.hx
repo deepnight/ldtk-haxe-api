@@ -31,6 +31,7 @@ class Project {
 
 	var _untypedLevels : Array<led.Level>;
 
+	/** Full access to the JSON project definitions **/
 	public var defs : led.Json.DefinitionsJson;
 
 	public function new() {}
