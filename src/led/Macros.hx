@@ -411,7 +411,7 @@ class Macros {
 								super(json);
 								tileset = ${ ts==null ? null : macro new $tsTypePath( $v{ts.json} ) }
 							}
-							
+
 							override function _getTileset() return tileset;
 						}).fields,
 					}
@@ -430,14 +430,32 @@ class Macros {
 				case "Entities":
 					var parentTypePath : TypePath = { pack: ["led"], name:"Layer_Entities" }
 					var baseEntityComplexType = Context.getType(baseEntityType.name).toComplexType();
+
+					// Typed Entity arrays
+					var entityArrayFields : Array<Field> = [];
+					for(e in json.defs.entities) {
+						var entityComplexType = Context.getType("Entity_"+e.identifier).toComplexType();
+						entityArrayFields.push({
+							name: "all_"+e.identifier,
+							access: [APublic],
+							kind: FVar( macro : Array<$entityComplexType> ),
+							doc: "An array of all "+e.identifier+" instances",
+							pos: pos,
+						});
+					}
+					var entityArrayExpr = entityArrayFields.map( f->macro $v{f.name} );
+
 					var layerType : TypeDefinition = {
 						pos : pos,
 						name : "Layer_"+l.identifier,
 						doc: "Entity layer",
 						pack : modPack,
 						kind : TDClass(parentTypePath),
-						fields : (macro class {
+						fields : entityArrayFields.concat( (macro class {
 							override public function new(json) {
+								for( f in $a{entityArrayExpr} )
+									Reflect.setField(this, f, []);
+								
 								super(json);
 							}
 
@@ -455,20 +473,10 @@ class Macros {
 							public inline function getAllUntyped() : Array<$baseEntityComplexType> {
 								return cast _entities;
 							}
-						}).fields,
+						}).fields ),
 					}
+					// layerType.fields = layerType.fields.concat( entityArrayFields );
 
-					// Typed entity-arrays getters
-					for(e in json.defs.entities) {
-						var entityComplexType = Context.getType("Entity_"+e.identifier).toComplexType();
-						layerType.fields.push({
-							name: "all_"+e.identifier,
-							access: [APublic],
-							kind: FVar( macro : Array<$entityComplexType> ),
-							doc: "An array of all "+e.identifier+" instances",
-							pos: pos,
-						});
-					}
 					registerTypeDefinitionModule(layerType, projectFilePath);
 
 
