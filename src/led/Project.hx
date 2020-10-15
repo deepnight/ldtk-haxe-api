@@ -102,6 +102,24 @@ class Project {
 		}
 	}
 
+	public function getEnumTileInfosFromValue(v:EnumValue) : Null<{ x:Int, y:Int, w:Int, h:Int, tileset:led.Json.TilesetDefJson }> {
+		var ed = getEnumDefFromValue(v);
+		if( ed==null )
+			return null;
+
+		for(ev in ed.values)
+			if( ev.id==v.getName() && ev.__tileSrcRect!=null )
+				return {
+					tileset: getTilesetDef(ed.iconTilesetUid),
+					x: ev.__tileSrcRect[0],
+					y: ev.__tileSrcRect[1],
+					w: ev.__tileSrcRect[2],
+					h: ev.__tileSrcRect[3],
+				};
+
+		return null;
+	}
+
 
 	@:noCompletion
 	public static inline function hexToInt(hex:String) {
