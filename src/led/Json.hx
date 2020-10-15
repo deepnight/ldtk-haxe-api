@@ -72,6 +72,10 @@ typedef LayerInstanceJson = {
 	/** Grid size **/
 	var __gridSize: Int;
 
+	/** Layer opacity as Float [0-1] **/
+	@added("0.4.0")
+	var __opacity: Float;
+
 	/** Reference to the UID of the level containing this layer instance **/
 	var levelId: Int;
 

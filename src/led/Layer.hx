@@ -37,6 +37,9 @@ class Layer {
 	**/
 	public var pxOffsetY : Int;
 
+	/** Layer opacity (0-1) **/
+	public var opacity : Float;
+
 	public function new(json:led.Json.LayerInstanceJson) {
 		identifier = json.__identifier;
 		type =
@@ -47,6 +50,7 @@ class Layer {
 		cHei = json.__cHei;
 		pxOffsetX = json.pxOffsetX;
 		pxOffsetY = json.pxOffsetY;
+		opacity = json.__opacity;
 	}
 
 
