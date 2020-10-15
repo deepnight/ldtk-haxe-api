@@ -128,10 +128,7 @@ typedef Tile = {
 	var f: Int;
 
 	/**
-		Internal data used by the editor.
-
-		For auto-layer tiles: `[ruleId, coordId, tileId]`
-		For tile-layer tiles: `[coordId, tileId]`
+		Internal data used by the editor. For auto-layer tiles: `[ruleId, coordId, tileId]`. For tile-layer tiles: `[coordId, tileId]`
 	**/
 	var d: Array<Int>;
 }
@@ -147,6 +144,19 @@ typedef EntityInstanceJson = {
 	/** Grid-based coordinates (`[x,y]` format) **/
 	@changed("0.4.0")
 	var __grid: Array<Int>;
+
+	/**
+		Optional Tile used to display this entity (it could either be the default Entity tile,
+		or some tile provided by a field value, like an Enum).
+	**/
+	@added("0.4.0")
+	var __tile: Null<{
+		/** Tileset ID **/
+		var tilesetUid: Int;
+
+		/** An array of 4 values that refer to the tile in the tileset image: `[ x, y, width, height ]` **/
+		var srcRect: Array<Int>;
+	}>;
 
 	/** Reference of the **Entity definition** UID **/
 	var defUid: Int;
