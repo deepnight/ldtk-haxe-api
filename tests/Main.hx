@@ -69,6 +69,7 @@ class Main {
 			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_EntityTest.all_Hero.length!=0 );
 			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_EntityTest.all_Mob.length!=0 );
 			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_EntityTest.all_Test.length!=0 );
+			CiAssert.equals( project.all_levels.MyFirstLevel.l_EntityTest.all_Unused.length, 0 );
 
 			// Entities
 			var hero = project.all_levels.MyFirstLevel.l_EntityTest.all_Hero[0];
