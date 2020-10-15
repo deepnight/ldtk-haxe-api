@@ -154,7 +154,7 @@ typedef EntityInstanceJson = {
 		/** Tileset ID **/
 		var tilesetUid: Int;
 
-		/** An array of 4 values that refer to the tile in the tileset image: `[ x, y, width, height ]` **/
+		/** An array of 4 Int values that refers to the tile in the tileset image: `[ x, y, width, height ]` **/
 		var srcRect: Array<Int>;
 	}>;
 
@@ -193,7 +193,7 @@ typedef FieldInstanceJson = {
 
 /**
 	Many useful data found in `definitions` are duplicated in fields
-	prefixed with a double "_".
+	prefixed with a double underscore (ie. "__").
 **/
 @section("2")
 @display("Definitions")
@@ -273,7 +273,6 @@ typedef LayerDefJson = {
 
 
 
-/** Not available yet **/
 @section("2.2")
 @display("Entity definition")
 typedef EntityDefJson = {
@@ -321,10 +320,14 @@ typedef EntityDefJson = {
 	var fieldDefs: Array<FieldDefJson>;
 };
 
+
+
 /** Not available yet **/
 @section("2.2.1")
 @display("Field definition")
 typedef FieldDefJson = Dynamic;
+
+
 
 @section("2.3")
 @display("Tileset definition")
@@ -357,7 +360,8 @@ typedef TilesetDefJson = {
 	var savedSelections: Array<{ ids:Array<Int>, mode:Dynamic }>;
 }
 
-/** Not available yet **/
+
+
 @section("2.4")
 @display("Enum definition")
 typedef EnumDefJson = {
@@ -368,7 +372,17 @@ typedef EnumDefJson = {
 	var identifier: String;
 
 	/** All possible enum values, with their optional Tile infos **/
-	var values: Array<{ id:String, tileId:Null<Int> }>;
+	var values: Array<{
+		/** Enum value **/
+		var id:String;
+
+		/** The optional ID of the tile **/
+		var tileId:Null<Int>;
+
+		/** An array of 4 Int values that refers to the tile in the tileset image: `[ x, y, width, height ]` **/
+		@added("0.4.0")
+		var __tileSrcRect:Array<Int>;
+	}>;
 
 	/** Tileset UID if provided **/
 	var iconTilesetUid: Null<Int>;
