@@ -41,8 +41,6 @@ class BaseExample {
 				case Gold: "gold coins";
 				case Ammo: "ammunitions";
 				case Key: "iron key";
-				case MachineGun: "heavy machinegun";
-				case LongBow: "elven long bow";
 			}
 			print( mobEntity.identifier+" => loot = '"+lootName+"'" );
 		}
