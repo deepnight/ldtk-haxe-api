@@ -14,6 +14,24 @@ class Main {
 			section("Project...");
 			CiAssert.isNotNull( project );
 
+			// Project defs
+			CiAssert.isNotNull( project.defs );
+			CiAssert.isNotNull( project.defs.entities );
+			CiAssert.isNotNull( project.defs.enums );
+			CiAssert.isNotNull( project.defs.externalEnums );
+			CiAssert.isNotNull( project.defs.layers );
+			CiAssert.isNotNull( project.defs.tilesets );
+
+			CiAssert.isTrue( project.defs.entities.length>0 );
+			CiAssert.isTrue( project.defs.enums.length>0 );
+			CiAssert.isTrue( project.defs.externalEnums.length>0 );
+			CiAssert.isTrue( project.defs.layers.length>0 );
+			CiAssert.isTrue( project.defs.tilesets.length>0 );
+
+			CiAssert.equals( project.defs.entities[0].identifier, "Hero" );
+			CiAssert.equals( project.defs.layers[0].identifier, "IntGrid_AutoLayer" );
+			CiAssert.equals( project.defs.tilesets[0].identifier, "Minecraft_texture_pack" );
+
 			// Types
 			section("Types...");
 			CiAssert.isNotNull( ProjectNoPackage.Enum_Mobs );
