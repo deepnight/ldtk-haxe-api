@@ -28,9 +28,10 @@ class Main {
 			CiAssert.isTrue( project.defs.layers.length>0 );
 			CiAssert.isTrue( project.defs.tilesets.length>0 );
 
-			CiAssert.equals( project.defs.entities[0].identifier, "Hero" );
-			CiAssert.equals( project.defs.layers[0].identifier, "IntGrid_AutoLayer" );
-			CiAssert.equals( project.defs.tilesets[0].identifier, "Minecraft_texture_pack" );
+			CiAssert.isNotNull( project.getLayerDef("IntGrid_AutoLayer") );
+			CiAssert.isNotNull( project.getEntityDef("Hero") );
+			CiAssert.isNotNull( project.getEnumDef("Weapons") );
+			CiAssert.isNotNull( project.getTilesetDef("Minecraft_texture_pack") );
 
 			// Types
 			section("Types...");

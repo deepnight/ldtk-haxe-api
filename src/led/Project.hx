@@ -59,6 +59,37 @@ class Project {
 		return null; // overriden by Macros.hx
 	}
 
+	function searchDef<T:{uid:Int, identifier:String}>(arr:Array<T>, ?uid:Int, ?identifier:String) {
+		if( uid==null && identifier==null )
+			return null;
+
+		for(e in arr)
+			if( uid!=null && e.uid==uid || identifier!=null && e.identifier==identifier )
+				return e;
+
+		return null;
+	}
+
+	public inline function getLayerDef(?uid:Int, ?identifier:String) : Null<led.Json.LayerDefJson> {
+		return searchDef( defs.layers, uid, identifier );
+	}
+
+	public inline function getEntityDef(?uid:Int, ?identifier:String) : Null<led.Json.EntityDefJson> {
+		return searchDef( defs.entities, uid, identifier );
+	}
+
+	public inline function getTilesetDef(?uid:Int, ?identifier:String) : Null<led.Json.TilesetDefJson> {
+		return searchDef( defs.tilesets, uid, identifier );
+	}
+
+	public inline function getEnumDef(?uid:Int, ?identifier:String) : Null<led.Json.EnumDefJson> {
+		var e = searchDef( defs.enums, uid, identifier );
+		if( e!=null )
+			return e;
+		else
+			return searchDef( defs.externalEnums, uid, identifier );
+	}
+
 
 	@:noCompletion
 	public static inline function hexToInt(hex:String) {
