@@ -360,4 +360,23 @@ typedef TilesetDefJson = {
 /** Not available yet **/
 @section("2.4")
 @display("Enum definition")
-typedef EnumDefJson = Dynamic;
+typedef EnumDefJson = {
+	/** Unique Int identifier **/
+	var uid: Int;
+
+	/** Unique String identifier **/
+	var identifier: String;
+
+	/** All possible enum values, with their optional Tile infos **/
+	var values: Array<{ id:String, tileId:Null<Int> }>;
+
+	/** Tileset UID if provided **/
+	var iconTilesetUid: Null<Int>;
+
+	/** Relative path to the external file providing this Enum **/
+	var externalRelPath: Null<String>;
+
+	@hide
+	var externalFileChecksum: Null<String>;
+
+};
