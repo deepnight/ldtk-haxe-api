@@ -402,7 +402,7 @@
 						"canBeNull": false,
 						"arrayMinLength": null,
 						"arrayMaxLength": null,
-						"editorDisplayMode": "ValueOnly",
+						"editorDisplayMode": "EntityTile",
 						"editorDisplayPos": "Center",
 						"editorAlwaysShow": false,
 						"min": null,
@@ -1143,7 +1143,7 @@
 					"seed": 4819766,
 					"gridTiles": [],
 					"entityInstances": [
-						{ "__identifier": "Mob", "__grid": [14,9], "__tile": null, "defUid": 2, "px": [232,160], "fieldInstances": [
+						{ "__identifier": "Mob", "__grid": [13,9], "__tile": { "tilesetUid": 14, "srcRect": [32,32,32,32] }, "defUid": 2, "px": [216,160], "fieldInstances": [
 							{
 								"__identifier": "type",
 								"__value": "Trash",

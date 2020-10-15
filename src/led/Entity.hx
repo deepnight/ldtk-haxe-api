@@ -24,6 +24,8 @@ class Entity {
 	**/
 	public var pixelY : Int;
 
+	public var tileInfos : Null<{ tilesetUid:Int, x:Int, y:Int, w:Int, h:Int }>;
+
 	var _fields : Map<String, Dynamic> = new Map();
 
 	public function new(json:led.Json.EntityInstanceJson) {
@@ -32,6 +34,14 @@ class Entity {
 		cy = json.__grid[1];
 		pixelX = json.px[0];
 		pixelY = json.px[1];
+
+		tileInfos = json.__tile==null ? null : {
+			tilesetUid: json.__tile.tilesetUid,
+			x: json.__tile.srcRect[0],
+			y: json.__tile.srcRect[1],
+			w: json.__tile.srcRect[2],
+			h: json.__tile.srcRect[3],
+		}
 
 		// Assign values to fields created in Macros
 		var arrayReg = ~/Array<(.*)>/gi;
