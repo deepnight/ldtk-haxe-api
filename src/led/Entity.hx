@@ -21,6 +21,7 @@ class Entity {
 
 	var _fields : Map<String, Dynamic> = new Map();
 
+
 	public function new(json:led.Json.EntityInstanceJson) {
 		identifier = json.__identifier;
 		cx = json.__grid[0];
