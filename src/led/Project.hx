@@ -31,6 +31,8 @@ class Project {
 
 	var _untypedLevels : Array<led.Level>;
 
+	public var defs : led.Json.DefinitionsJson;
+
 	public function new() {}
 
 	/**
@@ -47,6 +49,8 @@ class Project {
 		_untypedLevels = [];
 		for(json in json.levels)
 			_untypedLevels.push( _instanciateLevel(json) );
+
+		defs = json.defs;
 		#end
 	}
 
