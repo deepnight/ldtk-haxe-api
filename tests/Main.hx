@@ -1,5 +1,6 @@
 import dn.CiAssert;
 import externEnums.GameEnums;
+import ProjectNoPackage;
 
 class Main {
 	static function main() {
@@ -32,6 +33,12 @@ class Main {
 			CiAssert.isNotNull( project.getEntityDef("Hero") );
 			CiAssert.isNotNull( project.getEnumDef("Weapons") );
 			CiAssert.isNotNull( project.getTilesetDef("Minecraft_texture_pack") );
+
+			CiAssert.equals( project.getEnumDefFromValue(Trash).identifier, "Mobs" );
+			CiAssert.equals( project.getEnumDefFromValue(LongBow).identifier, "Weapons" );
+			CiAssert.equals( project.getEnumDefFromValue(Ammo).identifier, "DroppedItemType" ); // extern
+			CiAssert.equals( project.getEnumDefFromValue(Foo).identifier, "SomeEnum" ); // extern
+			CiAssert.equals( project.getEnumDefFromValue(null), null );
 
 			// Types
 			section("Types...");
@@ -121,8 +128,6 @@ class Main {
 				case Gold: true;
 				case Ammo: false;
 				case Key: false;
-				case MachineGun: false;
-				case LongBow: false;
 			});
 			switch project.all_levels.MyFirstLevel.l_EntityTest.all_Mob[0].f_type {
 				case Trash:

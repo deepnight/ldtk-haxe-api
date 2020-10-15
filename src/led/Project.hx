@@ -90,6 +90,18 @@ class Project {
 			return searchDef( defs.externalEnums, uid, identifier );
 	}
 
+	public function getEnumDefFromValue(v:EnumValue) : Null<led.Json.EnumDefJson> {
+		try {
+			var name = Type.getEnum(v).getName();
+			var defId = name.substr( name.indexOf("_")+1 ); // get rid of the Macro prefix
+			defId = defId.substr( defId.lastIndexOf(".")+1 );
+			return getEnumDef(defId);
+		}
+		catch(err:Dynamic) {
+			return null;
+		}
+	}
+
 
 	@:noCompletion
 	public static inline function hexToInt(hex:String) {
