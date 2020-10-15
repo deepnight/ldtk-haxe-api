@@ -646,19 +646,30 @@
 			}
 		],
 		"enums": [
-			{ "identifier": "Mobs", "uid": 1, "values": [ { "id": "Trash", "tileId": 7 }, { "id": "Shooter", "tileId": 12 }, { "id": "Shielder", "tileId": 13 } ], "iconTilesetUid": 14, "externalRelPath": null, "externalFileChecksum": null },
-			{ "identifier": "Weapons", "uid": 10, "values": [ { "id": "LongBow", "tileId": null }, { "id": "Torch", "tileId": null }, { "id": "Grenade", "tileId": null }, { "id": "FireBall", "tileId": null } ], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null }
+			{ "identifier": "Mobs", "uid": 1, "values": [
+				{ "id": "Trash", "tileId": 7, "__tileSrcRect": [32,32,32,32] },
+				{ "id": "Shooter", "tileId": 12, "__tileSrcRect": [0,64,32,32] },
+				{ "id": "Shielder", "tileId": 13, "__tileSrcRect": [32,64,32,32] }
+			], "iconTilesetUid": 14, "externalRelPath": null, "externalFileChecksum": null },
+			{ "identifier": "Weapons", "uid": 10, "values": [
+				{ "id": "LongBow", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Torch", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Grenade", "tileId": null, "__tileSrcRect": null },
+				{ "id": "FireBall", "tileId": null, "__tileSrcRect": null }
+			], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null }
 		],
 		"externalEnums": [
 			{ "identifier": "DroppedItemType", "uid": 29, "values": [
-				{ "id": "Ammo", "tileId": null },
-				{ "id": "Food", "tileId": null },
-				{ "id": "Gold", "tileId": null },
-				{ "id": "Key", "tileId": null },
-				{ "id": "LongBow", "tileId": null },
-				{ "id": "MachineGun", "tileId": null }
-			], "iconTilesetUid": null, "externalRelPath": "../externEnums/GameEnums.hx", "externalFileChecksum": "62c14d1366da9fa0c1dec742d1ac8ab1" },
-			{ "identifier": "SomeEnum", "uid": 31, "values": [ { "id": "Bar", "tileId": null }, { "id": "Foo", "tileId": null }, { "id": "Pouet", "tileId": null } ], "iconTilesetUid": null, "externalRelPath": "../externEnums/GameEnums.hx", "externalFileChecksum": "62c14d1366da9fa0c1dec742d1ac8ab1" }
+				{ "id": "Ammo", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Food", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Gold", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Key", "tileId": null, "__tileSrcRect": null }
+			], "iconTilesetUid": null, "externalRelPath": "../externEnums/GameEnums.hx", "externalFileChecksum": "33fcbbe2bbc7184f7dbb19b4305d47f5" },
+			{ "identifier": "SomeEnum", "uid": 31, "values": [
+				{ "id": "Bar", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Foo", "tileId": null, "__tileSrcRect": null },
+				{ "id": "Pouet", "tileId": null, "__tileSrcRect": null }
+			], "iconTilesetUid": null, "externalRelPath": "../externEnums/GameEnums.hx", "externalFileChecksum": "33fcbbe2bbc7184f7dbb19b4305d47f5" }
 		]
 	},
 	"levels": [
