@@ -31,6 +31,7 @@ class Layer_Tiles extends led.Layer {
 	function _getTileset() : Tileset return null; // replaced by Macros.hx
 
 
+
 	#if( !macro && heaps )
 
 	/**
@@ -41,6 +42,15 @@ class Layer_Tiles extends led.Layer {
 			parent = new h2d.Object();
 
 		var tg = new h2d.TileGroup(tilesetAtlasTile, parent);
+		renderInTileGroup(tg,false);
+
+		return parent;
+	}
+
+	public inline function renderInTileGroup(tg:h2d.TileGroup, clearContent:Bool) {
+		if( clearContent )
+			tg.clear();
+
 		for( cy in 0...cHei )
 		for( cx in 0...cWid ) {
 			if( hasTileAt(cx,cy) ) {
@@ -48,13 +58,12 @@ class Layer_Tiles extends led.Layer {
 				tg.add(
 					cx*gridSize + pxOffsetX,
 					cy*gridSize + pxOffsetY,
-					_getTileset().getHeapsTile(tilesetAtlasTile, tileId)
+					_getTileset().getHeapsTile(tg.tile, tileId)
 				);
 			}
 		}
-
-		return parent;
 	}
 
 	#end
+
 }
