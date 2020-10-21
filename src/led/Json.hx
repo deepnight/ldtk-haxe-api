@@ -299,6 +299,10 @@ typedef EntityDefJson = {
 	@hide
 	var renderMode: Enum<Dynamic>;
 
+	@hide
+	@added("0.4.0")
+	var showName: Bool;
+
 	/** Tileset ID used for optional tile display **/
 	var tilesetId: Int;
 
