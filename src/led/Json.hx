@@ -180,7 +180,10 @@ typedef FieldInstanceJson = {
 	/** Unique String identifier **/
 	var __identifier: String;
 
-	/** Actual value of the field instance. The value type may vary, depending on `__type` (Integer, Boolean, String etc.) **/
+	/**
+		Actual value of the field instance. The value type may vary, depending on `__type` (Integer, Boolean, String etc.)
+		It can also be an `Array` of various types.
+	**/
 	var __value: Dynamic;
 
 	/** Type of the field, such as Int, Float, Enum(enum_name), Bool, etc. **/
