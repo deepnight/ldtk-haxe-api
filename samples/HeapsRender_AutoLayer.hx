@@ -24,7 +24,7 @@ class HeapsRender_AutoLayer extends hxd.App {
 		var atlasTile = hxd.Res.Cavernas_by_Adam_Saltsman.toTile();
 
 		// Layer data
-		var layer = project.all_levels.MyFirstLevel.l_IntGrid_AutoLayer;
+		var layer = project.all_levels.Test_level.l_Collisions;
 
 		// Get all the generated auto-layer tiles in this layer
 		for( autoTile in layer.autoTiles ) {

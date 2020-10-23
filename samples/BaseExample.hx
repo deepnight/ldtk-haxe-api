@@ -9,10 +9,10 @@ class BaseExample {
 	static function main() {
 		var project = new _Project();
 
-		var myLevel = project.all_levels.MyFirstLevel;
+		var myLevel = project.all_levels.Test_level;
 
 		// IntGrid ASCII render
-		var layer = myLevel.l_IntGridTest;
+		var layer = myLevel.l_Collisions;
 		for( cy in 0...layer.cHei ) {
 			var row = "";
 			for( cx in 0...layer.cWid )
@@ -24,25 +24,19 @@ class BaseExample {
 		}
 
 		// Entity access
-		for( mobEntity in myLevel.l_EntityTest.all_Mob ) {
-			print( mobEntity.identifier );
-			print( "  scale = "+mobEntity.f_scale );
+		for( playerEntity in myLevel.l_Entities.all_Player )
+			print( "Found: "+playerEntity.identifier );
 
-			var i = 0;
-			for( pt in mobEntity.f_path )
-				print( "  path["+(i++)+"] = "+pt.cx+","+pt.cy);
-		}
+		for( itemEntity in myLevel.l_Entities.all_Item ) {
+			print( "Found: "+itemEntity.identifier );
+			print( "  type = "+itemEntity.f_type );
 
-		// Enum switching
-		for( mobEntity in myLevel.l_EntityTest.all_Mob ) {
-			var lootName = switch mobEntity.f_lootDrop {
-				case null: "no loot";
-				case Food: "some food";
-				case Gold: "gold coins";
-				case Ammo: "ammunitions";
-				case Key: "iron key";
+			var displayName = switch itemEntity.f_type {
+				case Pickaxe: 'A rusty pickaxe';
+				case Potion: 'A fresh vial of Healing potion';
+				case Food: 'Some tasty food';
 			}
-			print( mobEntity.identifier+" => loot = '"+lootName+"'" );
+			print('  "$displayName"');
 		}
 	}
 
