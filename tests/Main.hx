@@ -153,8 +153,10 @@ class Main {
 			CiAssert.isNotNull( project.all_levels.Main_tests.resolveLayer("TileTest") );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.identifier=="TileTest" );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.type==Tiles );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.getTileIdAt(0,0)==-1 );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.getTileIdAt(0,9)!=-1 );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.hasAnyTileAt(4,0) );
+			CiAssert.equals( project.all_levels.Main_tests.l_TileTest.getTileStackAt(4,0)[0].tileId, 0 );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.hasAnyTileAt(5,0) );
+			CiAssert.equals( project.all_levels.Main_tests.l_TileTest.getTileStackAt(5,0)[0].tileId, 1 );
 
 			// Tileset
 			section("Tileset...");
@@ -163,7 +165,7 @@ class Main {
 			CiAssert.isNotNull( project.all_levels.Main_tests.l_TileTest.tileset.loadAtlasBytes(project) );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.tileset.loadAtlasBytes(project).length>0 );
 			#end
-			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.getTileIdAt(1,4)>=0 );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.getTileStackAt(1,4)[0].tileId>=0 );
 			var gridSize = project.all_levels.Main_tests.l_TileTest.tileset.tileGridSize;
 			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.tileset.getAtlasX(1)==gridSize );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.tileset.getAtlasY(1)==0 );
