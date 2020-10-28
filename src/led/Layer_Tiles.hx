@@ -1,7 +1,7 @@
 package led;
 
 class Layer_Tiles extends led.Layer {
-	var tiles : Map<Int, Array<Int>>;
+	var tiles : Map<Int, Array<{ tileId:Int, flipBits:Int }>>;
 	var atlasPath : String;
 
 	public function new(json) {
@@ -10,16 +10,16 @@ class Layer_Tiles extends led.Layer {
 		tiles = new Map();
 		for(t in json.gridTiles)
 			if( !tiles.exists(t.d[0]) )
-				tiles.set(t.d[0], [t.d[1]]);
+				tiles.set(t.d[0], [{ tileId:t.d[1], flipBits:t.f }]);
 			else
-				tiles.get(t.d[0]).push( t.d[1] );
+				tiles.get(t.d[0]).push({ tileId:t.d[1], flipBits:t.f });
 
 	}
 
 	/**
-		Return the stack of tile IDs at coords, or empty array if there is none. To avoid useless memory allocations, you should check `hasAnyTileAt` before using this method.
+		Return the stack of tiles at coords, or empty array if there is none. To avoid useless memory allocations, you should check `hasAnyTileAt` before using this method.
 	**/
-	public inline function getTileIdStackAt(cx:Int,cy:Int) : Array<Int> {
+	public inline function getTileStackAt(cx:Int,cy:Int) : Array<{ tileId:Int, flipBits:Int }> {
 		return isCoordValid(cx,cy) && tiles.exists(getCoordId(cx,cy))
 			? tiles.get( getCoordId(cx,cy) )
 			: [];
@@ -58,11 +58,11 @@ class Layer_Tiles extends led.Layer {
 		for( cy in 0...cHei )
 		for( cx in 0...cWid ) {
 			if( hasAnyTileAt(cx,cy) ) {
-				for( tileId in getTileIdStackAt(cx,cy) ) {
+				for( tile in getTileStackAt(cx,cy) ) {
 					tg.add(
 						cx*gridSize + pxTotalOffsetX,
 						cy*gridSize + pxTotalOffsetY,
-						_getTileset().getHeapsTile(tg.tile, tileId)
+						_getTileset().getHeapsTile(tg.tile, tile.tileId, tile.flipBits)
 					);
 				}
 			}
