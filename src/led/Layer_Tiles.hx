@@ -1,7 +1,7 @@
 package led;
 
 class Layer_Tiles extends led.Layer {
-	var tiles : Map<Int,Int>;
+	var tiles : Map<Int, Array<Int>>;
 	var atlasPath : String;
 
 	public function new(json) {
@@ -9,23 +9,27 @@ class Layer_Tiles extends led.Layer {
 
 		tiles = new Map();
 		for(t in json.gridTiles)
-			tiles.set(t.d[0], t.d[1]);
+			if( !tiles.exists(t.d[0]) )
+				tiles.set(t.d[0], [t.d[1]]);
+			else
+				tiles.get(t.d[0]).push( t.d[1] );
+
 	}
 
 	/**
-		Return the tile ID at coords, or -1 if there is none.
+		Return the stack of tile IDs at coords, or empty array if there is none. To avoid useless memory allocations, you should check `hasAnyTileAt` before using this method.
 	**/
-	public inline function getTileIdAt(cx:Int,cy:Int) : Int {
+	public inline function getTileIdStackAt(cx:Int,cy:Int) : Array<Int> {
 		return isCoordValid(cx,cy) && tiles.exists(getCoordId(cx,cy))
 			? tiles.get( getCoordId(cx,cy) )
-			: -1;
+			: [];
 	}
 
 	/**
 		Return TRUE if any tile exists at specified coords
 	**/
-	public inline function hasTileAt(cx,cy) {
-		return getTileIdAt(cx,cy)>=0;
+	public inline function hasAnyTileAt(cx,cy) {
+		return tiles.exists( getCoordId(cx,cy) );
 	}
 
 	function _getTileset() : Tileset return null; // replaced by Macros.hx
@@ -53,13 +57,14 @@ class Layer_Tiles extends led.Layer {
 
 		for( cy in 0...cHei )
 		for( cx in 0...cWid ) {
-			if( hasTileAt(cx,cy) ) {
-				var tileId = getTileIdAt(cx,cy);
-				tg.add(
-					cx*gridSize + pxTotalOffsetX,
-					cy*gridSize + pxTotalOffsetY,
-					_getTileset().getHeapsTile(tg.tile, tileId)
-				);
+			if( hasAnyTileAt(cx,cy) ) {
+				for( tileId in getTileIdStackAt(cx,cy) ) {
+					tg.add(
+						cx*gridSize + pxTotalOffsetX,
+						cy*gridSize + pxTotalOffsetY,
+						_getTileset().getHeapsTile(tg.tile, tileId)
+					);
+				}
 			}
 		}
 	}

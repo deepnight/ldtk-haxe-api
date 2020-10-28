@@ -42,18 +42,20 @@ class HeapsRender_TileLayer extends hxd.App {
 		// Render
 		for( cx in 0...layer.cWid )
 		for( cy in 0...layer.cHei ) {
-			if( !layer.hasTileAt(cx,cy) )
+			if( !layer.hasAnyTileAt(cx,cy) )
 				continue;
 
 			// Get corresponding h2d.Tile from tileset
-			var tile = layer.tileset.getHeapsTile(tilesetAtlasTile, layer.getTileIdAt(cx,cy), 0);
+			for( tileId in layer.getTileIdStackAt(cx,cy) ) {
+				var tile = layer.tileset.getHeapsTile(tilesetAtlasTile, tileId, 0);
 
-			// Display it
-			tileGroup.add(
-				cx*layer.gridSize + layer.pxTotalOffsetX,
-				cy*layer.gridSize + layer.pxTotalOffsetY,
-				tile
-			);
+				// Display it
+				tileGroup.add(
+					cx*layer.gridSize + layer.pxTotalOffsetX,
+					cy*layer.gridSize + layer.pxTotalOffsetY,
+					tile
+				);
+			}
 		}
 	}
 }
