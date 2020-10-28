@@ -56,8 +56,8 @@ class Layer_Tiles extends led.Layer {
 			if( hasTileAt(cx,cy) ) {
 				var tileId = getTileIdAt(cx,cy);
 				tg.add(
-					cx*gridSize + pxOffsetX,
-					cy*gridSize + pxOffsetY,
+					cx*gridSize + pxTotalOffsetX,
+					cy*gridSize + pxTotalOffsetY,
 					_getTileset().getHeapsTile(tg.tile, tileId)
 				);
 			}

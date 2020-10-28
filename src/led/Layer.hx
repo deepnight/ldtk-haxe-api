@@ -28,14 +28,14 @@ class Layer {
 	public var cHei : Int;
 
 	/**
-		Pixel-based layer X offset
+		Pixel-based layer X offset (includes both instance and definition offsets)
 	**/
-	public var pxOffsetX: Int;
+	public var pxTotalOffsetX: Int;
 
 	/**
-		Pixel-based layer Y offset
+		Pixel-based layer Y offset (includes both instance and definition offsets)
 	**/
-	public var pxOffsetY : Int;
+	public var pxTotalOffsetY : Int;
 
 	/** Layer opacity (0-1) **/
 	public var opacity : Float;
@@ -48,8 +48,8 @@ class Layer {
 		gridSize = json.__gridSize;
 		cWid = json.__cWid;
 		cHei = json.__cHei;
-		pxOffsetX = json.pxOffsetX;
-		pxOffsetY = json.pxOffsetY;
+		pxTotalOffsetX = json.__pxTotalOffsetX;
+		pxTotalOffsetY = json.__pxTotalOffsetY;
 		opacity = json.__opacity;
 	}
 

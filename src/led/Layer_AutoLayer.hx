@@ -69,8 +69,8 @@ class Layer_AutoLayer extends led.Layer {
 
 		for( autoTile in autoTiles ) {
 			tg.add(
-				autoTile.renderX,
-				autoTile.renderY,
+				autoTile.renderX + pxTotalOffsetX,
+				autoTile.renderY + pxTotalOffsetY,
 				_getTileset().getAutoLayerHeapsTile(tg.tile, autoTile)
 			);
 		}
