@@ -90,11 +90,11 @@ typedef LayerInstanceJson = {
 	/** Reference the Layer definition UID **/
 	var layerDefUid: Int;
 
-	/** X offset in pixels to render this layer, usually 0 (this should be added to the `LayerDef` optional offset) **/
+	/** X offset in pixels to render this layer, usually 0 (IMPORTANT: this should be added to the `LayerDef` optional offset) **/
 	@changed("0.5.0")
 	var pxOffsetX: Int;
 
-	/** Y offset in pixels to render this layer, usually 0 (this should be added to the `LayerDef` optional offset)**/
+	/** Y offset in pixels to render this layer, usually 0 (IMPORTANT: this should be added to the `LayerDef` optional offset)**/
 	@changed("0.5.0")
 	var pxOffsetY: Int;
 
@@ -131,7 +131,8 @@ typedef LayerInstanceJson = {
 @added("0.4.0")
 @display("Tile instance")
 typedef Tile = {
-	/** Pixel coordinates of the tile in the **layer** (`[x,y]` format) **/
+	/** Pixel coordinates of the tile in the **layer** (`[x,y]` format). Don't forget optional layer offsets, if they exist! **/
+	@changed("0.5.0")
 	var px: Array<Int>;
 
 	/** Pixel coordinates of the tile in the **tileset** (`[x,y]` format) **/
@@ -180,7 +181,7 @@ typedef EntityInstanceJson = {
 	/** Reference of the **Entity definition** UID **/
 	var defUid: Int;
 
-	/** Pixel coordinates (`[x,y]` format) **/
+	/** Pixel coordinates (`[x,y]` format). Don't forget optional layer offsets, if they exist! **/
 	@changed("0.4.0")
 	var px: Array<Int>;
 
@@ -253,11 +254,11 @@ typedef LayerDefJson = {
 	/** Width and height of the grid in pixels **/
 	var gridSize: Int;
 
-	/** X offset of the layer, in pixels (this should be added to the `LayerInstance` optional offset) **/
+	/** X offset of the layer, in pixels (IMPORTANT: this should be added to the `LayerInstance` optional offset) **/
 	@added("0.5.0")
 	var pxOffsetX: Int;
 
-	/** Y offset of the layer, in pixels (this should be added to the `LayerInstance` optional offset) **/
+	/** Y offset of the layer, in pixels (IMPORTANT: this should be added to the `LayerInstance` optional offset) **/
 	@added("0.5.0")
 	var pxOffsetY: Int;
 
