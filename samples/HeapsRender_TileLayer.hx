@@ -50,8 +50,8 @@ class HeapsRender_TileLayer extends hxd.App {
 
 			// Display it
 			tileGroup.add(
-				cx*layer.gridSize + layer.pxOffsetX,
-				cy*layer.gridSize + layer.pxOffsetY,
+				cx*layer.gridSize + layer.pxTotalOffsetX,
+				cy*layer.gridSize + layer.pxTotalOffsetY,
 				tile
 			);
 		}
