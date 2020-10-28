@@ -49,41 +49,52 @@ class Main {
 			// Levels
 			section("Levels...");
 			CiAssert.isNotNull( project.all_levels );
-			CiAssert.isNotNull( project.all_levels.MyFirstLevel );
-			CiAssert.isNotNull( project.resolveLevel("MyFirstLevel") );
+			CiAssert.isNotNull( project.all_levels.Main_tests );
+			CiAssert.isNotNull( project.all_levels.Offset_tests );
+			CiAssert.isNotNull( project.resolveLevel("Main_tests") );
+			CiAssert.equals( project.resolveLevel("Main_tests"), project.all_levels.Main_tests );
 			CiAssert.isTrue( project.levels.length>0 );
 			CiAssert.isNotNull( project.levels[0].l_IntGridTest );
 
+			// Layer offsets
+			CiAssert.equals( project.all_levels.Offset_tests.l_IntGrid8.pxTotalOffsetX, 4 );
+			CiAssert.equals( project.all_levels.Offset_tests.l_IntGrid8.pxTotalOffsetY, 4 );
+			CiAssert.equals( project.all_levels.Offset_tests.l_IntGridTest.pxTotalOffsetX, 8 );
+			CiAssert.equals( project.all_levels.Offset_tests.l_IntGridTest.pxTotalOffsetY, 8 );
+			CiAssert.equals( project.all_levels.Offset_tests.l_EntityTest.all_OffsetTest[0].pixelX, 0 );
+			CiAssert.equals( project.all_levels.Offset_tests.l_EntityTest.all_OffsetTest[0].pixelY, 0 );
+
+
 			// IntGrid layer
 			section("IntGrid...");
-			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_IntGridTest );
-			CiAssert.equals( project.all_levels.MyFirstLevel.l_IntGridTest.type, led.Layer.LayerType.IntGrid );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_IntGridTest.type==IntGrid );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_IntGridTest.getInt(0,0)==0 );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_IntGridTest.hasValue(0,0) );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_IntGridTest.getName(0,0)=="a" );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_IntGridTest.getInt(1,0)==1 );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_IntGridTest.getInt(2,0)==2 );
-			CiAssert.isFalse( project.all_levels.MyFirstLevel.l_IntGridTest.hasValue(0,1) );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_IntGridTest.isCoordValid(0,0) );
-			CiAssert.isFalse( project.all_levels.MyFirstLevel.l_IntGridTest.isCoordValid(-1,0) );
-			CiAssert.isFalse( project.all_levels.MyFirstLevel.l_IntGridTest.isCoordValid(999,0) );
+			CiAssert.isNotNull( project.all_levels.Main_tests.l_IntGridTest );
+			CiAssert.equals( project.all_levels.Main_tests.l_IntGridTest.type, led.Layer.LayerType.IntGrid );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGridTest.type==IntGrid );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGridTest.getInt(0,0)==0 );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGridTest.hasValue(0,0) );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGridTest.getName(0,0)=="a" );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGridTest.getInt(1,0)==1 );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGridTest.getInt(2,0)==2 );
+			CiAssert.isFalse( project.all_levels.Main_tests.l_IntGridTest.hasValue(0,1) );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGridTest.isCoordValid(0,0) );
+			CiAssert.isFalse( project.all_levels.Main_tests.l_IntGridTest.isCoordValid(-1,0) );
+			CiAssert.isFalse( project.all_levels.Main_tests.l_IntGridTest.isCoordValid(999,0) );
 
 			// Entity layer
 			section("Entity...");
-			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_EntityTest);
-			CiAssert.equals( project.all_levels.MyFirstLevel.l_EntityTest.type, led.Layer.LayerType.Entities );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_EntityTest.type==Entities );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_EntityTest.all_Hero.length!=0 );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_EntityTest.all_Mob.length!=0 );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_EntityTest.all_Test.length!=0 );
-			CiAssert.equals( project.all_levels.MyFirstLevel.l_EntityTest.all_Unused.length, 0 );
-			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_EntityTest.all_Mob[0].tileInfos );
+			CiAssert.isNotNull( project.all_levels.Main_tests.l_EntityTest);
+			CiAssert.equals( project.all_levels.Main_tests.l_EntityTest.type, led.Layer.LayerType.Entities );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.type==Entities );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.all_Hero.length!=0 );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.all_Mob.length!=0 );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.all_Test.length!=0 );
+			CiAssert.equals( project.all_levels.Main_tests.l_EntityTest.all_Unused.length, 0 );
+			CiAssert.isNotNull( project.all_levels.Main_tests.l_EntityTest.all_Mob[0].tileInfos );
 
 			// Entities
-			var hero = project.all_levels.MyFirstLevel.l_EntityTest.all_Hero[0];
-			var mob = project.all_levels.MyFirstLevel.l_EntityTest.all_Mob[0];
-			var test = project.all_levels.MyFirstLevel.l_EntityTest.all_Test[0];
+			var hero = project.all_levels.Main_tests.l_EntityTest.all_Hero[0];
+			var mob = project.all_levels.Main_tests.l_EntityTest.all_Mob[0];
+			var test = project.all_levels.Main_tests.l_EntityTest.all_Test[0];
 			CiAssert.isNotNull( hero );
 			CiAssert.isNotNull( mob );
 			CiAssert.isNotNull( test );
@@ -122,14 +133,14 @@ class Main {
 
 			// Switch check
 			section("Switch...");
-			CiAssert.isTrue( switch project.all_levels.MyFirstLevel.l_EntityTest.all_Mob[0].f_lootDrop {
+			CiAssert.isTrue( switch project.all_levels.Main_tests.l_EntityTest.all_Mob[0].f_lootDrop {
 				case null: false;
 				case Food: false;
 				case Gold: true;
 				case Ammo: false;
 				case Key: false;
 			});
-			switch project.all_levels.MyFirstLevel.l_EntityTest.all_Mob[0].f_type {
+			switch project.all_levels.Main_tests.l_EntityTest.all_Mob[0].f_type {
 				case Trash:
 				case Shooter:
 				case Shielder:
@@ -137,46 +148,46 @@ class Main {
 
 			// Tile layer
 			section("Tile layer...");
-			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_TileTest );
-			CiAssert.equals( project.all_levels.MyFirstLevel.l_TileTest.type, led.Layer.LayerType.Tiles );
-			CiAssert.isNotNull( project.all_levels.MyFirstLevel.resolveLayer("TileTest") );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_TileTest.identifier=="TileTest" );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_TileTest.type==Tiles );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_TileTest.getTileIdAt(0,0)==-1 );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_TileTest.getTileIdAt(0,9)!=-1 );
+			CiAssert.isNotNull( project.all_levels.Main_tests.l_TileTest );
+			CiAssert.equals( project.all_levels.Main_tests.l_TileTest.type, led.Layer.LayerType.Tiles );
+			CiAssert.isNotNull( project.all_levels.Main_tests.resolveLayer("TileTest") );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.identifier=="TileTest" );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.type==Tiles );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.getTileIdAt(0,0)==-1 );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.getTileIdAt(0,9)!=-1 );
 
 			// Tileset
 			section("Tileset...");
-			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_TileTest.tileset );
+			CiAssert.isNotNull( project.all_levels.Main_tests.l_TileTest.tileset );
 			#if !js
-			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_TileTest.tileset.loadAtlasBytes(project) );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_TileTest.tileset.loadAtlasBytes(project).length>0 );
+			CiAssert.isNotNull( project.all_levels.Main_tests.l_TileTest.tileset.loadAtlasBytes(project) );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.tileset.loadAtlasBytes(project).length>0 );
 			#end
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_TileTest.getTileIdAt(1,4)>=0 );
-			var gridSize = project.all_levels.MyFirstLevel.l_TileTest.tileset.tileGridSize;
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_TileTest.tileset.getAtlasX(1)==gridSize );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_TileTest.tileset.getAtlasY(1)==0 );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.getTileIdAt(1,4)>=0 );
+			var gridSize = project.all_levels.Main_tests.l_TileTest.tileset.tileGridSize;
+			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.tileset.getAtlasX(1)==gridSize );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.tileset.getAtlasY(1)==0 );
 
 			// Auto-layer (IntGrid)
 			section("Auto-Layer (IntGrid)...");
-			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_IntGrid_AutoLayer );
-			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_IntGrid_AutoLayer.tileset );
+			CiAssert.isNotNull( project.all_levels.Main_tests.l_IntGrid_AutoLayer );
+			CiAssert.isNotNull( project.all_levels.Main_tests.l_IntGrid_AutoLayer.tileset );
 			#if !js
-			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_IntGrid_AutoLayer.tileset.loadAtlasBytes(project) );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_IntGrid_AutoLayer.tileset.loadAtlasBytes(project).length>0 );
+			CiAssert.isNotNull( project.all_levels.Main_tests.l_IntGrid_AutoLayer.tileset.loadAtlasBytes(project) );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGrid_AutoLayer.tileset.loadAtlasBytes(project).length>0 );
 			#end
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_IntGrid_AutoLayer.autoTiles.length>100 );
-			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_IntGrid_AutoLayer.autoTiles[0] );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_IntGrid_AutoLayer.autoTiles[0].renderX!=0 );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGrid_AutoLayer.autoTiles.length>100 );
+			CiAssert.isNotNull( project.all_levels.Main_tests.l_IntGrid_AutoLayer.autoTiles[0] );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGrid_AutoLayer.autoTiles[0].renderX!=0 );
 
 			// Auto-layer (pure)
 			section("Auto-Layer (pure)...");
-			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_Pure_AutoLayer);
-			CiAssert.equals( project.all_levels.MyFirstLevel.l_Pure_AutoLayer.type, led.Layer.LayerType.AutoLayer );
-			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_Pure_AutoLayer.tileset );
+			CiAssert.isNotNull( project.all_levels.Main_tests.l_Pure_AutoLayer);
+			CiAssert.equals( project.all_levels.Main_tests.l_Pure_AutoLayer.type, led.Layer.LayerType.AutoLayer );
+			CiAssert.isNotNull( project.all_levels.Main_tests.l_Pure_AutoLayer.tileset );
 			#if !js
-			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_Pure_AutoLayer.tileset.loadAtlasBytes(project) );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_Pure_AutoLayer.tileset.loadAtlasBytes(project).length>0 );
+			CiAssert.isNotNull( project.all_levels.Main_tests.l_Pure_AutoLayer.tileset.loadAtlasBytes(project) );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_Pure_AutoLayer.tileset.loadAtlasBytes(project).length>0 );
 			#end
 
 			// Project in a package
@@ -189,10 +200,10 @@ class Main {
 			CiAssert.isNotNull( packageTest.ProjectPackage.Enum_Weapons );
 			CiAssert.isNotNull( packageTest.ProjectPackage.Tileset_Cavernas_by_Adam_Saltsman );
 			CiAssert.isNotNull( project.all_levels );
-			CiAssert.isNotNull( project.all_levels.MyFirstLevel );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_EntityTest.all_Mob.length>0 );
-			CiAssert.isNotNull( project.all_levels.MyFirstLevel.l_EntityTest.all_Mob[0].f_lootDrop );
-			CiAssert.isTrue( project.all_levels.MyFirstLevel.l_EntityTest.all_Hero[0].f_startWeapon == packageTest.ProjectPackage.Enum_Weapons.LongBow );
+			CiAssert.isNotNull( project.all_levels.Main_tests );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.all_Mob.length>0 );
+			CiAssert.isNotNull( project.all_levels.Main_tests.l_EntityTest.all_Mob[0].f_lootDrop );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.all_Hero[0].f_startWeapon == packageTest.ProjectPackage.Enum_Weapons.LongBow );
 
 		}
 		catch( e:Dynamic ) {
