@@ -76,6 +76,14 @@ typedef LayerInstanceJson = {
 	@added("0.4.0")
 	var __opacity: Float;
 
+	/** Total layer X pixel offset, including both instance and definition offsets. **/
+	@added("0.5.0")
+	var __pxTotalOffsetX: Int;
+
+	/** Total layer Y pixel offset, including both instance and definition offsets. **/
+	@added("0.5.0")
+	var __pxTotalOffsetY: Int;
+
 	/** Reference to the UID of the level containing this layer instance **/
 	var levelId: Int;
 
