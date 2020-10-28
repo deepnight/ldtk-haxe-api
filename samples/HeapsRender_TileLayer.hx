@@ -46,14 +46,11 @@ class HeapsRender_TileLayer extends hxd.App {
 				continue;
 
 			// Get corresponding h2d.Tile from tileset
-			for( tileId in layer.getTileIdStackAt(cx,cy) ) {
-				var tile = layer.tileset.getHeapsTile(tilesetAtlasTile, tileId, 0);
-
-				// Display it
+			for( tile in layer.getTileStackAt(cx,cy) ) {
 				tileGroup.add(
 					cx*layer.gridSize + layer.pxTotalOffsetX,
 					cy*layer.gridSize + layer.pxTotalOffsetY,
-					tile
+					layer.tileset.getHeapsTile(tilesetAtlasTile, tile.tileId, tile.flipBits) // get h2d.Tile
 				);
 			}
 		}
