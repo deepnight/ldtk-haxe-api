@@ -23,11 +23,14 @@ class HeapsRender_All extends hxd.App {
 		// Load atlas h2d.Tile from the Heaps resources (could be loaded in other ways)
 		var cavernasAtlasTile = hxd.Res.Cavernas_by_Adam_Saltsman.toTile();
 
-		// Pure auto-layer
+		// Pure auto-layer (background walls)
 		level.l_Background.render(cavernasAtlasTile, s2d);
 
-		// IntGrid Auto-layer
+		// IntGrid Auto-layer (walls, ladders, etc.)
 		level.l_Collisions.render(cavernasAtlasTile, s2d);
+
+		// Tiles layer (manually added details)
+		level.l_Custom_tiles.render(cavernasAtlasTile, s2d);
 	}
 }
 
