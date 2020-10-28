@@ -139,7 +139,7 @@ typedef Tile = {
 	var src: Array<Int>;
 
 	/**
-		"Flip flags", a 2-bits integer to represent the mirror transformations of the tile.
+		"Flip bits", a 2-bits integer to represent the mirror transformations of the tile.
 		 - Bit 0 = X flip
 		 - Bit 1 = Y flip
 		 Examples: f=0 (no flip), f=1 (X flip only), f=2 (Y flip only), f=3 (both flips)
