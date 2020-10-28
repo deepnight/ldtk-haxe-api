@@ -82,10 +82,12 @@ typedef LayerInstanceJson = {
 	/** Reference the Layer definition UID **/
 	var layerDefUid: Int;
 
-	/** Horizontal offset in pixels to render this layer, usually 0 **/
+	/** X offset in pixels to render this layer, usually 0 (this should be added to the `LayerDef` optional offset) **/
+	@changed("0.5.0")
 	var pxOffsetX: Int;
 
-	/** Vertical offset in pixels to render this layer, usually 0 **/
+	/** Y offset in pixels to render this layer, usually 0 (this should be added to the `LayerDef` optional offset)**/
+	@changed("0.5.0")
 	var pxOffsetY: Int;
 
 	/** Random seed used for Auto-Layers rendering **/
@@ -131,6 +133,7 @@ typedef Tile = {
 		"Flip flags", a 2-bits integer to represent the mirror transformations of the tile.
 		 - Bit 0 = X flip
 		 - Bit 1 = Y flip
+		 Examples: f=0 (no flip), f=1 (X flip only), f=2 (Y flip only), f=3 (both flips)
 	**/
 	var f: Int;
 
@@ -239,7 +242,16 @@ typedef LayerDefJson = {
 	/** Unique Int identifier **/
 	var uid: Int;
 
+	/** Width and height of the grid in pixels **/
 	var gridSize: Int;
+
+	/** X offset of the layer, in pixels (this should be added to the `LayerInstance` optional offset) **/
+	@added("0.5.0")
+	var pxOffsetX: Int;
+
+	/** Y offset of the layer, in pixels (this should be added to the `LayerInstance` optional offset) **/
+	@added("0.5.0")
+	var pxOffsetY: Int;
 
 	/** Opacity of the layer (0 to 1.0) **/
 	var displayOpacity: Float;
@@ -373,6 +385,10 @@ typedef TilesetDefJson = {
 	/** Array of group of tiles selections, only meant to be used in the editor **/
 	@hide
 	var savedSelections: Array<{ ids:Array<Int>, mode:Dynamic }>;
+
+	/** An array of all tiles that are fully opaque (ie. no transparent pixel). Used internally for optimizations. **/
+	@added("0.5.0")
+	var opaqueTiles: Null<Array<Int>>;
 }
 
 
