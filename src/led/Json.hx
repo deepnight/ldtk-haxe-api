@@ -284,7 +284,7 @@ typedef LayerDefJson = {
 		var name: String;
 		var active: Bool;
 		var collapsed: Bool;
-		var rules: Array<Dynamic>;
+		var rules: Array<AutoRuleDef>;
 	}>;
 	@only("Auto-layers")
 	var autoSourceLayerDefUid: Int;
@@ -302,6 +302,66 @@ typedef LayerDefJson = {
 	var tilePivotY: Float;
 
 }
+
+@section("2.1.1")
+@display("Auto-layer rule definition")
+typedef AutoRuleDef = {
+	/** Unique Int identifier **/
+	var uid: Int;
+
+	/** Pattern width & height. Should only be 1,3,5 or 7. **/
+	var size: Int;
+
+	/** Rule pattern (size x size) **/
+	var pattern: Array<Int>;
+
+	/** Array of all the tile IDs. They are used randomly or as stamps, based on `tileMode` value. **/
+	var tileIds: Array<Int>;
+
+	/** If FALSE, the rule effect isn't applied, and no tiles are generated. **/
+	var active: Bool;
+
+	/** When TRUE, the rule will prevent other rules to be applied in the same cell if it matches (TRUE by default). **/
+	// var breakOnMatch: Bool;
+
+	/** Chances for this rule to be applied (0 to 1) **/
+	var chance: Float;
+
+	/** Defines how tileIds array is used **/
+	var tileMode: Enum<Dynamic>;
+
+	/** If TRUE, allow rule to be matched by flipping its pattern horizontally **/
+	var flipX: Bool;
+
+	/** If TRUE, allow rule to be matched by flipping its pattern vertically **/
+	var flipY: Bool;
+
+	/** If TRUE, enable checker mode **/
+	var checker: Bool;
+
+	/** X pivot of a tile stamp (0-1) **/
+	@only("'Stamp' tile mode")
+	var pivotX: Float;
+
+	/** Y pivot of a tile stamp (0-1) **/
+	@only("'Stamp' tile mode")
+	var pivotY: Float;
+
+	/** X cell coord modulo **/
+	var xModulo: Int;
+
+	/** Y cell coord modulo **/
+	var yModulo: Int;
+
+	/** If TRUE, enable Perlin filtering to only apply rule on specific random area **/
+	var perlinActive: Bool;
+
+	var perlinScale: Float;
+
+	var perlinOctaves: Float;
+
+	var perlinSeed: Float;
+};
 
 
 
