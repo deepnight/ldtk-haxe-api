@@ -322,7 +322,7 @@ typedef AutoRuleDef = {
 	var active: Bool;
 
 	/** When TRUE, the rule will prevent other rules to be applied in the same cell if it matches (TRUE by default). **/
-	// var breakOnMatch: Bool;
+	var breakOnMatch: Bool;
 
 	/** Chances for this rule to be applied (0 to 1) **/
 	var chance: Float;
