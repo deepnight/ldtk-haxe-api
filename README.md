@@ -7,7 +7,7 @@ This is the Haxe API to load **LEd Project JSON** files.
 *LEd is a modern and open-source 2D level editor.*
 
 [API documentation](https://deepnight.net/docs/led/haxe-api) |
-[LEd official page](https://deepnight.net/tools/led-2d-level-editor) 
+[LEd official page](https://deepnight.net/tools/led-2d-level-editor)
 
 [![Build Status](https://travis-ci.com/deepnight/led-haxe-api.svg?branch=master)](https://travis-ci.com/deepnight/led-haxe-api)
 
@@ -34,32 +34,41 @@ https://deepnight.net/docs/led/haxe-api/
 
 You can check the sample HX files in [samples](samples) folder.
 
-### Building samples
+Samples are built to **WebGL** (Javascript) and **Hashlink** targets, but you can try them on other compatible platforms too.
 
-Samples are built to WebGL/Javascript and Hashlink targets, but you can try them on other platforms too.
+### Requirements
 
-To build them, you will first need both **Heaps** and **deepnightLibs** installed:
+You need a standard **Haxe** install, and both *heaps* and *deepnightLibs* libraries installed:
 
 ```
 haxelib git heaps https://github.com/HeapsIO/heaps.git
+
 haxelib git deepnightLibs https://github.com/deepnight/deepnightLibs.git
 ```
 
+### Building samples
+
+In the `samples` folder, run:
 Then run:
 
 ```
-haxe genSamples.hxml
-```
-
-This will create all the build files for each sample, then compile all of them.
-
-To run one, use open the corresponding HTML file in a browser. You might need to check the browser console to see some outputs.
-
-If you need to re-compile a single sample:
-
-```
-cd samples
 haxe SomeSampleName.hxml
+```
+
+Replace the `hxml` name with the one you wish to build & run.
+
+You can also build all samples in one go using:
+
+```
+haxe all.hxml
+```
+
+### Rebuild samples HXMLs
+
+If you modify the API, you might need to rebuild samples `HXML`s files themselves. In the root of the repo, run:
+
+```
+haxe genSamples.hxml
 ```
 
 ## Unit tests
