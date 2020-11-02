@@ -1,0 +1,20 @@
+
+# BaseExample (Javascript/WebGL)
+-cp .
+-cp ../src
+-lib heaps
+-lib deepnightLibs
+--dce full
+-main BaseExample
+-js bin/BaseExample.js
+--cmd BaseExample.html
+
+# BaseExample (Hashlink)
+--next
+-cp .
+-cp ../src
+-lib heaps
+-lib deepnightLibs
+--dce full
+-main BaseExample
+-hl bin/BaseExample.hl

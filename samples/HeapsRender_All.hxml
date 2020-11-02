@@ -1,0 +1,20 @@
+
+# HeapsRender_All (Javascript/WebGL)
+-cp .
+-cp ../src
+-lib heaps
+-lib deepnightLibs
+--dce full
+-main HeapsRender_All
+-js bin/HeapsRender_All.js
+--cmd HeapsRender_All.html
+
+# HeapsRender_All (Hashlink)
+--next
+-cp .
+-cp ../src
+-lib heaps
+-lib deepnightLibs
+--dce full
+-main HeapsRender_All
+-hl bin/HeapsRender_All.hl
