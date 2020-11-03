@@ -1,6 +1,6 @@
-package led;
+package ldtk;
 
-class Layer_Tiles extends led.Layer {
+class Layer_Tiles extends ldtk.Layer {
 	var tiles : Map<Int, Array<{ tileId:Int, flipBits:Int }>>;
 	var atlasPath : String;
 

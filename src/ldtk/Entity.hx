@@ -1,4 +1,4 @@
-package led;
+package ldtk;
 
 class Entity {
 	var _enumTypePrefix : String;
@@ -22,7 +22,7 @@ class Entity {
 	var _fields : Map<String, Dynamic> = new Map();
 
 
-	public function new(json:led.Json.EntityInstanceJson) {
+	public function new(json:ldtk.Json.EntityInstanceJson) {
 		identifier = json.__identifier;
 		cx = json.__grid[0];
 		cy = json.__grid[1];
@@ -53,18 +53,18 @@ class Entity {
 				case "Color":
 					Reflect.setField(this, "f_"+f.__identifier+"_hex", f.__value);
 					if( !isArray )
-						Reflect.setField(this, "f_"+f.__identifier+"_int", led.Project.hexToInt(f.__value));
+						Reflect.setField(this, "f_"+f.__identifier+"_int", ldtk.Project.hexToInt(f.__value));
 					else {
 						var arr : Array<String> = f.__value;
-						Reflect.setField(this, "f_"+f.__identifier+"_int", arr.map( (c)->led.Project.hexToInt(c) ) );
+						Reflect.setField(this, "f_"+f.__identifier+"_int", arr.map( (c)->ldtk.Project.hexToInt(c) ) );
 					}
 
 				case "Point":
 					if( !isArray )
-						Reflect.setField(this, "f_"+f.__identifier, new led.Point(f.__value.cx, f.__value.cy));
+						Reflect.setField(this, "f_"+f.__identifier, new ldtk.Point(f.__value.cx, f.__value.cy));
 					else {
 						var arr : Array<{ cx:Int, cy:Int }> = f.__value;
-						Reflect.setField(this, "f_"+f.__identifier, arr.map( (pt)->new led.Point(pt.cx, pt.cy) ) );
+						Reflect.setField(this, "f_"+f.__identifier, arr.map( (pt)->new ldtk.Point(pt.cx, pt.cy) ) );
 					}
 
 				case _.indexOf("LocalEnum.") => 0:

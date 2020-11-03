@@ -1,10 +1,10 @@
-package led;
+package ldtk;
 
-class Layer_IntGrid_AutoLayer extends led.Layer_IntGrid {
+class Layer_IntGrid_AutoLayer extends ldtk.Layer_IntGrid {
 	/**
 		A single array containing all AutoLayer tiles informations, in "render" order
 	**/
-	public var autoTiles : Array<led.Layer_AutoLayer.AutoTile>;
+	public var autoTiles : Array<ldtk.Layer_AutoLayer.AutoTile>;
 
 
 	public function new(json) {

@@ -1,4 +1,4 @@
-package led;
+package ldtk;
 
 enum LayerType {
 	IntGrid;
@@ -40,7 +40,7 @@ class Layer {
 	/** Layer opacity (0-1) **/
 	public var opacity : Float;
 
-	public function new(json:led.Json.LayerInstanceJson) {
+	public function new(json:ldtk.Json.LayerInstanceJson) {
 		identifier = json.__identifier;
 		type =
 			try LayerType.createByName(json.__type)

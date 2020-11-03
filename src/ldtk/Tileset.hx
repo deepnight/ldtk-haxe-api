@@ -1,4 +1,4 @@
-package led;
+package ldtk;
 
 class Tileset {
 	public var identifier : String;
@@ -14,7 +14,7 @@ class Tileset {
 	var cWid(get,never) : Int; inline function get_cWid() return Math.ceil(pxWid/tileGridSize);
 
 
-	public function new(json:led.Json.TilesetDefJson) {
+	public function new(json:ldtk.Json.TilesetDefJson) {
 		identifier = json.identifier;
 		tileGridSize = json.tileGridSize;
 		relPath = json.relPath;
@@ -40,7 +40,7 @@ class Tileset {
 	/**
 		Read the atlas image haxe.io.Bytes from the disk
 	**/
-	public function loadAtlasBytes(project:led.Project) : Null<haxe.io.Bytes> {
+	public function loadAtlasBytes(project:ldtk.Project) : Null<haxe.io.Bytes> {
 		try {
 			var filePath = dn.FilePath.fromFile(relPath);
 			var path = filePath.hasDriveLetter() ? filePath : dn.FilePath.fromFile(project.projectDir+"/"+relPath);
@@ -60,7 +60,7 @@ class Tileset {
 		Read the atlas h2d.Tile directly from the file
 	**/
 	#if( sys && deepnightLibs )
-	public function loadAtlasTileFromDisk(project:led.Project) : Null<h2d.Tile> {
+	public function loadAtlasTileFromDisk(project:ldtk.Project) : Null<h2d.Tile> {
 		var bytes = loadAtlasBytes(project);
 		var tile = dn.ImageDecoder.decodeTile(bytes);
 		return tile;
@@ -90,7 +90,7 @@ class Tileset {
 	/**
 		Get a h2d.Tile from a Auto-Layer tile.
 	**/
-	public inline function getAutoLayerHeapsTile(atlasTile:h2d.Tile, autoLayerTile:led.Layer_AutoLayer.AutoTile) : Null<h2d.Tile> {
+	public inline function getAutoLayerHeapsTile(atlasTile:h2d.Tile, autoLayerTile:ldtk.Layer_AutoLayer.AutoTile) : Null<h2d.Tile> {
 		if( autoLayerTile.tileId<0 )
 			return null;
 		else

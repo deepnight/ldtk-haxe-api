@@ -1,4 +1,4 @@
-package led;
+package ldtk;
 
 #if( !macro && !display )
 #error "This class should not be used outside of macros"
@@ -8,9 +8,12 @@ import haxe.macro.Context;
 import haxe.macro.Expr;
 using haxe.macro.Tools;
 
-import led.Json;
+import ldtk.Json;
 
 class Macros {
+	static var CURRENT_VERSION = "0.5.0";
+	static var APP_PACKAGE = "ldtk";
+
 	static var locateCache : Map<String,String>;
 
 	#if debug
@@ -57,6 +60,9 @@ class Macros {
 				Context.info("Couldn't parse JSON "+projectFilePath, jsonPos);
 				error("Failed to parse project JSON");
 			}
+
+		if( json.jsonVersion!=CURRENT_VERSION )
+			error('JSON version: "${json.jsonVersion}", required: "$CURRENT_VERSION"');
 
 
 		// Create project custom Enums
@@ -113,7 +119,7 @@ class Macros {
 					// HX files
 					var path = locateFile(fileName);
 					if( path==null ) {
-						error("External Enum file \""+fileName+"\" is used in LED Project but it can't be found in the current classPaths.");
+						error("External Enum file \""+fileName+"\" is used in LDtk Project but it can't be found in the current classPaths.");
 						continue;
 					}
 
@@ -162,7 +168,7 @@ class Macros {
 			pos:pos,
 		}
 
-		var parentTypePath : TypePath = { pack: ["led"], name:"Entity" }
+		var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Entity" }
 		var baseEntityType : TypeDefinition = {
 			pos : pos,
 			name : modName+"_Entity",
@@ -247,7 +253,7 @@ class Macros {
 						fields.push({ name: f.identifier+"_hex", ct: f.canBeNull ? (macro : Null<String>) : (macro : String) });
 
 					case "Point":
-						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<led.Point>) : (macro : led.Point) });
+						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<ldtk.Point>) : (macro : ldtk.Point) });
 
 					case _.indexOf("LocalEnum.") => 0:
 						var type = typeName.substr( typeName.indexOf(".")+1 );
@@ -297,7 +303,7 @@ class Macros {
 		var tilesets : Map<Int,{ typeName:String, json:TilesetDefJson }> = new Map();
 		for(e in json.defs.tilesets) {
 			// Create entity class
-			var parentTypePath : TypePath = { pack: ["led"], name:"Tileset" }
+			var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Tileset" }
 			var tilesetType : TypeDefinition = {
 				pos : pos,
 				name : "Tileset_"+e.identifier,
@@ -327,7 +333,7 @@ class Macros {
 
 					if( l.autoTilesetDefUid==null ) {
 						// IntGrid
-						var parentTypePath : TypePath = { pack: ["led"], name:"Layer_IntGrid" }
+						var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_IntGrid" }
 						var layerType : TypeDefinition = {
 							pos : pos,
 							name : "Layer_"+l.identifier,
@@ -352,7 +358,7 @@ class Macros {
 					}
 					else {
 						// Auto-layer IntGrid
-						var parentTypePath : TypePath = { pack: ["led"], name:"Layer_IntGrid_AutoLayer" }
+						var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_IntGrid_AutoLayer" }
 						var ts = l.autoTilesetDefUid!=null ? tilesets.get(l.autoTilesetDefUid) : null;
 						var tsComplexType = ts!=null ? Context.getType( ts.typeName ).toComplexType() : null;
 						var tsTypePath : TypePath = ts!=null ? { pack: modPack, name: ts.typeName } : null;
@@ -395,7 +401,7 @@ class Macros {
 
 				case "AutoLayer":
 					// Pure Auto-layer
-					var parentTypePath : TypePath = { pack: ["led"], name:"Layer_AutoLayer" }
+					var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_AutoLayer" }
 					var ts = l.autoTilesetDefUid!=null ? tilesets.get(l.autoTilesetDefUid) : null;
 					var tsComplexType = ts!=null ? Context.getType( ts.typeName ).toComplexType() : null;
 					var tsTypePath : TypePath = ts!=null ? { pack: modPack, name: ts.typeName } : null;
@@ -428,7 +434,7 @@ class Macros {
 
 
 				case "Entities":
-					var parentTypePath : TypePath = { pack: ["led"], name:"Layer_Entities" }
+					var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_Entities" }
 					var baseEntityComplexType = Context.getType(baseEntityType.name).toComplexType();
 
 					// Typed Entity arrays
@@ -455,7 +461,7 @@ class Macros {
 							override public function new(json) {
 								for( f in $a{entityArrayExpr} )
 									Reflect.setField(this, f, []);
-								
+
 								super(json);
 							}
 
@@ -485,7 +491,7 @@ class Macros {
 					var tsComplexType = Context.getType( ts.typeName ).toComplexType();
 					var tsTypePath : TypePath = { pack: modPack, name: ts.typeName }
 
-					var parentTypePath : TypePath = { pack: ["led"], name:"Layer_Tiles" }
+					var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_Tiles" }
 					var layerType : TypeDefinition = {
 						pos : pos,
 						name : "Layer_"+l.identifier,
@@ -521,7 +527,7 @@ class Macros {
 
 		// Create Level specialized class
 		timer("levelClass");
-		var parentTypePath : TypePath = { pack: ["led"], name:"Level" }
+		var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Level" }
 		var levelType : TypeDefinition = {
 			pos : pos,
 			name : modName+"_Level",
@@ -537,7 +543,7 @@ class Macros {
 						Reflect.setField(this, "l_"+l.identifier, l);
 				}
 
-				override function _instanciateLayer(json:led.Json.LayerInstanceJson) {
+				override function _instanciateLayer(json:ldtk.Json.LayerInstanceJson) {
 					var c = Type.resolveClass($v{modPack.concat(["Layer_"]).join(".")}+json.__identifier);
 					if( c==null )
 						throw "Couldn't instanciate layer "+json.__identifier;
@@ -548,7 +554,7 @@ class Macros {
 				/**
 					Get a layer using its identifier. WARNING: the class of this layer will be more generic than when using proper "f_layerName" fields.
 				**/
-				public function resolveLayer(id:String) : Null<led.Layer> {
+				public function resolveLayer(id:String) : Null<ldtk.Layer> {
 					for(l in allUntypedLayers)
 						if( l.identifier==id )
 							return l;
@@ -596,7 +602,7 @@ class Macros {
 		timer("projectClass");
 		var projectDir = StringTools.replace(projectFilePath, "\\", "/");
 		projectDir = projectDir.indexOf("/")<0 ? null : projectDir.substring(0, projectDir.lastIndexOf("/"));
-		var parentTypePath : TypePath = { pack: ["led"], name:"Project" }
+		var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Project" }
 		var levelTypePath : TypePath = { pack:modPack, name:levelType.name }
 		var levelComplexType = Context.getType(levelType.name).toComplexType();
 		var projectClass : TypeDefinition = {

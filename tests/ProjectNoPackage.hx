@@ -1,3 +1,3 @@
 private typedef _Tmp = haxe.macro.MacroType<[
-	led.Project.build("samples/res/unitTest.json")
+	ldtk.Project.build("samples/res/unitTest.json")
 ]>;

@@ -1,4 +1,4 @@
-package led;
+package ldtk;
 
 
 typedef AutoTile = {
@@ -24,7 +24,7 @@ typedef AutoTile = {
 }
 
 
-class Layer_AutoLayer extends led.Layer {
+class Layer_AutoLayer extends ldtk.Layer {
 	/**
 		A single array containing all AutoLayer tiles informations, in "render" order
 	**/

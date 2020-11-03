@@ -1,6 +1,6 @@
-package led;
+package ldtk;
 
-class Layer_IntGrid extends led.Layer {
+class Layer_IntGrid extends ldtk.Layer {
 	var valueInfos : Array<{ identifier:Null<String>, color:UInt }> = [];
 
 	/**
@@ -58,6 +58,6 @@ class Layer_IntGrid extends led.Layer {
 		Return null if none.
 	**/
 	public inline function getColorHex(cx:Int, cy:Int) : Null<String> {
-		return !hasValue(cx,cy) ? null : led.Project.intToHex( valueInfos[ getInt(cx,cy) ].color );
+		return !hasValue(cx,cy) ? null : ldtk.Project.intToHex( valueInfos[ getInt(cx,cy) ].color );
 	}
 }

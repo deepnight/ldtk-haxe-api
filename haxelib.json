@@ -1,12 +1,12 @@
 {
-  "name": "led-haxe-api",
+  "name": "ldtk-haxe-api",
   "url" : "https://github.com/deepnight/led-haxe-api",
   "license": "Apache",
-  "tags": ["Haxe","Heaps","Hashlink","L-Ed","api"],
-  "description": "The haxe API for LEd JSON files - https://deepnight.net/tools/led-2d-level-editor/",
-  "version": "1.0.13",
+  "tags": ["Haxe","Heaps","Hashlink","LDtk","Led","L-Ed","api"],
+  "description": "The haxe API for LDtk JSON files - https://deepnight.net/tools/led-2d-level-editor/",
+  "version": "1.0.14",
   "classPath": "src/",
-  "releasenote": "Support for LEd 0.4.0",
+  "releasenote": "New app name LDtk support (formerly LEd). Added support for app version 0.5.0",
   "contributors": ["sbenard"],
   "dependencies": {
     "deepnightLibs":""

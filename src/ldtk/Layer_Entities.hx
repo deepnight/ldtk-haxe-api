@@ -1,6 +1,6 @@
-package led;
+package ldtk;
 
-class Layer_Entities extends led.Layer {
+class Layer_Entities extends ldtk.Layer {
 	var _entities : Array<Entity> = [];
 
 	public function new(json) {
@@ -18,7 +18,7 @@ class Layer_Entities extends led.Layer {
 		}
 	}
 
-	function _instanciateEntity(json:led.Json.EntityInstanceJson) : Entity {
+	function _instanciateEntity(json:ldtk.Json.EntityInstanceJson) : Entity {
 		return null; // overriden by Macros.hx
 	}
 }

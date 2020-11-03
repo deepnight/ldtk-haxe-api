@@ -68,7 +68,7 @@ class Main {
 			// IntGrid layer
 			section("IntGrid...");
 			CiAssert.isNotNull( project.all_levels.Main_tests.l_IntGridTest );
-			CiAssert.equals( project.all_levels.Main_tests.l_IntGridTest.type, led.Layer.LayerType.IntGrid );
+			CiAssert.equals( project.all_levels.Main_tests.l_IntGridTest.type, ldtk.Layer.LayerType.IntGrid );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGridTest.type==IntGrid );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGridTest.getInt(0,0)==0 );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGridTest.hasValue(0,0) );
@@ -83,7 +83,7 @@ class Main {
 			// Entity layer
 			section("Entity...");
 			CiAssert.isNotNull( project.all_levels.Main_tests.l_EntityTest);
-			CiAssert.equals( project.all_levels.Main_tests.l_EntityTest.type, led.Layer.LayerType.Entities );
+			CiAssert.equals( project.all_levels.Main_tests.l_EntityTest.type, ldtk.Layer.LayerType.Entities );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.type==Entities );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.all_Hero.length!=0 );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.all_Mob.length!=0 );
@@ -149,7 +149,7 @@ class Main {
 			// Tile layer
 			section("Tile layer...");
 			CiAssert.isNotNull( project.all_levels.Main_tests.l_TileTest );
-			CiAssert.equals( project.all_levels.Main_tests.l_TileTest.type, led.Layer.LayerType.Tiles );
+			CiAssert.equals( project.all_levels.Main_tests.l_TileTest.type, ldtk.Layer.LayerType.Tiles );
 			CiAssert.isNotNull( project.all_levels.Main_tests.resolveLayer("TileTest") );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.identifier=="TileTest" );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.type==Tiles );
@@ -185,7 +185,7 @@ class Main {
 			// Auto-layer (pure)
 			section("Auto-Layer (pure)...");
 			CiAssert.isNotNull( project.all_levels.Main_tests.l_Pure_AutoLayer);
-			CiAssert.equals( project.all_levels.Main_tests.l_Pure_AutoLayer.type, led.Layer.LayerType.AutoLayer );
+			CiAssert.equals( project.all_levels.Main_tests.l_Pure_AutoLayer.type, ldtk.Layer.LayerType.AutoLayer );
 			CiAssert.isNotNull( project.all_levels.Main_tests.l_Pure_AutoLayer.tileset );
 			#if !js
 			CiAssert.isNotNull( project.all_levels.Main_tests.l_Pure_AutoLayer.tileset.loadAtlasBytes(project) );

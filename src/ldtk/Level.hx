@@ -1,4 +1,4 @@
-package led;
+package ldtk;
 
 class Level {
 	public var identifier : String;
@@ -6,7 +6,7 @@ class Level {
 	public var pxHei : Int;
 	public var allUntypedLayers(default,null) : Array<Layer>;
 
-	public function new(json:led.Json.LevelJson) {
+	public function new(json:ldtk.Json.LevelJson) {
 		identifier = json.identifier;
 		pxWid = json.pxWid;
 		pxHei = json.pxHei;
@@ -15,7 +15,7 @@ class Level {
 			allUntypedLayers.push( _instanciateLayer(json) );
 	}
 
-	function _instanciateLayer(json:led.Json.LayerInstanceJson) : led.Layer {
+	function _instanciateLayer(json:ldtk.Json.LayerInstanceJson) : ldtk.Layer {
 		return null; // overriden by Macros.hx
 	}
 }

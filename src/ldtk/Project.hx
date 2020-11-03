@@ -1,10 +1,10 @@
-package led;
+package ldtk;
 
 /**
-	A LEd Project can be imported by creating a single file containing:
+	A LDtk Project can be imported by creating a single file containing:
 
 	private typedef _Tmp = haxe.macro.MacroType<[
-		led.Project.build("path/to/myLedProject.json")
+		ldtk.Project.build("path/to/myLedProject.json")
 	]>;
 
 	See documentation here: https://deepnight.net/tools/led-2d-level-editor/
@@ -29,10 +29,10 @@ class Project {
 	/** Project background color (as Hex "#rrggbb") **/
 	public var bgColor_hex: String;
 
-	var _untypedLevels : Array<led.Level>;
+	var _untypedLevels : Array<ldtk.Level>;
 
 	/** Full access to the JSON project definitions **/
-	public var defs : led.Json.DefinitionsJson;
+	public var defs : ldtk.Json.DefinitionsJson;
 
 	public function new() {}
 
@@ -43,9 +43,9 @@ class Project {
 	**/
 	public function parseJson(jsonString:String) {
 		#if !macro
-		var json : led.Json.ProjectJson = haxe.Json.parse(jsonString);
+		var json : ldtk.Json.ProjectJson = haxe.Json.parse(jsonString);
 		bgColor_hex = json.bgColor;
-		bgColor_int = led.Project.hexToInt(json.bgColor);
+		bgColor_int = ldtk.Project.hexToInt(json.bgColor);
 
 		_untypedLevels = [];
 		for(json in json.levels)
@@ -55,7 +55,7 @@ class Project {
 		#end
 	}
 
-	function _instanciateLevel(json:led.Json.LevelJson) {
+	function _instanciateLevel(json:ldtk.Json.LevelJson) {
 		return null; // overriden by Macros.hx
 	}
 
@@ -70,19 +70,19 @@ class Project {
 		return null;
 	}
 
-	public inline function getLayerDef(?uid:Int, ?identifier:String) : Null<led.Json.LayerDefJson> {
+	public inline function getLayerDef(?uid:Int, ?identifier:String) : Null<ldtk.Json.LayerDefJson> {
 		return searchDef( defs.layers, uid, identifier );
 	}
 
-	public inline function getEntityDef(?uid:Int, ?identifier:String) : Null<led.Json.EntityDefJson> {
+	public inline function getEntityDef(?uid:Int, ?identifier:String) : Null<ldtk.Json.EntityDefJson> {
 		return searchDef( defs.entities, uid, identifier );
 	}
 
-	public inline function getTilesetDef(?uid:Int, ?identifier:String) : Null<led.Json.TilesetDefJson> {
+	public inline function getTilesetDef(?uid:Int, ?identifier:String) : Null<ldtk.Json.TilesetDefJson> {
 		return searchDef( defs.tilesets, uid, identifier );
 	}
 
-	public inline function getEnumDef(?uid:Int, ?identifier:String) : Null<led.Json.EnumDefJson> {
+	public inline function getEnumDef(?uid:Int, ?identifier:String) : Null<ldtk.Json.EnumDefJson> {
 		var e = searchDef( defs.enums, uid, identifier );
 		if( e!=null )
 			return e;
@@ -90,7 +90,7 @@ class Project {
 			return searchDef( defs.externalEnums, uid, identifier );
 	}
 
-	public function getEnumDefFromValue(v:EnumValue) : Null<led.Json.EnumDefJson> {
+	public function getEnumDefFromValue(v:EnumValue) : Null<ldtk.Json.EnumDefJson> {
 		try {
 			var name = Type.getEnum(v).getName();
 			var defId = name.substr( name.indexOf("_")+1 ); // get rid of the Macro prefix
@@ -102,7 +102,7 @@ class Project {
 		}
 	}
 
-	public function getEnumTileInfosFromValue(v:EnumValue) : Null<{ x:Int, y:Int, w:Int, h:Int, tileset:led.Json.TilesetDefJson }> {
+	public function getEnumTileInfosFromValue(v:EnumValue) : Null<{ x:Int, y:Int, w:Int, h:Int, tileset:ldtk.Json.TilesetDefJson }> {
 		var ed = getEnumDefFromValue(v);
 		if( ed==null )
 			return null;

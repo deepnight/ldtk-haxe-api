@@ -1,4 +1,4 @@
-package led;
+package ldtk;
 
 class Point {
 	public var cx : Int;

@@ -1,4 +1,4 @@
-package led;
+package ldtk;
 
 @display("Json root")
 typedef ProjectJson = {
@@ -24,7 +24,7 @@ typedef ProjectJson = {
 	/** If TRUE, the Json is partially minified (no indentation, nor line breaks) **/
 	var minifyJson: Bool;
 
-	/** If TRUE, a Tiled compatible file will also be generated along with the LEd JSON file. **/
+	/** If TRUE, a Tiled compatible file will also be generated along with the LDtk JSON file. **/
 	var exportTiled: Bool;
 
 	/** A structure containing all the definitions of this project **/

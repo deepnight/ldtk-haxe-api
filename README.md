@@ -2,12 +2,12 @@
 
 ## What is this?
 
-This is the Haxe API to load **LEd Project JSON** files.
+This is the Haxe API to load **LDtk Project JSON** files.
 
-*LEd is a modern and open-source 2D level editor.*
+*LDtk is a modern and open-source 2D level editor.*
 
 [API documentation](https://deepnight.net/docs/led/haxe-api) |
-[LEd official page](https://deepnight.net/tools/led-2d-level-editor)
+[LDtk official page](https://deepnight.net/tools/led-2d-level-editor)
 
 [![Build Status](https://travis-ci.com/deepnight/led-haxe-api.svg?branch=master)](https://travis-ci.com/deepnight/led-haxe-api)
 
@@ -22,7 +22,7 @@ This is the Haxe API to load **LEd Project JSON** files.
 ## Install
 
 ```
-haxelib install led-haxe-api
+haxelib install ldtk-haxe-api
 ```
 ## Documentation
 
