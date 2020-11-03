@@ -1,6 +1,6 @@
 package ldtk;
 
-@display("Json root")
+@display("LDtk Json root")
 typedef ProjectJson = {
 	/** File format version **/
 	var jsonVersion: String;
