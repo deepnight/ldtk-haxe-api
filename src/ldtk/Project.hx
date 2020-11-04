@@ -7,7 +7,7 @@ package ldtk;
 		ldtk.Project.build("path/to/myLedProject.ldtk")
 	]>;
 
-	See documentation here: https://deepnight.net/tools/led-2d-level-editor/
+	See documentation here: https://deepnight.net/tools/ldtk-2d-level-editor/
 **/
 
 #if macro

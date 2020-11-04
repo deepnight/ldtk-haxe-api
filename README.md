@@ -6,8 +6,8 @@ This is the Haxe API to load **LDtk Project JSON** files.
 
 *LDtk is a modern and open-source 2D level editor.*
 
-[API documentation](https://deepnight.net/docs/led/haxe-api) |
-[LDtk official page](https://deepnight.net/tools/led-2d-level-editor)
+[API documentation](https://deepnight.net/docs/ldtk/haxe-api) |
+[LDtk official page](https://deepnight.net/tools/ldtk-2d-level-editor)
 
 [![Build Status](https://travis-ci.com/deepnight/ldtk-haxe-api.svg?branch=master)](https://travis-ci.com/deepnight/ldtk-haxe-api)
 
@@ -28,7 +28,7 @@ haxelib install ldtk-haxe-api
 
 Please check the **full documentation and tutorials** here:
 
-https://deepnight.net/docs/led/haxe-api/
+https://deepnight.net/docs/ldtk/haxe-api/
 
 ## Samples
 
