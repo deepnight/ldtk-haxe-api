@@ -1,5 +1,5 @@
 package packageTest;
 
 private typedef _Tmp = haxe.macro.MacroType<[
-	ldtk.Project.build("samples/res/unitTest.json")
+	ldtk.Project.build("samples/res/unitTest.ldtk")
 ]>;

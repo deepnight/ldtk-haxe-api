@@ -1,10 +1,10 @@
 package ldtk;
 
 /**
-	A LDtk Project can be imported by creating a single file containing:
+	A LDtk Project can be imported by creating a single HX containing:
 
 	private typedef _Tmp = haxe.macro.MacroType<[
-		ldtk.Project.build("path/to/myLedProject.json")
+		ldtk.Project.build("path/to/myLedProject.ldtk")
 	]>;
 
 	See documentation here: https://deepnight.net/tools/led-2d-level-editor/

@@ -1,7 +1,7 @@
 {
 	"__header__": {
-		"fileType": "LEd Project JSON",
-		"app": "LEd",
+		"fileType": "LDtk Project JSON",
+		"app": "LDtk",
 		"appAuthor": "Sebastien Benard",
 		"appVersion": "0.5.0-beta-debug",
 		"url": "https://deepnight.net/tools/led-2d-level-editor/"
@@ -914,12 +914,12 @@
 				{ "id": "Food", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Gold", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Key", "tileId": null, "__tileSrcRect": null }
-			], "iconTilesetUid": null, "externalRelPath": "../externEnums/GameEnums.hx", "externalFileChecksum": "33fcbbe2bbc7184f7dbb19b4305d47f5" },
+			], "iconTilesetUid": null, "externalRelPath": "../externEnums/GameEnums.hx", "externalFileChecksum": "942a6be546e6479708a2a4893024d042" },
 			{ "identifier": "SomeEnum", "uid": 31, "values": [
 				{ "id": "Bar", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Foo", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Pouet", "tileId": null, "__tileSrcRect": null }
-			], "iconTilesetUid": null, "externalRelPath": "../externEnums/GameEnums.hx", "externalFileChecksum": "33fcbbe2bbc7184f7dbb19b4305d47f5" }
+			], "iconTilesetUid": null, "externalRelPath": "../externEnums/GameEnums.hx", "externalFileChecksum": "942a6be546e6479708a2a4893024d042" }
 		]
 	},
 	"levels": [
