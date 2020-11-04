@@ -21,10 +21,13 @@ typedef ProjectJson = {
 	@hide
 	var nextUid: Int;
 
-	/** If TRUE, the Json is partially minified (no indentation, nor line breaks) **/
+	/** If TRUE, the project file will use the dedicated app file extension instead of `*.json` (default is TRUE) **/
+	var useAppExtension: Bool;
+
+	/** If TRUE, the Json is partially minified (no indentation, nor line breaks, default is FALSE) **/
 	var minifyJson: Bool;
 
-	/** If TRUE, a Tiled compatible file will also be generated along with the LDtk JSON file. **/
+	/** If TRUE, a Tiled compatible file will also be generated along with the LDtk JSON file (default is FALSE) **/
 	var exportTiled: Bool;
 
 	/** A structure containing all the definitions of this project **/
