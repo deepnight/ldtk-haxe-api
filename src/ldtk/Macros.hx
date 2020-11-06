@@ -11,7 +11,7 @@ using haxe.macro.Tools;
 import ldtk.Json;
 
 class Macros {
-	static var CURRENT_VERSION = "0.5.0";
+	static var CURRENT_VERSION = "0.5.1";
 	static var APP_PACKAGE = "ldtk";
 
 	static var locateCache : Map<String,String>;
