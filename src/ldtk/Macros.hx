@@ -11,7 +11,7 @@ using haxe.macro.Tools;
 import ldtk.Json;
 
 class Macros {
-	static var CURRENT_VERSION = "0.5.1";
+	static var MIN_JSON_VERSION = "0.5.0";
 	static var APP_PACKAGE = "ldtk";
 
 	static var locateCache : Map<String,String>;
@@ -61,8 +61,8 @@ class Macros {
 				error("Failed to parse project JSON");
 			}
 
-		if( json.jsonVersion!=CURRENT_VERSION )
-			error('JSON version: "${json.jsonVersion}", required: "$CURRENT_VERSION"');
+		if( dn.VersionNumber.isLowerStr(json.jsonVersion, MIN_JSON_VERSION) )
+			error('JSON version: "${json.jsonVersion}", required at least: "$MIN_JSON_VERSION"');
 
 
 		// Create project custom Enums
