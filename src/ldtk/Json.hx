@@ -44,6 +44,12 @@ typedef LevelJson = {
 	/** Unique String identifier **/
 	var identifier: String;
 
+	/** World X coordinate in pixels **/
+	var worldX: Int;
+
+	/** World Y coordinate in pixels **/
+	var worldY: Int;
+
 	/** Width of the level in pixels **/
 	var pxWid: Int;
 
