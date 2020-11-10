@@ -467,7 +467,11 @@ typedef TilesetDefJson = {
 
 	/** An array of all tiles that are fully opaque (ie. no transparent pixel). Used internally for optimizations. **/
 	@added("0.5.0")
-	var opaqueTiles: Null<Array<Int>>;
+	var opaqueTiles: Null< Array<Int> >;
+
+	/** An array containing the average color code (0xrrggbb) of each tile **/
+	@added("0.6.0")
+	var averageColors: Null< Array<Int> >;
 }
 
 
