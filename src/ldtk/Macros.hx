@@ -380,7 +380,7 @@ class Macros {
 										});
 									}
 
-									tileset = ${ ts==null ? null : macro new $tsTypePath( $v{ts.json} ) }
+									tileset = ${ ts==null ? null : macro new $tsTypePath( cast $v{ts.json} ) }
 								}
 
 								override function _getTileset() return tileset;
@@ -415,7 +415,7 @@ class Macros {
 						fields : (macro class {
 							override public function new(json) {
 								super(json);
-								tileset = ${ ts==null ? null : macro new $tsTypePath( $v{ts.json} ) }
+								tileset = ${ ts==null ? null : macro new $tsTypePath( cast $v{ts.json} ) }
 							}
 
 							override function _getTileset() return tileset;
@@ -502,7 +502,7 @@ class Macros {
 							override public function new(json) {
 								super(json);
 
-								tileset = new $tsTypePath( $v{ts.json} );
+								tileset = new $tsTypePath( cast $v{ts.json} );
 							}
 
 							override function _getTileset() return tileset;
