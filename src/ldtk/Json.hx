@@ -157,10 +157,17 @@ typedef Tile = {
 	var f: Int;
 
 	/**
-		Internal data used by the editor.
-		For auto-layer tiles: `[ruleId, coordId, tileId]`.
-		For tile-layer tiles: `[coordId, tileId]`.
+		The *Tile ID* in the corresponding tileset.
 	**/
+	@added("0.6.0")
+	var t: Int;
+
+	/**
+		Internal data used by the editor.
+		For auto-layer tiles: `[ruleId, coordId]`.
+		For tile-layer tiles: `[coordId]`.
+	**/
+	@changed("0.6.0")
 	var d: Array<Int>;
 }
 
