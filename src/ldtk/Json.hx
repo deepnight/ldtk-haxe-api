@@ -472,13 +472,16 @@ typedef TilesetDefJson = {
 	@hide
 	var savedSelections: Array<{ ids:Array<Int>, mode:Dynamic }>;
 
-	/** An array of all tiles that are fully opaque (ie. no transparent pixel). Used internally for optimizations. **/
-	@added("0.5.0")
-	var opaqueTiles: Null< Array<Int> >;
-
 	/** An array containing the average color code (0xrrggbb) of each tile **/
 	@added("0.6.0")
 	var averageColors: Null< Array<Int> >;
+
+	/** The following data is used internally for various optimizations. It's always synced with source image changes. **/
+	@added("0.6.0")
+	var cachedPixelData: Null<{
+		/** An array of 0/1 bytes, encoded in Base64, that tells if a specific TileID is fully opaque (1) or not (0) **/
+		var opaqueTiles: String;
+	}>;
 }
 
 
