@@ -479,7 +479,7 @@ typedef TilesetDefJson = {
 		@changed("0.6.0")
 		var opaqueTiles: String;
 
-		/** An array containing the average color code (0xrrggbb) of each tile **/
+		/** Average color codes for each tileset tile (ARGB format) **/
 		@added("0.6.0")
 		var averageColors: Null<String>;
 	}>;
