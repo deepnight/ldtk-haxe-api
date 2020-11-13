@@ -9,8 +9,8 @@ This is the Haxe API to load **LDtk Project JSON** files.
 [API documentation](https://deepnight.net/docs/ldtk/haxe-api) |
 [LDtk official page](https://deepnight.net/tools/ldtk-2d-level-editor)
 
-[![Build Status](https://travis-ci.com/deepnight/ldtk-haxe-api.svg?branch=master)](https://travis-ci.com/deepnight/ldtk-haxe-api)
-
+![Travis (.org)](https://img.shields.io/travis/deepnight/ldtk?label=LDtk%20editor)
+![Travis (.org)](https://img.shields.io/travis/deepnight/ldtk-haxe-api?label=Haxe%20API)
 
 ## Features
 
