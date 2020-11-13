@@ -61,7 +61,7 @@ class Macros {
 				error("Failed to parse project JSON");
 			}
 
-		if( dn.VersionNumber.isLowerStr(json.jsonVersion, MIN_JSON_VERSION) )
+		if( dn.Version.lower(json.jsonVersion, MIN_JSON_VERSION) )
 			error('JSON version: "${json.jsonVersion}", required at least: "$MIN_JSON_VERSION"');
 
 
