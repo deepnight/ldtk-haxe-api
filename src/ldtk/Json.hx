@@ -92,6 +92,16 @@ typedef LayerInstanceJson = {
 	@added("0.5.0")
 	var __pxTotalOffsetY: Int;
 
+	/** The definition UID of corresponding Tileset, if any. **/
+	@only("Tile layers, Auto-layers")
+	@added("0.6.0")
+	var __tilesetDefUid: Null<Int>;
+
+	/** The relative path to corresponding Tileset, if any. **/
+	@only("Tile layers, Auto-layers")
+	@added("0.6.0")
+	var __tilesetRelPath: Null<String>;
+
 	/** Reference to the UID of the level containing this layer instance **/
 	var levelId: Int;
 
