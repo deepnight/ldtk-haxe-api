@@ -18,6 +18,10 @@ typedef ProjectJson = {
 	@color
 	var bgColor: String;
 
+	/** An enum that describes how levels are organized in this project (ie. linearly, or freely in a 2D space) **/
+	@added("0.6.0")
+	var worldLayout: Enum<Dynamic>;
+
 	@hide
 	var nextUid: Int;
 
