@@ -38,7 +38,7 @@ class Layer_AutoLayer extends ldtk.Layer {
 
 		for(jsonAutoTile in json.autoLayerTiles)
 			autoTiles.push({
-				tileId: jsonAutoTile.d[2],
+				tileId: jsonAutoTile.t,
 				flips: jsonAutoTile.f,
 				renderX: jsonAutoTile.px[0],
 				renderY: jsonAutoTile.px[1],
