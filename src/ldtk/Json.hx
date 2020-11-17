@@ -67,10 +67,15 @@ typedef LevelJson = {
 	/** Height of the level in pixels **/
 	var pxHei: Int;
 
-	/** Background color of the level. If `null`, the project `defaultLevelBgColor` is used.**/
+	/** Background color of the level. If `null`, the project `defaultLevelBgColor` should be used.**/
 	@added("0.6.0")
 	@color
 	var bgColor: Null<String>;
+
+	/** Background color of the level (same as `bgColor`, except the default value is automatically used here if its value is `null`) **/
+	@added("0.6.0")
+	@color
+	var __bgColor: String;
 
 	var layerInstances: Array<LayerInstanceJson>;
 }
