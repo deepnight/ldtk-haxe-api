@@ -18,6 +18,11 @@ typedef ProjectJson = {
 	@color
 	var bgColor: String;
 
+	/** Default background color of levels **/
+	@added("0.6.0")
+	@color
+	var defaultLevelBgColor: String;
+
 	/** An enum that describes how levels are organized in this project (ie. linearly, or freely in a 2D space) **/
 	@added("0.6.0")
 	var worldLayout: Enum<Dynamic>;
@@ -61,6 +66,11 @@ typedef LevelJson = {
 
 	/** Height of the level in pixels **/
 	var pxHei: Int;
+
+	/** Background color of the level. If `null`, the project `defaultLevelBgColor` is used.**/
+	@added("0.6.0")
+	@color
+	var bgColor: Null<String>;
 
 	var layerInstances: Array<LayerInstanceJson>;
 }
