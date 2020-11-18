@@ -27,6 +27,14 @@ typedef ProjectJson = {
 	@added("0.6.0")
 	var worldLayout: Enum<Dynamic>;
 
+	/** Width of the world grid in pixels. Only applies for *WorldGrid* world layouts. **/
+	@added("0.6.0")
+	var worldGridWidth: Int;
+
+	/** Height of the world grid in pixels. Only applies for *WorldGrid* world layouts. **/
+	@added("0.6.0")
+	var worldGridHeight: Int;
+
 	@hide
 	var nextUid: Int;
 
