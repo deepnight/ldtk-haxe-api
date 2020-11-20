@@ -25,10 +25,9 @@ typedef ProjectJson = {
 
 	/**
 		An enum that describes how levels are organized in this project (ie. linearly or in a 2D space). Possible values are: Free, WorldGrid, LinearHorizontal and LinearVertical;
-
 	**/
 	@added("0.6.0")
-	var worldLayout: Enum<Dynamic>;
+	var worldLayout: String;
 
 	/** Width of the world grid in pixels. **/
 	@only("'WorldGrid' layouts")
@@ -516,6 +515,7 @@ typedef TilesetDefJson = {
 	var savedSelections: Array<{ ids:Array<Int>, mode:Dynamic }>;
 
 	/** The following data is used internally for various optimizations. It's always synced with source image changes. **/
+	@hide
 	@added("0.6.0")
 	var cachedPixelData: Null<{
 		/** An array of 0/1 bytes, encoded in Base64, that tells if a specific TileID is fully opaque (1) or not (0) **/
