@@ -2,11 +2,11 @@
 	This sample demonstrates how to render any layer using the
 	provided render() method.
 **/
-class HeapsRender_All extends hxd.App {
+class HeapsRender_AllLayers extends hxd.App {
 
 	static function main() {
 		// Boot
-		new HeapsRender_All();
+		new HeapsRender_AllLayers();
 	}
 
 	override function init() {
