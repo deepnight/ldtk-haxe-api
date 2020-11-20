@@ -23,7 +23,10 @@ typedef ProjectJson = {
 	@color
 	var defaultLevelBgColor: String;
 
-	/** An enum that describes how levels are organized in this project (ie. linearly, or freely in a 2D space) **/
+	/**
+		An enum that describes how levels are organized in this project (ie. linearly or in a 2D space). Possible values are: Free, WorldGrid, LinearHorizontal and LinearVertical;
+
+	**/
 	@added("0.6.0")
 	var worldLayout: Enum<Dynamic>;
 
@@ -49,6 +52,7 @@ typedef ProjectJson = {
 	/** A structure containing all the definitions of this project **/
 	var defs: DefinitionsJson;
 
+	/** All levels. The order of this array is only relevant in `LinearHorizontal` and `linearVertical` world layouts (see `worldLayout` value). Otherwise, you should refer to the `worldX`,`worldY` coordinates of each Level. **/
 	var levels: Array<LevelJson>;
 }
 
