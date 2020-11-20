@@ -15,7 +15,7 @@ class Level {
 		pxHei = json.pxHei;
 		worldX = json.worldX;
 		worldY = json.worldY;
-		bgColor = dn.Color.hexToInt(json.__bgColor);
+		bgColor = Project.hexToInt(json.__bgColor);
 		allUntypedLayers = [];
 		for(json in json.layerInstances)
 			allUntypedLayers.push( _instanciateLayer(json) );
