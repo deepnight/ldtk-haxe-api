@@ -91,6 +91,10 @@ typedef LevelJson = {
 	var __bgColor: String;
 
 	var layerInstances: Array<LayerInstanceJson>;
+
+	/** An array listing all other levels touching this one on the world map. The `dir` is a single lowercase character tipping on the level location (`n`orth, `s`outh, `w`est, `e`ast) **/
+	@added("0.6.0")
+	var __neighbours: Array<{ levelUid:Int, dir:String }>;
 }
 
 
