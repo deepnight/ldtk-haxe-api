@@ -92,7 +92,7 @@ typedef LevelJson = {
 
 	var layerInstances: Array<LayerInstanceJson>;
 
-	/** An array listing all other levels touching this one on the world map. The `dir` is a single lowercase character tipping on the level location (`n`orth, `s`outh, `w`est, `e`ast) **/
+	/** An array listing all other levels touching this one on the world map. The `dir` is a single lowercase character tipping on the level location (`n`orth, `s`outh, `w`est, `e`ast). In "linear" world layouts, this array is populated with previous/next levels in array, and `dir` depends on the linear horizontal/vertical layout. **/
 	@added("0.6.0")
 	var __neighbours: Array<{ levelUid:Int, dir:String }>;
 }
