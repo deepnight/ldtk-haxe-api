@@ -19,7 +19,7 @@ class HeapsRender_IntGrid extends hxd.App {
 		var project = new _Project();
 
 		// Layer data
-		var layer = project.all_levels.Test_level.l_Collisions;
+		var layer = project.all_levels.West.l_Collisions;
 
 		// Render background
 		var g = new h2d.Graphics(s2d);

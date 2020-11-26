@@ -18,7 +18,7 @@ class HeapsRender_AllLayers extends hxd.App {
 
 		// Read project JSON
 		var project = new _Project();
-		var level = project.all_levels.Test_level;
+		var level = project.all_levels.West;
 
 		// Load atlas h2d.Tile from the Heaps resources (could be loaded in other ways)
 		var cavernasAtlasTile = hxd.Res.Cavernas_by_Adam_Saltsman.toTile();
