@@ -144,11 +144,11 @@ typedef LayerInstanceJson = {
 	/** Reference the Layer definition UID **/
 	var layerDefUid: Int;
 
-	/** X offset in pixels to render this layer, usually 0 (IMPORTANT: this should be added to the `LayerDef` optional offset) **/
+	/** X offset in pixels to render this layer, usually 0 (IMPORTANT: this should be added to the `LayerDef` optional offset, see `__pxTotalOffsetX`) **/
 	@changed("0.5.0")
 	var pxOffsetX: Int;
 
-	/** Y offset in pixels to render this layer, usually 0 (IMPORTANT: this should be added to the `LayerDef` optional offset)**/
+	/** Y offset in pixels to render this layer, usually 0 (IMPORTANT: this should be added to the `LayerDef` optional offset, see `__pxTotalOffsetY`)**/
 	@changed("0.5.0")
 	var pxOffsetY: Int;
 
@@ -278,8 +278,7 @@ typedef FieldInstanceJson = {
 
 
 /**
-	Many useful data found in `definitions` are duplicated in fields
-	prefixed with a double underscore (ie. "__").
+	Games should not have to parse this section as many useful data found in `definitions` are actually duplicated in fields prefixed with a double underscore (ie. "__").
 **/
 @section("2")
 @display("Definitions")
@@ -290,8 +289,7 @@ typedef DefinitionsJson = {
 	var enums : Array<EnumDefJson>;
 
 	/**
-		Note: external enums are exactly the same as `enums`, except they
-		have a `relPath` to point to an external source file.
+		Note: external enums are exactly the same as `enums`, except they have a `relPath` to point to an external source file.
 	**/
 	var externalEnums : Array<EnumDefJson>;
 }
@@ -368,6 +366,7 @@ typedef LayerDefJson = {
 
 @section("2.1.1")
 @display("Auto-layer rule definition")
+/** This section isn't meant to be used by games, as these rules are completely resolved internally by the editor before any save. You should just ignore everything inside **/
 typedef AutoRuleDef = {
 	/** Unique Int identifier **/
 	var uid: Int;
@@ -481,10 +480,60 @@ typedef EntityDefJson = {
 
 
 
-/** Not available yet **/
+@added("0.6.0")
 @section("2.2.1")
 @display("Field definition")
-typedef FieldDefJson = Dynamic;
+typedef FieldDefJson = {
+	/** Unique String identifier **/
+	var identifier: String;
+
+	/** Unique Intidentifier **/
+	var uid: Int;
+
+	/** Human readable value type (eg. `Int`, `Float`, `Point`, etc.). If the field is an array, this field will look like `Array<...>` (eg. `Array<Int>`, `Array<Point>` etc.) **/
+	var __type: String;
+
+	/** Internal type enum **/
+	var type: String;
+
+	/** TRUE if the value is an array of multiple values **/
+	var isArray: Bool;
+
+	/** TRUE if the value can be null. For arrays, TRUE means it can contain null values (exception: array of Points can't have null values). **/
+	var canBeNull: Bool;
+
+	/** Array min length **/
+	@only("Array")
+	var arrayMinLength: Int;
+
+	/** Array max length **/
+	@only("Array")
+	var arrayMaxLength: Int;
+
+	/** Min limit for value, if applicable **/
+	@only("Int, Float")
+	var min: Null<Float>;
+
+	/** Max limit for value, if applicable **/
+	@only("Int, Float")
+	var max: Null<Float>;
+
+	/** Optional list of accepted file extensions for FilePath value type. Includes the dot: `.ext`**/
+	@only("FilePath")
+	var acceptFileTypes: Null< Array<String> >;
+
+	/** Default value if selected value is null or invalid. **/
+	var defaultOverride: Enum<Dynamic>;
+
+	@hide
+	var editorDisplayMode: Enum<Dynamic>;
+
+	@hide
+	var editorDisplayPos: Enum<Dynamic>;
+
+	@hide
+	var editorAlwaysShow: Bool;
+}
 
 
 
