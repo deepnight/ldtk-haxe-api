@@ -24,18 +24,18 @@ typedef ProjectJson = {
 	var defaultLevelBgColor: String;
 
 	/**
-		An enum that describes how levels are organized in this project (ie. linearly or in a 2D space). Possible values are: Free, WorldGrid, LinearHorizontal and LinearVertical;
+		An enum that describes how levels are organized in this project (ie. linearly or in a 2D space). Possible values are: Free, GridVania, LinearHorizontal and LinearVertical;
 	**/
 	@added("0.6.0")
 	var worldLayout: String;
 
 	/** Width of the world grid in pixels. **/
-	@only("'WorldGrid' layouts")
+	@only("'GridVania' layouts")
 	@added("0.6.0")
 	var worldGridWidth: Int;
 
 	/** Height of the world grid in pixels. **/
-	@only("'WorldGrid' layouts")
+	@only("'GridVania' layouts")
 	@added("0.6.0")
 	var worldGridHeight: Int;
 

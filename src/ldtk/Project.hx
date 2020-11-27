@@ -18,7 +18,7 @@ using haxe.macro.Tools;
 
 enum WorldLayout {
 	Free;
-	WorldGrid;
+	GridVania;
 	LinearHorizontal;
 	LinearVertical;
 }

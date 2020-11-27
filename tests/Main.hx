@@ -23,7 +23,7 @@ class Main {
 			CiAssert.isNotNull( project.defs.layers );
 			CiAssert.isNotNull( project.defs.tilesets );
 
-			CiAssert.equals( project.worldLayout, ldtk.Project.WorldLayout.WorldGrid );
+			CiAssert.equals( project.worldLayout, ldtk.Project.WorldLayout.GridVania );
 			CiAssert.isTrue( project.defs.entities.length>0 );
 			CiAssert.isTrue( project.defs.enums.length>0 );
 			CiAssert.isTrue( project.defs.externalEnums.length>0 );
