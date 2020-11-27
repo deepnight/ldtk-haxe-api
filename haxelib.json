@@ -4,9 +4,9 @@
   "license": "Apache",
   "tags": ["Haxe","Heaps","Hashlink","LDtk","Led","L-Ed","api"],
   "description": "The haxe API for LDtk JSON files - https://deepnight.net/tools/led-2d-level-editor/",
-  "version": "0.5.1-rc.1",
+  "version": "0.6.0-rc.1",
   "classPath": "src/",
-  "releasenote": "New app name LDtk support (formerly LEd). Added support for app version 0.5.0",
+  "releasenote": "API updated for 0.6.0 (World Editor update)",
   "contributors": ["sbenard"],
   "dependencies": {
     "deepnightLibs":""
