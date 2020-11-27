@@ -16,7 +16,7 @@ class Level {
 	public var worldY : Int;
 	public var bgColor : UInt;
 	public var allUntypedLayers(default,null) : Array<Layer>;
-	public var neighbours : Array<{ levelUid:Int, dir: NeighbourDir }>;
+	public var neighbours : Array<{ levelUid:Int, dir: NeighbourDir }>; // TODO resolve level instance
 
 	public function new(project:ldtk.Project, json:ldtk.Json.LevelJson) {
 		uid = json.uid;
