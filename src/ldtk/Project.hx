@@ -58,7 +58,7 @@ class Project {
 
 		_untypedLevels = [];
 		for(json in json.levels)
-			_untypedLevels.push( _instanciateLevel(json) );
+			_untypedLevels.push( _instanciateLevel(this, json) );
 
 		worldLayout = WorldLayout.createByName( json.worldLayout);
 
@@ -66,7 +66,7 @@ class Project {
 		#end
 	}
 
-	function _instanciateLevel(json:ldtk.Json.LevelJson) {
+	function _instanciateLevel(project:ldtk.Project, json:ldtk.Json.LevelJson) {
 		return null; // overriden by Macros.hx
 	}
 
