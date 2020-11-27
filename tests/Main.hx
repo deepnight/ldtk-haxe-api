@@ -23,6 +23,7 @@ class Main {
 			CiAssert.isNotNull( project.defs.layers );
 			CiAssert.isNotNull( project.defs.tilesets );
 
+			CiAssert.equals( project.worldLayout, ldtk.Project.WorldLayout.GridVania );
 			CiAssert.isTrue( project.defs.entities.length>0 );
 			CiAssert.isTrue( project.defs.enums.length>0 );
 			CiAssert.isTrue( project.defs.externalEnums.length>0 );
@@ -51,10 +52,16 @@ class Main {
 			CiAssert.isNotNull( project.all_levels );
 			CiAssert.isNotNull( project.all_levels.Main_tests );
 			CiAssert.isNotNull( project.all_levels.Offset_tests );
-			CiAssert.isNotNull( project.resolveLevel("Main_tests") );
-			CiAssert.equals( project.resolveLevel("Main_tests"), project.all_levels.Main_tests );
+			CiAssert.isNotNull( project.resolveLevelIdentfier("Main_tests") );
+			CiAssert.equals( project.resolveLevelIdentfier("Main_tests"), project.all_levels.Main_tests );
+			CiAssert.equals( project.resolveLevelUid(0), project.all_levels.Main_tests );
 			CiAssert.isTrue( project.levels.length>0 );
 			CiAssert.isNotNull( project.levels[0].l_IntGridTest );
+			CiAssert.equals( project.levels[1].worldX, 512 );
+			CiAssert.equals( project.levels[1].worldY, 256 );
+			CiAssert.equals( project.levels[0].bgColor, 0x271E27 );
+			CiAssert.equals( project.levels[0].neighbours.length, 1 );
+			CiAssert.equals( project.levels[0].neighbours[0].dir, ldtk.Level.NeighbourDir.East );
 
 			// Layer offsets
 			CiAssert.equals( project.all_levels.Offset_tests.l_IntGrid8.pxTotalOffsetX, 4 );

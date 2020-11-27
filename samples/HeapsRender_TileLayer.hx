@@ -1,6 +1,10 @@
 /**
-	This sample demonstrates how to manually render a "Tile" layer
-	using Heaps API.
+	This sample demonstrates how to MANUALLY render a Tile layer using
+	Heaps API. In this example, the auto-layer is an IntGrid layer
+	with rules.
+
+	It is recommended to use the .render() methods of layers that will
+	do all the dirty work for you.
 
 	For reference, the auto-layers are also rendered, but are blurred.
 **/
@@ -21,7 +25,7 @@ class HeapsRender_TileLayer extends hxd.App {
 
 		// Read project JSON
 		var project = new _Project();
-		var level = project.all_levels.Test_level;
+		var level = project.all_levels.West;
 
 		// Load atlas h2d.Tile from the disk
 		var tilesetAtlasTile = hxd.Res.Cavernas_by_Adam_Saltsman.toTile();

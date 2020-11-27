@@ -10,9 +10,9 @@ class Layer_Tiles extends ldtk.Layer {
 		tiles = new Map();
 		for(t in json.gridTiles)
 			if( !tiles.exists(t.d[0]) )
-				tiles.set(t.d[0], [{ tileId:t.d[1], flipBits:t.f }]);
+				tiles.set(t.d[0], [{ tileId:t.t, flipBits:t.f }]);
 			else
-				tiles.get(t.d[0]).push({ tileId:t.d[1], flipBits:t.f });
+				tiles.get(t.d[0]).push({ tileId:t.t, flipBits:t.f });
 
 	}
 

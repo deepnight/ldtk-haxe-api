@@ -535,8 +535,8 @@ class Macros {
 			doc: "Project specific Level class",
 			kind : TDClass(parentTypePath),
 			fields : (macro class {
-				override public function new(json) {
-					super(json);
+				override public function new(project, json) {
+					super(project, json);
 
 					// Init quick access
 					for(l in allUntypedLayers)
@@ -633,16 +633,25 @@ class Macros {
 						Reflect.setField(all_levels, l.identifier, l);
 				}
 
-				override function _instanciateLevel(json) {
-					return new $levelTypePath(json);
+				override function _instanciateLevel(project, json) {
+					return new $levelTypePath(project, json);
 				}
 
 				/**
 					Get a level using its identifier
 				**/
-				public function resolveLevel(id:String) : Null<$levelComplexType> {
+				public function resolveLevelIdentfier(id:String) : Null<$levelComplexType> {
 					for(l in _untypedLevels)
 						if( l.identifier==id )
+							return cast l;
+					return null;
+				}
+				/**
+					Get a level using its UID
+				**/
+				public function resolveLevelUid(uid:Int) : Null<$levelComplexType> {
+					for(l in _untypedLevels)
+						if( l.uid==uid )
 							return cast l;
 					return null;
 				}

@@ -94,7 +94,7 @@ class SampleHxmlGen {
 						background-color: gray;
 					}
 					canvas {
-						width: 640px;
+						width: 960px;
 						height: 480px;
 						margin: 20px;
 						border: 1px solid white;

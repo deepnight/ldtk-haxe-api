@@ -14,7 +14,7 @@ class Layer_IntGrid_AutoLayer extends ldtk.Layer_IntGrid {
 
 		for(jsonAutoTile in json.autoLayerTiles)
 			autoTiles.push({
-				tileId: jsonAutoTile.d[2],
+				tileId: jsonAutoTile.t,
 				flips: jsonAutoTile.f,
 				renderX: jsonAutoTile.px[0],
 				renderY: jsonAutoTile.px[1],

@@ -9,7 +9,7 @@ class BaseExample {
 	static function main() {
 		var project = new _Project();
 
-		var myLevel = project.all_levels.Test_level;
+		var myLevel = project.all_levels.West;
 
 		// IntGrid ASCII render
 		var layer = myLevel.l_Collisions;

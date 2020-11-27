@@ -18,6 +18,27 @@ typedef ProjectJson = {
 	@color
 	var bgColor: String;
 
+	/** Default background color of levels **/
+	@added("0.6.0")
+	@color
+	var defaultLevelBgColor: String;
+
+	/**
+		An enum that describes how levels are organized in this project (ie. linearly or in a 2D space). Possible values are: Free, GridVania, LinearHorizontal and LinearVertical;
+	**/
+	@added("0.6.0")
+	var worldLayout: String;
+
+	/** Width of the world grid in pixels. **/
+	@only("'GridVania' layouts")
+	@added("0.6.0")
+	var worldGridWidth: Int;
+
+	/** Height of the world grid in pixels. **/
+	@only("'GridVania' layouts")
+	@added("0.6.0")
+	var worldGridHeight: Int;
+
 	@hide
 	var nextUid: Int;
 
@@ -30,6 +51,7 @@ typedef ProjectJson = {
 	/** A structure containing all the definitions of this project **/
 	var defs: DefinitionsJson;
 
+	/** All levels. The order of this array is only relevant in `LinearHorizontal` and `linearVertical` world layouts (see `worldLayout` value). Otherwise, you should refer to the `worldX`,`worldY` coordinates of each Level. **/
 	var levels: Array<LevelJson>;
 }
 
@@ -44,13 +66,35 @@ typedef LevelJson = {
 	/** Unique String identifier **/
 	var identifier: String;
 
+	/** World X coordinate in pixels **/
+	@added("0.6.0")
+	var worldX: Int;
+
+	/** World Y coordinate in pixels **/
+	@added("0.6.0")
+	var worldY: Int;
+
 	/** Width of the level in pixels **/
 	var pxWid: Int;
 
 	/** Height of the level in pixels **/
 	var pxHei: Int;
 
+	/** Background color of the level. If `null`, the project `defaultLevelBgColor` should be used.**/
+	@added("0.6.0")
+	@color
+	var bgColor: Null<String>;
+
+	/** Background color of the level (same as `bgColor`, except the default value is automatically used here if its value is `null`) **/
+	@added("0.6.0")
+	@color
+	var __bgColor: String;
+
 	var layerInstances: Array<LayerInstanceJson>;
+
+	/** An array listing all other levels touching this one on the world map. The `dir` is a single lowercase character tipping on the level location (`n`orth, `s`outh, `w`est, `e`ast). In "linear" world layouts, this array is populated with previous/next levels in array, and `dir` depends on the linear horizontal/vertical layout. **/
+	@added("0.6.0")
+	var __neighbours: Array<{ levelUid:Int, dir:String }>;
 }
 
 
@@ -84,17 +128,27 @@ typedef LayerInstanceJson = {
 	@added("0.5.0")
 	var __pxTotalOffsetY: Int;
 
+	/** The definition UID of corresponding Tileset, if any. **/
+	@only("Tile layers, Auto-layers")
+	@added("0.6.0")
+	var __tilesetDefUid: Null<Int>;
+
+	/** The relative path to corresponding Tileset, if any. **/
+	@only("Tile layers, Auto-layers")
+	@added("0.6.0")
+	var __tilesetRelPath: Null<String>;
+
 	/** Reference to the UID of the level containing this layer instance **/
 	var levelId: Int;
 
 	/** Reference the Layer definition UID **/
 	var layerDefUid: Int;
 
-	/** X offset in pixels to render this layer, usually 0 (IMPORTANT: this should be added to the `LayerDef` optional offset) **/
+	/** X offset in pixels to render this layer, usually 0 (IMPORTANT: this should be added to the `LayerDef` optional offset, see `__pxTotalOffsetX`) **/
 	@changed("0.5.0")
 	var pxOffsetX: Int;
 
-	/** Y offset in pixels to render this layer, usually 0 (IMPORTANT: this should be added to the `LayerDef` optional offset)**/
+	/** Y offset in pixels to render this layer, usually 0 (IMPORTANT: this should be added to the `LayerDef` optional offset, see `__pxTotalOffsetY`)**/
 	@changed("0.5.0")
 	var pxOffsetY: Int;
 
@@ -149,10 +203,17 @@ typedef Tile = {
 	var f: Int;
 
 	/**
-		Internal data used by the editor.
-		For auto-layer tiles: `[ruleId, coordId, tileId]`.
-		For tile-layer tiles: `[coordId, tileId]`.
+		The *Tile ID* in the corresponding tileset.
 	**/
+	@added("0.6.0")
+	var t: Int;
+
+	/**
+		Internal data used by the editor.
+		For auto-layer tiles: `[ruleId, coordId]`.
+		For tile-layer tiles: `[coordId]`.
+	**/
+	@changed("0.6.0")
 	var d: Array<Int>;
 }
 
@@ -217,8 +278,7 @@ typedef FieldInstanceJson = {
 
 
 /**
-	Many useful data found in `definitions` are duplicated in fields
-	prefixed with a double underscore (ie. "__").
+	Games should not have to parse this section as many useful data found in `definitions` are actually duplicated in fields prefixed with a double underscore (ie. "__").
 **/
 @section("2")
 @display("Definitions")
@@ -229,8 +289,7 @@ typedef DefinitionsJson = {
 	var enums : Array<EnumDefJson>;
 
 	/**
-		Note: external enums are exactly the same as `enums`, except they
-		have a `relPath` to point to an external source file.
+		Note: external enums are exactly the same as `enums`, except they have a `relPath` to point to an external source file.
 	**/
 	var externalEnums : Array<EnumDefJson>;
 }
@@ -307,6 +366,7 @@ typedef LayerDefJson = {
 
 @section("2.1.1")
 @display("Auto-layer rule definition")
+/** This section isn't meant to be used by games, as these rules are completely resolved internally by the editor before any save. You should just ignore everything inside **/
 typedef AutoRuleDef = {
 	/** Unique Int identifier **/
 	var uid: Int;
@@ -420,10 +480,60 @@ typedef EntityDefJson = {
 
 
 
-/** Not available yet **/
+@added("0.6.0")
 @section("2.2.1")
 @display("Field definition")
-typedef FieldDefJson = Dynamic;
+typedef FieldDefJson = {
+	/** Unique String identifier **/
+	var identifier: String;
+
+	/** Unique Intidentifier **/
+	var uid: Int;
+
+	/** Human readable value type (eg. `Int`, `Float`, `Point`, etc.). If the field is an array, this field will look like `Array<...>` (eg. `Array<Int>`, `Array<Point>` etc.) **/
+	var __type: String;
+
+	/** Internal type enum **/
+	var type: String;
+
+	/** TRUE if the value is an array of multiple values **/
+	var isArray: Bool;
+
+	/** TRUE if the value can be null. For arrays, TRUE means it can contain null values (exception: array of Points can't have null values). **/
+	var canBeNull: Bool;
+
+	/** Array min length **/
+	@only("Array")
+	var arrayMinLength: Int;
+
+	/** Array max length **/
+	@only("Array")
+	var arrayMaxLength: Int;
+
+	/** Min limit for value, if applicable **/
+	@only("Int, Float")
+	var min: Null<Float>;
+
+	/** Max limit for value, if applicable **/
+	@only("Int, Float")
+	var max: Null<Float>;
+
+	/** Optional list of accepted file extensions for FilePath value type. Includes the dot: `.ext`**/
+	@only("FilePath")
+	var acceptFileTypes: Null< Array<String> >;
+
+	/** Default value if selected value is null or invalid. **/
+	var defaultOverride: Enum<Dynamic>;
+
+	@hide
+	var editorDisplayMode: Enum<Dynamic>;
+
+	@hide
+	var editorDisplayPos: Enum<Dynamic>;
+
+	@hide
+	var editorAlwaysShow: Bool;
+}
 
 
 
@@ -457,9 +567,18 @@ typedef TilesetDefJson = {
 	@hide
 	var savedSelections: Array<{ ids:Array<Int>, mode:Dynamic }>;
 
-	/** An array of all tiles that are fully opaque (ie. no transparent pixel). Used internally for optimizations. **/
-	@added("0.5.0")
-	var opaqueTiles: Null< Array<Int> >;
+	/** The following data is used internally for various optimizations. It's always synced with source image changes. **/
+	@hide
+	@added("0.6.0")
+	var cachedPixelData: Null<{
+		/** An array of 0/1 bytes, encoded in Base64, that tells if a specific TileID is fully opaque (1) or not (0) **/
+		@changed("0.6.0")
+		var opaqueTiles: String;
+
+		/** Average color codes for each tileset tile (ARGB format) **/
+		@added("0.6.0")
+		var averageColors: Null<String>;
+	}>;
 }
 
 

@@ -16,6 +16,13 @@ import haxe.macro.Expr;
 using haxe.macro.Tools;
 #end
 
+enum WorldLayout {
+	Free;
+	GridVania;
+	LinearHorizontal;
+	LinearVertical;
+}
+
 class Project {
 	/** Contains the full path to the project JSON, as provided to the macro (using slashes) **/
 	public var projectFilePath : String;
@@ -34,6 +41,8 @@ class Project {
 	/** Full access to the JSON project definitions **/
 	public var defs : ldtk.Json.DefinitionsJson;
 
+	public var worldLayout : WorldLayout;
+
 	public function new() {}
 
 	/**
@@ -49,13 +58,15 @@ class Project {
 
 		_untypedLevels = [];
 		for(json in json.levels)
-			_untypedLevels.push( _instanciateLevel(json) );
+			_untypedLevels.push( _instanciateLevel(this, json) );
+
+		worldLayout = WorldLayout.createByName( json.worldLayout);
 
 		defs = json.defs;
 		#end
 	}
 
-	function _instanciateLevel(json:ldtk.Json.LevelJson) {
+	function _instanciateLevel(project:ldtk.Project, json:ldtk.Json.LevelJson) {
 		return null; // overriden by Macros.hx
 	}
 

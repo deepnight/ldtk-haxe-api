@@ -20,25 +20,25 @@
 -hl bin/BaseExample.hl
 --next
 
-# HeapsRender_All (Javascript/WebGL)
+# HeapsRender_AllLayers (Javascript/WebGL)
 -cp .
 -cp ../src
 -lib heaps
 -lib deepnightLibs
 --dce full
--main HeapsRender_All
--js bin/HeapsRender_All.js
+-main HeapsRender_AllLayers
+-js bin/HeapsRender_AllLayers.js
 
 
-# HeapsRender_All (Hashlink)
+# HeapsRender_AllLayers (Hashlink)
 --next
 -cp .
 -cp ../src
 -lib heaps
 -lib deepnightLibs
 --dce full
--main HeapsRender_All
--hl bin/HeapsRender_All.hl
+-main HeapsRender_AllLayers
+-hl bin/HeapsRender_AllLayers.hl
 --next
 
 # HeapsRender_AutoLayer (Javascript/WebGL)
@@ -102,3 +102,24 @@
 --dce full
 -main HeapsRender_TileLayer
 -hl bin/HeapsRender_TileLayer.hl
+--next
+
+# HeapsRender_World (Javascript/WebGL)
+-cp .
+-cp ../src
+-lib heaps
+-lib deepnightLibs
+--dce full
+-main HeapsRender_World
+-js bin/HeapsRender_World.js
+
+
+# HeapsRender_World (Hashlink)
+--next
+-cp .
+-cp ../src
+-lib heaps
+-lib deepnightLibs
+--dce full
+-main HeapsRender_World
+-hl bin/HeapsRender_World.hl

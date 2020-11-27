@@ -1,7 +1,10 @@
 /**
-	This sample demonstrates how to manually render an AutoLayer
+	This sample demonstrates how to MANUALLY render an AutoLayer
 	using Heaps API. In this example, the auto-layer is an IntGrid layer
 	with rules.
+
+	It is recommended to use the .render() methods of layers that will
+	do all the dirty work for you.
 **/
 class HeapsRender_AutoLayer extends hxd.App {
 
@@ -24,7 +27,7 @@ class HeapsRender_AutoLayer extends hxd.App {
 		var atlasTile = hxd.Res.Cavernas_by_Adam_Saltsman.toTile();
 
 		// Layer data
-		var layer = project.all_levels.Test_level.l_Collisions;
+		var layer = project.all_levels.West.l_Collisions;
 
 		// Get all the generated auto-layer tiles in this layer
 		for( autoTile in layer.autoTiles ) {
