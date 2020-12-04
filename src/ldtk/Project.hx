@@ -134,7 +134,7 @@ class Project {
 
 	@:noCompletion
 	public static inline function hexToInt(hex:String) {
-		return Std.parseInt( "0x"+hex.substr(1,999) );
+		return hex==null ? 0x0 : Std.parseInt( "0x"+hex.substr(1,999) );
 	}
 
 	@:noCompletion
