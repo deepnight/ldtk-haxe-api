@@ -518,6 +518,10 @@ typedef FieldDefJson = {
 	@only("Int, Float")
 	var max: Null<Float>;
 
+	/** Optional regular expression that needs to be matched to accept values. Expected format: `/some_reg_ex/g`, with optional "i" flag. **/
+	@only("String")
+	var regex: Null<String>;
+
 	/** Optional list of accepted file extensions for FilePath value type. Includes the dot: `.ext`**/
 	@only("FilePath")
 	var acceptFileTypes: Null< Array<String> >;
