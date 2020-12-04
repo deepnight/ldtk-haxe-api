@@ -519,6 +519,7 @@ typedef FieldDefJson = {
 	var max: Null<Float>;
 
 	/** Optional regular expression that needs to be matched to accept values. Expected format: `/some_reg_ex/g`, with optional "i" flag. **/
+	@added("0.6.2")
 	@only("String")
 	var regex: Null<String>;
 
