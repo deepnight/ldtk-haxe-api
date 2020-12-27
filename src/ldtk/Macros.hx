@@ -743,11 +743,18 @@ class Macros {
 	static var _t = -1.;
 	static var _timerName = "";
 	static inline function timer(?name="") {
-		#if debug
-		// if( _t>=0 )
-		// 	trace(_curMod+" => "+ Std.int( ( haxe.Timer.stamp()-_t ) * 1000 ) / 1000  + "s " + _timerName );
-		// _timerName = name;
-		// _t = haxe.Timer.stamp();
+		#if ldtk_times
+		if( _t>=0 ) {
+			var l = "[LDtkTimes] "+_curMod+" => "+ Std.int( ( haxe.Timer.stamp()-_t ) * 1000 ) / 1000  + "s " + _timerName;
+			#if sys
+			Sys.println(l);
+			#else
+			trace(l);
+			#end
+		}
+
+		_timerName = name;
+		_t = haxe.Timer.stamp();
 		#end
 	}
 }
