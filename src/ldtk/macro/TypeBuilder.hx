@@ -49,9 +49,8 @@ class TypeBuilder {
 		Build all types from project file provided as parameter.
 	**/
 	public static function buildTypes(projectFilePath:String) {
-		TypeBuilder.projectFilePath = projectFilePath;
-
 		// Init
+		TypeBuilder.projectFilePath = projectFilePath;
 		json = null;
 		fileContent = null;
 		locateCache = new Map();
