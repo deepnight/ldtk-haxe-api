@@ -16,7 +16,7 @@ class Macros {
 
 	static var locateCache : Map<String,String>;
 
-	#if debug
+	#if ldtk_times
 	static var _curMod : String;
 	#end
 
@@ -41,7 +41,7 @@ class Macros {
 		var modName = modPack.pop();
 		// if( modPack.length==0 )
 			// warning("It is recommended to move this file to its own package to avoid potential name conflicts.");
-		#if debug
+		#if ldtk_times
 		_curMod = modName;
 		#end
 		var projectFields : Array<Field> = [];
@@ -745,7 +745,7 @@ class Macros {
 	static inline function timer(?name="") {
 		#if ldtk_times
 		if( _t>=0 ) {
-			var l = "[LDtkTimes] "+_curMod+" => "+ Std.int( ( haxe.Timer.stamp()-_t ) * 1000 ) / 1000  + "s " + _timerName;
+			var l = '[LDtk.$_curMod] $_timerName: ${Std.int( ( haxe.Timer.stamp()-_t ) * 1000 ) / 1000}s';
 			#if sys
 			Sys.println(l);
 			#else
