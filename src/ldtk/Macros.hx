@@ -7,9 +7,11 @@ package ldtk;
 import haxe.macro.Context;
 import haxe.macro.Expr;
 using haxe.macro.Tools;
-
 import ldtk.Json;
 
+/**
+	This class will build all necessary classes and types from a LDtk project file.
+**/
 class Macros {
 	static var MIN_JSON_VERSION = "0.5.0";
 	static var APP_PACKAGE = "ldtk";
@@ -29,19 +31,27 @@ class Macros {
 
 	// Types
 	static var projectFields : Array<Field> = [];
-	static var entityIdsEnum : TypeDefinition;
 	static var externEnumTypes : Map<String,{ path:String, ct:ComplexType}> = new Map();
 	static var externEnumSwitchExpr : Expr;
+	static var entityIdsEnum : TypeDefinition;
+	static var baseEntityType : TypeDefinition;
+	static var levelType : TypeDefinition;
+	static var tilesets : Map<Int,{ typeName:String, json:TilesetDefJson }> = new Map();
 
 	#if ldtk_times
 	static var _curMod : String;
 	#end
 
 
+
+
 	/**
-		Init internals
+		Build all types from project file provided as parameter.
 	**/
-	static function init() {
+	public static function buildTypes(projectFilePath:String) {
+		Macros.projectFilePath = projectFilePath;
+
+		// Init
 		json = null;
 		fileContent = null;
 		locateCache = new Map();
@@ -50,10 +60,29 @@ class Macros {
 		modName = modPack.pop();
 		projectFields = [];
 		externEnumTypes = new Map();
-
+		tilesets = new Map();
 		#if ldtk_times
 		_curMod = modName;
 		#end
+
+		// if( modPack.length==0 )
+			// warning("It is recommended to move this file to its own package to avoid potential name conflicts.");
+
+		loadJson();
+		createEnumDefs();
+		createEntityIdEnum();
+		linkExternalEnums();
+		createBaseEntityClass();
+		createSpecializedEntitiesClasses();
+		createTilesetsClasses();
+		createLayersClasses();
+		createLevelClass();
+		createLevelAccess();
+		createProjectClass();
+
+		haxe.macro.Compiler.keep( Context.getLocalModule() );
+		timer("end");
+		return macro : Void;
 	}
 
 
@@ -192,23 +221,10 @@ class Macros {
 			expr: ESwitch( macro name, cases, macro throw "Unknown external enum name" ),
 			pos: curPos,
 		}
-
 	}
 
 
-	public static function buildTypes(projectFilePath:String) {
-		Macros.projectFilePath = projectFilePath;
-		// Init stuff
-		init();
-		// if( modPack.length==0 )
-			// warning("It is recommended to move this file to its own package to avoid potential name conflicts.");
-
-		loadJson();
-		createEnumDefs();
-		createEntityIdEnum();
-		linkExternalEnums();
-
-
+	static function createBaseEntityClass() {
 		// Base Entity class for this project (with enum type)
 		var entityEnumType = Context.getType(entityIdsEnum.name).toComplexType();
 		var entityEnumRef : Expr = {
@@ -217,7 +233,7 @@ class Macros {
 		}
 
 		var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Entity" }
-		var baseEntityType : TypeDefinition = {
+		baseEntityType = {
 			pos : curPos,
 			name : modName+"_Entity",
 			pack : modPack,
@@ -255,9 +271,13 @@ class Macros {
 		// 		access: [],
 		// 	});
 		registerTypeDefinitionModule(baseEntityType, projectFilePath);
+	}
 
 
-		// Create Entities specialized classes (each one mihgt have specific custom fields)
+	/**
+		Create Entities specialized classes (each one might have specific custom fields)
+	**/
+	static function createSpecializedEntitiesClasses() {
 		timer("specEntityClasses");
 		for(e in json.defs.entities) {
 			// Create entity class
@@ -344,11 +364,15 @@ class Macros {
 
 			registerTypeDefinitionModule(entityType, projectFilePath);
 		}
+	}
 
 
-		// Create tileset classes
+	/**
+		Create tileset classes
+	**/
+	static function createTilesetsClasses() {
 		timer("tilesetClasses");
-		var tilesets : Map<Int,{ typeName:String, json:TilesetDefJson }> = new Map();
+		tilesets = new Map();
 		for(e in json.defs.tilesets) {
 			// Create entity class
 			var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Tileset" }
@@ -371,9 +395,13 @@ class Macros {
 				json: e,
 			});
 		}
+	}
 
 
-		// Create Layers specialized classes
+	/**
+		Create Layers specialized classes
+	**/
+	static function createLayersClasses() {
 		timer("layerClasses");
 		for(l in json.defs.layers) {
 			switch l.type {
@@ -570,13 +598,16 @@ class Macros {
 					error("Unknown layer type "+l.type);
 			}
 		}
+	}
 
 
-
-		// Create Level specialized class
+	/**
+		Create specialized Level class
+	**/
+	static function createLevelClass() {
 		timer("levelClass");
 		var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Level" }
-		var levelType : TypeDefinition = {
+		levelType = {
 			pos : curPos,
 			name : modName+"_Level",
 			pack : modPack,
@@ -619,9 +650,13 @@ class Macros {
 				pos: curPos,
 			});
 		registerTypeDefinitionModule(levelType, projectFilePath);
+	}
 
 
-		// Build levels access
+	/**
+		Build quick levels access using their identifier
+	**/
+	static function createLevelAccess() {
 		var levelAccessFields : Array<ObjectField> = json.levels.map( function(levelJson) {
 			return {
 				field: levelJson.identifier,
@@ -644,9 +679,14 @@ class Macros {
 			pos: curPos,
 			access: [ APublic ],
 		});
+	}
 
 
-		// Create Project extended class
+
+	/**
+		Create main Project class
+	**/
+	static function createProjectClass() {
 		timer("projectClass");
 		var projectDir = StringTools.replace(projectFilePath, "\\", "/");
 		projectDir = projectDir.indexOf("/")<0 ? null : projectDir.substring(0, projectDir.lastIndexOf("/"));
@@ -706,18 +746,14 @@ class Macros {
 			}).fields.concat( projectFields ),
 		}
 		registerTypeDefinitionModule(projectClass, projectFilePath);
-
-
-		haxe.macro.Compiler.keep( Context.getLocalModule() );
-		timer("end");
-		return macro : Void;
 	}
 
 
 
-	static var hexColorReg = ~/^#([0-9abcdefABCDEF]{6})$/g;
 
-	// Search a file in all classPaths + sub folders
+	/**
+		Search a file in all classPaths + sub folders
+	**/
 	static function locateFile(searchFileName:String) : Null<String> {
 		if( locateCache.exists(searchFileName) )
 			return locateCache.get(searchFileName);
@@ -755,41 +791,50 @@ class Macros {
 		return null;
 	}
 
+	/**
+		Register type definition
+	**/
 	static function registerTypeDefinitionModule(typeDef:TypeDefinition, projectFilePath:String) {
 		var mod = Context.getLocalModule();
 		Context.defineModule(mod, [typeDef]);
 		Context.registerModuleDependency(mod, projectFilePath);
 	}
 
+	/**
+		Stop with an error message
+	**/
 	static inline function error(msg:Dynamic, ?p:Position) : Dynamic {
 		Context.fatalError( Std.string(msg), p==null ? Context.currentPos() : p );
 		return null;
 	}
 
+	/**
+		Print a compiler warning
+	**/
 	static inline function warning(msg:Dynamic, ?p:Position) {
 		Context.warning( Std.string(msg), p==null ? Context.currentPos() : p );
 	}
 
+	/**
+		Convert "#rrggbb" to "0xrrggbb" (String)
+	**/
 	static inline function hexColorToStr(hex:String) : String {
 		return "0x"+hex.substr(1);
 	}
 
+	/**
+		Convert "#rrggbb" to 0xrrggbb (Integer)
+	**/
 	static inline function hexColorToInt(hex:String) : UInt {
 		return Std.parseInt( "0x"+hex.substr(1) );
 	}
 
-	static inline function coordIdToX(coordId:Int, cWid:Int) {
-		return coordId - Std.int( coordId / cWid ) * cWid;
-	}
 
-	static inline function coordIdToY(coordId:Int, cWid:Int) {
-		return Std.int( coordId / cWid );
-	}
-
-
-	// Debug timer
 	static var _t = -1.;
 	static var _timerName = "";
+	/**
+		Debug timer
+	**/
 	static inline function timer(?name="") {
 		#if ldtk_times
 		if( _t>=0 ) {
