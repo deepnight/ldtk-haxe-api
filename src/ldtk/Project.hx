@@ -150,7 +150,7 @@ class Project {
 		#if !macro
 		throw "Should only be used in macros";
 		#else
-		return Macros.buildTypes(projectFilePath);
+		return ldtk.macro.TypeBuilder.buildTypes(projectFilePath);
 		#end
 	}
 }

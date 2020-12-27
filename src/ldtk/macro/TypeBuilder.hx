@@ -1,4 +1,4 @@
-package ldtk;
+package ldtk.macro;
 
 #if( !macro && !display )
 #error "This class should not be used outside of macros"
@@ -12,7 +12,7 @@ import ldtk.Json;
 /**
 	This class will build all necessary classes and types from a LDtk project file.
 **/
-class Macros {
+class TypeBuilder {
 	static var MIN_JSON_VERSION = "0.5.0";
 	static var APP_PACKAGE = "ldtk";
 
@@ -49,7 +49,7 @@ class Macros {
 		Build all types from project file provided as parameter.
 	**/
 	public static function buildTypes(projectFilePath:String) {
-		Macros.projectFilePath = projectFilePath;
+		TypeBuilder.projectFilePath = projectFilePath;
 
 		// Init
 		json = null;
