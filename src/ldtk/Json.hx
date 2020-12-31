@@ -559,7 +559,7 @@ typedef TilesetDefJson = {
 	/** Image width in pixels **/
 	var pxWid: Int;
 
-	/** Image width in pixels **/
+	/** Image height in pixels **/
 	var pxHei: Int;
 
 	var tileGridSize: Int;
