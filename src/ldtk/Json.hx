@@ -39,7 +39,7 @@ typedef ProjectJson = {
 	@added("0.6.0")
 	var worldGridHeight: Int;
 
-	@hide
+	@internal
 	var nextUid: Int;
 
 	/** If TRUE, the Json is partially minified (no indentation, nor line breaks, default is FALSE) **/
@@ -213,6 +213,7 @@ typedef Tile = {
 		For auto-layer tiles: `[ruleId, coordId]`.
 		For tile-layer tiles: `[coordId]`.
 	**/
+	@internal
 	@changed("0.6.0")
 	var d: Array<Int>;
 }
@@ -271,7 +272,7 @@ typedef FieldInstanceJson = {
 	/** Reference of the **Field definition** UID **/
 	var defUid: Int;
 
-	@hide
+	@internal
 	var realEditorValues: Array<Dynamic>;
 }
 
@@ -306,8 +307,8 @@ typedef LayerDefJson = {
 	var __type: String;
 
 	/** Type of the layer as Haxe Enum **/
-	@hide
-	var type: Dynamic;
+	@internal
+	var type: Enum<Dynamic>;
 
 	/** Unique Int identifier **/
 	var uid: Int;
@@ -446,10 +447,11 @@ typedef EntityDefJson = {
 	@color
 	var color: String;
 
-	@hide
+	@internal
 	var renderMode: Enum<Dynamic>;
 
-	@hide
+	/** Display entity name in editor **/
+	@internal
 	@added("0.4.0")
 	var showName: Bool;
 
@@ -459,13 +461,13 @@ typedef EntityDefJson = {
 	/** Tile ID used for optional tile display **/
 	var tileId: Int;
 
-	@hide
+	@internal
 	var tileRenderMode: Enum<Dynamic>;
 
 	/** Max instances per level **/
 	var maxPerLevel: Int;
 
-	@hide
+	@internal
 	var limitBehavior: Enum<Dynamic>;
 
 	/** Pivot X coordinate (from 0 to 1.0) **/
@@ -530,13 +532,13 @@ typedef FieldDefJson = {
 	/** Default value if selected value is null or invalid. **/
 	var defaultOverride: Enum<Dynamic>;
 
-	@hide
+	@internal
 	var editorDisplayMode: Enum<Dynamic>;
 
-	@hide
+	@internal
 	var editorDisplayPos: Enum<Dynamic>;
 
-	@hide
+	@internal
 	var editorAlwaysShow: Bool;
 }
 
@@ -569,11 +571,11 @@ typedef TilesetDefJson = {
 	var padding: Int;
 
 	/** Array of group of tiles selections, only meant to be used in the editor **/
-	@hide
+	@internal
 	var savedSelections: Array<{ ids:Array<Int>, mode:Dynamic }>;
 
 	/** The following data is used internally for various optimizations. It's always synced with source image changes. **/
-	@hide
+	@internal
 	@added("0.6.0")
 	var cachedPixelData: Null<{
 		/** An array of 0/1 bytes, encoded in Base64, that tells if a specific TileID is fully opaque (1) or not (0) **/
@@ -616,7 +618,6 @@ typedef EnumDefJson = {
 	/** Relative path to the external file providing this Enum **/
 	var externalRelPath: Null<String>;
 
-	@hide
+	@internal
 	var externalFileChecksum: Null<String>;
-
 };
