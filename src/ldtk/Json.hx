@@ -398,8 +398,8 @@ typedef AutoRuleDef = {
 	/** If TRUE, allow rule to be matched by flipping its pattern vertically **/
 	var flipY: Bool;
 
-	/** If TRUE, enable checker mode **/
-	var checker: Bool;
+	/** Checker mode: None, Horizontal or Vertical. **/
+	var checker: Enum<Dynamic>;
 
 	/** X pivot of a tile stamp (0-1) **/
 	@only("'Stamp' tile mode")
