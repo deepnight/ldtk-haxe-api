@@ -1,3 +1,4 @@
 tests/_base.hxml
 -js tests/bin/test.js
 --cmd node tests/bin/test.js
+-D ldtk_times

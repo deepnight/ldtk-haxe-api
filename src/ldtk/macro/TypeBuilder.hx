@@ -1,4 +1,4 @@
-package ldtk;
+package ldtk.macro;
 
 #if( !macro && !display )
 #error "This class should not be used outside of macros"
@@ -7,53 +7,103 @@ package ldtk;
 import haxe.macro.Context;
 import haxe.macro.Expr;
 using haxe.macro.Tools;
-
 import ldtk.Json;
 
-class Macros {
+/**
+	This class will build all necessary classes and types from a LDtk project file.
+**/
+class TypeBuilder {
 	static var MIN_JSON_VERSION = "0.5.0";
 	static var APP_PACKAGE = "ldtk";
 
+	// File
+	static var projectFilePath : String;
+	static var fileContent : String;
+	static var json : ProjectJson;
 	static var locateCache : Map<String,String>;
 
-	#if debug
+	// Module infos
+	static var rawMod : String = "";
+	static var modPack : Array<String> = [];
+	static var modName : String = "";
+	static var curPos(get,never) : Position;
+		inline static function get_curPos() return Context.currentPos();
+
+	// Types
+	static var projectFields : Array<Field> = [];
+	static var externEnumTypes : Map<String,{ path:String, ct:ComplexType}> = new Map();
+	static var externEnumSwitchExpr : Expr;
+	static var entityIdsEnum : TypeDefinition;
+	static var baseEntityType : TypeDefinition;
+	static var levelType : TypeDefinition;
+	static var tilesets : Map<Int,{ typeName:String, json:TilesetDefJson }> = new Map();
+
+	#if ldtk_times
 	static var _curMod : String;
 	#end
 
+
+
+
+	/**
+		Build all types from project file provided as parameter.
+	**/
 	public static function buildTypes(projectFilePath:String) {
-		// Read project file
+		// Init
+		TypeBuilder.projectFilePath = projectFilePath;
+		json = null;
+		fileContent = null;
+		locateCache = new Map();
+		rawMod = Context.getLocalModule();
+		modPack = rawMod.split(".");
+		modName = modPack.pop();
+		projectFields = [];
+		externEnumTypes = new Map();
+		tilesets = new Map();
+		#if ldtk_times
+		_curMod = modName;
+		#end
+
+		// if( modPack.length==0 )
+			// warning("It is recommended to move this file to its own package to avoid potential name conflicts.");
+
+		loadJson();
+		createEnumDefs();
+		createEntityIdEnum();
+		linkExternalEnums();
+		createBaseEntityClass();
+		createSpecializedEntitiesClasses();
+		createTilesetsClasses();
+		createLayersClasses();
+		createLevelClass();
+		createLevelAccess();
+		createProjectClass();
+
+		haxe.macro.Compiler.keep( Context.getLocalModule() );
+		timer("end");
+		return macro : Void;
+	}
+
+
+	/**
+		Load and parse the Json from disk
+	**/
+	static function loadJson() {
+		// Read file
 		timer("read");
 		var fi =
 			try sys.io.File.read(projectFilePath)
 			catch(e:Dynamic) error("File not found "+projectFilePath);
 
-		var fileContent =
+		fileContent =
 			try fi.readAll().toString()
 			catch(e:Dynamic) error("Couldn't read file content "+projectFilePath);
 
 		fi.close();
 
-		// Init stuff
-		locateCache = new Map();
-		var pos = Context.currentPos();
-		var mod = Context.getLocalModule();
-		var modPack = mod.split(".");
-		var modName = modPack.pop();
-		// if( modPack.length==0 )
-			// warning("It is recommended to move this file to its own package to avoid potential name conflicts.");
-		#if debug
-		_curMod = modName;
-		#end
-		var projectFields : Array<Field> = [];
-
-		// Create a package name from the Module name
-		// var firstLetterReg = ~/(_*[A-Z])([A-Za-z_0-9]*)/g;
-		// firstLetterReg.match(mod);
-		// var projectTypesPack = firstLetterReg.matched(1).toLowerCase() + firstLetterReg.matched(2);
-
-		// Read JSON
+		// Parse JSON
 		timer("json");
-		var json : ProjectJson =
+		json =
 			try haxe.Json.parse(fileContent)
 			catch(e:Dynamic) {
 				var jsonPos = Context.makePosition({ min:0, max:0, file:projectFilePath });
@@ -63,9 +113,13 @@ class Macros {
 
 		if( dn.Version.lower(json.jsonVersion, MIN_JSON_VERSION) )
 			error('JSON version: "${json.jsonVersion}", required at least: "$MIN_JSON_VERSION"');
+	}
 
 
-		// Create project custom Enums
+	/**
+		Create enums from project EnumDefs
+	**/
+	static function createEnumDefs() {
 		timer("localEnums");
 		for(e in json.defs.enums) {
 			var enumTypeDef : TypeDefinition = {
@@ -73,42 +127,50 @@ class Macros {
 				pack: modPack,
 				doc: "Enumeration of all possible "+e.identifier+" values",
 				kind: TDEnum,
-				pos: pos,
+				pos: curPos,
 				fields: e.values.map( function(json) : Field {
 					return {
 						name: json.id,
-						pos: pos,
+						pos: curPos,
 						kind: FVar(null, null),
 					}
 				}),
 			}
 			registerTypeDefinitionModule(enumTypeDef, projectFilePath);
 		}
+	}
 
 
-		// Create an enum to represent all Entity IDs
+	/**
+		Create a single enum that contains all Entity IDs
+	**/
+	static function createEntityIdEnum() {
 		timer("entityIds");
-		var allEntitiesEnum : TypeDefinition = {
+		entityIdsEnum = {
 			name: "EntityEnum",
 			pack: modPack,
 			kind: TDEnum,
 			doc: "An enum representing all Entity IDs",
-			pos: pos,
+			pos: curPos,
 			fields: json.defs.entities.map( function(json) : Field {
 				return {
 					name: json.identifier,
-					pos: pos,
+					pos: curPos,
 					kind: FVar(null, null),
 				}
 			}),
 		}
-		registerTypeDefinitionModule(allEntitiesEnum, projectFilePath);
+		registerTypeDefinitionModule(entityIdsEnum, projectFilePath);
+	}
 
 
-		// Link external HX Enums to actual HX files
+	/**
+		Link external HX Enums to actual HX files
+	**/
+	static function linkExternalEnums() {
 		timer("externEnumParsing");
 		var hxPackageReg = ~/package[ \t]+([\w.]+)[ \t]*;/gim;
-		var externEnumTypes : Map<String,{ path:String, ct:ComplexType}> = new Map();
+		externEnumTypes = new Map();
 		for(e in json.defs.externalEnums){
 			var p = new haxe.io.Path(e.externalRelPath);
 			var fileName = p.file+"."+p.ext;
@@ -145,8 +207,7 @@ class Macros {
 			}
 		}
 
-
-		// Prepare a switch to resolve extern enum ID to runtime type identifier
+		// Prepare a switch to resolve extern enum ID to runtime type identifier. It will be called in Project constructor.
 		timer("entityClass");
 		var cases : Array<Case> = [];
 		for(e in externEnumTypes.keyValueIterator()) {
@@ -155,22 +216,24 @@ class Macros {
 				expr: macro $v{e.value.path},
 			});
 		}
-		var switchExpr : Expr = {
+		externEnumSwitchExpr = {
 			expr: ESwitch( macro name, cases, macro throw "Unknown external enum name" ),
-			pos: pos,
+			pos: curPos,
 		}
+	}
 
 
+	static function createBaseEntityClass() {
 		// Base Entity class for this project (with enum type)
-		var entityEnumType = Context.getType(allEntitiesEnum.name).toComplexType();
+		var entityEnumType = Context.getType(entityIdsEnum.name).toComplexType();
 		var entityEnumRef : Expr = {
-			expr: EConst(CIdent( allEntitiesEnum.name )),
-			pos:pos,
+			expr: EConst(CIdent( entityIdsEnum.name )),
+			pos:curPos,
 		}
 
 		var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Entity" }
-		var baseEntityType : TypeDefinition = {
-			pos : pos,
+		baseEntityType = {
+			pos : curPos,
 			name : modName+"_Entity",
 			pack : modPack,
 			doc: "Project specific Entity class",
@@ -189,7 +252,7 @@ class Macros {
 				}
 
 				override function _resolveExternalEnum<T>(name:String) : Enum<T> {
-					return cast Type.resolveEnum($switchExpr);
+					return cast Type.resolveEnum($externEnumSwitchExpr);
 				}
 
 				public inline function is(e:$entityEnumType) {
@@ -207,15 +270,19 @@ class Macros {
 		// 		access: [],
 		// 	});
 		registerTypeDefinitionModule(baseEntityType, projectFilePath);
+	}
 
 
-		// Create Entities specialized classes (each one mihgt have specific custom fields)
+	/**
+		Create Entities specialized classes (each one might have specific custom fields)
+	**/
+	static function createSpecializedEntitiesClasses() {
 		timer("specEntityClasses");
 		for(e in json.defs.entities) {
 			// Create entity class
 			var parentTypePath : TypePath = { pack: baseEntityType.pack, name:baseEntityType.name }
 			var entityType : TypeDefinition = {
-				pos : pos,
+				pos : curPos,
 				name : "Entity_"+e.identifier,
 				doc: "Specialized Entity class for "+e.identifier,
 				pack : modPack,
@@ -289,23 +356,27 @@ class Macros {
 						access: [ APublic ],
 						kind: FVar(fi.ct),
 						doc: "Entity field "+fi.name+" ("+f.__type+")",
-						pos: pos,
+						pos: curPos,
 					});
 				}
 			}
 
 			registerTypeDefinitionModule(entityType, projectFilePath);
 		}
+	}
 
 
-		// Create tileset classes
+	/**
+		Create tileset classes
+	**/
+	static function createTilesetsClasses() {
 		timer("tilesetClasses");
-		var tilesets : Map<Int,{ typeName:String, json:TilesetDefJson }> = new Map();
+		tilesets = new Map();
 		for(e in json.defs.tilesets) {
 			// Create entity class
 			var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Tileset" }
 			var tilesetType : TypeDefinition = {
-				pos : pos,
+				pos : curPos,
 				name : "Tileset_"+e.identifier,
 				pack : modPack,
 				doc: 'Tileset class of atlas "${e.relPath}"',
@@ -323,9 +394,13 @@ class Macros {
 				json: e,
 			});
 		}
+	}
 
 
-		// Create Layers specialized classes
+	/**
+		Create Layers specialized classes
+	**/
+	static function createLayersClasses() {
 		timer("layerClasses");
 		for(l in json.defs.layers) {
 			switch l.type {
@@ -335,7 +410,7 @@ class Macros {
 						// IntGrid
 						var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_IntGrid" }
 						var layerType : TypeDefinition = {
-							pos : pos,
+							pos : curPos,
 							name : "Layer_"+l.identifier,
 							pack : modPack,
 							doc: "IntGrid layer",
@@ -364,7 +439,7 @@ class Macros {
 						var tsTypePath : TypePath = ts!=null ? { pack: modPack, name: ts.typeName } : null;
 
 						var layerType : TypeDefinition = {
-							pos : pos,
+							pos : curPos,
 							name : "Layer_"+l.identifier,
 							pack : modPack,
 							doc: "IntGrid layer with auto-layer capabilities",
@@ -392,7 +467,7 @@ class Macros {
 							name: "tileset",
 							access: [APublic],
 							kind: FVar( tsComplexType ),
-							pos: pos,
+							pos: curPos,
 						});
 
 						registerTypeDefinitionModule(layerType, projectFilePath);
@@ -407,7 +482,7 @@ class Macros {
 					var tsTypePath : TypePath = ts!=null ? { pack: modPack, name: ts.typeName } : null;
 
 					var layerType : TypeDefinition = {
-						pos : pos,
+						pos : curPos,
 						name : "Layer_"+l.identifier,
 						pack : modPack,
 						doc: "IntGrid layer with auto-layer capabilities",
@@ -427,7 +502,7 @@ class Macros {
 						name: "tileset",
 						access: [APublic],
 						kind: FVar( tsComplexType ),
-						pos: pos,
+						pos: curPos,
 					});
 
 					registerTypeDefinitionModule(layerType, projectFilePath);
@@ -446,13 +521,13 @@ class Macros {
 							access: [APublic],
 							kind: FVar( macro : Array<$entityComplexType> ),
 							doc: "An array of all "+e.identifier+" instances",
-							pos: pos,
+							pos: curPos,
 						});
 					}
 					var entityArrayExpr = entityArrayFields.map( f->macro $v{f.name} );
 
 					var layerType : TypeDefinition = {
-						pos : pos,
+						pos : curPos,
 						name : "Layer_"+l.identifier,
 						doc: "Entity layer",
 						pack : modPack,
@@ -493,7 +568,7 @@ class Macros {
 
 					var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_Tiles" }
 					var layerType : TypeDefinition = {
-						pos : pos,
+						pos : curPos,
 						name : "Layer_"+l.identifier,
 						pack : modPack,
 						doc: "Tile layer",
@@ -513,7 +588,7 @@ class Macros {
 						name: "tileset",
 						access: [APublic],
 						kind: FVar( tsComplexType ),
-						pos: pos,
+						pos: curPos,
 					});
 					registerTypeDefinitionModule(layerType, projectFilePath);
 
@@ -522,14 +597,17 @@ class Macros {
 					error("Unknown layer type "+l.type);
 			}
 		}
+	}
 
 
-
-		// Create Level specialized class
+	/**
+		Create specialized Level class
+	**/
+	static function createLevelClass() {
 		timer("levelClass");
 		var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Level" }
-		var levelType : TypeDefinition = {
-			pos : pos,
+		levelType = {
+			pos : curPos,
 			name : modName+"_Level",
 			pack : modPack,
 			doc: "Project specific Level class",
@@ -568,12 +646,16 @@ class Macros {
 				access: [APublic],
 				kind: FVar( Context.getType("Layer_"+l.identifier).toComplexType() ),
 				doc: l.type+" layer",
-				pos: pos,
+				pos: curPos,
 			});
 		registerTypeDefinitionModule(levelType, projectFilePath);
+	}
 
 
-		// Build levels access
+	/**
+		Build quick levels access using their identifier
+	**/
+	static function createLevelAccess() {
 		var levelAccessFields : Array<ObjectField> = json.levels.map( function(levelJson) {
 			return {
 				field: levelJson.identifier,
@@ -581,24 +663,29 @@ class Macros {
 				quotes: null,
 			}
 		});
-		var levelComplexType = Context.getType(mod+"_Level").toComplexType();
+		var levelComplexType = Context.getType(rawMod+"_Level").toComplexType();
 		var levelAccessType : ComplexType = TAnonymous(json.levels.map( function(levelJson) : Field {
 			return {
 				name: levelJson.identifier,
 				kind: FVar(macro : $levelComplexType),
-				pos: pos,
+				pos: curPos,
 			}
 		}));
 		projectFields.push({
 			name: "all_levels",
 			doc: "A convenient way to access all levels in a type-safe environment",
-			kind: FVar(levelAccessType, { expr:EObjectDecl(levelAccessFields), pos:pos }),
-			pos: pos,
+			kind: FVar(levelAccessType, { expr:EObjectDecl(levelAccessFields), pos:curPos }),
+			pos: curPos,
 			access: [ APublic ],
 		});
+	}
 
 
-		// Create Project extended class
+
+	/**
+		Create main Project class
+	**/
+	static function createProjectClass() {
 		timer("projectClass");
 		var projectDir = StringTools.replace(projectFilePath, "\\", "/");
 		projectDir = projectDir.indexOf("/")<0 ? null : projectDir.substring(0, projectDir.lastIndexOf("/"));
@@ -606,7 +693,7 @@ class Macros {
 		var levelTypePath : TypePath = { pack:modPack, name:levelType.name }
 		var levelComplexType = Context.getType(levelType.name).toComplexType();
 		var projectClass : TypeDefinition = {
-			pos : pos,
+			pos : curPos,
 			name : modName,
 			pack : modPack,
 			kind : TDClass(parentTypePath),
@@ -658,18 +745,14 @@ class Macros {
 			}).fields.concat( projectFields ),
 		}
 		registerTypeDefinitionModule(projectClass, projectFilePath);
-
-
-		haxe.macro.Compiler.keep( Context.getLocalModule() );
-		timer("end");
-		return macro : Void;
 	}
 
 
 
-	static var hexColorReg = ~/^#([0-9abcdefABCDEF]{6})$/g;
 
-	// Search a file in all classPaths + sub folders
+	/**
+		Search a file in all classPaths + sub folders
+	**/
 	static function locateFile(searchFileName:String) : Null<String> {
 		if( locateCache.exists(searchFileName) )
 			return locateCache.get(searchFileName);
@@ -707,47 +790,63 @@ class Macros {
 		return null;
 	}
 
+	/**
+		Register type definition
+	**/
 	static function registerTypeDefinitionModule(typeDef:TypeDefinition, projectFilePath:String) {
 		var mod = Context.getLocalModule();
 		Context.defineModule(mod, [typeDef]);
 		Context.registerModuleDependency(mod, projectFilePath);
 	}
 
+	/**
+		Stop with an error message
+	**/
 	static inline function error(msg:Dynamic, ?p:Position) : Dynamic {
 		Context.fatalError( Std.string(msg), p==null ? Context.currentPos() : p );
 		return null;
 	}
 
+	/**
+		Print a compiler warning
+	**/
 	static inline function warning(msg:Dynamic, ?p:Position) {
 		Context.warning( Std.string(msg), p==null ? Context.currentPos() : p );
 	}
 
+	/**
+		Convert "#rrggbb" to "0xrrggbb" (String)
+	**/
 	static inline function hexColorToStr(hex:String) : String {
 		return "0x"+hex.substr(1);
 	}
 
+	/**
+		Convert "#rrggbb" to 0xrrggbb (Integer)
+	**/
 	static inline function hexColorToInt(hex:String) : UInt {
 		return Std.parseInt( "0x"+hex.substr(1) );
 	}
 
-	static inline function coordIdToX(coordId:Int, cWid:Int) {
-		return coordId - Std.int( coordId / cWid ) * cWid;
-	}
 
-	static inline function coordIdToY(coordId:Int, cWid:Int) {
-		return Std.int( coordId / cWid );
-	}
-
-
-	// Debug timer
 	static var _t = -1.;
 	static var _timerName = "";
+	/**
+		Debug timer
+	**/
 	static inline function timer(?name="") {
-		#if debug
-		// if( _t>=0 )
-		// 	trace(_curMod+" => "+ Std.int( ( haxe.Timer.stamp()-_t ) * 1000 ) / 1000  + "s " + _timerName );
-		// _timerName = name;
-		// _t = haxe.Timer.stamp();
+		#if ldtk_times
+		if( _t>=0 ) {
+			var l = '[LDtk.$_curMod] $_timerName: ${Std.int( ( haxe.Timer.stamp()-_t ) * 1000 ) / 1000}s';
+			#if sys
+			Sys.println(l);
+			#else
+			trace(l);
+			#end
+		}
+
+		_timerName = name;
+		_t = haxe.Timer.stamp();
 		#end
 	}
 }
