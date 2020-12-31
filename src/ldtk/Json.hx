@@ -308,7 +308,7 @@ typedef LayerDefJson = {
 
 	/** Type of the layer as Haxe Enum **/
 	@internal
-	var type: Enum<Dynamic>;
+	var type: String;
 
 	/** Unique Int identifier **/
 	var uid: Int;
