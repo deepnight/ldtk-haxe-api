@@ -309,7 +309,7 @@ typedef LayerDefJson = {
 
 	/** Type of the layer as Haxe Enum **/
 	@internal
-	var type: String;
+	var type: LayerType;
 
 	/** Unique Int identifier **/
 	var uid: Int;
@@ -400,8 +400,8 @@ typedef AutoRuleDef = {
 	/** If TRUE, allow rule to be matched by flipping its pattern vertically **/
 	var flipY: Bool;
 
-	/** Checker mode: None, Horizontal or Vertical. **/
-	var checker: Enum<Dynamic>;
+	/** Checker mode **/
+	var checker: AutoLayerRuleCheckerMode;
 
 	/** X pivot of a tile stamp (0-1) **/
 	@only("'Stamp' tile mode")
@@ -449,7 +449,7 @@ typedef EntityDefJson = {
 	var color: String;
 
 	@internal
-	var renderMode: Enum<Dynamic>;
+	var renderMode: EntityRenderMode;
 
 	/** Display entity name in editor **/
 	@internal
@@ -463,13 +463,13 @@ typedef EntityDefJson = {
 	var tileId: Null<Int>;
 
 	@internal
-	var tileRenderMode: Enum<Dynamic>;
+	var tileRenderMode: EntityTileRenderMode;
 
 	/** Max instances per level **/
 	var maxPerLevel: Int;
 
 	@internal
-	var limitBehavior: Enum<Dynamic>;
+	var limitBehavior: EntityLimitBehavior;
 
 	/** Pivot X coordinate (from 0 to 1.0) **/
 	var pivotX: Float;
@@ -497,7 +497,7 @@ typedef FieldDefJson = {
 	var __type: String;
 
 	/** Internal type enum **/
-	var type: Enum<Dynamic>;
+	var type: Dynamic;
 
 	/** TRUE if the value is an array of multiple values **/
 	var isArray: Bool;
@@ -534,10 +534,10 @@ typedef FieldDefJson = {
 	var defaultOverride: Null< Enum<Dynamic> >;
 
 	@internal
-	var editorDisplayMode: Enum<Dynamic>;
+	var editorDisplayMode: FieldDisplayMode;
 
 	@internal
-	var editorDisplayPos: Enum<Dynamic>;
+	var editorDisplayPos: FieldDisplayPosition;
 
 	@internal
 	var editorAlwaysShow: Bool;
@@ -624,8 +624,58 @@ typedef EnumDefJson = {
 };
 
 
+
+// Misc enums
+
+enum LayerType {
+	IntGrid;
+	Entities;
+	Tiles;
+	AutoLayer;
+}
+
 enum AutoLayerRuleTileMode {
 	Single;
 	Stamp;
 }
 
+enum AutoLayerRuleCheckerMode {
+	None;
+	Horizontal;
+	Vertical;
+}
+
+enum FieldDisplayPosition {
+	Above;
+	Center;
+	Beneath;
+}
+
+enum EntityRenderMode {
+	Rectangle;
+	Ellipse;
+	Tile;
+	Cross;
+}
+
+enum EntityTileRenderMode {
+	Stretch;
+	Crop;
+}
+
+enum EntityLimitBehavior {
+	DiscardOldOnes;
+	PreventAdding;
+	MoveLastOne;
+}
+
+enum FieldDisplayMode {
+	Hidden;
+	ValueOnly;
+	NameAndValue;
+	EntityTile;
+	PointStar;
+	PointPath;
+	RadiusPx;
+	RadiusGrid;
+}
