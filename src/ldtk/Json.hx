@@ -1,5 +1,6 @@
 package ldtk;
 
+
 @display("LDtk Json root")
 typedef ProjectJson = {
 	/** File format version **/
@@ -391,7 +392,7 @@ typedef AutoRuleDef = {
 	var chance: Float;
 
 	/** Defines how tileIds array is used **/
-	var tileMode: Enum<Dynamic>;
+	var tileMode: AutoLayerRuleTileMode;
 
 	/** If TRUE, allow rule to be matched by flipping its pattern horizontally **/
 	var flipX: Bool;
@@ -621,3 +622,10 @@ typedef EnumDefJson = {
 	@internal
 	var externalFileChecksum: Null<String>;
 };
+
+
+enum AutoLayerRuleTileMode {
+	Single;
+	Stamp;
+}
+
