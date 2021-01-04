@@ -329,7 +329,7 @@ typedef LayerDefJson = {
 
 	@only("IntGrid layer")
 	var intGridValues: Array<{
-		var identifier:String;
+		var identifier:Null<String>;
 
 		@color
 		var color:String ;
