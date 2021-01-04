@@ -273,7 +273,7 @@ typedef FieldInstanceJson = {
 	var defUid: Int;
 
 	@internal
-	var realEditorValues: Array<Dynamic>;
+	var realEditorValues: Array< Null<Enum<Dynamic>> >;
 }
 
 
@@ -496,7 +496,7 @@ typedef FieldDefJson = {
 	var __type: String;
 
 	/** Internal type enum **/
-	var type: Dynamic;
+	var type: Enum<Dynamic>;
 
 	/** TRUE if the value is an array of multiple values **/
 	var isArray: Bool;
@@ -572,7 +572,7 @@ typedef TilesetDefJson = {
 
 	/** Array of group of tiles selections, only meant to be used in the editor **/
 	@internal
-	var savedSelections: Array<{ ids:Array<Int>, mode:Dynamic }>;
+	var savedSelections: Array<{ ids:Array<Int>, mode:Enum<Dynamic> }>;
 
 	/** The following data is used internally for various optimizations. It's always synced with source image changes. **/
 	@internal
