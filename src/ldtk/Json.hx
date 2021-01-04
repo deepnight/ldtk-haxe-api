@@ -337,7 +337,7 @@ typedef LayerDefJson = {
 
 	/** Reference to the Tileset UID being used by this auto-layer rules **/
 	@only("Auto-layers")
-	var autoTilesetDefUid: Int;
+	var autoTilesetDefUid: Null<Int>;
 
 	/** Contains all the auto-layer rule definitions. **/
 	@only("Auto-layers")
@@ -349,11 +349,11 @@ typedef LayerDefJson = {
 		var rules: Array<AutoRuleDef>;
 	}>;
 	@only("Auto-layers")
-	var autoSourceLayerDefUid: Int;
+	var autoSourceLayerDefUid: Null<Int>;
 
 	/** Reference to the Tileset UID being used by this tile layer **/
 	@only("Tile layers")
-	var tilesetDefUid: Int;
+	var tilesetDefUid: Null<Int>;
 
 	/** If the tiles are smaller or larger than the layer grid, the pivot value will be used to position the tile relatively its grid cell. **/
 	@only("Tile layers")
@@ -456,10 +456,10 @@ typedef EntityDefJson = {
 	var showName: Bool;
 
 	/** Tileset ID used for optional tile display **/
-	var tilesetId: Int;
+	var tilesetId: Null<Int>;
 
 	/** Tile ID used for optional tile display **/
-	var tileId: Int;
+	var tileId: Null<Int>;
 
 	@internal
 	var tileRenderMode: Enum<Dynamic>;
@@ -496,7 +496,7 @@ typedef FieldDefJson = {
 	var __type: String;
 
 	/** Internal type enum **/
-	var type: String;
+	var type: Dynamic;
 
 	/** TRUE if the value is an array of multiple values **/
 	var isArray: Bool;
@@ -506,11 +506,11 @@ typedef FieldDefJson = {
 
 	/** Array min length **/
 	@only("Array")
-	var arrayMinLength: Int;
+	var arrayMinLength: Null<Int>;
 
 	/** Array max length **/
 	@only("Array")
-	var arrayMaxLength: Int;
+	var arrayMaxLength: Null<Int>;
 
 	/** Min limit for value, if applicable **/
 	@only("Int, Float")
@@ -530,7 +530,7 @@ typedef FieldDefJson = {
 	var acceptFileTypes: Null< Array<String> >;
 
 	/** Default value if selected value is null or invalid. **/
-	var defaultOverride: Enum<Dynamic>;
+	var defaultOverride: Null< Enum<Dynamic> >;
 
 	@internal
 	var editorDisplayMode: Enum<Dynamic>;
