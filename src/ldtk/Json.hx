@@ -263,7 +263,7 @@ typedef FieldInstanceJson = {
 
 	/**
 		Actual value of the field instance. The value type may vary, depending on `__type` (Integer, Boolean, String etc.)
-		It can also be an `Array` of various types.
+		It can also be an `Array` of those same types.
 	**/
 	var __value: Dynamic;
 
