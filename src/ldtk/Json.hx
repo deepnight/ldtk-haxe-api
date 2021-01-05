@@ -46,13 +46,18 @@ typedef ProjectJson = {
 	/** If TRUE, the Json is partially minified (no indentation, nor line breaks, default is FALSE) **/
 	var minifyJson: Bool;
 
+	/** If TRUE, one file will be saved the project (incl. all its definitions) and one file per level in a sub-folder. **/
+	var externalLevels: Bool;
+
 	/** If TRUE, a Tiled compatible file will also be generated along with the LDtk JSON file (default is FALSE) **/
 	var exportTiled: Bool;
 
 	/** A structure containing all the definitions of this project **/
 	var defs: DefinitionsJson;
 
-	/** All levels. The order of this array is only relevant in `LinearHorizontal` and `linearVertical` world layouts (see `worldLayout` value). Otherwise, you should refer to the `worldX`,`worldY` coordinates of each Level. **/
+	/**
+		All levels. The order of this array is only relevant in `LinearHorizontal` and `linearVertical` world layouts (see `worldLayout` value). Otherwise, you should refer to the `worldX`,`worldY` coordinates of each Level.
+	**/
 	var levels: Array<LevelJson>;
 }
 
@@ -91,11 +96,23 @@ typedef LevelJson = {
 	@color
 	var __bgColor: String;
 
-	var layerInstances: Array<LayerInstanceJson>;
+	/**
+		TODO specify array order
+		An array containing all Layer instances. **Note**: if the project option "Save levels separately" is enabled, this field will be `null`.
+	**/
+	@changed("0.6.3")
+	var layerInstances: Null< Array<LayerInstanceJson> >;
 
-	/** An array listing all other levels touching this one on the world map. The `dir` is a single lowercase character tipping on the level location (`n`orth, `s`outh, `w`est, `e`ast). In "linear" world layouts, this array is populated with previous/next levels in array, and `dir` depends on the linear horizontal/vertical layout. **/
+	@added("0.6.3")
+	@only("Separate level files")
+	var externalRelPath: Null<String>;
+
+	/**
+		An array listing all other levels touching this one on the world map. The `dir` is a single lowercase character tipping on the level location (`n`orth, `s`outh, `w`est, `e`ast). In "linear" world layouts, this array is populated with previous/next levels in array, and `dir` depends on the linear horizontal/vertical layout. **Note**: if the project option "Save levels separately" is enabled, this field will be `null`.
+	**/
 	@added("0.6.0")
-	var __neighbours: Array<{ levelUid:Int, dir:String }>;
+	@changed("0.6.3")
+	var __neighbours: Null< Array<{ levelUid:Int, dir:String }> >;
 }
 
 
