@@ -263,7 +263,7 @@ typedef EntityInstanceJson = {
 	/** Reference of the **Entity definition** UID **/
 	var defUid: Int;
 
-	/** Pixel coordinates (`[x,y]` format). Don't forget optional layer offsets, if they exist! **/
+	/** Pixel coordinates (`[x,y]` format) in current level coordinate space. Don't forget optional layer offsets, if they exist! **/
 	@changed("0.4.0")
 	var px: Array<Int>;
 
