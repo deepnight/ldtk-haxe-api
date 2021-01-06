@@ -2,11 +2,13 @@
 	"__header__": {
 		"fileType": "LDtk Project JSON",
 		"app": "LDtk",
-		"appAuthor": "Sebastien Benard",
-		"appVersion": "0.6.0",
-		"url": "https://deepnight.net/tools/ldtk-2d-level-editor/"
+		"doc": "https://ldtk.io/json",
+		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
+		"appAuthor": "Sebastien 'deepnight' Benard",
+		"appVersion": "0.6.3",
+		"url": "https://ldtk.io"
 	},
-	"jsonVersion": "0.6.0",
+	"jsonVersion": "0.6.3",
 	"defaultPivotX": 0.5,
 	"defaultPivotY": 1,
 	"defaultGridSize": 8,
@@ -14,6 +16,7 @@
 	"defaultLevelBgColor": "#121331",
 	"nextUid": 42,
 	"minifyJson": false,
+	"externalLevels": false,
 	"exportTiled": false,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
@@ -505,6 +508,7 @@
 						"editorAlwaysShow": false,
 						"min": null,
 						"max": null,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": null
 					}
@@ -577,6 +581,7 @@
 			"pxHei": 280,
 			"__bgColor": "#121331",
 			"bgColor": null,
+			"externalRelPath": null,
 			"layerInstances": [
 				{
 					"__identifier": "Entities",
@@ -3690,6 +3695,7 @@
 			"pxHei": 160,
 			"__bgColor": "#121331",
 			"bgColor": null,
+			"externalRelPath": null,
 			"layerInstances": [
 				{
 					"__identifier": "Entities",
@@ -5313,6 +5319,7 @@
 			"pxHei": 128,
 			"__bgColor": "#121331",
 			"bgColor": null,
+			"externalRelPath": null,
 			"layerInstances": [
 				{
 					"__identifier": "Entities",
@@ -6470,6 +6477,7 @@
 			"pxHei": 128,
 			"__bgColor": "#121331",
 			"bgColor": null,
+			"externalRelPath": null,
 			"layerInstances": [
 				{
 					"__identifier": "Entities",

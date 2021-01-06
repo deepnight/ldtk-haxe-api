@@ -2,11 +2,13 @@
 	"__header__": {
 		"fileType": "LDtk Project JSON",
 		"app": "LDtk",
-		"appAuthor": "Sebastien Benard",
-		"appVersion": "0.6.0",
-		"url": "https://deepnight.net/tools/ldtk-2d-level-editor/"
+		"doc": "https://ldtk.io/json",
+		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
+		"appAuthor": "Sebastien 'deepnight' Benard",
+		"appVersion": "0.6.3",
+		"url": "https://ldtk.io"
 	},
-	"jsonVersion": "0.6.0",
+	"jsonVersion": "0.6.3",
 	"defaultPivotX": 0,
 	"defaultPivotY": 0,
 	"defaultGridSize": 16,
@@ -14,6 +16,7 @@
 	"defaultLevelBgColor": "#7F8093",
 	"nextUid": 91,
 	"minifyJson": false,
+	"externalLevels": false,
 	"exportTiled": false,
 	"worldLayout": "GridVania",
 	"worldGridWidth": 256,
@@ -362,7 +365,7 @@
 				"pxOffsetY": 0,
 				"intGridValues": [ { "identifier": "a", "color": "#FFFFFF" }, { "identifier": "b", "color": "#FF0000" }, { "identifier": "c", "color": "#00FF1E" } ],
 				"autoTilesetDefUid": null,
-				"autoRuleGroups": null,
+				"autoRuleGroups": [],
 				"autoSourceLayerDefUid": null,
 				"tilesetDefUid": null,
 				"tilePivotX": 0,
@@ -417,6 +420,7 @@
 						"editorAlwaysShow": false,
 						"min": null,
 						"max": null,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": null
 					}
@@ -452,6 +456,7 @@
 						"editorAlwaysShow": false,
 						"min": null,
 						"max": null,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": null
 					},
@@ -469,6 +474,7 @@
 						"editorAlwaysShow": false,
 						"min": null,
 						"max": null,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": null
 					},
@@ -486,6 +492,7 @@
 						"editorAlwaysShow": false,
 						"min": 0.1,
 						"max": 4,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": { "id": "V_Float", "params": [1] }
 					},
@@ -503,6 +510,7 @@
 						"editorAlwaysShow": false,
 						"min": null,
 						"max": null,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": null
 					}
@@ -538,6 +546,7 @@
 						"editorAlwaysShow": false,
 						"min": null,
 						"max": null,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": null
 					},
@@ -555,6 +564,7 @@
 						"editorAlwaysShow": false,
 						"min": null,
 						"max": null,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": null
 					},
@@ -572,6 +582,7 @@
 						"editorAlwaysShow": false,
 						"min": null,
 						"max": null,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": null
 					},
@@ -589,6 +600,7 @@
 						"editorAlwaysShow": false,
 						"min": 0,
 						"max": 1,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": { "id": "V_Float", "params": [0.5] }
 					},
@@ -606,6 +618,7 @@
 						"editorAlwaysShow": false,
 						"min": null,
 						"max": null,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": null
 					},
@@ -623,6 +636,7 @@
 						"editorAlwaysShow": false,
 						"min": null,
 						"max": null,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": { "id": "V_Int", "params": [16777215] }
 					},
@@ -640,6 +654,7 @@
 						"editorAlwaysShow": false,
 						"min": null,
 						"max": null,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": null
 					},
@@ -657,6 +672,7 @@
 						"editorAlwaysShow": false,
 						"min": null,
 						"max": null,
+						"regex": null,
 						"acceptFileTypes": null,
 						"defaultOverride": null
 					}
@@ -766,6 +782,7 @@
 			"pxHei": 512,
 			"__bgColor": "#271E27",
 			"bgColor": "#271E27",
+			"externalRelPath": null,
 			"layerInstances": [
 				{
 					"__identifier": "IntGrid_AutoLayer",
@@ -2187,6 +2204,7 @@
 			"pxHei": 264,
 			"__bgColor": "#7F8093",
 			"bgColor": null,
+			"externalRelPath": null,
 			"layerInstances": [
 				{
 					"__identifier": "IntGrid_AutoLayer",
