@@ -61,6 +61,46 @@ class Project {
 		#end
 	}
 
+
+	public dynamic function loadAsset(relativeFilePath:String) : haxe.io.Bytes {
+		#if macro
+			return null;
+		#elseif heaps
+			// Get project file name
+			var p = StringTools.replace(projectFilePath, "\\", "/");
+			var projectFileName = p.lastIndexOf("/")<0 ? p : p.substr( p.lastIndexOf("/")+1 );
+			trace(projectFileName);
+
+			// Explore all folders in Heaps res/ folder recursively, to locate Project file
+			var pendingDirs = [
+				hxd.Res.loader.fs.getRoot()
+			];
+			while( pendingDirs.length>0 ) {
+				var curDir = pendingDirs.shift();
+				for(f in curDir) {
+					if( f.isDirectory ) {
+						// Found another dir
+						pendingDirs.push(f);
+					}
+					else if( f.name==projectFileName ) {
+						// Found project file!
+						trace("found in "+f.directory);
+						var resPath = ( f.directory.length==0 ? "" : f.directory+"/" ) + relativeFilePath;
+						if( !hxd.Res.loader.exists(resPath) )
+							throw 'Could not find file $relativeFilePath in Heaps res/ folder!';
+
+						var res = hxd.Res.load(resPath);
+						return res.entry.getBytes();
+					}
+				}
+			}
+			throw "Could not locate the project file in Heaps res/ folder!";
+		#else
+			throw "Asset loading is not supported on this Haxe target or framework. You should rebind the project.loadAsset() method to use your framework asset loading system.";
+			return null;
+		#end
+	}
+
 	function _instanciateLevel(project:ldtk.Project, json:ldtk.Json.LevelJson) {
 		return null; // overriden by Macros.hx
 	}
