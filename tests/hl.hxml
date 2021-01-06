@@ -1,0 +1,5 @@
+tests/_base.hxml
+-hl tests/bin/test.hl
+-lib heaps
+-D ldtk_times
+--cmd hl tests/bin/test.hl

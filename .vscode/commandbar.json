@@ -4,15 +4,23 @@
 	"skipErrorMessage": true,
 	"commands": [
 		{
-			"text": "JS tests",
+			"text": "JS",
 			"color": "#cfdd40",
 			"command": "haxe tests/js.hxml",
+			"alignment": "right",
+			"skipTerminateQuickPick": false,
+			"priority": 0
+		},
+		{
+			"text": "HL",
+			"color": "#1edd8e",
+			"command": "haxe tests/hl.hxml",
 			"alignment": "right",
 			"skipTerminateQuickPick": false,
 			"priority": -1
 		},
 		{
-			"text": "Neko tests",
+			"text": "Neko",
 			"color": "#19dbdd",
 			"command": "haxe tests/neko.hxml",
 			"alignment": "right",
