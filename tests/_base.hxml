@@ -4,9 +4,10 @@
 
 -lib deepnightLibs
 
+-lib heaps
 -D resourcesPath=samples/res
-# -D dump=pretty
 
+# -D dump=pretty
 --dce full
 -debug
 
