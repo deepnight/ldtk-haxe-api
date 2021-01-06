@@ -47,12 +47,12 @@ class Project {
 	**/
 	public function parseJson(jsonString:String) {
 		#if !macro
-		var json : ldtk.Json.ProjectJson = haxe.Json.parse(jsonString);
+		var json : Dynamic = haxe.Json.parse(jsonString);
 		bgColor_hex = json.bgColor;
 		bgColor_int = ldtk.Project.hexToInt(json.bgColor);
 
 		_untypedLevels = [];
-		for(json in json.levels)
+		for(json in (cast json.levels : Array<Dynamic>))
 			_untypedLevels.push( _instanciateLevel(this, json) );
 
 		worldLayout = WorldLayout.createByName( Std.string(json.worldLayout) );
