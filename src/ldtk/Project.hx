@@ -128,8 +128,8 @@ class Project {
 
 
 	@:noCompletion
-	public static inline function hexToInt(hex:String) {
-		return hex==null ? 0x0 : Std.parseInt( "0x"+hex.substr(1,999) );
+	public static inline function hexToInt(hex:String) : Int {
+		return hex==null ? 0x0 : Std.parseInt( "0x"+hex.substr(1) );
 	}
 
 	@:noCompletion

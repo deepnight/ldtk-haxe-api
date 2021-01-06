@@ -316,7 +316,7 @@ class TypeBuilder {
 						fields.push({ name: f.identifier, ct: macro : Bool });
 
 					case "Color":
-						fields.push({ name: f.identifier+"_int", ct: f.canBeNull ? (macro : Null<UInt>) : (macro : UInt) });
+						fields.push({ name: f.identifier+"_int", ct: f.canBeNull ? (macro : Null<Int>) : (macro : Int) });
 						fields.push({ name: f.identifier+"_hex", ct: f.canBeNull ? (macro : Null<String>) : (macro : String) });
 
 					case "Point":
@@ -825,7 +825,7 @@ class TypeBuilder {
 	/**
 		Convert "#rrggbb" to 0xrrggbb (Integer)
 	**/
-	static inline function hexColorToInt(hex:String) : UInt {
+	static inline function hexColorToInt(hex:String) : Int {
 		return Std.parseInt( "0x"+hex.substr(1) );
 	}
 
