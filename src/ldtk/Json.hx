@@ -46,7 +46,7 @@ typedef ProjectJson = {
 	/** If TRUE, the Json is partially minified (no indentation, nor line breaks, default is FALSE) **/
 	var minifyJson: Bool;
 
-	/** If TRUE, one file will be saved the project (incl. all its definitions) and one file per level in a sub-folder. **/
+	/** If TRUE, one file will be saved the project (incl. all its definitions) and one file per-level in a sub-folder. **/
 	var externalLevels: Bool;
 
 	/** If TRUE, a Tiled compatible file will also be generated along with the LDtk JSON file (default is FALSE) **/
@@ -97,12 +97,16 @@ typedef LevelJson = {
 	var __bgColor: String;
 
 	/**
+		An array containing all Layer instances. **IMPORTANT**: if the project option "*Save levels separately*" is enabled, this field will be `null`.
 		TODO specify array order
-		An array containing all Layer instances. **Note**: if the project option "Save levels separately" is enabled, this field will be `null`.
 	**/
 	@changed("0.6.3")
+	@only("Embedded level data")
 	var layerInstances: Null< Array<LayerInstanceJson> >;
 
+	/**
+		This value is not null if the project option "*Save levels separately*" is enabled. In this case, this **relative** path points to the level Json file.
+	**/
 	@added("0.6.3")
 	@only("Separate level files")
 	var externalRelPath: Null<String>;
