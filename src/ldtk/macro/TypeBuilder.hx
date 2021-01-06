@@ -403,8 +403,9 @@ class TypeBuilder {
 	static function createLayersClasses() {
 		timer("layerClasses");
 		for(l in json.defs.layers) {
-			switch l.type {
-				case "IntGrid":
+			var type = Type.createEnum(LayerType, Std.string(l.type)); // Json value is actually a String
+			switch type {
+				case IntGrid:
 
 					if( l.autoTilesetDefUid==null ) {
 						// IntGrid
@@ -474,7 +475,7 @@ class TypeBuilder {
 					}
 
 
-				case "AutoLayer":
+				case AutoLayer:
 					// Pure Auto-layer
 					var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_AutoLayer" }
 					var ts = l.autoTilesetDefUid!=null ? tilesets.get(l.autoTilesetDefUid) : null;
@@ -508,7 +509,7 @@ class TypeBuilder {
 					registerTypeDefinitionModule(layerType, projectFilePath);
 
 
-				case "Entities":
+				case Entities:
 					var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_Entities" }
 					var baseEntityComplexType = Context.getType(baseEntityType.name).toComplexType();
 
@@ -561,7 +562,7 @@ class TypeBuilder {
 					registerTypeDefinitionModule(layerType, projectFilePath);
 
 
-				case "Tiles":
+				case Tiles:
 					var ts = tilesets.get(l.tilesetDefUid);
 					var tsComplexType = Context.getType( ts.typeName ).toComplexType();
 					var tsTypePath : TypePath = { pack: modPack, name: ts.typeName }

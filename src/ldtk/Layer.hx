@@ -1,12 +1,6 @@
 package ldtk;
 
-enum LayerType {
-	IntGrid;
-	Tiles;
-	Entities;
-	AutoLayer;
-	Unknown;
-}
+import ldtk.Json;
 
 class Layer {
 	public var identifier : String;
@@ -44,7 +38,7 @@ class Layer {
 		identifier = json.__identifier;
 		type =
 			try LayerType.createByName(json.__type)
-			catch(e:Dynamic) Unknown;
+			catch(e:Dynamic) null; // TODO
 		gridSize = json.__gridSize;
 		cWid = json.__cWid;
 		cHei = json.__cHei;

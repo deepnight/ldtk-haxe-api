@@ -16,12 +16,7 @@ import haxe.macro.Expr;
 using haxe.macro.Tools;
 #end
 
-enum WorldLayout {
-	Free;
-	GridVania;
-	LinearHorizontal;
-	LinearVertical;
-}
+import ldtk.Json;
 
 class Project {
 	/** Contains the full path to the project JSON, as provided to the macro (using slashes) **/
@@ -60,7 +55,7 @@ class Project {
 		for(json in json.levels)
 			_untypedLevels.push( _instanciateLevel(this, json) );
 
-		worldLayout = WorldLayout.createByName( json.worldLayout);
+		worldLayout = WorldLayout.createByName( Std.string(json.worldLayout) );
 
 		defs = json.defs;
 		#end
