@@ -15,6 +15,7 @@
 -cp ../src
 -lib heaps
 -lib deepnightLibs
+-lib hlsdl
 --dce full
 -main HeapsRender_TileLayer
 -hl bin/HeapsRender_TileLayer.hl

@@ -15,6 +15,7 @@
 -cp ../src
 -lib heaps
 -lib deepnightLibs
+-lib hlsdl
 --dce full
 -main BaseExample
 -hl bin/BaseExample.hl
@@ -36,6 +37,7 @@
 -cp ../src
 -lib heaps
 -lib deepnightLibs
+-lib hlsdl
 --dce full
 -main HeapsRender_AllLayers
 -hl bin/HeapsRender_AllLayers.hl
@@ -57,6 +59,7 @@
 -cp ../src
 -lib heaps
 -lib deepnightLibs
+-lib hlsdl
 --dce full
 -main HeapsRender_AutoLayer
 -hl bin/HeapsRender_AutoLayer.hl
@@ -78,6 +81,7 @@
 -cp ../src
 -lib heaps
 -lib deepnightLibs
+-lib hlsdl
 --dce full
 -main HeapsRender_IntGrid
 -hl bin/HeapsRender_IntGrid.hl
@@ -99,6 +103,7 @@
 -cp ../src
 -lib heaps
 -lib deepnightLibs
+-lib hlsdl
 --dce full
 -main HeapsRender_TileLayer
 -hl bin/HeapsRender_TileLayer.hl
@@ -120,6 +125,7 @@
 -cp ../src
 -lib heaps
 -lib deepnightLibs
+-lib hlsdl
 --dce full
 -main HeapsRender_World
 -hl bin/HeapsRender_World.hl

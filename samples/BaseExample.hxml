@@ -15,6 +15,7 @@
 -cp ../src
 -lib heaps
 -lib deepnightLibs
+-lib hlsdl
 --dce full
 -main BaseExample
 -hl bin/BaseExample.hl
