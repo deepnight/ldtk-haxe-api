@@ -28,8 +28,9 @@ class Level {
 		bgColor = Project.hexToInt(json.__bgColor);
 		neighbours = [];
 		allUntypedLayers = [];
-		for(json in json.layerInstances)
-			allUntypedLayers.push( _instanciateLayer(json) );
+		if( json.layerInstances!=null )
+			for(json in json.layerInstances)
+				allUntypedLayers.push( _instanciateLayer(json) );
 
 		if( json.__neighbours!=null )
 			for(n in json.__neighbours)
