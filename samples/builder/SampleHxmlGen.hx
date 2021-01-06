@@ -74,6 +74,7 @@ class SampleHxmlGen {
 		-cp ../src
 		-lib heaps
 		-lib deepnightLibs
+		-lib hlsdl
 		--dce full
 		-main %name%
 		-hl bin/%name%.hl
