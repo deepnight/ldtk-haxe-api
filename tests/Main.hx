@@ -6,7 +6,11 @@ class Main {
 	static function main() {
 		print("Running tests...");
 
-		hxd.Res.initEmbed();
+		#if hl
+			hxd.Res.initLocal();
+		#else
+			hxd.Res.initEmbed();
+		#end
 
 		// Run tests
 		var project = new ProjectNoPackage();

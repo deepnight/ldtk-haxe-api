@@ -4,5 +4,5 @@
 **/
 
 private typedef _Tmp = haxe.macro.MacroType<[
-	ldtk.Project.build("res/sample.ldtk")
+	ldtk.Project.build("assets/sample.ldtk")
 ]>;
