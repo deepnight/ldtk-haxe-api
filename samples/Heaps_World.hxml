@@ -1,0 +1,23 @@
+
+# Heaps_World (Javascript/WebGL)
+-cp .
+-cp ../src
+-lib heaps
+-lib deepnightLibs
+-D resourcesPath=assets
+--dce full
+-main Heaps_World
+-js bin/Heaps_World.js
+--cmd Heaps_World.html
+
+# Heaps_World (Hashlink)
+--next
+-cp .
+-cp ../src
+-lib heaps
+-lib deepnightLibs
+-lib hlsdl
+-D resourcesPath=assets
+--dce full
+-main Heaps_World
+-hl bin/Heaps_World.hl

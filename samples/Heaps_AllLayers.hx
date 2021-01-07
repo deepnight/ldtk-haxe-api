@@ -1,12 +1,12 @@
 /**
-	This sample demonstrates how to render any layer using the
+	This sample for Heaps.io engine demonstrates how to render any layer using the
 	provided render() method.
 **/
-class HeapsRender_AllLayers extends hxd.App {
+class Heaps_AllLayers extends hxd.App {
 
 	static function main() {
 		// Boot
-		new HeapsRender_AllLayers();
+		new Heaps_AllLayers();
 	}
 
 	override function init() {

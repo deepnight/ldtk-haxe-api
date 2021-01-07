@@ -1,11 +1,12 @@
 /**
-	This sample demonstrates how to manually render a "raw" IntGrid layer (ie. "without tiles")
+	This sample for Heaps.io engine demonstrates how to manually render a "raw" IntGrid layer (ie. "without tiles")
 	using Heaps API.
 **/
 
-class HeapsRender_IntGrid extends hxd.App {
+class Heaps_IntGrid extends hxd.App {
 	static function main() {
-		new HeapsRender_IntGrid();
+		// Boot
+		new Heaps_IntGrid();
 	}
 
 	override function init() {

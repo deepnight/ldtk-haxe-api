@@ -1,16 +1,13 @@
 /**
-	This sample demonstrates how to MANUALLY render an AutoLayer
-	using Heaps API. In this example, the auto-layer is an IntGrid layer
-	with rules.
+	This sample for Heaps.io engine demonstrates how to MANUALLY render an AutoLayer using Heaps API. In this example, the auto-layer is an IntGrid layer with rules.
 
-	It is recommended to use the .render() methods of layers that will
-	do all the dirty work for you.
+	It is recommended to use the .render() methods of layers that will do all the dirty work for you.
 **/
-class HeapsRender_AutoLayer extends hxd.App {
+class Heaps_AutoLayer extends hxd.App {
 
 	static function main() {
 		// Boot
-		new HeapsRender_AutoLayer();
+		new Heaps_AutoLayer();
 	}
 
 	override function init() {

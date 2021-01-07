@@ -1,11 +1,10 @@
 /**
-	This sample shows how to access some of the Project data
-	using Haxe API.
+	This sample shows how to access some of the Project data using Haxe API.
 **/
 
 import externEnums.GameEnums;
 
-class BaseExample {
+class SimpleDemo {
 	static function main() {
 		var project = new _Project();
 

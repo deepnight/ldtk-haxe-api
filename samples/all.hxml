@@ -1,16 +1,16 @@
 
-# BaseExample (Javascript/WebGL)
+# Heaps_AllLayers (Javascript/WebGL)
 -cp .
 -cp ../src
 -lib heaps
 -lib deepnightLibs
 -D resourcesPath=assets
 --dce full
--main BaseExample
--js bin/BaseExample.js
+-main Heaps_AllLayers
+-js bin/Heaps_AllLayers.js
 
 
-# BaseExample (Hashlink)
+# Heaps_AllLayers (Hashlink)
 --next
 -cp .
 -cp ../src
@@ -19,46 +19,22 @@
 -lib hlsdl
 -D resourcesPath=assets
 --dce full
--main BaseExample
--hl bin/BaseExample.hl
+-main Heaps_AllLayers
+-hl bin/Heaps_AllLayers.hl
 --next
 
-# HeapsRender_AllLayers (Javascript/WebGL)
+# Heaps_AutoLayer (Javascript/WebGL)
 -cp .
 -cp ../src
 -lib heaps
 -lib deepnightLibs
 -D resourcesPath=assets
 --dce full
--main HeapsRender_AllLayers
--js bin/HeapsRender_AllLayers.js
+-main Heaps_AutoLayer
+-js bin/Heaps_AutoLayer.js
 
 
-# HeapsRender_AllLayers (Hashlink)
---next
--cp .
--cp ../src
--lib heaps
--lib deepnightLibs
--lib hlsdl
--D resourcesPath=assets
---dce full
--main HeapsRender_AllLayers
--hl bin/HeapsRender_AllLayers.hl
---next
-
-# HeapsRender_AutoLayer (Javascript/WebGL)
--cp .
--cp ../src
--lib heaps
--lib deepnightLibs
--D resourcesPath=assets
---dce full
--main HeapsRender_AutoLayer
--js bin/HeapsRender_AutoLayer.js
-
-
-# HeapsRender_AutoLayer (Hashlink)
+# Heaps_AutoLayer (Hashlink)
 --next
 -cp .
 -cp ../src
@@ -67,46 +43,22 @@
 -lib hlsdl
 -D resourcesPath=assets
 --dce full
--main HeapsRender_AutoLayer
--hl bin/HeapsRender_AutoLayer.hl
+-main Heaps_AutoLayer
+-hl bin/Heaps_AutoLayer.hl
 --next
 
-# HeapsRender_IntGrid (Javascript/WebGL)
+# Heaps_IntGrid (Javascript/WebGL)
 -cp .
 -cp ../src
 -lib heaps
 -lib deepnightLibs
 -D resourcesPath=assets
 --dce full
--main HeapsRender_IntGrid
--js bin/HeapsRender_IntGrid.js
+-main Heaps_IntGrid
+-js bin/Heaps_IntGrid.js
 
 
-# HeapsRender_IntGrid (Hashlink)
---next
--cp .
--cp ../src
--lib heaps
--lib deepnightLibs
--lib hlsdl
--D resourcesPath=assets
---dce full
--main HeapsRender_IntGrid
--hl bin/HeapsRender_IntGrid.hl
---next
-
-# HeapsRender_TileLayer (Javascript/WebGL)
--cp .
--cp ../src
--lib heaps
--lib deepnightLibs
--D resourcesPath=assets
---dce full
--main HeapsRender_TileLayer
--js bin/HeapsRender_TileLayer.js
-
-
-# HeapsRender_TileLayer (Hashlink)
+# Heaps_IntGrid (Hashlink)
 --next
 -cp .
 -cp ../src
@@ -115,22 +67,22 @@
 -lib hlsdl
 -D resourcesPath=assets
 --dce full
--main HeapsRender_TileLayer
--hl bin/HeapsRender_TileLayer.hl
+-main Heaps_IntGrid
+-hl bin/Heaps_IntGrid.hl
 --next
 
-# HeapsRender_World (Javascript/WebGL)
+# Heaps_TileLayer (Javascript/WebGL)
 -cp .
 -cp ../src
 -lib heaps
 -lib deepnightLibs
 -D resourcesPath=assets
 --dce full
--main HeapsRender_World
--js bin/HeapsRender_World.js
+-main Heaps_TileLayer
+-js bin/Heaps_TileLayer.js
 
 
-# HeapsRender_World (Hashlink)
+# Heaps_TileLayer (Hashlink)
 --next
 -cp .
 -cp ../src
@@ -139,5 +91,53 @@
 -lib hlsdl
 -D resourcesPath=assets
 --dce full
--main HeapsRender_World
--hl bin/HeapsRender_World.hl
+-main Heaps_TileLayer
+-hl bin/Heaps_TileLayer.hl
+--next
+
+# Heaps_World (Javascript/WebGL)
+-cp .
+-cp ../src
+-lib heaps
+-lib deepnightLibs
+-D resourcesPath=assets
+--dce full
+-main Heaps_World
+-js bin/Heaps_World.js
+
+
+# Heaps_World (Hashlink)
+--next
+-cp .
+-cp ../src
+-lib heaps
+-lib deepnightLibs
+-lib hlsdl
+-D resourcesPath=assets
+--dce full
+-main Heaps_World
+-hl bin/Heaps_World.hl
+--next
+
+# SimpleDemo (Javascript/WebGL)
+-cp .
+-cp ../src
+-lib heaps
+-lib deepnightLibs
+-D resourcesPath=assets
+--dce full
+-main SimpleDemo
+-js bin/SimpleDemo.js
+
+
+# SimpleDemo (Hashlink)
+--next
+-cp .
+-cp ../src
+-lib heaps
+-lib deepnightLibs
+-lib hlsdl
+-D resourcesPath=assets
+--dce full
+-main SimpleDemo
+-hl bin/SimpleDemo.hl

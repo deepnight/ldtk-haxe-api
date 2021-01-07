@@ -1,16 +1,16 @@
 
-# BaseExample (Javascript/WebGL)
+# SimpleDemo (Javascript/WebGL)
 -cp .
 -cp ../src
 -lib heaps
 -lib deepnightLibs
 -D resourcesPath=assets
 --dce full
--main BaseExample
--js bin/BaseExample.js
---cmd BaseExample.html
+-main SimpleDemo
+-js bin/SimpleDemo.js
+--cmd SimpleDemo.html
 
-# BaseExample (Hashlink)
+# SimpleDemo (Hashlink)
 --next
 -cp .
 -cp ../src
@@ -19,5 +19,5 @@
 -lib hlsdl
 -D resourcesPath=assets
 --dce full
--main BaseExample
--hl bin/BaseExample.hl
+-main SimpleDemo
+-hl bin/SimpleDemo.hl

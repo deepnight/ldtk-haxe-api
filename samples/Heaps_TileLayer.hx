@@ -1,19 +1,16 @@
 /**
-	This sample demonstrates how to MANUALLY render a Tile layer using
-	Heaps API. In this example, the auto-layer is an IntGrid layer
-	with rules.
+	This sample for Heaps.io engine demonstrates how to MANUALLY render a Tile layer using Heaps API. In this example, the auto-layer is an IntGrid layer with rules.
 
-	It is recommended to use the .render() methods of layers that will
-	do all the dirty work for you.
+	It is recommended to use the .render() methods of layers that will do all the dirty work for you.
 
 	For reference, the auto-layers are also rendered, but are blurred.
 **/
 
-class HeapsRender_TileLayer extends hxd.App {
+class Heaps_TileLayer extends hxd.App {
 
 	static function main() {
 		// Boot
-		new HeapsRender_TileLayer();
+		new Heaps_TileLayer();
 	}
 
 	override function init() {

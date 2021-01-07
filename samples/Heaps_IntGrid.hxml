@@ -1,0 +1,23 @@
+
+# Heaps_IntGrid (Javascript/WebGL)
+-cp .
+-cp ../src
+-lib heaps
+-lib deepnightLibs
+-D resourcesPath=assets
+--dce full
+-main Heaps_IntGrid
+-js bin/Heaps_IntGrid.js
+--cmd Heaps_IntGrid.html
+
+# Heaps_IntGrid (Hashlink)
+--next
+-cp .
+-cp ../src
+-lib heaps
+-lib deepnightLibs
+-lib hlsdl
+-D resourcesPath=assets
+--dce full
+-main Heaps_IntGrid
+-hl bin/Heaps_IntGrid.hl

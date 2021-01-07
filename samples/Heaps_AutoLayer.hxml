@@ -1,0 +1,23 @@
+
+# Heaps_AutoLayer (Javascript/WebGL)
+-cp .
+-cp ../src
+-lib heaps
+-lib deepnightLibs
+-D resourcesPath=assets
+--dce full
+-main Heaps_AutoLayer
+-js bin/Heaps_AutoLayer.js
+--cmd Heaps_AutoLayer.html
+
+# Heaps_AutoLayer (Hashlink)
+--next
+-cp .
+-cp ../src
+-lib heaps
+-lib deepnightLibs
+-lib hlsdl
+-D resourcesPath=assets
+--dce full
+-main Heaps_AutoLayer
+-hl bin/Heaps_AutoLayer.hl
