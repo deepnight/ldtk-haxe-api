@@ -15,14 +15,6 @@ class Tileset {
 	var pxHei : Int;
 	var cWid(get,never) : Int; inline function get_cWid() return Math.ceil(pxWid/tileGridSize);
 
-	// Atlas image data
-	public var atlasBytes : haxe.io.Bytes;
-	#if !macro
-		#if heaps
-		var atlasTile : Null<h2d.Tile>;
-		#end
-	#end
-
 
 	public function new(p:ldtk.Project, json:ldtk.Json.TilesetDefJson) {
 		untypedProject = p;
@@ -31,22 +23,8 @@ class Tileset {
 		relPath = json.relPath;
 		pxWid = json.pxWid;
 		pxHei = json.pxHei;
-
-		// Load atlas
-		atlasBytes = untypedProject.loadAsset(relPath);
-		#if heaps
-
-			atlasTile = h3d.Engine.getCurrent()==null ? null : dn.ImageDecoder.decodeTile(atlasBytes);
-
-		#elseif openfl
-
-			// TODO
-
-		#end
 	}
 
-	function decodeAtlas() {
-	}
 
 	/**
 		Get X pixel coordinate (in atlas image) from a specified tile ID
@@ -69,6 +47,20 @@ class Tileset {
 		HEAPS API
 	***************************************************************************/
 
+	var atlasTile : Null<h2d.Tile>;
+	/**
+		Decode atlas image from assets (method is called automatically but it could also be used manually to prevent an init lag)
+	**/
+	public function decodeAtlas() {
+		if( atlasTile!=null )
+			return true;
+		else {
+			var bytes = untypedProject.loadAsset(relPath);
+			atlasTile = dn.ImageDecoder.decodeTile(bytes);
+			return atlasTile!=null;
+		}
+	}
+
 	/**
 		Get a h2d.Tile from a Tile ID.
 
@@ -78,14 +70,18 @@ class Tileset {
 		if( tileId<0 )
 			return null;
 		else {
-			var t = atlasTile.sub( getAtlasX(tileId), getAtlasY(tileId), tileGridSize, tileGridSize );
-			return switch flipBits {
-				case 0: t;
-				case 1: t.flipX(); t.setCenterRatio(0,0); t;
-				case 2: t.flipY(); t.setCenterRatio(0,0); t;
-				case 3: t.flipX(); t.flipY(); t.setCenterRatio(0,0); t;
-				case _: Project.error("Unsupported flipBits value"); null;
-			};
+			if( !decodeAtlas() )
+				return h2d.Tile.fromColor(0xff0000, 8,8);
+			else {
+				var t = atlasTile.sub( getAtlasX(tileId), getAtlasY(tileId), tileGridSize, tileGridSize );
+				return switch flipBits {
+					case 0: t;
+					case 1: t.flipX(); t.setCenterRatio(0,0); t;
+					case 2: t.flipY(); t.setCenterRatio(0,0); t;
+					case 3: t.flipX(); t.flipY(); t.setCenterRatio(0,0); t;
+					case _: Project.error("Unsupported flipBits value"); null;
+				}
+			}
 		}
 	}
 
