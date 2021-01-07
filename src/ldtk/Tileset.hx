@@ -15,6 +15,13 @@ class Tileset {
 	var pxHei : Int;
 	var cWid(get,never) : Int; inline function get_cWid() return Math.ceil(pxWid/tileGridSize);
 
+	// Atlas image data
+	#if !macro
+		#if heaps
+		var atlasTile : Null<h2d.Tile>;
+		#end
+	#end
+
 
 	public function new(p:ldtk.Project, json:ldtk.Json.TilesetDefJson) {
 		untypedProject = p;
@@ -24,9 +31,21 @@ class Tileset {
 		pxWid = json.pxWid;
 		pxHei = json.pxHei;
 
+		// Load atlas
 		var bytes = untypedProject.loadAsset(relPath);
-		var img = dn.ImageDecoder.decode(bytes);
-		// TODO
+		#if heaps
+
+			atlasTile =
+				try dn.ImageDecoder.decodeTile(bytes)
+				catch(e:Dynamic)
+					try h2d.Tile.fromColor(0xff0000, pxWid, pxHei)
+					catch(e:Dynamic) null; // h2d might not be available at all on this target
+
+		#elseif openfl
+
+			// TODO
+
+		#end
 	}
 
 	/**
