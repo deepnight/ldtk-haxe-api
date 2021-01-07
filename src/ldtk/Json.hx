@@ -135,7 +135,7 @@ typedef LevelJson = {
 @section("1.1")
 @display("Layer instance")
 typedef LayerInstanceJson = {
-	/** Unique String identifier **/
+	/** Layer definition identifier **/
 	var __identifier: String;
 
 	/** Layer type (possible values: IntGrid, Entities, Tiles or AutoLayer) **/
@@ -257,7 +257,7 @@ typedef Tile = {
 @section("1.1.2")
 @display("Entity instance")
 typedef EntityInstanceJson = {
-	/** Unique String identifier **/
+	/** Entity definition identifier **/
 	var __identifier: String;
 
 	/** Grid-based coordinates (`[x,y]` format) **/
@@ -291,7 +291,7 @@ typedef EntityInstanceJson = {
 @section("1.1.3")
 @display("Field instance")
 typedef FieldInstanceJson = {
-	/** Unique String identifier **/
+	/** Field definition identifier **/
 	var __identifier: String;
 
 	/**
@@ -313,7 +313,7 @@ typedef FieldInstanceJson = {
 
 
 /**
-If you're writing your own LDtk importer, you should probably ignore MOST stuff in the `defs` section, as it contains data that are specifically useful to the editor. Data that is useful to game devs is duplicated in fields prefixed with a double underscore (eg. `__identifier` or `__type`).
+If you're writing your own LDtk importer, you should probably just ignore *most* stuff in the `defs` section, as it contains data that are mostly useful to the editor. To keep you away from the `defs` section and avoid some unnecessary JSON parsing, important data from definitions is often duplicated in fields prefixed with a double underscore (eg. `__identifier` or `__type`).
 
 The 2 only definition types you might need here are **Tilesets** and **Enums**.
 **/
