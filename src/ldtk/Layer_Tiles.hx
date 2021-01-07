@@ -63,7 +63,7 @@ class Layer_Tiles extends ldtk.Layer {
 						tg.add(
 							cx*gridSize + pxTotalOffsetX,
 							cy*gridSize + pxTotalOffsetY,
-							_getTileset().getHeapsTile(tg.tile, tile.tileId, tile.flipBits)
+							_getTileset().getTile(tile.tileId, tile.flipBits)
 						);
 					}
 				}

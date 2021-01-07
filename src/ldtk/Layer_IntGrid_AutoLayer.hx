@@ -47,7 +47,7 @@ class Layer_IntGrid_AutoLayer extends ldtk.Layer_IntGrid {
 			tg.add(
 				autoTile.renderX + pxTotalOffsetX,
 				autoTile.renderY + pxTotalOffsetY,
-				_getTileset().getAutoLayerHeapsTile(tg.tile, autoTile)
+				_getTileset().getAutoLayerTile(autoTile)
 			);
 		}
 	}

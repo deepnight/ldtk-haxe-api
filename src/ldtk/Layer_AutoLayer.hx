@@ -71,7 +71,7 @@ class Layer_AutoLayer extends ldtk.Layer {
 			tg.add(
 				autoTile.renderX + pxTotalOffsetX,
 				autoTile.renderY + pxTotalOffsetY,
-				_getTileset().getAutoLayerHeapsTile(tg.tile, autoTile)
+				_getTileset().getAutoLayerTile(autoTile)
 			);
 		}
 	}

@@ -16,6 +16,7 @@ class Tileset {
 	var cWid(get,never) : Int; inline function get_cWid() return Math.ceil(pxWid/tileGridSize);
 
 	// Atlas image data
+	public var atlasBytes : haxe.io.Bytes;
 	#if !macro
 		#if heaps
 		var atlasTile : Null<h2d.Tile>;
@@ -32,20 +33,19 @@ class Tileset {
 		pxHei = json.pxHei;
 
 		// Load atlas
-		var bytes = untypedProject.loadAsset(relPath);
+		atlasBytes = untypedProject.loadAsset(relPath);
 		#if heaps
 
-			atlasTile =
-				try dn.ImageDecoder.decodeTile(bytes)
-				catch(e:Dynamic)
-					try h2d.Tile.fromColor(0xff0000, pxWid, pxHei)
-					catch(e:Dynamic) null; // h2d might not be available at all on this target
+			atlasTile = h3d.Engine.getCurrent()==null ? null : dn.ImageDecoder.decodeTile(atlasBytes);
 
 		#elseif openfl
 
 			// TODO
 
 		#end
+	}
+
+	function decodeAtlas() {
 	}
 
 	/**
@@ -62,43 +62,19 @@ class Tileset {
 		return Std.int( tileId / cWid ) * tileGridSize;
 	}
 
-	#if( sys && deepnightLibs )
-	/**
-		Read the atlas image haxe.io.Bytes from the disk
-	**/
-	public function loadAtlasBytes(project:ldtk.Project) : Null<haxe.io.Bytes> {
-		try {
-			var filePath = dn.FilePath.fromFile(relPath);
-			var path = filePath.hasDriveLetter() ? filePath : dn.FilePath.fromFile(project.projectDir+"/"+relPath);
-			var fi = sys.io.File.read(path.full,true);
-			return fi.readAll();
-		}
-		catch(e:Dynamic) {
-			return null;
-		}
-	}
-	#end
 
 
 	#if( !macro && heaps )
-
-	/**
-		Read the atlas h2d.Tile directly from the file
-	**/
-	#if( sys && deepnightLibs )
-	public function loadAtlasTileFromDisk(project:ldtk.Project) : Null<h2d.Tile> {
-		var bytes = loadAtlasBytes(project);
-		var tile = dn.ImageDecoder.decodeTile(bytes);
-		return tile;
-	}
-	#end
+	/***************************************************************************
+		HEAPS API
+	***************************************************************************/
 
 	/**
 		Get a h2d.Tile from a Tile ID.
 
 		"flipBits" can be: 0=no flip, 1=flipX, 2=flipY, 3=bothXY
 	**/
-	public inline function getHeapsTile(atlasTile:h2d.Tile, tileId:Int, flipBits:Int=0) : Null<h2d.Tile> {
+	public inline function getTile(tileId:Int, flipBits:Int=0) : Null<h2d.Tile> {
 		if( tileId<0 )
 			return null;
 		else {
@@ -116,12 +92,13 @@ class Tileset {
 	/**
 		Get a h2d.Tile from a Auto-Layer tile.
 	**/
-	public inline function getAutoLayerHeapsTile(atlasTile:h2d.Tile, autoLayerTile:ldtk.Layer_AutoLayer.AutoTile) : Null<h2d.Tile> {
+	public inline function getAutoLayerTile(autoLayerTile:ldtk.Layer_AutoLayer.AutoTile) : Null<h2d.Tile> {
 		if( autoLayerTile.tileId<0 )
 			return null;
 		else
-			return getHeapsTile(atlasTile, autoLayerTile.tileId, autoLayerTile.flips);
+			return getTile(autoLayerTile.tileId, autoLayerTile.flips);
 	}
+
 	#end
 
 }
