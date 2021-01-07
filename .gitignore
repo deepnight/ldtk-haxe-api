@@ -1,5 +1,4 @@
 .vscode/settings.json
 tests/bin
 samples/bin
-samples/*.html
 dump
