@@ -6,6 +6,8 @@ class Main {
 	static function main() {
 		print("Running tests...");
 
+		hxd.Res.initEmbed();
+
 		// Run tests
 		var project = new ProjectNoPackage();
 
@@ -14,6 +16,9 @@ class Main {
 
 			section("Project...");
 			CiAssert.isNotNull( project );
+
+			// Project asset loader
+			CiAssert.isNotNull( project.loadAsset("unitTest.ldtk") );
 
 			// Project defs
 			CiAssert.isNotNull( project.defs );
@@ -41,7 +46,7 @@ class Main {
 			CiAssert.equals( project.getEnumDefFromValue(Foo).identifier, "SomeEnum" ); // extern
 			CiAssert.equals( project.getEnumDefFromValue(null), null );
 
-			// Types
+			// Types²
 			section("Types...");
 			CiAssert.isNotNull( ProjectNoPackage.Enum_Mobs );
 			CiAssert.isNotNull( ProjectNoPackage.EntityEnum );
@@ -209,6 +214,8 @@ class Main {
 			CiAssert.isNotNull( packageTest.ProjectPackage.Enum_Weapons );
 			CiAssert.isNotNull( packageTest.ProjectPackage.Tileset_Cavernas_by_Adam_Saltsman );
 			CiAssert.isNotNull( project.all_levels );
+			CiAssert.isTrue( project.all_levels.Main_tests.load() );
+			CiAssert.isTrue( project.all_levels.Offset_tests.load() );
 			CiAssert.isNotNull( project.all_levels.Main_tests );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.all_Mob.length>0 );
 			CiAssert.isNotNull( project.all_levels.Main_tests.l_EntityTest.all_Mob[0].f_lootDrop );

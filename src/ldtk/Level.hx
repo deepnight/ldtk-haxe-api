@@ -20,9 +20,21 @@ class Level {
 	public var allUntypedLayers(default,null) : Array<Layer>;
 	public var neighbours : Array<{ levelUid:Int, dir: NeighbourDir }>; // TODO resolve level instance
 
+	/** Only exists if levels are stored in separate level files **/
+	var externalRelPath : Null<String>;
+
+
 	public function new(project:ldtk.Project, json:ldtk.Json.LevelJson) {
 		this.untypedProject = project;
+		neighbours = [];
+		allUntypedLayers = [];
+		fromJson(json);
+	}
 
+	/**
+		Parse level JSON
+	**/
+	function fromJson(json:ldtk.Json.LevelJson) {
 		uid = json.uid;
 		identifier = json.identifier;
 		pxWid = json.pxWid;
@@ -30,8 +42,9 @@ class Level {
 		worldX = json.worldX;
 		worldY = json.worldY;
 		bgColor = Project.hexToInt(json.__bgColor);
-		neighbours = [];
-		allUntypedLayers = [];
+
+		externalRelPath = json.externalRelPath;
+
 		if( json.layerInstances!=null )
 			for(json in json.layerInstances)
 				allUntypedLayers.push( _instanciateLayer(json) );
@@ -50,7 +63,35 @@ class Level {
 				});
 	}
 
+
 	function _instanciateLayer(json:ldtk.Json.LayerInstanceJson) : ldtk.Layer {
 		return null; // overriden by Macros.hx
 	}
+
+
+	/**
+		Return TRUE if the level was previously loaded and is ready for usage (always TRUE if levels are embedded in the project file).
+	**/
+	public inline function isLoaded() return this.externalRelPath==null || allUntypedLayers==null || allUntypedLayers.length>0;
+
+	/**
+		Load level if it's stored in an external file. **IMPORTANT**: this probably doesn't need to be used in most scenario, as `load()` is *automatically* called when trying to use a level variable in your project.
+	**/
+	public function load() {
+		if( isLoaded() )
+			return true;
+
+
+		try {
+			var bytes = untypedProject.loadAsset(externalRelPath);
+			var raw = bytes.toString();
+			var json : ldtk.Json.LevelJson = haxe.Json.parse(raw);
+			fromJson(json);
+			return true;
+		}
+		catch(e:Dynamic) {
+			throw 'Could not load external asset: $externalRelPath';
+		}
+	}
+
 }

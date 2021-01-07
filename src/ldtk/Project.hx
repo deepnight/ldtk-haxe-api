@@ -69,7 +69,6 @@ class Project {
 			// Get project file name
 			var p = StringTools.replace(projectFilePath, "\\", "/");
 			var projectFileName = p.lastIndexOf("/")<0 ? p : p.substr( p.lastIndexOf("/")+1 );
-			trace(projectFileName);
 
 			// Explore all folders in Heaps res/ folder recursively, to locate Project file
 			var pendingDirs = [
@@ -84,7 +83,6 @@ class Project {
 					}
 					else if( f.name==projectFileName ) {
 						// Found project file!
-						trace("found in "+f.directory);
 						var resPath = ( f.directory.length==0 ? "" : f.directory+"/" ) + relativeFilePath;
 						if( !hxd.Res.loader.exists(resPath) )
 							throw 'Could not find file $relativeFilePath in Heaps res/ folder!';

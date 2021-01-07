@@ -616,6 +616,10 @@ class TypeBuilder {
 			fields : (macro class {
 				override public function new(project, json) {
 					super(project, json);
+				}
+
+				override function fromJson(json) {
+					super.fromJson(json);
 
 					// Init quick access
 					for(l in allUntypedLayers)
@@ -634,6 +638,7 @@ class TypeBuilder {
 					Get a layer using its identifier. WARNING: the class of this layer will be more generic than when using proper "f_layerName" fields.
 				**/
 				public function resolveLayer(id:String) : Null<ldtk.Layer> {
+					load();
 					for(l in allUntypedLayers)
 						if( l.identifier==id )
 							return l;
@@ -641,14 +646,34 @@ class TypeBuilder {
 				}
 			}).fields,
 		}
-		for(l in json.defs.layers)
-			levelType.fields.push({
+
+		// Create quick layer access fields
+		for(l in json.defs.layers) {
+			var layerComplexType = Context.getType("Layer_"+l.identifier).toComplexType();
+			var property : Field = {
 				name: "l_"+l.identifier,
 				access: [APublic],
-				kind: FVar( Context.getType("Layer_"+l.identifier).toComplexType() ),
+				kind: FProp("get","default", layerComplexType),
 				doc: l.type+" layer",
 				pos: curPos,
-			});
+			}
+			var getterFunc : Function = {
+				expr: macro {
+					load();
+					return Reflect.field(this, $v{property.name});
+				},
+				ret: layerComplexType,
+				args: [],
+			}
+			var getter : Field = {
+				name: "get_l_"+l.identifier,
+				kind: FFun(getterFunc),
+				access: [ APrivate, AInline ],
+				pos: curPos,
+			}
+			levelType.fields.push(property);
+			levelType.fields.push(getter);
+		}
 		registerTypeDefinitionModule(levelType, projectFilePath);
 	}
 
