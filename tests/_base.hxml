@@ -3,10 +3,10 @@
 -cp src
 
 -lib deepnightLibs
-
 -lib heaps
 -D resourcesPath=samples/res
 
+# -D ldtk_times
 # -D dump=pretty
 --dce full
 -debug
