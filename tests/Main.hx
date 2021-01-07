@@ -50,7 +50,7 @@ class Main {
 			CiAssert.equals( project.getEnumDefFromValue(Foo).identifier, "SomeEnum" ); // extern
 			CiAssert.equals( project.getEnumDefFromValue(null), null );
 
-			// Types²
+			// Types
 			section("Types...");
 			CiAssert.isNotNull( ProjectNoPackage.Enum_Mobs );
 			CiAssert.isNotNull( ProjectNoPackage.EntityEnum );
