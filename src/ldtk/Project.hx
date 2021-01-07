@@ -82,7 +82,7 @@ class Project {
 						pendingDirs.push(f);
 					}
 					else if( f.name==projectFileName ) {
-						// Found project file!
+						// Found project file! Now resolve relative path to find the requested file.
 						var resPath = ( f.directory.length==0 ? "" : f.directory+"/" ) + relativeFilePath;
 						if( !hxd.Res.loader.exists(resPath) )
 							throw 'Could not find file $relativeFilePath in Heaps res/ folder!';
@@ -93,6 +93,8 @@ class Project {
 				}
 			}
 			throw "Could not locate the project file in Heaps res/ folder!";
+		#elseif openfl
+			throw "OpenFL should work but isn't supported yet."
 		#else
 			throw "Asset loading is not supported on this Haxe target or framework. You should rebind the project.loadAsset() method to use your framework asset loading system.";
 			return null;
