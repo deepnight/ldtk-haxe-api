@@ -209,8 +209,11 @@ class Main {
 			#end
 
 			// Project references
-			@:privateAccess CiAssert.equals( project.all_levels.Main_tests.untypedProject, project );
-			@:privateAccess CiAssert.equals( project.all_levels.Main_tests.l_EntityTest.untypedProject, project );
+			section("Project refs...");
+			var level = project.all_levels.Main_tests;
+			@:privateAccess CiAssert.equals( level.untypedProject, project );
+			@:privateAccess CiAssert.equals( level.l_EntityTest.untypedProject, project );
+			@:privateAccess CiAssert.equals( level.l_IntGrid_AutoLayer.tileset.untypedProject, project );
 
 
 
