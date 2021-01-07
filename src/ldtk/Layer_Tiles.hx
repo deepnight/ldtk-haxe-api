@@ -36,38 +36,40 @@ class Layer_Tiles extends ldtk.Layer {
 
 
 
-	#if( !macro && heaps )
+	#if !macro
 
-	/**
-		Render layer using provided Tileset atlas tile
-	**/
-	public function render(tilesetAtlasTile:h2d.Tile, ?parent:h2d.Object) {
-		if( parent==null )
-			parent = new h2d.Object();
+		#if heaps
+		/**
+			Render layer using provided Tileset atlas tile
+		**/
+		public function render(tilesetAtlasTile:h2d.Tile, ?parent:h2d.Object) {
+			if( parent==null )
+				parent = new h2d.Object();
 
-		var tg = new h2d.TileGroup(tilesetAtlasTile, parent);
-		renderInTileGroup(tg,false);
+			var tg = new h2d.TileGroup(tilesetAtlasTile, parent);
+			renderInTileGroup(tg,false);
 
-		return parent;
-	}
+			return parent;
+		}
 
-	public inline function renderInTileGroup(tg:h2d.TileGroup, clearContent:Bool) {
-		if( clearContent )
-			tg.clear();
+		public inline function renderInTileGroup(tg:h2d.TileGroup, clearContent:Bool) {
+			if( clearContent )
+				tg.clear();
 
-		for( cy in 0...cHei )
-		for( cx in 0...cWid ) {
-			if( hasAnyTileAt(cx,cy) ) {
-				for( tile in getTileStackAt(cx,cy) ) {
-					tg.add(
-						cx*gridSize + pxTotalOffsetX,
-						cy*gridSize + pxTotalOffsetY,
-						_getTileset().getHeapsTile(tg.tile, tile.tileId, tile.flipBits)
-					);
+			for( cy in 0...cHei )
+			for( cx in 0...cWid ) {
+				if( hasAnyTileAt(cx,cy) ) {
+					for( tile in getTileStackAt(cx,cy) ) {
+						tg.add(
+							cx*gridSize + pxTotalOffsetX,
+							cy*gridSize + pxTotalOffsetY,
+							_getTileset().getHeapsTile(tg.tile, tile.tileId, tile.flipBits)
+						);
+					}
 				}
 			}
 		}
-	}
+		#end
 
 	#end
 

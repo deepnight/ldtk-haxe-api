@@ -90,7 +90,7 @@ class Level {
 			return true;
 		}
 		catch(e:Dynamic) {
-			throw 'Could not load external asset: $externalRelPath';
+			throw Project.ERR_PREFIX+'Could not load external asset: $externalRelPath';
 		}
 	}
 
