@@ -382,8 +382,8 @@ class TypeBuilder {
 				doc: 'Tileset class of atlas "${e.relPath}"',
 				kind : TDClass(parentTypePath),
 				fields : (macro class {
-					override public function new(json) {
-						super(json);
+					override public function new(p,json) {
+						super(p,json);
 					}
 
 				}).fields,
@@ -456,7 +456,7 @@ class TypeBuilder {
 										});
 									}
 
-									tileset = ${ ts==null ? null : macro new $tsTypePath( cast $v{ts.json} ) }
+									tileset = ${ ts==null ? null : macro new $tsTypePath( p, cast $v{ts.json} ) }
 								}
 
 								override function _getTileset() return tileset;
@@ -491,7 +491,7 @@ class TypeBuilder {
 						fields : (macro class {
 							override public function new(p,json) {
 								super(p,json);
-								tileset = ${ ts==null ? null : macro new $tsTypePath( cast $v{ts.json} ) }
+								tileset = ${ ts==null ? null : macro new $tsTypePath( p, cast $v{ts.json} ) }
 							}
 
 							override function _getTileset() return tileset;
@@ -578,7 +578,7 @@ class TypeBuilder {
 							override public function new(p,json) {
 								super(p,json);
 
-								tileset = new $tsTypePath( cast $v{ts.json} );
+								tileset = new $tsTypePath( p, cast $v{ts.json} );
 							}
 
 							override function _getTileset() return tileset;

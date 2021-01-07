@@ -1,6 +1,8 @@
 package ldtk;
 
 class Tileset {
+	var untypedProject: ldtk.Project;
+
 	public var identifier : String;
 
 	/**
@@ -14,12 +16,17 @@ class Tileset {
 	var cWid(get,never) : Int; inline function get_cWid() return Math.ceil(pxWid/tileGridSize);
 
 
-	public function new(json:ldtk.Json.TilesetDefJson) {
+	public function new(p:ldtk.Project, json:ldtk.Json.TilesetDefJson) {
+		untypedProject = p;
 		identifier = json.identifier;
 		tileGridSize = json.tileGridSize;
 		relPath = json.relPath;
 		pxWid = json.pxWid;
 		pxHei = json.pxHei;
+
+		var bytes = untypedProject.loadAsset(relPath);
+		var img = dn.ImageDecoder.decode(bytes);
+		// TODO
 	}
 
 	/**

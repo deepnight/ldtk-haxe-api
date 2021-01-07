@@ -39,7 +39,12 @@ class Project {
 
 	public var worldLayout : WorldLayout;
 
-	public function new() {}
+	var assetCache : Map<String, haxe.io.Bytes>;
+
+
+	public function new() {
+		assetCache = new Map();
+	}
 
 	/**
 		Replace current project using another project-JSON data.
@@ -63,7 +68,17 @@ class Project {
 	}
 
 
-	public dynamic function loadAsset(relativeFilePath:String) : haxe.io.Bytes {
+	public function loadAsset(relativeFilePath:String) : haxe.io.Bytes {
+		if( assetCache.exists(relativeFilePath) )
+			return assetCache.get(relativeFilePath);
+		else {
+			var bytes = _loadAsset(relativeFilePath);
+			assetCache.set(relativeFilePath, bytes);
+			return bytes;
+		}
+	}
+
+	function _loadAsset(relativeFilePath:String) : haxe.io.Bytes {
 		#if macro
 
 			return null;
