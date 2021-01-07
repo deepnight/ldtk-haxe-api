@@ -1,13 +1,11 @@
 /**
-	NOTE: this class isn't a sample nor a demo.
-	It generates the samples build files automatically using a macro.
+	NOTE:
+	this class isn't a sample nor a demo: it generates the samples HXML and HTML files.
 **/
 
-package samples.builder;
-
-class SampleHxmlGen {
+class SamplesBuilder {
 	public static function run() {
-		var dir = "samples"; // no trailing "/"
+		var dir = ".."; // no trailing "/"
 
 		Sys.println("");
 		Sys.println('NOTE: please check the README for more infos.');
@@ -63,6 +61,7 @@ class SampleHxmlGen {
 		-cp ../src
 		-lib heaps
 		-lib deepnightLibs
+		-D resourcesPath=assets
 		--dce full
 		-main %name%
 		-js bin/%name%.js
@@ -75,6 +74,7 @@ class SampleHxmlGen {
 		-lib heaps
 		-lib deepnightLibs
 		-lib hlsdl
+		-D resourcesPath=assets
 		--dce full
 		-main %name%
 		-hl bin/%name%.hl
