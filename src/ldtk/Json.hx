@@ -61,7 +61,12 @@ typedef ProjectJson = {
 	var levels: Array<LevelJson>;
 }
 
+/**
+	This section contains all the level data. It can be found in 2 distinct forms, depending on Project current settings:
 
+- If "*Separate level files*" is **disabled** (default): full level data is *embedded* inside the main Project JSON file,
+- If "*Separate level files*" is **enabled**: level data is stored in *separate* standalone `.ldtkl` files (one per level). In this case, the main Project JSON file will still contain most level data, except heavy sections, like the `layerInstances` array which will be null. The `externalRelPath` string points to the `ldtkl` file.
+**/
 @section("1")
 @display("Level")
 typedef LevelJson = {
@@ -101,22 +106,19 @@ typedef LevelJson = {
 		TODO specify array order
 	**/
 	@changed("0.6.3")
-	@only("Embedded level data")
 	var layerInstances: Null< Array<LayerInstanceJson> >;
 
 	/**
 		This value is not null if the project option "*Save levels separately*" is enabled. In this case, this **relative** path points to the level Json file.
 	**/
 	@added("0.6.3")
-	@only("Separate level files")
 	var externalRelPath: Null<String>;
 
 	/**
-		An array listing all other levels touching this one on the world map. The `dir` is a single lowercase character tipping on the level location (`n`orth, `s`outh, `w`est, `e`ast). In "linear" world layouts, this array is populated with previous/next levels in array, and `dir` depends on the linear horizontal/vertical layout. **Note**: if the project option "Save levels separately" is enabled, this field will be `null`.
+		An array listing all other levels touching this one on the world map. The `dir` is a single lowercase character tipping on the level location (`n`orth, `s`outh, `w`est, `e`ast). In "linear" world layouts, this array is populated with previous/next levels in array, and `dir` depends on the linear horizontal/vertical layout.
 	**/
 	@added("0.6.0")
-	@changed("0.6.3")
-	var __neighbours: Null< Array<{ levelUid:Int, dir:String }> >;
+	var __neighbours: Array<{ levelUid:Int, dir:String }>;
 }
 
 
