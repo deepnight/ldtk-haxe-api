@@ -208,6 +208,12 @@ class Main {
 			CiAssert.isTrue( project.all_levels.Main_tests.l_Pure_AutoLayer.tileset.loadAtlasBytes(project).length>0 );
 			#end
 
+			// Project references
+			@:privateAccess CiAssert.equals( project.all_levels.Main_tests.untypedProject, project );
+			@:privateAccess CiAssert.equals( project.all_levels.Main_tests.l_EntityTest.untypedProject, project );
+
+
+
 			// Project in a package
 			section("PROJECT (WITH PACKAGE)...");
 
