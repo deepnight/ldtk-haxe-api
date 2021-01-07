@@ -4,6 +4,7 @@
 -cp ../src
 -lib heaps
 -lib deepnightLibs
+-D resourcesPath=assets
 --dce full
 -main BaseExample
 -js bin/BaseExample.js
@@ -16,6 +17,7 @@
 -lib heaps
 -lib deepnightLibs
 -lib hlsdl
+-D resourcesPath=assets
 --dce full
 -main BaseExample
 -hl bin/BaseExample.hl

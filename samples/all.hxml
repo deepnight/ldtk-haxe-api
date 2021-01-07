@@ -4,6 +4,7 @@
 -cp ../src
 -lib heaps
 -lib deepnightLibs
+-D resourcesPath=assets
 --dce full
 -main BaseExample
 -js bin/BaseExample.js
@@ -16,6 +17,7 @@
 -lib heaps
 -lib deepnightLibs
 -lib hlsdl
+-D resourcesPath=assets
 --dce full
 -main BaseExample
 -hl bin/BaseExample.hl
@@ -26,6 +28,7 @@
 -cp ../src
 -lib heaps
 -lib deepnightLibs
+-D resourcesPath=assets
 --dce full
 -main HeapsRender_AllLayers
 -js bin/HeapsRender_AllLayers.js
@@ -38,6 +41,7 @@
 -lib heaps
 -lib deepnightLibs
 -lib hlsdl
+-D resourcesPath=assets
 --dce full
 -main HeapsRender_AllLayers
 -hl bin/HeapsRender_AllLayers.hl
@@ -48,6 +52,7 @@
 -cp ../src
 -lib heaps
 -lib deepnightLibs
+-D resourcesPath=assets
 --dce full
 -main HeapsRender_AutoLayer
 -js bin/HeapsRender_AutoLayer.js
@@ -60,6 +65,7 @@
 -lib heaps
 -lib deepnightLibs
 -lib hlsdl
+-D resourcesPath=assets
 --dce full
 -main HeapsRender_AutoLayer
 -hl bin/HeapsRender_AutoLayer.hl
@@ -70,6 +76,7 @@
 -cp ../src
 -lib heaps
 -lib deepnightLibs
+-D resourcesPath=assets
 --dce full
 -main HeapsRender_IntGrid
 -js bin/HeapsRender_IntGrid.js
@@ -82,6 +89,7 @@
 -lib heaps
 -lib deepnightLibs
 -lib hlsdl
+-D resourcesPath=assets
 --dce full
 -main HeapsRender_IntGrid
 -hl bin/HeapsRender_IntGrid.hl
@@ -92,6 +100,7 @@
 -cp ../src
 -lib heaps
 -lib deepnightLibs
+-D resourcesPath=assets
 --dce full
 -main HeapsRender_TileLayer
 -js bin/HeapsRender_TileLayer.js
@@ -104,6 +113,7 @@
 -lib heaps
 -lib deepnightLibs
 -lib hlsdl
+-D resourcesPath=assets
 --dce full
 -main HeapsRender_TileLayer
 -hl bin/HeapsRender_TileLayer.hl
@@ -114,6 +124,7 @@
 -cp ../src
 -lib heaps
 -lib deepnightLibs
+-D resourcesPath=assets
 --dce full
 -main HeapsRender_World
 -js bin/HeapsRender_World.js
@@ -126,6 +137,7 @@
 -lib heaps
 -lib deepnightLibs
 -lib hlsdl
+-D resourcesPath=assets
 --dce full
 -main HeapsRender_World
 -hl bin/HeapsRender_World.hl
