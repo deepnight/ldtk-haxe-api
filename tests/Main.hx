@@ -177,10 +177,7 @@ class Main {
 			// Tileset
 			section("Tileset...");
 			CiAssert.isNotNull( project.all_levels.Main_tests.l_TileTest.tileset );
-			#if !js
-			CiAssert.isNotNull( project.all_levels.Main_tests.l_TileTest.tileset.loadAtlasBytes(project) );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.tileset.loadAtlasBytes(project).length>0 );
-			#end
+			// CiAssert.isNotNull( project.all_levels.Main_tests.l_TileTest.tileset.atlasBytes );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.getTileStackAt(1,4)[0].tileId>=0 );
 			var gridSize = project.all_levels.Main_tests.l_TileTest.tileset.tileGridSize;
 			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.tileset.getAtlasX(1)==gridSize );
@@ -190,10 +187,7 @@ class Main {
 			section("Auto-Layer (IntGrid)...");
 			CiAssert.isNotNull( project.all_levels.Main_tests.l_IntGrid_AutoLayer );
 			CiAssert.isNotNull( project.all_levels.Main_tests.l_IntGrid_AutoLayer.tileset );
-			#if !js
-			CiAssert.isNotNull( project.all_levels.Main_tests.l_IntGrid_AutoLayer.tileset.loadAtlasBytes(project) );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGrid_AutoLayer.tileset.loadAtlasBytes(project).length>0 );
-			#end
+			// CiAssert.isNotNull( project.all_levels.Main_tests.l_IntGrid_AutoLayer.tileset.atlasBytes );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGrid_AutoLayer.autoTiles.length>100 );
 			CiAssert.isNotNull( project.all_levels.Main_tests.l_IntGrid_AutoLayer.autoTiles[0] );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGrid_AutoLayer.autoTiles[0].renderX!=0 );
@@ -201,12 +195,9 @@ class Main {
 			// Auto-layer (pure)
 			section("Auto-Layer (pure)...");
 			CiAssert.isNotNull( project.all_levels.Main_tests.l_Pure_AutoLayer);
+			// CiAssert.isNotNull( project.all_levels.Main_tests.l_Pure_AutoLayer.tileset.atlasBytes );
 			CiAssert.equals( project.all_levels.Main_tests.l_Pure_AutoLayer.type, ldtk.Json.LayerType.AutoLayer );
 			CiAssert.isNotNull( project.all_levels.Main_tests.l_Pure_AutoLayer.tileset );
-			#if !js
-			CiAssert.isNotNull( project.all_levels.Main_tests.l_Pure_AutoLayer.tileset.loadAtlasBytes(project) );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_Pure_AutoLayer.tileset.loadAtlasBytes(project).length>0 );
-			#end
 
 			// Project references
 			section("Project refs...");
