@@ -217,7 +217,7 @@ class TypeBuilder {
 			});
 		}
 		externEnumSwitchExpr = {
-			expr: ESwitch( macro name, cases, macro throw ldtk.Project.ERR_PREFIX+"Unknown external enum name" ),
+			expr: ESwitch( macro name, cases, macro { ldtk.Project.error("Unknown external enum name"); null; } ),
 			pos: curPos,
 		}
 	}
@@ -628,8 +628,10 @@ class TypeBuilder {
 
 				override function _instanciateLayer(json:ldtk.Json.LayerInstanceJson) {
 					var c = Type.resolveClass($v{modPack.concat(["Layer_"]).join(".")}+json.__identifier);
-					if( c==null )
-						throw ldtk.Project.ERR_PREFIX+"Couldn't instanciate layer "+json.__identifier;
+					if( c==null ) {
+						ldtk.Project.error("Couldn't instanciate layer "+json.__identifier);
+						return null;
+					}
 					else
 						return cast Type.createInstance(c, [json]);
 				}

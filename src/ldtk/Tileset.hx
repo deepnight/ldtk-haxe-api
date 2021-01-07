@@ -82,7 +82,7 @@ class Tileset {
 				case 1: t.flipX(); t.setCenterRatio(0,0); t;
 				case 2: t.flipY(); t.setCenterRatio(0,0); t;
 				case 3: t.flipX(); t.flipY(); t.setCenterRatio(0,0); t;
-				case _: throw Project.ERR_PREFIX+"Unsupported flipBits value";
+				case _: Project.error("Unsupported flipBits value"); null;
 			};
 		}
 	}

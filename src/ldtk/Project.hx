@@ -20,8 +20,6 @@ using haxe.macro.Tools;
 import ldtk.Json;
 
 class Project {
-	public static var ERR_PREFIX = "[ldtk-api] ";
-
 	/** Contains the full path to the project JSON, as provided to the macro (using slashes) **/
 	public var projectFilePath : String;
 
@@ -67,8 +65,11 @@ class Project {
 
 	public dynamic function loadAsset(relativeFilePath:String) : haxe.io.Bytes {
 		#if macro
+
 			return null;
+
 		#elseif heaps
+
 			// Get project file name
 			var p = StringTools.replace(projectFilePath, "\\", "/");
 			var projectFileName = p.lastIndexOf("/")<0 ? p : p.substr( p.lastIndexOf("/")+1 );
@@ -88,19 +89,21 @@ class Project {
 						// Found it: resolve relative path to find the requested file.
 						var resPath = ( f.directory.length==0 ? "" : f.directory+"/" ) + relativeFilePath;
 						if( !hxd.Res.loader.exists(resPath) )
-							throw Project.ERR_PREFIX+'Could not find file $relativeFilePath in Heaps res/ folder!';
+							error('Asset not found in Heaps res/ folder: $relativeFilePath');
 
 						var res = hxd.Res.load(resPath);
 						return res.entry.getBytes();
 					}
 				}
 			}
-			throw Project.ERR_PREFIX+"Could not locate the project file in Heaps res/ folder!";
+			error('Project file is in Heaps res/ folder!');
+			return null;
+
 		#elseif openfl
+
 			// Get project file name
 			var p = StringTools.replace(projectFilePath, "\\", "/");
 			var projectFileName = p.lastIndexOf("/")<0 ? p : p.substr( p.lastIndexOf("/")+1 );
-			trace("searching: "+relativeFilePath);
 
 			// Browse openFL assets for project file
 			for( e in openfl.Assets.list() ) {
@@ -108,17 +111,25 @@ class Project {
 					// Found it: resolve relative path to find the requested file.
 					var baseDir = e.indexOf("/")<0 ? "" : e.substr( 0, e.lastIndexOf("/") );
 					var resPath = baseDir + "/" + relativeFilePath;
-					var bytes : haxe.io.Bytes = openfl.Assets.getBytes(resPath);
-					trace(relativeFilePath+" => bytes="+bytes.length);
+					var bytes : haxe.io.Bytes = try openfl.Assets.getBytes(resPath) catch(e:Dynamic) null;
+					if( bytes==null )
+						error('OpenFL asset not found: $resPath');
 					return bytes;
 				}
 			}
+			error('Project file is not part of OpenFL assets!');
 			return null;
-			// throw Project.ERR_PREFIX+"OpenFL should work but isn't supported yet.";
+
 		#else
-			throw Project.ERR_PREFIX+"Asset loading is not supported on this Haxe target or framework. You should rebind the project.loadAsset() method to use your framework asset loading system.";
+
+			error("Asset loading is not supported on this Haxe target or framework. You should rebind the project.loadAsset() method to use your framework asset loading system.");
 			return null;
+
 		#end
+	}
+
+	public static function error(str:String) {
+		throw '[ldtk-api] $str';
 	}
 
 	function _instanciateLevel(project:ldtk.Project, json:ldtk.Json.LevelJson) {
@@ -203,7 +214,7 @@ class Project {
 
 	public static function build(projectFilePath:String) {
 		#if !macro
-		throw Project.ERR_PREFIX+"Should only be used in macros";
+		error("Should only be used in macros");
 		#else
 		return ldtk.macro.TypeBuilder.buildTypes(projectFilePath);
 		#end

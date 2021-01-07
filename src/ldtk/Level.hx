@@ -82,15 +82,16 @@ class Level {
 			return true;
 
 
+		var bytes = untypedProject.loadAsset(externalRelPath);
 		try {
-			var bytes = untypedProject.loadAsset(externalRelPath);
 			var raw = bytes.toString();
 			var json : ldtk.Json.LevelJson = haxe.Json.parse(raw);
 			fromJson(json);
 			return true;
 		}
 		catch(e:Dynamic) {
-			throw Project.ERR_PREFIX+'Could not load external asset: $externalRelPath';
+			Project.error('Failed to parse external level: $externalRelPath');
+			return false;
 		}
 	}
 

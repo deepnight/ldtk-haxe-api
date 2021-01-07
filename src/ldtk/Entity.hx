@@ -82,7 +82,7 @@ class Entity {
 					var type = typeName.substr( typeName.indexOf(".")+1 );
 					var e = _resolveExternalEnum(type);
 					if( e==null )
-						throw Project.ERR_PREFIX+"Couldn't create an instance of enum "+type+"! Please check if the PROJECT enum still matches the EXTERNAL FILE declaring it.";
+						Project.error("Couldn't create an instance of enum "+type+"! Please check if the PROJECT enum still matches the EXTERNAL FILE declaring it.");
 					if( !isArray )
 						Reflect.setField(this, "f_"+f.__identifier, Type.createEnum(e, f.__value) );
 					else {
@@ -91,7 +91,7 @@ class Entity {
 					}
 
 				case _ :
-					throw Project.ERR_PREFIX+"Unknown field type "+typeName+" for "+identifier+"."+f.__identifier;
+					Project.error('Unknown field type $typeName for $identifier.${f.__identifier}');
 			}
 		}
 	}
