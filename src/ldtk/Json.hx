@@ -1,6 +1,13 @@
 package ldtk;
 
 
+/**
+	This is the root of any Project JSON file. It contains:
+
+- the project settings,
+- an array of levels
+- and a definition object (that can probably be safely ignored for most users).
+**/
 @display("LDtk Json root")
 typedef ProjectJson = {
 	/** File format version **/
@@ -62,10 +69,12 @@ typedef ProjectJson = {
 }
 
 /**
-	This section contains all the level data. It can be found in 2 distinct forms, depending on Project current settings:
+This section contains all the level data. It can be found in 2 distinct forms, depending on Project current settings:
 
 - If "*Separate level files*" is **disabled** (default): full level data is *embedded* inside the main Project JSON file,
-- If "*Separate level files*" is **enabled**: level data is stored in *separate* standalone `.ldtkl` files (one per level). In this case, the main Project JSON file will still contain most level data, except heavy sections, like the `layerInstances` array which will be null. The `externalRelPath` string points to the `ldtkl` file.
+- If "*Separate level files*" is **enabled**: level data is stored in *separate* standalone `.ldtkl` files (one per level). In this case, the main Project JSON file will still contain most level data, except heavy sections, like the `layerInstances` array (which will be null). The `externalRelPath` string points to the `ldtkl` file.
+
+A `ldtkl` file is just a JSON file containing exactly what is described below.
 **/
 @section("1")
 @display("Level")
@@ -120,6 +129,7 @@ typedef LevelJson = {
 	@added("0.6.0")
 	var __neighbours: Array<{ levelUid:Int, dir:String }>;
 }
+
 
 
 @section("1.1")
@@ -303,7 +313,9 @@ typedef FieldInstanceJson = {
 
 
 /**
-	Games should not have to parse this section as many useful data found in `definitions` are actually duplicated in fields prefixed with a double underscore (ie. "__").
+	If you're writing your own LDtk importer, you should probably ignore MOST stuff in the `defs` section, as it contains data that are specifically useful to the editor. Data that is useful to game devs is duplicated in fields prefixed with a double underscore (eg. `__identifier` or `__type`).
+
+	The 2 only definition types you might need here are **Tilesets** and **Enums**.
 **/
 @section("2")
 @display("Definitions")
@@ -389,9 +401,11 @@ typedef LayerDefJson = {
 
 }
 
+/**
+	This complex section isn't meant to be used by game devs at all, as these rules are completely resolved internally by the editor before any saving. You should just ignore this part.
+**/
 @section("2.1.1")
 @display("Auto-layer rule definition")
-/** This section isn't meant to be used by games, as these rules are completely resolved internally by the editor before any save. You should just ignore everything inside **/
 typedef AutoRuleDef = {
 	/** Unique Int identifier **/
 	var uid: Int;
@@ -505,7 +519,9 @@ typedef EntityDefJson = {
 };
 
 
-
+/**
+	This section is mostly only intended for the LDtk editor app itself. You can safely ignore it.
+**/
 @added("0.6.0")
 @section("2.2.1")
 @display("Field definition")
@@ -567,7 +583,9 @@ typedef FieldDefJson = {
 }
 
 
-
+/**
+	The `Tileset` definition is the most useful part among project definitions. It contains some extra informations about each integrated tileset. If you only had to parse one definition section, that would be the one.
+**/
 @section("2.3")
 @display("Tileset definition")
 typedef TilesetDefJson = {
