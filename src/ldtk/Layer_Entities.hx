@@ -3,8 +3,8 @@ package ldtk;
 class Layer_Entities extends ldtk.Layer {
 	var _entities : Array<Entity> = [];
 
-	public function new(json) {
-		super(json);
+	public function new(p,json) {
+		super(p,json);
 
 		for(json in json.entityInstances) {
 			var e = _instanciateEntity(json);

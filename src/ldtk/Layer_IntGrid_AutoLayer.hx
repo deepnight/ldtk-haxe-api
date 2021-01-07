@@ -7,8 +7,8 @@ class Layer_IntGrid_AutoLayer extends ldtk.Layer_IntGrid {
 	public var autoTiles : Array<ldtk.Layer_AutoLayer.AutoTile>;
 
 
-	public function new(json) {
-		super(json);
+	public function new(p,json) {
+		super(p,json);
 
 		autoTiles = [];
 

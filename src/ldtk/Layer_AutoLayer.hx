@@ -31,8 +31,8 @@ class Layer_AutoLayer extends ldtk.Layer {
 	public var autoTiles : Array<AutoTile>;
 
 
-	public function new(json) {
-		super(json);
+	public function new(p,json) {
+		super(p,json);
 
 		autoTiles = [];
 

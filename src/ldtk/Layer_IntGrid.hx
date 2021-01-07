@@ -9,8 +9,8 @@ class Layer_IntGrid extends ldtk.Layer {
 	public var intGrid : Map<Int,Int> = new Map();
 
 
-	public function new(json) {
-		super(json);
+	public function new(p,json) {
+		super(p,json);
 
 		for(ig in json.intGrid)
 			intGrid.set(ig.coordId, ig.v);

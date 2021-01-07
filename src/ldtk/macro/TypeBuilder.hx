@@ -417,8 +417,8 @@ class TypeBuilder {
 							doc: "IntGrid layer",
 							kind : TDClass(parentTypePath),
 							fields : (macro class {
-								override public function new(json) {
-									super(json);
+								override public function new(p,json) {
+									super(p,json);
 
 									for(v in $v{l.intGridValues} ) {
 										valueInfos.push({
@@ -446,8 +446,8 @@ class TypeBuilder {
 							doc: "IntGrid layer with auto-layer capabilities",
 							kind : TDClass(parentTypePath),
 							fields : (macro class {
-								override public function new(json) {
-									super(json);
+								override public function new(p,json) {
+									super(p,json);
 
 									for(v in $v{l.intGridValues} ) {
 										valueInfos.push({
@@ -489,8 +489,8 @@ class TypeBuilder {
 						doc: "IntGrid layer with auto-layer capabilities",
 						kind : TDClass(parentTypePath),
 						fields : (macro class {
-							override public function new(json) {
-								super(json);
+							override public function new(p,json) {
+								super(p,json);
 								tileset = ${ ts==null ? null : macro new $tsTypePath( cast $v{ts.json} ) }
 							}
 
@@ -534,11 +534,11 @@ class TypeBuilder {
 						pack : modPack,
 						kind : TDClass(parentTypePath),
 						fields : entityArrayFields.concat( (macro class {
-							override public function new(json) {
+							override public function new(p,json) {
 								for( f in $a{entityArrayExpr} )
 									Reflect.setField(this, f, []);
 
-								super(json);
+								super(p,json);
 							}
 
 							override function _instanciateEntity(json) {
@@ -575,8 +575,8 @@ class TypeBuilder {
 						doc: "Tile layer",
 						kind : TDClass(parentTypePath),
 						fields : (macro class {
-							override public function new(json) {
-								super(json);
+							override public function new(p,json) {
+								super(p,json);
 
 								tileset = new $tsTypePath( cast $v{ts.json} );
 							}
@@ -633,7 +633,7 @@ class TypeBuilder {
 						return null;
 					}
 					else
-						return cast Type.createInstance(c, [json]);
+						return cast Type.createInstance(c, [untypedProject, json]);
 				}
 
 				/**

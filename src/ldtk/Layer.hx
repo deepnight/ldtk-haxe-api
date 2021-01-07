@@ -3,6 +3,8 @@ package ldtk;
 import ldtk.Json;
 
 class Layer {
+	var untypedProject: ldtk.Project;
+
 	public var identifier : String;
 	public var type : LayerType;
 
@@ -34,7 +36,9 @@ class Layer {
 	/** Layer opacity (0-1) **/
 	public var opacity : Float;
 
-	public function new(json:ldtk.Json.LayerInstanceJson) {
+
+	public function new(p:ldtk.Project, json:ldtk.Json.LayerInstanceJson) {
+		untypedProject = p;
 		identifier = json.__identifier;
 		type =
 			try LayerType.createByName(json.__type)

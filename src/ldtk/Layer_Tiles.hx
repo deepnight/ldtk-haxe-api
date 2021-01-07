@@ -4,8 +4,8 @@ class Layer_Tiles extends ldtk.Layer {
 	var tiles : Map<Int, Array<{ tileId:Int, flipBits:Int }>>;
 	var atlasPath : String;
 
-	public function new(json) {
-		super(json);
+	public function new(p,json) {
+		super(p,json);
 
 		tiles = new Map();
 		for(t in json.gridTiles)
