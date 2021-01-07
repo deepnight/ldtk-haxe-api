@@ -112,7 +112,7 @@ typedef LevelJson = {
 
 	/**
 		An array containing all Layer instances. **IMPORTANT**: if the project option "*Save levels separately*" is enabled, this field will be `null`.
-		TODO specify array order
+		This array is **sorted in display order**: the 1st layer is the top-most and the last is behind.
 	**/
 	@changed("0.6.3")
 	var layerInstances: Null< Array<LayerInstanceJson> >;
