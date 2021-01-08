@@ -51,5 +51,26 @@ class Layer_IntGrid_AutoLayer extends ldtk.Layer_IntGrid {
 		}
 		#end
 
+
+		#if flixel
+		/**
+			Render layer to a `TODO`. If `target` isn't provided, a new TODO is created. If `target` is provided, it *must* be compatible with Tileset.
+		**/
+		public function render(?target:flixel.group.FlxGroup) : flixel.group.FlxGroup {
+			if( target==null )
+				target = new flixel.group.FlxGroup();
+
+			for( autoTile in autoTiles ) {
+				var s = new flixel.FlxSprite(autoTile.renderX, autoTile.renderY);
+				s.flipX = autoTile.flips & 1 != 0;
+				s.flipY = autoTile.flips & 2 != 0;
+				target.add(s);
+				s.frame = tileset.getFrame(autoTile.tileId);
+			}
+
+			return target;
+		}
+		#end
+
 	#end
 }
