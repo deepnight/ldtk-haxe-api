@@ -17,6 +17,7 @@
                 "isDefault": true
             },
             "presentation": {
+                "reveal": "never",
                 "panel": "dedicated",
                 "clear": true
             },
