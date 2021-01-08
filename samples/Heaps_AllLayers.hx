@@ -24,7 +24,7 @@ class Heaps_AllLayers extends hxd.App {
 		var cavernasAtlasTile = hxd.Res.Cavernas_by_Adam_Saltsman.toTile();
 
 		// Pure auto-layer (background walls)
-		level.l_Background.render(cavernasAtlasTile, s2d);
+		level.l_Background.render(s2d);
 
 		// IntGrid Auto-layer (walls, ladders, etc.)
 		level.l_Collisions.render(cavernasAtlasTile, s2d);

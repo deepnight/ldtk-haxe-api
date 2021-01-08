@@ -51,7 +51,7 @@ class Heaps_TileLayer extends hxd.App {
 				tileGroup.add(
 					cx*layer.gridSize + layer.pxTotalOffsetX,
 					cy*layer.gridSize + layer.pxTotalOffsetY,
-					layer.tileset.getHeapsTile(tilesetAtlasTile, tile.tileId, tile.flipBits) // get h2d.Tile
+					layer.tileset.getTile(tile.tileId, tile.flipBits) // get h2d.Tile
 				);
 			}
 		}

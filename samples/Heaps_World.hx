@@ -32,13 +32,13 @@ class Heaps_World extends hxd.App {
 			levelWrapper.y = level.worldY;
 
 			// Pure auto-layer (background walls)
-			level.l_Background.render(cavernasAtlasTile, levelWrapper);
+			level.l_Background.render(levelWrapper);
 
 			// IntGrid Auto-layer (walls, ladders, etc.)
 			level.l_Collisions.render(cavernasAtlasTile, levelWrapper);
 
 			// Tiles layer (manually added details)
-			level.l_Custom_tiles.render(cavernasAtlasTile, levelWrapper);
+			// level.l_Custom_tiles.render(cavernasAtlasTile, levelWrapper);
 		}
 
 	}

@@ -53,17 +53,17 @@ class Layer_AutoLayer extends ldtk.Layer {
 	/**
 		Render layer using provided Tileset atlas tile
 	**/
-	public function render(tilesetAtlasTile:h2d.Tile, ?parent:h2d.Object) {
+	public function render(?parent:h2d.Object) : h2d.TileGroup {
 		if( parent==null )
 			parent = new h2d.Object();
 
-		var tg = new h2d.TileGroup(tilesetAtlasTile, parent);
-		renderInTileGroup(tg,false);
-
-		return parent;
+		var tg = new h2d.TileGroup(_getTileset().getAtlasTile(), parent);
+		renderToTileGroup(tg,false);
+		return tg;
 	}
 
-	public inline function renderInTileGroup(tg:h2d.TileGroup, clearContent:Bool) {
+
+	public inline function renderToTileGroup(tg:h2d.TileGroup, clearContent:Bool) {
 		if( clearContent )
 			tg.clear();
 
