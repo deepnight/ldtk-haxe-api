@@ -9,7 +9,7 @@ This is the Haxe API to load **LDtk Project JSON** files.
 [API documentation](https://deepnight.net/docs/ldtk/haxe-api) |
 [LDtk official page](https://deepnight.net/tools/ldtk-2d-level-editor)
 
-![Travis (.org)](https://img.shields.io/travis/deepnight/ldtk?label=LDtk%20editor)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/deepnight/ldtk/test-windows?label=LDtk%20editor)
 ![Travis (.org)](https://img.shields.io/travis/deepnight/ldtk-haxe-api?label=Haxe%20API)
 
 ## Features
@@ -32,7 +32,7 @@ https://deepnight.net/docs/ldtk/haxe-api/
 
 ## Samples
 
-You can check the sample HX files in [samples](samples) folder.
+You can check some examples in [samples](samples) folder.
 
 Samples are built to **WebGL** (Javascript) and **Hashlink** targets, but you can try them on other compatible platforms too.
 
@@ -48,19 +48,16 @@ haxelib git deepnightLibs https://github.com/deepnight/deepnightLibs.git
 
 ### Building samples
 
-In the `samples` folder, run:
-Then run:
+Open a folder in the `samples` folder (eg. `samples\Generic - Generic - Read project`) and run:
 
 ```
-haxe SomeSampleName.hxml
+haxe build.hxml
 ```
 
-Replace the `hxml` name with the one you wish to build & run.
-
-You can also build all samples in one go using:
+You can also build all samples in one go. Go in `samples` folder and run:
 
 ```
-haxe all.hxml
+haxe buildAll.hxml
 ```
 
 ### Rebuild samples HXMLs
