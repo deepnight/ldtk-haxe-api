@@ -167,7 +167,7 @@ class Project {
 	}
 
 
-	#if( !macro && openfl )
+	#if( !macro && flixel )
 	/** Get an asset FlxGraphic **/
 	public function getFlxGraphicAsset(relativeFilePath:String) : flixel.graphics.FlxGraphic {
 		// Get project file name
