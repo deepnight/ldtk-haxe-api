@@ -44,34 +44,25 @@ class Layer_Tiles extends ldtk.Layer {
 
 		#if heaps
 		/**
-			Render layer using provided Tileset atlas tile
+			Render layer to a `h2d.TileGroup`. If `target` isn't provided, a new h2d.TileGroup is created. If `target` is provided, it **must** have the same tile source as the layer tileset!
 		**/
-		public function render(tilesetAtlasTile:h2d.Tile, ?parent:h2d.Object) {
-			if( parent==null )
-				parent = new h2d.Object();
-
-			var tg = new h2d.TileGroup(tilesetAtlasTile, parent);
-			renderInTileGroup(tg,false);
-
-			return parent;
-		}
-
-		public inline function renderInTileGroup(tg:h2d.TileGroup, clearContent:Bool) {
-			if( clearContent )
-				tg.clear();
+		public inline function render(?target:h2d.TileGroup) : h2d.TileGroup {
+			if( target==null )
+				target = new h2d.TileGroup( tileset.getAtlasTile() );
 
 			for( cy in 0...cHei )
-			for( cx in 0...cWid ) {
+			for( cx in 0...cWid )
 				if( hasAnyTileAt(cx,cy) ) {
 					for( tile in getTileStackAt(cx,cy) ) {
-						tg.add(
+						target.add(
 							cx*gridSize + pxTotalOffsetX,
 							cy*gridSize + pxTotalOffsetY,
 							tileset.getTile(tile.tileId, tile.flipBits)
 						);
 					}
 				}
-			}
+
+			return target;
 		}
 		#end
 

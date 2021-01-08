@@ -24,37 +24,38 @@ class Heaps_TileLayer extends hxd.App {
 		var project = new _Project();
 		var level = project.all_levels.West;
 
-		// Load atlas h2d.Tile from the disk
-		var tilesetAtlasTile = hxd.Res.Cavernas_by_Adam_Saltsman.toTile();
-
 		// Render auto-layers for reference in the background
 		var bg = new h2d.Object(s2d);
-		level.l_Background.render(bg);
-		level.l_Collisions.render(tilesetAtlasTile, bg);
-		bg.filter = new h2d.filter.Blur(4,1,2);
-		bg.alpha = 0.66;
+		// level.l_Background.render(bg); // TODO
+		bg.addChild( level.l_Collisions.render() );
+		bg.filter = new h2d.filter.Blur(8,1,2);
+		bg.alpha = 0.5;
 
-		// Prepare a h2d.TileGroup for render (MUCH faster than using individual Bitmaps)
-		var tileGroup = new h2d.TileGroup(tilesetAtlasTile, s2d);
-
-		// Layer data
+		// Get layer data
 		var layer = level.l_Custom_tiles;
 
-		// Render
+
+		// Render method 1: just use layer.render()
+		var tileGroup = layer.render();
+		s2d.addChild(tileGroup);
+
+		// Render method 2: render each tile manually
+		var tileGroup = new h2d.TileGroup( layer.tileset.getAtlasTile(), s2d );
+
 		for( cx in 0...layer.cWid )
 		for( cy in 0...layer.cHei ) {
 			if( !layer.hasAnyTileAt(cx,cy) )
 				continue;
 
 			// Get corresponding h2d.Tile from tileset
-			for( tile in layer.getTileStackAt(cx,cy) ) {
+			for( tile in layer.getTileStackAt(cx,cy) )
 				tileGroup.add(
 					cx*layer.gridSize + layer.pxTotalOffsetX,
 					cy*layer.gridSize + layer.pxTotalOffsetY,
 					layer.tileset.getTile(tile.tileId, tile.flipBits) // get h2d.Tile
 				);
-			}
 		}
+
 	}
 }
 
