@@ -47,17 +47,19 @@ class Tileset {
 		HEAPS API
 	***************************************************************************/
 
-	var atlasTile : Null<h2d.Tile>;
+	var _atlasTile : Null<h2d.Tile>;
 	/**
-		Decode atlas image from assets (method is called automatically but it could also be used manually to prevent an init lag)
+		Get atlas tile
 	**/
-	public function decodeAtlas() {
-		if( atlasTile!=null )
-			return true;
+	public function getAtlasTile() : Null<h2d.Tile> {
+		if( _atlasTile!=null )
+			return _atlasTile;
 		else {
 			var bytes = untypedProject.loadAsset(relPath);
-			atlasTile = dn.ImageDecoder.decodeTile(bytes);
-			return atlasTile!=null;
+			_atlasTile = dn.ImageDecoder.decodeTile(bytes);
+			if( _atlasTile==null )
+				_atlasTile = h2d.Tile.fromColor(0xff0000, pxWid, pxHei);
+			return _atlasTile;
 		}
 	}
 
@@ -70,20 +72,23 @@ class Tileset {
 		if( tileId<0 )
 			return null;
 		else {
-			if( !decodeAtlas() )
-				return h2d.Tile.fromColor(0xff0000, 8,8);
-			else {
-				var t = atlasTile.sub( getAtlasX(tileId), getAtlasY(tileId), tileGridSize, tileGridSize );
-				return switch flipBits {
-					case 0: t;
-					case 1: t.flipX(); t.setCenterRatio(0,0); t;
-					case 2: t.flipY(); t.setCenterRatio(0,0); t;
-					case 3: t.flipX(); t.flipY(); t.setCenterRatio(0,0); t;
-					case _: Project.error("Unsupported flipBits value"); null;
-				}
+			var atlas = getAtlasTile();
+			var t = atlas.sub( getAtlasX(tileId), getAtlasY(tileId), tileGridSize, tileGridSize );
+			return switch flipBits {
+				case 0: t;
+				case 1: t.flipX(); t.setCenterRatio(0,0); t;
+				case 2: t.flipY(); t.setCenterRatio(0,0); t;
+				case 3: t.flipX(); t.flipY(); t.setCenterRatio(0,0); t;
+				case _: Project.error("Unsupported flipBits value"); null;
 			}
 		}
 	}
+
+	@:deprecated("Use getTile() instead") @:noCompletion
+	public inline function getHeapsTile(oldAtlasTile:h2d.Tile, tileId:Int, flipBits:Int=0) {
+		return getTile(tileId, flipBits);
+	}
+
 
 	/**
 		Get a h2d.Tile from a Auto-Layer tile.
@@ -93,6 +98,11 @@ class Tileset {
 			return null;
 		else
 			return getTile(autoLayerTile.tileId, autoLayerTile.flips);
+	}
+
+	@:deprecated("Use getAutoLayerTile() instead") @:noCompletion
+	public inline function getAutoLayerHeapsTile(oldAtlasTile:h2d.Tile, autoLayerTile:ldtk.Layer_AutoLayer.AutoTile) {
+		return getAutoLayerTile(autoLayerTile);
 	}
 
 	#end
