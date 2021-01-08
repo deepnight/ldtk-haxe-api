@@ -30,33 +30,26 @@ class Layer_IntGrid_AutoLayer extends ldtk.Layer_IntGrid {
 
 
 
-	#if( !macro && heaps )
+	#if !macro
 
-	/**
-		Render layer using provided Tileset atlas tile
-	**/
-	public function render(tilesetAtlasTile:h2d.Tile, ?parent:h2d.Object) {
-		if( parent==null )
-			parent = new h2d.Object();
+		#if heaps
+		/**
+			Render layer to a `h2d.TileGroup`. If `target` isn't provided, a new h2d.TileGroup is created.
+		**/
+		public inline function render(?target:h2d.TileGroup) : h2d.TileGroup {
+			if( target==null )
+				target = new h2d.TileGroup( tileset.getAtlasTile() );
 
-		var tg = new h2d.TileGroup(tilesetAtlasTile, parent);
-		renderInTileGroup(tg,false);
+			for( autoTile in autoTiles )
+				target.add(
+					autoTile.renderX + pxTotalOffsetX,
+					autoTile.renderY + pxTotalOffsetY,
+					tileset.getAutoLayerTile(autoTile)
+				);
 
-		return parent;
-	}
-
-	public inline function renderInTileGroup(tg:h2d.TileGroup, clearContent:Bool) {
-		if( clearContent )
-			tg.clear();
-
-		for( autoTile in autoTiles ) {
-			tg.add(
-				autoTile.renderX + pxTotalOffsetX,
-				autoTile.renderY + pxTotalOffsetY,
-				tileset.getAutoLayerTile(autoTile)
-			);
+			return target;
 		}
-	}
+		#end
 
 	#end
 }
