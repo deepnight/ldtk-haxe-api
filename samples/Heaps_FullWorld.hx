@@ -1,11 +1,11 @@
 /**
 	This sample for Heaps.io engine demonstrates how to render all layers and all levels in the project world.
 **/
-class Heaps_World extends hxd.App {
+class Heaps_FullWorld extends hxd.App {
 
 	static function main() {
 		// Boot
-		new Heaps_World();
+		new Heaps_FullWorld();
 	}
 
 	override function init() {
