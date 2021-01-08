@@ -15,26 +15,23 @@ class Heaps_AutoLayer extends hxd.App {
 
 		// Init general stuff
 		hxd.Res.initEmbed();
-		s2d.setScale(3);
+		s2d.setScale( dn.heaps.Scaler.bestFit_i(256,256) ); // scale view to fit
 
 		// Read project JSON
 		var project = new _Project();
 
-		// Load atlas h2d.Tile from the Heaps resources (could be loaded in other ways)
-		var atlasTile = hxd.Res.Cavernas_by_Adam_Saltsman.toTile();
+		// Get "background" layer data
+		var layer = project.all_levels.West.l_Background;
 
-		// Layer data
-		var layer = project.all_levels.West.l_Collisions;
 
 		// Render method 1: let the render() method create the TileGroup object
 		var tileGroup = layer.render();
 		s2d.addChild(tileGroup);
 
 		// Render method 2: prepare your own TileGroup object and render into it
-		/**
-			var tg = new h2d.TileGroup(layer.tileset.getAtlasTile(), s2d);
-			layer.render(tg);
-		**/
+		var layer = project.all_levels.West.l_Collisions; // Get "collisions" layer data
+		var tg = new h2d.TileGroup(layer.tileset.getAtlasTile(), s2d);
+		layer.render(tg);
 	}
 }
 
