@@ -13,32 +13,28 @@ class Heaps_World extends hxd.App {
 
 		// Init general heaps stuff
 		hxd.Res.initEmbed();
-		s2d.setScale(3);
+		s2d.setScale( dn.heaps.Scaler.bestFit_i(650,256) ); // scale view to fit
 
 		// Read project JSON
 		var project = new _Project();
 
-		// Load atlas h2d.Tile from the Heaps resources (could be loaded in other ways)
-		var cavernasAtlasTile = hxd.Res.Cavernas_by_Adam_Saltsman.toTile();
-
-		// Create a single wrapper for all levels
-		var worldWrapper = new h2d.Object( s2d );
-		worldWrapper.scale(0.66); // scale it down so we can fit it on screen
-
+		// Render each level
 		for( level in project.levels ) {
-			// This wrapper will contain all layers
-			var levelWrapper = new h2d.Object( worldWrapper );
+			// Create a wrapper to render all layers in it
+			var levelWrapper = new h2d.Object( s2d );
+
+			// Position accordingly to world pixel coords
 			levelWrapper.x = level.worldX;
 			levelWrapper.y = level.worldY;
 
-			// Pure auto-layer (background walls)
-			level.l_Background.render(levelWrapper);
+			// Render background layer
+			levelWrapper.addChild( level.l_Background.render() );
 
-			// IntGrid Auto-layer (walls, ladders, etc.)
-			level.l_Collisions.render(cavernasAtlasTile, levelWrapper);
+			// Render collision layer tiles
+			levelWrapper.addChild( level.l_Collisions.render() );
 
-			// Tiles layer (manually added details)
-			// level.l_Custom_tiles.render(cavernasAtlasTile, levelWrapper);
+			// Render custom tiles layer
+			levelWrapper.addChild( level.l_Custom_tiles.render() );
 		}
 
 	}
