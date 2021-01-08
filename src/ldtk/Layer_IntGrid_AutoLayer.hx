@@ -28,7 +28,6 @@ class Layer_IntGrid_AutoLayer extends ldtk.Layer_IntGrid {
 			});
 	}
 
-	// function _getTileset() : Tileset return null; // replaced by Macros.hx
 
 
 	#if( !macro && heaps )
