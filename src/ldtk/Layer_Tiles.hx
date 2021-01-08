@@ -39,9 +39,6 @@ class Layer_Tiles extends ldtk.Layer {
 		return tiles.exists( getCoordId(cx,cy) );
 	}
 
-	function _getTileset() : Tileset return null; // replaced by Macros.hx
-
-
 
 	#if !macro
 
@@ -70,7 +67,7 @@ class Layer_Tiles extends ldtk.Layer {
 						tg.add(
 							cx*gridSize + pxTotalOffsetX,
 							cy*gridSize + pxTotalOffsetY,
-							_getTileset().getTile(tile.tileId, tile.flipBits)
+							tileset.getTile(tile.tileId, tile.flipBits)
 						);
 					}
 				}

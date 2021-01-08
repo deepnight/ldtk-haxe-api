@@ -52,8 +52,6 @@ class Layer_AutoLayer extends ldtk.Layer {
 			});
 	}
 
-	function _getTileset() : Tileset return null; // replaced by Macros.hx
-
 
 	#if( !macro && heaps )
 
@@ -64,7 +62,7 @@ class Layer_AutoLayer extends ldtk.Layer {
 		if( parent==null )
 			parent = new h2d.Object();
 
-		var tg = new h2d.TileGroup(_getTileset().getAtlasTile(), parent);
+		var tg = new h2d.TileGroup(tileset.getAtlasTile(), parent);
 		renderToTileGroup(tg,false);
 		return tg;
 	}
@@ -78,7 +76,7 @@ class Layer_AutoLayer extends ldtk.Layer {
 			tg.add(
 				autoTile.renderX + pxTotalOffsetX,
 				autoTile.renderY + pxTotalOffsetY,
-				_getTileset().getAutoLayerTile(autoTile)
+				tileset.getAutoLayerTile(autoTile)
 			);
 		}
 	}
