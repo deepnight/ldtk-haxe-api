@@ -34,7 +34,7 @@ class Layer_IntGrid_AutoLayer extends ldtk.Layer_IntGrid {
 
 		#if heaps
 		/**
-			Render layer to a `h2d.TileGroup`. If `target` isn't provided, a new h2d.TileGroup is created.
+			Render layer to a `h2d.TileGroup`. If `target` isn't provided, a new h2d.TileGroup is created. If `target` is provided, it **must** have the same tile source as the layer tileset!
 		**/
 		public inline function render(?target:h2d.TileGroup) : h2d.TileGroup {
 			if( target==null )
