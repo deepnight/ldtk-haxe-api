@@ -718,12 +718,23 @@ class TypeBuilder {
 							return cast l;
 					return null;
 				}
+
 				/**
 					Get a level using its UID
 				**/
 				public function getLevelUid(uid:Int) : Null<$levelComplexType> {
 					for(l in _untypedLevels)
 						if( l.uid==uid )
+							return cast l;
+					return null;
+				}
+
+				/**
+					Get a level using a world pixel coord
+				**/
+				public function getLevelAt(worldX:Int, worldY:Int) : Null<$levelComplexType> {
+					for(l in _untypedLevels)
+						if( worldX>=l.worldX && worldX<l.worldX+l.pxWid && worldY>=l.worldY && worldY<l.worldY+l.pxHei )
 							return cast l;
 					return null;
 				}

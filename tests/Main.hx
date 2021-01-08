@@ -71,6 +71,8 @@ class Main {
 			CiAssert.equals( project.levels[0].bgColor, 0x271E27 );
 			CiAssert.equals( project.levels[0].neighbours.length, 1 );
 			CiAssert.equals( project.levels[0].neighbours[0].dir, ldtk.Level.NeighbourDir.East );
+			CiAssert.equals( project.getLevelAt(10,10), project.all_levels.Main_tests );
+			CiAssert.equals( project.getLevelAt(600,400), project.all_levels.Offset_tests );
 
 			// Layer offsets
 			CiAssert.equals( project.all_levels.Offset_tests.l_IntGrid8.pxTotalOffsetX, 4 );
