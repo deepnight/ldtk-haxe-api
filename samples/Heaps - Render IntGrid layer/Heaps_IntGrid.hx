@@ -3,6 +3,8 @@
 	using Heaps API.
 **/
 
+import LdtkProject;
+
 class Heaps_IntGrid extends hxd.App {
 	static function main() {
 		// Boot
@@ -17,7 +19,7 @@ class Heaps_IntGrid extends hxd.App {
 		s2d.setScale( dn.heaps.Scaler.bestFit_i(256,256) ); // scale view to fit
 
 		// Read project JSON
-		var project = new _Project();
+		var project = new LdtkProject();
 
 		// Layer data
 		var layer = project.all_levels.West.l_Collisions;

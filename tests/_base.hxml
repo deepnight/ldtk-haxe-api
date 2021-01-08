@@ -1,10 +1,10 @@
 -cp tests
--cp samples
+-cp samples/_srcCommon
 -cp src
 
 -lib deepnightLibs
 -lib heaps
--D resourcesPath=samples/assets
+-D resourcesPath=samples/_assets
 
 # -D ldtk_times
 # -D dump=pretty

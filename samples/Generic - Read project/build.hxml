@@ -1,0 +1,24 @@
+
+# ReadProject (Javascript/WebGL)
+-cp .
+-cp ../_srcCommon
+-cp ../../src
+-lib heaps
+-lib deepnightLibs
+-D resourcesPath=../_assets
+--dce full
+-main ReadProject
+-js _javascript.js
+
+# ReadProject (Hashlink)
+--next
+-cp .
+-cp ../_srcCommon
+-cp ../../src
+-lib heaps
+-lib deepnightLibs
+-D resourcesPath=../_assets
+-lib hlsdl
+--dce full
+-main ReadProject
+-hl _hashlink.hl

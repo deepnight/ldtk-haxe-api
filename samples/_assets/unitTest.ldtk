@@ -764,12 +764,12 @@
 				{ "id": "Food", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Gold", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Key", "tileId": null, "__tileSrcRect": null }
-			], "iconTilesetUid": null, "externalRelPath": "../externEnums/GameEnums.hx", "externalFileChecksum": "942a6be546e6479708a2a4893024d042" },
+			], "iconTilesetUid": null, "externalRelPath": "../misc/ExternEnumTest.hx", "externalFileChecksum": "942a6be546e6479708a2a4893024d042" },
 			{ "identifier": "SomeEnum", "uid": 31, "values": [
 				{ "id": "Bar", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Foo", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Pouet", "tileId": null, "__tileSrcRect": null }
-			], "iconTilesetUid": null, "externalRelPath": "../externEnums/GameEnums.hx", "externalFileChecksum": "942a6be546e6479708a2a4893024d042" }
+			], "iconTilesetUid": null, "externalRelPath": "../misc/ExternEnumTest.hx", "externalFileChecksum": "942a6be546e6479708a2a4893024d042" }
 		]
 	},
 	"levels": [
@@ -784,20 +784,20 @@
 			"bgColor": "#271E27",
 			"externalRelPath": "unitTest/Main_tests.ldtkl",
 			"layerInstances": null,
-			"__neighbours": null
+			"__neighbours": [{ "levelUid": 88, "dir": "e" }]
 		},
 		{
 			"identifier": "Offset_tests",
 			"uid": 88,
 			"worldX": 512,
 			"worldY": 256,
-			"pxWid": 264,
-			"pxHei": 264,
+			"pxWid": 256,
+			"pxHei": 256,
 			"__bgColor": "#7F8093",
 			"bgColor": null,
 			"externalRelPath": "unitTest/Offset_tests.ldtkl",
 			"layerInstances": null,
-			"__neighbours": null
+			"__neighbours": [{ "levelUid": 0, "dir": "w" }]
 		}
 	]
 }

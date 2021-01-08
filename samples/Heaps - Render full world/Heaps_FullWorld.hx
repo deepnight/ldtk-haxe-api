@@ -1,6 +1,9 @@
 /**
 	This sample for Heaps.io engine demonstrates how to render all layers and all levels in the project world.
 **/
+
+import LdtkProject;
+
 class Heaps_FullWorld extends hxd.App {
 
 	static function main() {
@@ -16,7 +19,7 @@ class Heaps_FullWorld extends hxd.App {
 		s2d.setScale( dn.heaps.Scaler.bestFit_i(650,256) ); // scale view to fit
 
 		// Read project JSON
-		var project = new _Project();
+		var project = new LdtkProject();
 
 		// Render each level
 		for( level in project.levels ) {

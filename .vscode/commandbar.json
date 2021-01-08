@@ -30,7 +30,7 @@
 		{
 			"text": "Samples",
 			"color": "#ff8600",
-			"command": "cd samples  &&  cd builder  &&  haxe SamplesBuilder.hxml",
+			"command": "cd samples && cd _srcCommon && cd builder  &&  haxe SamplesBuilder.hxml",
 			"alignment": "right",
 			"skipTerminateQuickPick": false,
 			"priority": -21

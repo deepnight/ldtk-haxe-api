@@ -2,11 +2,14 @@
 	This sample for Heaps.io engine demonstrates how to render any layer using the
 	provided render() method.
 **/
-class Heaps_AllLayers extends hxd.App {
+
+import LdtkProject;
+
+class Heaps_TileLayers extends hxd.App {
 
 	static function main() {
 		// Boot
-		new Heaps_AllLayers();
+		new Heaps_TileLayers();
 	}
 
 	override function init() {
@@ -17,16 +20,18 @@ class Heaps_AllLayers extends hxd.App {
 		s2d.setScale( dn.heaps.Scaler.bestFit_i(256,256) ); // scale view to fit
 
 		// Read project JSON
-		var project = new _Project();
+		var project = new LdtkProject();
+
+		// Get level data
 		var level = project.all_levels.West;
 
-		// Pure auto-layer (background walls)
+		// Render "pure" auto-layer (ie. background walls)
 		s2d.addChild( level.l_Background.render() );
 
-		// IntGrid Auto-layer (walls, ladders, etc.)
+		// Render IntGrid Auto-layer tiles (ie. walls, ladders, etc.)
 		s2d.addChild( level.l_Collisions.render() );
 
-		// Tiles layer (manually added details)
+		// Render traditional Tiles layer (ie. manually added details)
 		s2d.addChild( level.l_Custom_tiles.render() );
 	}
 }

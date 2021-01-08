@@ -1,5 +1,3 @@
-package externEnums;
-
 /**
 	This enum file is imported in the LDtk project.
 	It demonstrates the ability for LDtk to use external Enums as entity field values.

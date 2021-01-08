@@ -1,5 +1,5 @@
 import dn.CiAssert;
-import externEnums.GameEnums;
+import ExternEnumTest;
 import ProjectNoPackage;
 
 class Main {
@@ -121,7 +121,7 @@ class Main {
 			CiAssert.isTrue( hero.f_startWeapon==LongBow );
 			CiAssert.isTrue( mob.f_type==Trash );
 			CiAssert.isTrue( mob.entityType==Mob );
-			CiAssert.isTrue( mob.f_lootDrop==externEnums.GameEnums.DroppedItemType.Gold );
+			CiAssert.isTrue( mob.f_lootDrop==ExternEnumTest.DroppedItemType.Gold );
 
 			// Arrays
 			CiAssert.isNotNull( test.f_ints );

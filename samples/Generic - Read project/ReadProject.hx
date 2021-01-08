@@ -2,11 +2,11 @@
 	This sample shows how to access some of the Project data using Haxe API.
 **/
 
-import externEnums.GameEnums;
+import ExternEnumTest;
 
-class SimpleDemo {
+class ReadProject {
 	static function main() {
-		var project = new _Project();
+		var project = new LdtkProject();
 
 		var myLevel = project.all_levels.West;
 
@@ -42,14 +42,25 @@ class SimpleDemo {
 
 
 
+	/**
+		Print some text
+	**/
 	#if js
 	static var _htmlLog : js.html.Element;
 	#end
+
 	static function print(msg:String) {
 		#if sys
+
 			Sys.println(msg);
+
 		#elseif js
+
 			if( _htmlLog==null ) {
+				// Hide HTML canvas
+				js.Browser.document.querySelector("canvas").remove();
+
+				// Create a PRE element to display text
 				_htmlLog = js.Browser.document.createPreElement();
 				js.Browser.document.body.appendChild(_htmlLog);
 				_htmlLog.style.marginLeft = "16px";
@@ -57,8 +68,11 @@ class SimpleDemo {
 			}
 			_htmlLog.append(msg+"\n");
 			js.html.Console.info(msg);
+
 		#else
+
 			trace(msg);
+
 		#end
 	}
 }

@@ -1,4 +1,5 @@
 .vscode/settings.json
 tests/bin
-samples/bin
 dump
+*.hl
+*.js
