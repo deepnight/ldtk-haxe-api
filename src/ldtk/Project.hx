@@ -37,14 +37,17 @@ class Project {
 	/** Full access to the JSON project definitions **/
 	public var defs : ldtk.Json.DefinitionsJson;
 
+	/** World layout enum **/
 	public var worldLayout : WorldLayout;
 
-	var assetCache : Map<String, haxe.io.Bytes>;
+	/** A map containing all Tilesets, indexed using their JSON  `uid` (integer unique ID) **/
+	public var tilesets : Map<Int, ldtk.Tileset>;
+
+	/** Internal asset cache to avoid reloading of previously loaded data. **/
+	var assetCache : Map<String, haxe.io.Bytes>; // TODO support hot reloading
 
 
-	public function new() {
-		assetCache = new Map();
-	}
+	public function new() {}
 
 	/**
 		Replace current project using another project-JSON data.
@@ -53,17 +56,29 @@ class Project {
 	**/
 	public function parseJson(jsonString:String) {
 		#if !macro
+
+		// Init
+		tilesets = new Map();
+		assetCache = new Map();
+
+		// Parse json
 		var json : Dynamic = haxe.Json.parse(jsonString);
 		bgColor_hex = json.bgColor;
 		bgColor_int = ldtk.Project.hexToInt(json.bgColor);
 
+		// Populate levels
 		_untypedLevels = [];
 		for(json in (cast json.levels : Array<Dynamic>))
 			_untypedLevels.push( _instanciateLevel(this, json) );
 
-		worldLayout = WorldLayout.createByName( Std.string(json.worldLayout) );
+		// Populate tilesets
+		for(tsJson in (cast json.defs.tilesets : Array<Dynamic>))
+			tilesets.set( tsJson.uid, new ldtk.Tileset(this, tsJson) );
 
+		// Init misc fields
+		worldLayout = WorldLayout.createByName( Std.string(json.worldLayout) );
 		defs = json.defs;
+
 		#end
 	}
 
