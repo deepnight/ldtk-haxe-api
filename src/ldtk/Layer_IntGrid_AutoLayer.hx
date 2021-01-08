@@ -2,15 +2,21 @@ package ldtk;
 
 class Layer_IntGrid_AutoLayer extends ldtk.Layer_IntGrid {
 	/**
-		A single array containing all AutoLayer tiles informations, in "render" order
+		A single array containing all AutoLayer tiles informations, in "render" order (ie. 1st is behind, last is on top)
 	**/
 	public var autoTiles : Array<ldtk.Layer_AutoLayer.AutoTile>;
+
+	/** Getter to layer Tileset instance **/
+	public var tileset(get,never) : ldtk.Tileset;
+		inline function get_tileset() return untypedProject.tilesets.get(tilesetUid);
+	var tilesetUid = -1; // defined in macro
 
 
 	public function new(p,json) {
 		super(p,json);
 
 		autoTiles = [];
+		tilesetUid = json.__tilesetDefUid;
 
 		for(jsonAutoTile in json.autoLayerTiles)
 			autoTiles.push({
@@ -21,7 +27,7 @@ class Layer_IntGrid_AutoLayer extends ldtk.Layer_IntGrid {
 			});
 	}
 
-	function _getTileset() : Tileset return null; // replaced by Macros.hx
+	// function _getTileset() : Tileset return null; // replaced by Macros.hx
 
 
 	#if( !macro && heaps )
@@ -47,7 +53,7 @@ class Layer_IntGrid_AutoLayer extends ldtk.Layer_IntGrid {
 			tg.add(
 				autoTile.renderX + pxTotalOffsetX,
 				autoTile.renderY + pxTotalOffsetY,
-				_getTileset().getAutoLayerTile(autoTile)
+				tileset.getAutoLayerTile(autoTile)
 			);
 		}
 	}

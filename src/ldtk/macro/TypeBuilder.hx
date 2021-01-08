@@ -435,9 +435,6 @@ class TypeBuilder {
 					else {
 						// Auto-layer IntGrid
 						var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_IntGrid_AutoLayer" }
-						var ts = l.autoTilesetDefUid!=null ? tilesets.get(l.autoTilesetDefUid) : null;
-						var tsComplexType = ts!=null ? Context.getType( ts.typeName ).toComplexType() : null;
-						var tsTypePath : TypePath = ts!=null ? { pack: modPack, name: ts.typeName } : null;
 
 						var layerType : TypeDefinition = {
 							pos : curPos,
@@ -449,27 +446,16 @@ class TypeBuilder {
 								override public function new(p,json) {
 									super(p,json);
 
+									// Store IntGrid values extra infos
 									for(v in $v{l.intGridValues} ) {
 										valueInfos.push({
 											identifier: v.identifier,
 											color: Std.parseInt( "0x"+v.color.substr(1) ),
 										});
 									}
-
-									tileset = ${ ts==null ? null : macro new $tsTypePath( p, cast $v{ts.json} ) }
 								}
-
-								override function _getTileset() return tileset;
 							}).fields,
 						}
-
-						// Auto-layer tileset class
-						layerType.fields.push({
-							name: "tileset",
-							access: [APublic],
-							kind: FVar( tsComplexType ),
-							pos: curPos,
-						});
 
 						registerTypeDefinitionModule(layerType, projectFilePath);
 					}
