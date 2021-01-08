@@ -119,10 +119,10 @@ class Tileset {
 
 
 	/***************************************************************************
-		OpenFL API
+		Flixel API
 	***************************************************************************/
 
-	#if( !macro && openfl )
+	#if( !macro && flixel )
 
 	var _tileFrames: Null< flixel.graphics.frames.FlxTileFrames >;
 
@@ -143,5 +143,5 @@ class Tileset {
 		return getTileFrames().getByIndex(tileId);
 	}
 
-	#end // End of OpenFL API
+	#end // End of Flixel API
 }

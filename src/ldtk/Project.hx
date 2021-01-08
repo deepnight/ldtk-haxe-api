@@ -93,6 +93,7 @@ class Project {
 		}
 	}
 
+
 	function loadAssetBytes(relativeFilePath:String) : haxe.io.Bytes {
 		#if macro
 
