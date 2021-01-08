@@ -1,14 +1,11 @@
 package ldtk;
 
 /**
-	A LDtk Project can be imported by creating a single HX containing:
+	LDtk Project JSON importer for Haxe
 
-	private typedef _Tmp = haxe.macro.MacroType<[
-		ldtk.Project.build("path/to/myLedProject.ldtk")
-	]>;
-
-	See documentation here: https://deepnight.net/tools/ldtk-2d-level-editor/
+	See documentation here: https://ldtk.io/docs
 **/
+
 
 #if macro
 import haxe.macro.Context;
@@ -19,7 +16,28 @@ using haxe.macro.Tools;
 
 import ldtk.Json;
 
+
 class Project {
+
+	/**
+		Create a HX file for each LDtk project JSON. The filename isn’t important, pick whatever you like.
+		This HX will host all the the typed data extracted from the project file:
+
+		```
+		private typedef _Tmp =
+			haxe.macro.MacroType<[ ldtk.Project.build("path/to/myProject.ldtk") ]>;
+		```
+	**/
+	public static function build(projectFilePath:String) {
+		#if !macro
+			error("Should only be used in macros");
+		#else
+			return ldtk.macro.TypeBuilder.buildTypes(projectFilePath);
+		#end
+	}
+
+
+
 	/** Contains the full path to the project JSON, as provided to the macro (using slashes) **/
 	public var projectFilePath : String;
 
@@ -47,7 +65,7 @@ class Project {
 	var assetCache : Map<String, haxe.io.Bytes>; // TODO support hot reloading
 
 
-	public function new() {}
+	function new() {}
 
 	/**
 		Replace current project using another project-JSON data.
@@ -83,27 +101,30 @@ class Project {
 	}
 
 
-	public function getAsset(relativeFilePath:String) : haxe.io.Bytes {
-		if( assetCache.exists(relativeFilePath) )
-			return assetCache.get(relativeFilePath);
+	/**
+		Get an asset from current Asset management system. The path should be **relative to the project JSON file**.
+	**/
+	public function getAsset(projectRelativePath:String) : haxe.io.Bytes {
+		if( assetCache.exists(projectRelativePath) )
+			return assetCache.get(projectRelativePath);
 		else {
-			var bytes = loadAssetBytes(relativeFilePath);
-			assetCache.set(relativeFilePath, bytes);
+			var bytes = loadAssetBytes(projectRelativePath);
+			assetCache.set(projectRelativePath, bytes);
 			return bytes;
 		}
 	}
 
 
-	function loadAssetBytes(relativeFilePath:String) : haxe.io.Bytes {
-		#if macro
+	#if !macro
+	/**
+		Try to resolve the Project file location in the current Asset management system
+	**/
+	function makeAssetRelativePath(projectRelativePath:String) {
+		// Get project file name
+		var p = StringTools.replace(projectFilePath, "\\", "/");
+		var projectFileName = p.lastIndexOf("/")<0 ? p : p.substr( p.lastIndexOf("/")+1 );
 
-			return null;
-
-		#elseif heaps
-
-			// Get project file name
-			var p = StringTools.replace(projectFilePath, "\\", "/");
-			var projectFileName = p.lastIndexOf("/")<0 ? p : p.substr( p.lastIndexOf("/")+1 );
+		#if heaps
 
 			// Browser all folders in Heaps res/ folder recursively to locate Project file
 			var pendingDirs = [
@@ -117,51 +138,68 @@ class Project {
 						pendingDirs.push(f);
 					}
 					else if( f.name==projectFileName ) {
-						// Found it: resolve relative path to find the requested file.
-						var resPath = ( f.directory.length==0 ? "" : f.directory+"/" ) + relativeFilePath;
-						if( !hxd.Res.loader.exists(resPath) )
-							error('Asset not found in Heaps res/ folder: $relativeFilePath');
-
-						var res = hxd.Res.load(resPath);
-						return res.entry.getBytes();
+						// Found it
+						return ( f.directory.length==0 ? "" : f.directory+"/" ) + projectRelativePath;
 					}
 				}
 			}
 			error('Project file is in Heaps res/ folder!');
-			return null;
+			return "";
 
 		#elseif openfl
 
-			// WARNING: binary assets can't be read synchronously using this method on HTML5!
-
-			// Get project file name
-			var p = StringTools.replace(projectFilePath, "\\", "/");
-			var projectFileName = p.lastIndexOf("/")<0 ? p : p.substr( p.lastIndexOf("/")+1 );
-
 			// Browse openFL assets to locate project file
-			for( e in openfl.Assets.list() ) {
+			for( e in openfl.Assets.list() )
 				if( e.indexOf(projectFileName)>=0 ) {
-					// Found it: resolve relative path to find the requested file.
+					// Found it
 					var baseDir = e.indexOf("/")<0 ? "" : e.substr( 0, e.lastIndexOf("/") );
-					var resPath = baseDir + "/" + relativeFilePath;
-					var bytes : haxe.io.Bytes = try openfl.Assets.getBytes(resPath) catch(e:Dynamic) {
-						error('OpenFL asset not found or could not be accessed synchronously: $resPath ; error=$e');
-						null;
-					}
-
-					return bytes;
+					return baseDir + "/" + projectRelativePath;
 				}
-			}
-			error('Project file is not part of OpenFL assets!');
-			return null;
 
-		// #elseif sys
-
-			// TODO support asset loading on "sys" platform
+			error('Project file is not in OpenFL assets!');
+			return "";
 
 		#else
 
-			error("Asset loading is not supported on this Haxe target or framework. You should rebind the project.loadAsset() method to use your framework asset loading system.");
+			error("Project asset loading is not supported on this Haxe target or framework.");
+			return "";
+
+		#end
+	}
+	#end
+
+
+	/**
+		Load an Asset as haxe.io.Bytes
+	**/
+	function loadAssetBytes(projectRelativePath:String) : haxe.io.Bytes {
+		#if macro
+
+			return null;
+
+		#elseif heaps
+
+			var resPath = makeAssetRelativePath(projectRelativePath);
+			if( !hxd.Res.loader.exists(resPath) )
+				error('Asset not found in Heaps res/ folder: $projectRelativePath');
+
+			var res = hxd.Res.load(resPath);
+			return res.entry.getBytes();
+
+		#elseif openfl
+
+			var assetId = makeAssetRelativePath(projectRelativePath);
+			var bytes : haxe.io.Bytes = try openfl.Assets.getBytes(assetId) catch(e:Dynamic) {
+				error('OpenFL asset not found or could not be accessed synchronously: $assetId ; error=$e');
+				null;
+			}
+			return bytes;
+
+
+		#else
+
+			// TODO support asset loading on "sys" platform
+			error("Project asset loading is not supported on this Haxe target or framework.");
 			return null;
 
 		#end
@@ -169,39 +207,33 @@ class Project {
 
 
 	#if( !macro && flixel )
-	/** Get an asset FlxGraphic **/
-	public function getFlxGraphicAsset(relativeFilePath:String) : flixel.graphics.FlxGraphic {
-		// Get project file name
-		var p = StringTools.replace(projectFilePath, "\\", "/");
-		var projectFileName = p.lastIndexOf("/")<0 ? p : p.substr( p.lastIndexOf("/")+1 );
-
-		// Browse openFL assets to locate project file
-		for( e in openfl.Assets.list() ) {
-			if( e.indexOf(projectFileName)>=0 ) {
-				// Found it: resolve relative path to find the requested asset
-				var baseDir = e.indexOf("/")<0 ? "" : e.substr( 0, e.lastIndexOf("/") );
-				var id = baseDir + "/" + relativeFilePath;
-				var g = try flixel.graphics.FlxGraphic.fromAssetKey(id)
-					catch(e:Dynamic) {
-						error('FlxGraphic not found in assets: $id ; error=$e');
-						null;
-					}
-				return g;
+	/**
+		Get an asset image as FlxGraphic
+	**/
+	public function getFlxGraphicAsset(projectRelativePath:String) : flixel.graphics.FlxGraphic {
+		var assetId = makeAssetRelativePath(projectRelativePath);
+		var g = try flixel.graphics.FlxGraphic.fromAssetKey(assetId)
+			catch(e:Dynamic) {
+				error('FlxGraphic not found in assets: $assetId ; error=$e');
+				null;
 			}
-		}
-		error('Project file is not part of OpenFL assets!');
-		return null;
+		return g;
 	}
 	#end
 
 
+	/**
+		Crash with an error message
+	**/
 	public static function error(str:String) {
 		throw '[ldtk-api] $str';
 	}
 
+
 	function _instanciateLevel(project:ldtk.Project, json:ldtk.Json.LevelJson) {
 		return null; // overriden by Macros.hx
 	}
+
 
 	function searchDef<T:{uid:Int, identifier:String}>(arr:Array<T>, ?uid:Int, ?identifier:String) {
 		if( uid==null && identifier==null )
@@ -214,18 +246,30 @@ class Project {
 		return null;
 	}
 
+	/**
+		Get a Layer definition using either its uid (Int) or identifier (String)
+	**/
 	public inline function getLayerDef(?uid:Int, ?identifier:String) : Null<ldtk.Json.LayerDefJson> {
 		return searchDef( defs.layers, uid, identifier );
 	}
 
+	/**
+		Get an Entity definition using either its uid (Int) or identifier (String)
+	**/
 	public inline function getEntityDef(?uid:Int, ?identifier:String) : Null<ldtk.Json.EntityDefJson> {
 		return searchDef( defs.entities, uid, identifier );
 	}
 
+	/**
+		Get a Tileset definition using either its uid (Int) or identifier (String)
+	**/
 	public inline function getTilesetDef(?uid:Int, ?identifier:String) : Null<ldtk.Json.TilesetDefJson> {
 		return searchDef( defs.tilesets, uid, identifier );
 	}
 
+	/**
+		Get an Enum definition using either its uid (Int) or identifier (String)
+	**/
 	public inline function getEnumDef(?uid:Int, ?identifier:String) : Null<ldtk.Json.EnumDefJson> {
 		var e = searchDef( defs.enums, uid, identifier );
 		if( e!=null )
@@ -234,6 +278,9 @@ class Project {
 			return searchDef( defs.externalEnums, uid, identifier );
 	}
 
+	/**
+		Get an Enum definition using an Enum value
+	**/
 	public function getEnumDefFromValue(v:EnumValue) : Null<ldtk.Json.EnumDefJson> {
 		try {
 			var name = Type.getEnum(v).getName();
@@ -276,14 +323,5 @@ class Project {
 		while( h.length<leadingZeros )
 			h="0"+h;
 		return "#"+h;
-	}
-
-
-	public static function build(projectFilePath:String) {
-		#if !macro
-		error("Should only be used in macros");
-		#else
-		return ldtk.macro.TypeBuilder.buildTypes(projectFilePath);
-		#end
 	}
 }
