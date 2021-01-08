@@ -14,6 +14,10 @@ This is the Haxe API to load **LDtk Project JSON** files.
 
 ## Features
 
+ - Compatible with all Haxe based frameworks and engines.
+ - Dedicated API for the following frameworks:
+   - Heaps.io
+   - [HaxeFlixel](https://haxeflixel.com/)
  - **Completely typed at compilation**: if you rename any element in your project (ie. level, layer, entity, etc.), the corresponding references in your code will break accordingly, avoiding typical errors or mistypings.
  - **Full completion in VScode**: if you have vs-haxe installed, you will get full completion while exploring your project file, based on its actual content, right from VScode.
 
