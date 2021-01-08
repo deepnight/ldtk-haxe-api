@@ -14,7 +14,7 @@ class Heaps_IntGrid extends hxd.App {
 
 		// Init general stuff
 		hxd.Res.initEmbed();
-		s2d.setScale(3);
+		s2d.setScale( dn.heaps.Scaler.bestFit_i(256,256) ); // scale view to fit
 
 		// Read project JSON
 		var project = new _Project();

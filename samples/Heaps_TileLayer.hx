@@ -18,7 +18,7 @@ class Heaps_TileLayer extends hxd.App {
 
 		// Init general stuff
 		hxd.Res.initEmbed();
-		s2d.setScale(3);
+		s2d.setScale( dn.heaps.Scaler.bestFit_i(256,256) ); // scale view to fit
 
 		// Read project JSON
 		var project = new _Project();
@@ -26,7 +26,7 @@ class Heaps_TileLayer extends hxd.App {
 
 		// Render auto-layers for reference in the background
 		var bg = new h2d.Object(s2d);
-		// level.l_Background.render(bg); // TODO
+		bg.addChild( level.l_Background.render() );
 		bg.addChild( level.l_Collisions.render() );
 		bg.filter = new h2d.filter.Blur(8,1,2);
 		bg.alpha = 0.5;
