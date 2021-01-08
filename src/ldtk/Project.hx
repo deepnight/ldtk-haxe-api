@@ -104,7 +104,7 @@ class Project {
 			var p = StringTools.replace(projectFilePath, "\\", "/");
 			var projectFileName = p.lastIndexOf("/")<0 ? p : p.substr( p.lastIndexOf("/")+1 );
 
-			// Explore all folders in Heaps res/ folder recursively, to locate Project file
+			// Browser all folders in Heaps res/ folder recursively to locate Project file
 			var pendingDirs = [
 				hxd.Res.loader.fs.getRoot()
 			];
@@ -131,19 +131,23 @@ class Project {
 
 		#elseif openfl
 
+			// WARNING: binary assets can't be read synchronously using this method on HTML5!
+
 			// Get project file name
 			var p = StringTools.replace(projectFilePath, "\\", "/");
 			var projectFileName = p.lastIndexOf("/")<0 ? p : p.substr( p.lastIndexOf("/")+1 );
 
-			// Browse openFL assets for project file
+			// Browse openFL assets to locate project file
 			for( e in openfl.Assets.list() ) {
 				if( e.indexOf(projectFileName)>=0 ) {
 					// Found it: resolve relative path to find the requested file.
 					var baseDir = e.indexOf("/")<0 ? "" : e.substr( 0, e.lastIndexOf("/") );
 					var resPath = baseDir + "/" + relativeFilePath;
-					var bytes : haxe.io.Bytes = try openfl.Assets.getBytes(resPath) catch(e:Dynamic) null;
-					if( bytes==null )
-						error('OpenFL asset not found: $resPath');
+					var bytes : haxe.io.Bytes = try openfl.Assets.getBytes(resPath) catch(e:Dynamic) {
+						error('OpenFL asset not found or could not be accessed synchronously: $resPath ; error=$e');
+						null;
+					}
+
 					return bytes;
 				}
 			}
@@ -161,6 +165,34 @@ class Project {
 
 		#end
 	}
+
+
+	#if( !macro && openfl )
+	/** Get an asset BitmapData using synchronous FlxAssets **/
+	public function getOpenflBitmapDataAsset(relativeFilePath:String) : openfl.display.BitmapData {
+		// Get project file name
+		var p = StringTools.replace(projectFilePath, "\\", "/");
+		var projectFileName = p.lastIndexOf("/")<0 ? p : p.substr( p.lastIndexOf("/")+1 );
+
+		// Browse openFL assets to locate project file
+		for( e in openfl.Assets.list() ) {
+			if( e.indexOf(projectFileName)>=0 ) {
+				// Found it: resolve relative path to find the requested asset
+				var baseDir = e.indexOf("/")<0 ? "" : e.substr( 0, e.lastIndexOf("/") );
+				var id = baseDir + "/" + relativeFilePath;
+				var bd = try flixel.system.FlxAssets.getBitmapData(id)
+					catch(e:Dynamic) {
+						error('Flixel BitmapData not found: $id ; error=$e');
+						null;
+					}
+				return bd;
+			}
+		}
+		error('Project file is not part of OpenFL assets!');
+		return null;
+	}
+	#end
+
 
 	public static function error(str:String) {
 		throw '[ldtk-api] $str';
