@@ -29,7 +29,7 @@ class Heaps_TileLayer extends hxd.App {
 
 		// Render auto-layers for reference in the background
 		var bg = new h2d.Object(s2d);
-		level.l_Background.render(tilesetAtlasTile, bg);
+		level.l_Background.render(bg);
 		level.l_Collisions.render(tilesetAtlasTile, bg);
 		bg.filter = new h2d.filter.Blur(4,1,2);
 		bg.alpha = 0.66;

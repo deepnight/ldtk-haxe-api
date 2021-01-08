@@ -29,7 +29,7 @@ class Heaps_AutoLayer extends hxd.App {
 		// Get all the generated auto-layer tiles in this layer
 		for( autoTile in layer.autoTiles ) {
 			// Get corresponding H2D.Tile from tileset
-			var tile = layer.tileset.getAutoLayerHeapsTile(atlasTile, autoTile);
+			var tile = layer.tileset.getAutoLayerTile(autoTile);
 
 			// Display it
 			var bitmap = new h2d.Bitmap(tile, s2d);
