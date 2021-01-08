@@ -11,6 +11,7 @@ class Tileset {
 	public var relPath : String;
 
 	public var tileGridSize : Int;
+	// TODO support tile spacing
 	var pxWid : Int;
 	var pxHei : Int;
 	var cWid(get,never) : Int; inline function get_cWid() return Math.ceil(pxWid/tileGridSize);
