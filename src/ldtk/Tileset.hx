@@ -124,13 +124,23 @@ class Tileset {
 
 	#if( !macro && openfl )
 
-	var _graphicCache : Null<flixel.graphics.FlxGraphic>;
+	var _tileFrames: Null< flixel.graphics.frames.FlxTileFrames >;
 
 	/** Get the main tileset BitmapData **/
-	public function loadAtlasGraphic() : flixel.graphics.FlxGraphic {
-		if( _graphicCache==null )
-			_graphicCache = untypedProject.getFlxGraphicAsset(relPath);
-		return _graphicCache;
+	public inline function getTileFrames() : flixel.graphics.frames.FlxTileFrames {
+		if( _tileFrames==null ) {
+			var bd = untypedProject.getFlxGraphicAsset(relPath);
+			_tileFrames = flixel.graphics.frames.FlxTileFrames.fromBitmapAddSpacesAndBorders(
+				bd,
+				flixel.math.FlxPoint.weak( tileGridSize, tileGridSize )
+			);
+		}
+		return _tileFrames;
+	}
+
+	/** Get a frame using its ID **/
+	public inline function getFrame(tileId:Int) : flixel.graphics.frames.FlxFrame {
+		return getTileFrames().getByIndex(tileId);
 	}
 
 	#end // End of OpenFL API
