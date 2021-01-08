@@ -4,13 +4,13 @@ import ProjectNoPackage;
 
 class Main {
 	static function main() {
-		print("Running tests...");
-
+		// Init
 		#if hl
 			hxd.Res.initLocal();
 		#else
 			hxd.Res.initEmbed();
 		#end
+		// CiAssert.VERBOSE = true;
 
 		// Run tests
 		var project = new ProjectNoPackage();
@@ -250,15 +250,17 @@ class Main {
 	}
 
 	static inline function section(v:String) {
-		print("");
-		print(v);
+		if( CiAssert.VERBOSE ) {
+			print("");
+			print(v);
+		}
 	}
 
 	static function print(v:Dynamic) {
 		#if js
-		js.html.Console.log( Std.string(v) );
+			js.html.Console.log( Std.string(v) );
 		#else
-		Sys.println( Std.string(v) );
+			Sys.println( Std.string(v) );
 		#end
 	}
 }
