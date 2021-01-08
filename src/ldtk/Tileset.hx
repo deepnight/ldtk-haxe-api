@@ -124,13 +124,13 @@ class Tileset {
 
 	#if( !macro && openfl )
 
-	var _bdCache : Null<openfl.display.BitmapData>;
+	var _graphicCache : Null<flixel.graphics.FlxGraphic>;
 
 	/** Get the main tileset BitmapData **/
-	public function loadAtlasBitmapData() : openfl.display.BitmapData {
-		if( _bdCache==null )
-			_bdCache = untypedProject.getOpenflBitmapDataAsset(relPath);
-		return _bdCache;
+	public function loadAtlasGraphic() : flixel.graphics.FlxGraphic {
+		if( _graphicCache==null )
+			_graphicCache = untypedProject.getFlxGraphicAsset(relPath);
+		return _graphicCache;
 	}
 
 	#end // End of OpenFL API

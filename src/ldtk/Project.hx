@@ -168,8 +168,8 @@ class Project {
 
 
 	#if( !macro && openfl )
-	/** Get an asset BitmapData using synchronous FlxAssets **/
-	public function getOpenflBitmapDataAsset(relativeFilePath:String) : openfl.display.BitmapData {
+	/** Get an asset FlxGraphic **/
+	public function getFlxGraphicAsset(relativeFilePath:String) : flixel.graphics.FlxGraphic {
 		// Get project file name
 		var p = StringTools.replace(projectFilePath, "\\", "/");
 		var projectFileName = p.lastIndexOf("/")<0 ? p : p.substr( p.lastIndexOf("/")+1 );
@@ -180,12 +180,12 @@ class Project {
 				// Found it: resolve relative path to find the requested asset
 				var baseDir = e.indexOf("/")<0 ? "" : e.substr( 0, e.lastIndexOf("/") );
 				var id = baseDir + "/" + relativeFilePath;
-				var bd = try flixel.system.FlxAssets.getBitmapData(id)
+				var g = try flixel.graphics.FlxGraphic.fromAssetKey(id)
 					catch(e:Dynamic) {
-						error('Flixel BitmapData not found: $id ; error=$e');
+						error('FlxGraphic not found in assets: $id ; error=$e');
 						null;
 					}
-				return bd;
+				return g;
 			}
 		}
 		error('Project file is not part of OpenFL assets!');
