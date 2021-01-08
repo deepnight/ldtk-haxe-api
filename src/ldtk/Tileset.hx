@@ -58,19 +58,18 @@ class Tileset {
 		HEAPS API
 	***************************************************************************/
 
-	var _atlasTile : Null<h2d.Tile>;
-	/**
-		Get the main tileset h2d.Tile
-	**/
-	public function getAtlasTile() : Null<h2d.Tile> {
-		if( _atlasTile!=null )
-			return _atlasTile;
+	var _cachedAtlasTile : Null<h2d.Tile>;
+
+	/** Get the main tileset h2d.Tile **/
+	public inline function getAtlasTile() : Null<h2d.Tile> {
+		if( _cachedAtlasTile!=null )
+			return _cachedAtlasTile;
 		else {
 			var bytes = untypedProject.getAsset(relPath);
-			_atlasTile = dn.ImageDecoder.decodeTile(bytes);
-			if( _atlasTile==null )
-				_atlasTile = h2d.Tile.fromColor(0xff0000, pxWid, pxHei);
-			return _atlasTile;
+			_cachedAtlasTile = dn.ImageDecoder.decodeTile(bytes);
+			if( _cachedAtlasTile==null )
+				_cachedAtlasTile = h2d.Tile.fromColor(0xff0000, pxWid, pxHei);
+			return _cachedAtlasTile;
 		}
 	}
 
@@ -101,9 +100,7 @@ class Tileset {
 	}
 
 
-	/**
-		Get a h2d.Tile from a Auto-Layer tile.
-	**/
+	/** Get a h2d.Tile from a Auto-Layer tile. **/
 	public inline function getAutoLayerTile(autoLayerTile:ldtk.Layer_AutoLayer.AutoTile) : Null<h2d.Tile> {
 		if( autoLayerTile.tileId<0 )
 			return null;
