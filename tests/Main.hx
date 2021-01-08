@@ -22,7 +22,7 @@ class Main {
 			CiAssert.isNotNull( project );
 
 			// Project asset loader
-			CiAssert.isNotNull( project.loadAsset("unitTest.ldtk") );
+			CiAssert.isNotNull( project.getAsset("unitTest.ldtk") );
 
 			// Project defs
 			CiAssert.isNotNull( project.defs );

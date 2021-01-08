@@ -82,7 +82,7 @@ class Level {
 			return true;
 
 
-		var bytes = untypedProject.loadAsset(externalRelPath);
+		var bytes = untypedProject.getAsset(externalRelPath);
 		try {
 			var raw = bytes.toString();
 			var json : ldtk.Json.LevelJson = haxe.Json.parse(raw);

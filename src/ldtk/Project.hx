@@ -83,17 +83,17 @@ class Project {
 	}
 
 
-	public function loadAsset(relativeFilePath:String) : haxe.io.Bytes {
+	public function getAsset(relativeFilePath:String) : haxe.io.Bytes {
 		if( assetCache.exists(relativeFilePath) )
 			return assetCache.get(relativeFilePath);
 		else {
-			var bytes = _loadAsset(relativeFilePath);
+			var bytes = loadAssetBytes(relativeFilePath);
 			assetCache.set(relativeFilePath, bytes);
 			return bytes;
 		}
 	}
 
-	function _loadAsset(relativeFilePath:String) : haxe.io.Bytes {
+	function loadAssetBytes(relativeFilePath:String) : haxe.io.Bytes {
 		#if macro
 
 			return null;

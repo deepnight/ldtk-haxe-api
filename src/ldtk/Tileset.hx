@@ -61,7 +61,7 @@ class Tileset {
 		if( _atlasTile!=null )
 			return _atlasTile;
 		else {
-			var bytes = untypedProject.loadAsset(relPath);
+			var bytes = untypedProject.getAsset(relPath);
 			_atlasTile = dn.ImageDecoder.decodeTile(bytes);
 			if( _atlasTile==null )
 				_atlasTile = h2d.Tile.fromColor(0xff0000, pxWid, pxHei);
