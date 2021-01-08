@@ -31,9 +31,13 @@ class Level {
 		fromJson(json);
 	}
 
-	/**
-		Parse level JSON
-	**/
+	/** Print class debug info **/
+	@:keep public function toString() {
+		return 'ldtk.Level[#$identifier, ${pxWid}x$pxHei]';
+	}
+
+
+	/** Parse level JSON **/
 	function fromJson(json:ldtk.Json.LevelJson) {
 		uid = json.uid;
 		identifier = json.identifier;
