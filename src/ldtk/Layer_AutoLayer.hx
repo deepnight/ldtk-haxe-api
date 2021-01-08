@@ -31,10 +31,17 @@ class Layer_AutoLayer extends ldtk.Layer {
 	public var autoTiles : Array<AutoTile>;
 
 
+	/** Getter to layer Tileset instance **/
+	public var tileset(get,never) : ldtk.Tileset;
+		inline function get_tileset() return untypedProject.tilesets.get(tilesetUid);
+	var tilesetUid : Int;
+
+
 	public function new(p,json) {
 		super(p,json);
 
 		autoTiles = [];
+		tilesetUid = json.__tilesetDefUid;
 
 		for(jsonAutoTile in json.autoLayerTiles)
 			autoTiles.push({
