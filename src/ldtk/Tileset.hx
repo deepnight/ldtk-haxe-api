@@ -25,6 +25,11 @@ class Tileset {
 		pxHei = json.pxHei;
 	}
 
+	/** Print class debug info **/
+	@:keep public function toString() {
+		return 'ldtk.Tileset[#$identifier, path=$relPath]';
+	}
+
 
 	/**
 		Get X pixel coordinate (in atlas image) from a specified tile ID

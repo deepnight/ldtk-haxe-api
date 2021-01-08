@@ -51,6 +51,11 @@ class Layer {
 		opacity = json.__opacity;
 	}
 
+	/** Print class debug info **/
+	@:keep public function toString() {
+		return 'ldtk.Layer[#$identifier, type=$type]';
+	}
+
 
 	/**
 		Return TRUE if grid-based coordinates are within layer bounds.
