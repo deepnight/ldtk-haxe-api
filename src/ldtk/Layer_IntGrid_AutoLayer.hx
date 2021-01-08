@@ -6,10 +6,11 @@ class Layer_IntGrid_AutoLayer extends ldtk.Layer_IntGrid {
 	**/
 	public var autoTiles : Array<ldtk.Layer_AutoLayer.AutoTile>;
 
+
 	/** Getter to layer Tileset instance **/
 	public var tileset(get,never) : ldtk.Tileset;
 		inline function get_tileset() return untypedProject.tilesets.get(tilesetUid);
-	var tilesetUid = -1; // defined in macro
+	var tilesetUid : Int;
 
 
 	public function new(p,json) {
