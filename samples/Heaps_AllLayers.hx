@@ -14,23 +14,20 @@ class Heaps_AllLayers extends hxd.App {
 
 		// Init general heaps stuff
 		hxd.Res.initEmbed();
-		s2d.setScale(3);
+		s2d.setScale( dn.heaps.Scaler.bestFit_i(256,256) ); // scale view to fit
 
 		// Read project JSON
 		var project = new _Project();
 		var level = project.all_levels.West;
 
-		// Load atlas h2d.Tile from the Heaps resources (could be loaded in other ways)
-		var cavernasAtlasTile = hxd.Res.Cavernas_by_Adam_Saltsman.toTile();
-
 		// Pure auto-layer (background walls)
-		level.l_Background.render(s2d);
+		s2d.addChild( level.l_Background.render() );
 
 		// IntGrid Auto-layer (walls, ladders, etc.)
-		level.l_Collisions.render(cavernasAtlasTile, s2d);
+		s2d.addChild( level.l_Collisions.render() );
 
 		// Tiles layer (manually added details)
-		level.l_Custom_tiles.render(cavernasAtlasTile, s2d);
+		s2d.addChild( level.l_Custom_tiles.render() );
 	}
 }
 
