@@ -55,7 +55,7 @@ class Tileset {
 
 	var _atlasTile : Null<h2d.Tile>;
 	/**
-		Get atlas tile
+		Get the main tileset h2d.Tile
 	**/
 	public function getAtlasTile() : Null<h2d.Tile> {
 		if( _atlasTile!=null )
