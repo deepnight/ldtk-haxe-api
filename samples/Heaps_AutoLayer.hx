@@ -26,16 +26,15 @@ class Heaps_AutoLayer extends hxd.App {
 		// Layer data
 		var layer = project.all_levels.West.l_Collisions;
 
-		// Get all the generated auto-layer tiles in this layer
-		for( autoTile in layer.autoTiles ) {
-			// Get corresponding H2D.Tile from tileset
-			var tile = layer.tileset.getAutoLayerTile(autoTile);
+		// Render method 1: let the render() method create the TileGroup object
+		var tileGroup = layer.render();
+		s2d.addChild(tileGroup);
 
-			// Display it
-			var bitmap = new h2d.Bitmap(tile, s2d);
-			bitmap.x = autoTile.renderX; // we use the auto-generated coords directly, because it's easier :)
-			bitmap.y = autoTile.renderY;
-		}
+		// Render method 2: prepare your own TileGroup object and render into it
+		/**
+			var tg = new h2d.TileGroup(layer.tileset.getAtlasTile(), s2d);
+			layer.render(tg);
+		**/
 	}
 }
 
