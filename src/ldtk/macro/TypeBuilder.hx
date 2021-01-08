@@ -712,7 +712,7 @@ class TypeBuilder {
 				/**
 					Get a level using its identifier
 				**/
-				public function resolveLevelIdentfier(id:String) : Null<$levelComplexType> {
+				public function getLevelIdentifier(id:String) : Null<$levelComplexType> {
 					for(l in _untypedLevels)
 						if( l.identifier==id )
 							return cast l;
@@ -721,7 +721,7 @@ class TypeBuilder {
 				/**
 					Get a level using its UID
 				**/
-				public function resolveLevelUid(uid:Int) : Null<$levelComplexType> {
+				public function getLevelUid(uid:Int) : Null<$levelComplexType> {
 					for(l in _untypedLevels)
 						if( l.uid==uid )
 							return cast l;

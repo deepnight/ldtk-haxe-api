@@ -42,7 +42,7 @@ class Layer {
 		identifier = json.__identifier;
 		type =
 			try LayerType.createByName(json.__type)
-			catch(e:Dynamic) null; // TODO
+			catch(e:Dynamic) throw 'Unknown layer type ${json.__type} in $identifier';
 		gridSize = json.__gridSize;
 		cWid = json.__cWid;
 		cHei = json.__cHei;

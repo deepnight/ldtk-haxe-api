@@ -150,6 +150,10 @@ class Project {
 			error('Project file is not part of OpenFL assets!');
 			return null;
 
+		// #elseif sys
+
+			// TODO support asset loading on "sys" platform
+
 		#else
 
 			error("Asset loading is not supported on this Haxe target or framework. You should rebind the project.loadAsset() method to use your framework asset loading system.");
