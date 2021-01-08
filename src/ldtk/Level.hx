@@ -26,8 +26,6 @@ class Level {
 
 	public function new(project:ldtk.Project, json:ldtk.Json.LevelJson) {
 		this.untypedProject = project;
-		neighbours = [];
-		allUntypedLayers = [];
 		fromJson(json);
 	}
 
@@ -39,6 +37,9 @@ class Level {
 
 	/** Parse level JSON **/
 	function fromJson(json:ldtk.Json.LevelJson) {
+		neighbours = [];
+		allUntypedLayers = [];
+
 		uid = json.uid;
 		identifier = json.identifier;
 		pxWid = json.pxWid;
