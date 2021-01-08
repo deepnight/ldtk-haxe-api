@@ -2,10 +2,17 @@ package ldtk;
 
 class Layer_Tiles extends ldtk.Layer {
 	var tiles : Map<Int, Array<{ tileId:Int, flipBits:Int }>>;
-	var atlasPath : String;
+
+	/** Getter to layer Tileset instance **/
+	public var tileset(get,never) : ldtk.Tileset;
+		inline function get_tileset() return untypedProject.tilesets.get(tilesetUid);
+	var tilesetUid : Int;
+
 
 	public function new(p,json) {
 		super(p,json);
+
+		tilesetUid = json.__tilesetDefUid;
 
 		tiles = new Map();
 		for(t in json.gridTiles)

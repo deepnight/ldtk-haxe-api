@@ -535,10 +535,6 @@ class TypeBuilder {
 
 
 				case Tiles:
-					var ts = tilesets.get(l.tilesetDefUid);
-					var tsComplexType = Context.getType( ts.typeName ).toComplexType();
-					var tsTypePath : TypePath = { pack: modPack, name: ts.typeName }
-
 					var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_Tiles" }
 					var layerType : TypeDefinition = {
 						pos : curPos,
@@ -549,20 +545,9 @@ class TypeBuilder {
 						fields : (macro class {
 							override public function new(p,json) {
 								super(p,json);
-
-								tileset = new $tsTypePath( p, cast $v{ts.json} );
 							}
-
-							override function _getTileset() return tileset;
 						}).fields,
 					}
-					// Tileset class
-					layerType.fields.push({
-						name: "tileset",
-						access: [APublic],
-						kind: FVar( tsComplexType ),
-						pos: curPos,
-					});
 					registerTypeDefinitionModule(layerType, projectFilePath);
 
 
