@@ -53,11 +53,11 @@ class Tileset {
 
 
 
-	#if( !macro && heaps )
 	/***************************************************************************
 		HEAPS API
 	***************************************************************************/
 
+	#if( !macro && heaps )
 	var _cachedAtlasTile : Null<h2d.Tile>;
 
 	/** Get the main tileset h2d.Tile **/
@@ -113,6 +113,25 @@ class Tileset {
 		return getAutoLayerTile(autoLayerTile);
 	}
 
-	#end
+	#end // End of Heaps API
 
+
+
+
+	/***************************************************************************
+		OpenFL API
+	***************************************************************************/
+
+	#if( !macro && openfl )
+
+	var _bdCache : Null<openfl.display.BitmapData>;
+
+	/** Get the main tileset BitmapData **/
+	public function loadAtlasBitmapData() : openfl.display.BitmapData {
+		if( _bdCache==null )
+			_bdCache = untypedProject.getOpenflBitmapDataAsset(relPath);
+		return _bdCache;
+	}
+
+	#end // End of OpenFL API
 }
