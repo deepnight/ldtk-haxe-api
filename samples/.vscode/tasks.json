@@ -10,6 +10,10 @@
 				"$haxe-error",
 				"$haxe-trace"
 			],
+			"presentation": {
+				"reveal": "never",
+				"revealProblems": "onProblem"
+			},
 			"group": {
 				"kind": "build",
 				"isDefault": true
