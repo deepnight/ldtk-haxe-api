@@ -3,17 +3,22 @@ package ldtk;
 class Tileset {
 	var untypedProject: ldtk.Project;
 
+	/** Tileset unique identifier **/
 	public var identifier : String;
 
-	/**
-		Path to the atlas image file, relative to the Project file
-	**/
+	/** Path to the atlas image file, relative to the Project file **/
 	public var relPath : String;
 
+	/** Tile size in pixels **/
 	public var tileGridSize : Int;
 	// TODO support tile spacing
-	var pxWid : Int;
-	var pxHei : Int;
+
+	/** Tileset width in pixels **/
+	public var pxWid : Int;
+
+	/** Tileset height in pixels **/
+	public var pxHei : Int;
+
 	var cWid(get,never) : Int; inline function get_cWid() return Math.ceil(pxWid/tileGridSize);
 
 
