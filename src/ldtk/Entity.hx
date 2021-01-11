@@ -34,8 +34,8 @@ class Entity {
 		cy = json.__grid[1];
 		pixelX = json.px[0];
 		pixelY = json.px[1];
-		pivotX = json.__pivot[0];
-		pivotY = json.__pivot[1];
+		pivotX = json.__pivot==null ? 0 : json.__pivot[0];
+		pivotY = json.__pivot==null ? 0 : json.__pivot[1];
 
 		defaultTileInfos = json.__tile==null ? null : {
 			tilesetUid: json.__tile.tilesetUid,
