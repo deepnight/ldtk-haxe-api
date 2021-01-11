@@ -14,7 +14,7 @@
 	"defaultGridSize": 16,
 	"bgColor": "#3C3E54",
 	"defaultLevelBgColor": "#7F8093",
-	"nextUid": 91,
+	"nextUid": 93,
 	"minifyJson": false,
 	"externalLevels": true,
 	"exportTiled": false,
@@ -711,6 +711,42 @@
 				"pivotX": 0,
 				"pivotY": 0,
 				"fieldDefs": []
+			},
+			{
+				"identifier": "File",
+				"uid": 91,
+				"width": 16,
+				"height": 16,
+				"color": "#6A809A",
+				"renderMode": "Ellipse",
+				"showName": true,
+				"tilesetId": null,
+				"tileId": null,
+				"tileRenderMode": "Stretch",
+				"maxPerLevel": 0,
+				"limitBehavior": "DiscardOldOnes",
+				"pivotX": 0.5,
+				"pivotY": 0.5,
+				"fieldDefs": [
+					{
+						"identifier": "filePath",
+						"__type": "FilePath",
+						"uid": 92,
+						"type": "F_Path",
+						"isArray": false,
+						"canBeNull": true,
+						"arrayMinLength": null,
+						"arrayMaxLength": null,
+						"editorDisplayMode": "NameAndValue",
+						"editorDisplayPos": "Above",
+						"editorAlwaysShow": true,
+						"min": null,
+						"max": null,
+						"regex": null,
+						"acceptFileTypes": null,
+						"defaultOverride": null
+					}
+				]
 			}
 		],
 		"tilesets": [

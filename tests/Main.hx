@@ -113,9 +113,11 @@ class Main {
 			var hero = project.all_levels.Main_tests.l_EntityTest.all_Hero[0];
 			var mob = project.all_levels.Main_tests.l_EntityTest.all_Mob[0];
 			var test = project.all_levels.Main_tests.l_EntityTest.all_Test[0];
+			var fileEnt = project.all_levels.Main_tests.l_EntityTest.all_File[0];
 			CiAssert.isNotNull( hero );
 			CiAssert.isNotNull( mob );
 			CiAssert.isNotNull( test );
+			CiAssert.isNotNull( fileEnt );
 			CiAssert.isTrue( mob.f_scale==0.5 );
 
 			// Enums
@@ -141,6 +143,12 @@ class Main {
 			CiAssert.isTrue( test.f_localEnums[0]==FireBall );
 			CiAssert.isTrue( test.f_externEnums.length>0 );
 			CiAssert.isTrue( test.f_externEnums[0]==Gold );
+
+			// FilePath entity field & loading
+			CiAssert.isNotNull( fileEnt.f_filePath );
+			CiAssert.isNotNull( project.getAsset(fileEnt.f_filePath) );
+			CiAssert.isNotNull( fileEnt.f_filePath_bytes );
+			CiAssert.isTrue( fileEnt.f_filePath_bytes.length>0 );
 
 			// Points / paths
 			section("Points/paths...");
@@ -230,7 +238,7 @@ class Main {
 		}
 		catch( e:Dynamic ) {
 			// Unknown errors
-			section("Exception: "+e);
+			print("Exception: "+e);
 			print("");
 			die();
 			return;
