@@ -718,7 +718,7 @@
 				"width": 16,
 				"height": 16,
 				"color": "#6A809A",
-				"renderMode": "Ellipse",
+				"renderMode": "Cross",
 				"showName": true,
 				"tilesetId": null,
 				"tileId": null,

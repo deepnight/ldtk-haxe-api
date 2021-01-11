@@ -566,7 +566,7 @@
 						}]
 					}
 				] },
-				{ "__identifier": "File", "__grid": [16,3], "__pivot": [0.5,0.5], "__tile": null, "defUid": 91, "px": [264,56], "fieldInstances": [{
+				{ "__identifier": "File", "__grid": [16,18], "__pivot": [0.5,0.5], "__tile": null, "defUid": 91, "px": [264,296], "fieldInstances": [{
 					"__identifier": "filePath",
 					"__value": "Minecraft_texture_pack.gif",
 					"__type": "FilePath",
