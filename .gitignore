@@ -1,5 +1,6 @@
-.vscode/settings.json
-tests/bin
+**/.vscode/settings.json
+**/.vscode/extensions.json
+bin
 dump
 *.hl
 *.js
