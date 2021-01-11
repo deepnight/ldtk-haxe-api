@@ -133,20 +133,32 @@ class Tileset {
 	#if( !macro && flixel )
 
 	var _tileFrames: Null< flixel.graphics.frames.FlxTileFrames >;
+	var _atlas: Null< flixel.graphics.FlxGraphic >;
 
-	/** Get the main tileset BitmapData **/
-	public inline function getTileFrames() : flixel.graphics.frames.FlxTileFrames {
+	/** Read Atlas and cache it locally **/
+	function readAtlas() {
 		if( _tileFrames==null ) {
-			var bd = untypedProject.getFlxGraphicAsset(relPath);
+			_atlas = untypedProject.getFlxGraphicAsset(relPath);
 			_tileFrames = flixel.graphics.frames.FlxTileFrames.fromBitmapAddSpacesAndBorders(
-				bd,
+				_atlas,
 				flixel.math.FlxPoint.weak( tileGridSize, tileGridSize )
 			);
 		}
+	}
+
+	/** Get the main tileset FlxTileFrames **/
+	public inline function getTileFrames() : flixel.graphics.frames.FlxTileFrames {
+		readAtlas();
 		return _tileFrames;
 	}
 
-	/** Get a frame using its ID **/
+	/** Get the main tileset FlxGraphic **/
+	public inline function getAtlasGraphic() : flixel.graphics.FlxGraphic {
+		readAtlas();
+		return _atlas;
+	}
+
+	/** Get a FlxFrame using its ID **/
 	public inline function getFrame(tileId:Int) : flixel.graphics.frames.FlxFrame {
 		return getTileFrames().getByIndex(tileId);
 	}
