@@ -77,7 +77,7 @@ class Level {
 	/**
 		Return TRUE if the level was previously loaded and is ready for usage (always TRUE if levels are embedded in the project file).
 	**/
-	public inline function isLoaded() return this.externalRelPath==null || allUntypedLayers==null || allUntypedLayers.length>0;
+	public inline function isLoaded() return this.externalRelPath==null || allUntypedLayers!=null && allUntypedLayers.length>0;
 
 	/**
 		Load level if it's stored in an external file. **IMPORTANT**: this probably doesn't need to be used in most scenario, as `load()` is *automatically* called when trying to use a level variable in your project.
@@ -95,7 +95,7 @@ class Level {
 			return true;
 		}
 		catch(e:Dynamic) {
-			Project.error('Failed to parse external level: $externalRelPath');
+			Project.error('Failed to parse external level: $externalRelPath ($e)');
 			return false;
 		}
 	}
