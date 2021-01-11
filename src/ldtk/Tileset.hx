@@ -94,6 +94,14 @@ class Tileset {
 		}
 	}
 
+	/**
+		Get a h2d.Tile using given rectangle pixel coords.
+	**/
+	public inline function getFreeTile(x:Int, y:Int, wid:Int, hei:Int) : Null<h2d.Tile> {
+		var atlas = getAtlasTile();
+		return atlas==null ? null : atlas.sub(x,y,wid,hei);
+	}
+
 	@:deprecated("Use getTile() instead") @:noCompletion
 	public inline function getHeapsTile(oldAtlasTile:h2d.Tile, tileId:Int, flipBits:Int=0) {
 		return getTile(tileId, flipBits);

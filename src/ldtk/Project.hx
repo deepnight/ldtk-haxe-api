@@ -1,33 +1,34 @@
 package ldtk;
 
 /**
-	LDtk Project JSON importer for Haxe
+	LDtk Project JSON importer for Haxe.
 
-	See documentation here: https://ldtk.io/docs
+	USAGE:
+
+	Create a HX file for each LDtk project JSON. The filename isn’t important, pick whatever you like.
+	This HX will host all the the typed data extracted from the project file:
+
+	```
+	private typedef _Tmp =
+		haxe.macro.MacroType<[ ldtk.Project.build("path/to/myProject.ldtk") ]>;
+	```
+
+	See full documentation here: https://ldtk.io/docs
 **/
 
 
 #if macro
+
+
+/* MACRO TYPE BUILDER *****************************************************/
+
 import haxe.macro.Context;
 import haxe.macro.Expr;
-
 using haxe.macro.Tools;
-#end
-
-import ldtk.Json;
-
 
 class Project {
 
-	/**
-		Create a HX file for each LDtk project JSON. The filename isn’t important, pick whatever you like.
-		This HX will host all the the typed data extracted from the project file:
-
-		```
-		private typedef _Tmp =
-			haxe.macro.MacroType<[ ldtk.Project.build("path/to/myProject.ldtk") ]>;
-		```
-	**/
+	/** Build project types based on Project JSON **/
 	public static function build(projectFilePath:String) {
 		#if !macro
 			error("Should only be used in macros");
@@ -35,8 +36,17 @@ class Project {
 			return ldtk.macro.TypeBuilder.buildTypes(projectFilePath);
 		#end
 	}
+}
 
 
+#else
+
+
+/* ACTUAL PROJECT CLASS *****************************************************/
+
+import ldtk.Json;
+
+class Project {
 
 	/** Contains the full path to the project JSON, as provided to the macro (using slashes) **/
 	public var projectFilePath : String;
@@ -73,8 +83,6 @@ class Project {
 		WARNING: types and classes are generated at compilation-time, not at runtime.
 	**/
 	public function parseJson(jsonString:String) {
-		#if !macro
-
 		// Init
 		tilesets = new Map();
 		assetCache = new Map();
@@ -96,8 +104,6 @@ class Project {
 		// Init misc fields
 		worldLayout = WorldLayout.createByName( Std.string(json.worldLayout) );
 		defs = json.defs;
-
-		#end
 	}
 
 
@@ -115,7 +121,6 @@ class Project {
 	}
 
 
-	#if !macro
 	/**
 		Try to resolve the Project file location in the current Asset management system
 	**/
@@ -166,18 +171,13 @@ class Project {
 
 		#end
 	}
-	#end
 
 
 	/**
 		Load an Asset as haxe.io.Bytes
 	**/
 	function loadAssetBytes(projectRelativePath:String) : haxe.io.Bytes {
-		#if macro
-
-			return null;
-
-		#elseif heaps
+		#if heaps
 
 			var resPath = makeAssetRelativePath(projectRelativePath);
 			if( !hxd.Res.loader.exists(resPath) )
@@ -206,7 +206,7 @@ class Project {
 	}
 
 
-	#if( !macro && flixel )
+	#if flixel
 	/**
 		Get an asset image as FlxGraphic
 	**/
@@ -293,7 +293,7 @@ class Project {
 		}
 	}
 
-	public function getEnumTileInfosFromValue(v:EnumValue) : Null<{ x:Int, y:Int, w:Int, h:Int, tileset:ldtk.Json.TilesetDefJson }> {
+	function getEnumTileInfosFromValue(v:EnumValue) : Null<{ x:Int, y:Int, w:Int, h:Int, tilesetUid:Int }> {
 		var ed = getEnumDefFromValue(v);
 		if( ed==null )
 			return null;
@@ -301,7 +301,7 @@ class Project {
 		for(ev in ed.values)
 			if( ev.id==v.getName() && ev.__tileSrcRect!=null )
 				return {
-					tileset: getTilesetDef(ed.iconTilesetUid),
+					tilesetUid: ed.iconTilesetUid,
 					x: ev.__tileSrcRect[0],
 					y: ev.__tileSrcRect[1],
 					w: ev.__tileSrcRect[2],
@@ -310,6 +310,21 @@ class Project {
 
 		return null;
 	}
+
+	#if heaps
+
+	public function getEnumTile(enumValue:EnumValue) : Null<h2d.Tile> {
+		var tileInfos = getEnumTileInfosFromValue(enumValue);
+		if( tileInfos==null )
+			return null;
+
+		var tileset = tilesets.get(tileInfos.tilesetUid);
+		if( tileset==null )
+			return null;
+
+		return tileset.getFreeTile(tileInfos.x, tileInfos.y, tileInfos.w, tileInfos.h);
+	}
+	#end
 
 
 	@:noCompletion
@@ -325,3 +340,5 @@ class Project {
 		return "#"+h;
 	}
 }
+
+#end // End of "if !macro"
