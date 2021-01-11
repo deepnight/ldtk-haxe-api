@@ -764,12 +764,12 @@
 				{ "id": "Food", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Gold", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Key", "tileId": null, "__tileSrcRect": null }
-			], "iconTilesetUid": null, "externalRelPath": "../misc/ExternEnumTest.hx", "externalFileChecksum": "942a6be546e6479708a2a4893024d042" },
+			], "iconTilesetUid": null, "externalRelPath": "../_srcCommon/ExternEnumTest.hx", "externalFileChecksum": "411417ba762ae881749b425b1c129b19" },
 			{ "identifier": "SomeEnum", "uid": 31, "values": [
 				{ "id": "Bar", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Foo", "tileId": null, "__tileSrcRect": null },
 				{ "id": "Pouet", "tileId": null, "__tileSrcRect": null }
-			], "iconTilesetUid": null, "externalRelPath": "../misc/ExternEnumTest.hx", "externalFileChecksum": "942a6be546e6479708a2a4893024d042" }
+			], "iconTilesetUid": null, "externalRelPath": "../_srcCommon/ExternEnumTest.hx", "externalFileChecksum": "411417ba762ae881749b425b1c129b19" }
 		]
 	},
 	"levels": [
