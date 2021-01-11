@@ -1,0 +1,24 @@
+
+# Heaps_ObjectTiles (Javascript/WebGL)
+-cp .
+-cp ../_srcCommon
+-cp ../../src
+-lib heaps
+-lib deepnightLibs
+-D resourcesPath=../_assets
+--dce full
+-main Heaps_ObjectTiles
+-js _javascript.js
+
+# Heaps_ObjectTiles (Hashlink)
+--next
+-cp .
+-cp ../_srcCommon
+-cp ../../src
+-lib heaps
+-lib deepnightLibs
+-D resourcesPath=../_assets
+-lib hlsdl
+--dce full
+-main Heaps_ObjectTiles
+-hl _hashlink.hl

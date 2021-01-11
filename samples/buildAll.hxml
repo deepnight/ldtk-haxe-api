@@ -5,6 +5,12 @@
 --cwd ..
 --next
 
+--cwd "Heaps - Object tiles"
+"build.hxml"
+--next
+--cwd ..
+--next
+
 --cwd "Heaps - Render full world"
 "build.hxml"
 --next
