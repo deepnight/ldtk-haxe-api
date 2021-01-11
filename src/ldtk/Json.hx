@@ -264,6 +264,10 @@ typedef EntityInstanceJson = {
 	@changed("0.4.0")
 	var __grid: Array<Int>;
 
+	/** Pivot coordinates  (`[x,y]` format) of the Entity (Float values from 0 to 1) **/
+	@added("0.6.3")
+	var __pivot: Array<Float>;
+
 	/**
 		Optional Tile used to display this entity (it could either be the default Entity tile, or some tile provided by a field value, like an Enum).
 	**/
