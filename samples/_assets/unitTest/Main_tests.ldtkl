@@ -411,7 +411,7 @@
 			"seed": 4819766,
 			"gridTiles": [],
 			"entityInstances": [
-				{ "__identifier": "Mob", "__grid": [13,9], "__tile": { "tilesetUid": 14, "srcRect": [32,32,32,32] }, "defUid": 2, "px": [216,160], "fieldInstances": [
+				{ "__identifier": "Mob", "__grid": [13,9], "__pivot": [0.5,1], "__tile": { "tilesetUid": 14, "srcRect": [32,32,32,32] }, "defUid": 2, "px": [216,160], "fieldInstances": [
 					{
 						"__identifier": "type",
 						"__value": "Trash",
@@ -474,7 +474,7 @@
 						]
 					}
 				] },
-				{ "__identifier": "Hero", "__grid": [1,15], "__tile": null, "defUid": 23, "px": [24,256], "fieldInstances": [{
+				{ "__identifier": "Hero", "__grid": [1,15], "__pivot": [0.5,1], "__tile": null, "defUid": 23, "px": [24,256], "fieldInstances": [{
 					"__identifier": "startWeapon",
 					"__value": "LongBow",
 					"__type": "LocalEnum.Weapons",
@@ -484,7 +484,7 @@
 						"params": ["LongBow"]
 					}]
 				}] },
-				{ "__identifier": "Test", "__grid": [25,11], "__tile": null, "defUid": 66, "px": [408,192], "fieldInstances": [
+				{ "__identifier": "Test", "__grid": [25,11], "__pivot": [0.5,1], "__tile": null, "defUid": 66, "px": [408,192], "fieldInstances": [
 					{
 						"__identifier": "ints",
 						"__value": [0,1,2],

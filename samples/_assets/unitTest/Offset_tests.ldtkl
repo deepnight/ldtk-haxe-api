@@ -114,7 +114,7 @@
 			"autoLayerTiles": [],
 			"seed": 9962612,
 			"gridTiles": [],
-			"entityInstances": [{ "__identifier": "OffsetTest", "__grid": [0,0], "__tile": null, "defUid": 89, "px": [0,0], "fieldInstances": [] }]
+			"entityInstances": [{ "__identifier": "OffsetTest", "__grid": [0,0], "__pivot": [0,0], "__tile": null, "defUid": 89, "px": [0,0], "fieldInstances": [] }]
 		},
 		{
 			"__identifier": "TileTest",
