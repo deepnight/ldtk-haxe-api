@@ -1,6 +1,8 @@
 package ldtk;
 
 class Entity {
+	var untypedProject : ldtk.Project;
+
 	var _enumTypePrefix : String;
 	public var identifier : String;
 
@@ -28,7 +30,8 @@ class Entity {
 	var _fields : Map<String, Dynamic> = new Map();
 
 
-	public function new(json:ldtk.Json.EntityInstanceJson) {
+	public function new(p:ldtk.Project, json:ldtk.Json.EntityInstanceJson) {
+		untypedProject = p;
 		identifier = json.__identifier;
 		cx = json.__grid[0];
 		cy = json.__grid[1];
@@ -56,6 +59,9 @@ class Entity {
 
 			switch typeName {
 				case "Int", "Float", "Bool", "String" :
+					Reflect.setField(this, "f_"+f.__identifier, f.__value);
+
+				case "FilePath" :
 					Reflect.setField(this, "f_"+f.__identifier, f.__value);
 
 				case "Color":

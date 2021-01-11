@@ -244,9 +244,9 @@ class TypeBuilder {
 				**/
 				public var entityType : $entityEnumType;
 
-				override public function new(json) {
+				override public function new(p, json) {
 					this._enumTypePrefix = $v{modPack.concat(["Enum_"]).join(".")};
-					super(json);
+					super(p, json);
 
 					entityType = Type.createEnum($entityEnumRef, json.__identifier);
 				}
@@ -287,12 +287,7 @@ class TypeBuilder {
 				doc: "Specialized Entity class for "+e.identifier,
 				pack : modPack,
 				kind : TDClass(parentTypePath),
-				fields : (macro class {
-					override public function new(json) {
-						super(json);
-					}
-
-				}).fields,
+				fields : (macro class { }).fields,
 			}
 
 			// Create field types
@@ -301,7 +296,7 @@ class TypeBuilder {
 				var isArray = arrayReg.match(f.__type);
 				var typeName = isArray ? arrayReg.matched(1) : f.__type;
 
-				var fields : Array<{ name:String, ct:ComplexType }> = [];
+				var fields : Array<{ name:String, ct:ComplexType, ?customKind:FieldType }> = [];
 				switch typeName {
 					case "Int":
 						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<Int>) : (macro : Int) });
@@ -311,6 +306,29 @@ class TypeBuilder {
 
 					case "String":
 						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<String>) : (macro : String) });
+
+					case "FilePath":
+						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<String>) : (macro : String) });
+						fields.push({
+							name: f.identifier+"_bytes",
+							ct: f.canBeNull ? (macro : Null<haxe.io.Bytes>) : (macro : haxe.io.Bytes),
+							customKind: FProp("get", "never", macro : Null<haxe.io.Bytes>)
+						});
+						// Build getter
+						var getterFunc : Function = {
+							expr: macro {
+								var relPath = Reflect.field(this, "f_"+$v{f.identifier});
+								return relPath==null ? null : untypedProject.getAsset(relPath);
+							},
+							args: [],
+							ret: macro : Null<haxe.io.Bytes>,
+						}
+						entityType.fields.push({
+							name: "get_f_"+f.identifier+"_bytes",
+							access: [APrivate],
+							kind: FFun(getterFunc),
+							pos: curPos,
+						});
 
 					case "Bool":
 						fields.push({ name: f.identifier, ct: macro : Bool });
@@ -354,7 +372,7 @@ class TypeBuilder {
 					entityType.fields.push({
 						name: "f_"+fi.name,
 						access: [ APublic ],
-						kind: FVar(fi.ct),
+						kind: fi.customKind==null ? FVar(fi.ct) : fi.customKind,
 						doc: "Entity field "+fi.name+" ("+f.__type+")",
 						pos: curPos,
 					});
@@ -518,7 +536,7 @@ class TypeBuilder {
 								if( c==null )
 									return null;
 								else
-									return cast Type.createInstance(c, [json]);
+									return cast Type.createInstance(c, [untypedProject, json]);
 							}
 
 							/**
