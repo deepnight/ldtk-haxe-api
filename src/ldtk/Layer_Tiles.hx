@@ -66,6 +66,32 @@ class Layer_Tiles extends ldtk.Layer {
 		}
 		#end
 
+
+		#if flixel
+		/**
+			Render layer to a `FlxGroup`. If `target` isn't provided, a new one is created.
+		**/
+		public function render(?target:flixel.group.FlxSpriteGroup) : flixel.group.FlxSpriteGroup {
+			if( target==null ) {
+				target = new flixel.group.FlxSpriteGroup();
+				target.active = false;
+			}
+
+
+			for( cy in 0...cHei )
+			for( cx in 0...cWid )
+				if( hasAnyTileAt(cx,cy) )
+					for( tile in getTileStackAt(cx,cy) ) {
+						var s = new flixel.FlxSprite(cx*gridSize + pxTotalOffsetX, cy*gridSize + pxTotalOffsetY);
+						s.flipX = tile.flipBits & 1 != 0;
+						s.flipY = tile.flipBits & 2 != 0;
+						s.frame = tileset.getFrame(tile.tileId);
+						target.add(s);
+					}
+
+			return target;
+		}
+		#end
 	#end
 
 }

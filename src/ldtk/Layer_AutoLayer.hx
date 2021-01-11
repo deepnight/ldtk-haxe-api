@@ -75,6 +75,30 @@ class Layer_AutoLayer extends ldtk.Layer {
 		}
 		#end
 
+
+		#if flixel
+		/**
+			Render layer to a `FlxGroup`. If `target` isn't provided, a new one is created.
+		**/
+		public function render(?target:flixel.group.FlxSpriteGroup) : flixel.group.FlxSpriteGroup {
+			if( target==null ) {
+				target = new flixel.group.FlxSpriteGroup();
+				target.active = false;
+			}
+
+
+			for( autoTile in autoTiles ) {
+				var s = new flixel.FlxSprite(autoTile.renderX, autoTile.renderY);
+				s.flipX = autoTile.flips & 1 != 0;
+				s.flipY = autoTile.flips & 2 != 0;
+				s.frame = tileset.getFrame(autoTile.tileId);
+				target.add(s);
+			}
+
+			return target;
+		}
+		#end
+
 	#end
 
 }
