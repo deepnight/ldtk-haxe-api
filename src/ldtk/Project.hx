@@ -153,7 +153,7 @@ class Project {
 					}
 				}
 			}
-			error('Project file is in Heaps res/ folder!');
+			error('Project file is not in Heaps res/ folder!');
 			return "";
 
 		#elseif openfl
