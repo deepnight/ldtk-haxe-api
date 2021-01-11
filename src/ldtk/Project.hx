@@ -107,6 +107,11 @@ class Project {
 	}
 
 
+	@:keep public function toString() {
+		return 'ldtk.Project[${_untypedLevels.length} levels]';
+	}
+
+
 	/**
 		Get an asset from current Asset management system. The path should be **relative to the project JSON file**.
 	**/
