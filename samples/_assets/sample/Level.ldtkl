@@ -37,7 +37,16 @@
 			"autoLayerTiles": [],
 			"seed": 7317663,
 			"gridTiles": [],
-			"entityInstances": []
+			"entityInstances": [{ "__identifier": "Item", "__grid": [11,11], "__pivot": [0.5,1], "__tile": { "tilesetUid": 31, "srcRect": [0,0,16,16] }, "defUid": 29, "px": [92,96], "fieldInstances": [{
+				"__identifier": "type",
+				"__value": "Pickaxe",
+				"__type": "LocalEnum.Items",
+				"defUid": 32,
+				"realEditorValues": [{
+					"id": "V_String",
+					"params": ["Pickaxe"]
+				}]
+			}] }]
 		},
 		{
 			"__identifier": "Custom_tiles",

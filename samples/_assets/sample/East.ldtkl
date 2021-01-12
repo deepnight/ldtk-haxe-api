@@ -37,7 +37,16 @@
 			"autoLayerTiles": [],
 			"seed": 9276014,
 			"gridTiles": [],
-			"entityInstances": []
+			"entityInstances": [{ "__identifier": "Item", "__grid": [9,14], "__pivot": [0.5,1], "__tile": { "tilesetUid": 31, "srcRect": [96,0,16,16] }, "defUid": 29, "px": [76,120], "fieldInstances": [{
+				"__identifier": "type",
+				"__value": "Potion",
+				"__type": "LocalEnum.Items",
+				"defUid": 32,
+				"realEditorValues": [{
+					"id": "V_String",
+					"params": ["Potion"]
+				}]
+			}] }]
 		},
 		{
 			"__identifier": "Custom_tiles",
