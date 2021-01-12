@@ -5,7 +5,7 @@ package ldtk;
 	This is the root of any Project JSON file. It contains:
 
 - the project settings,
-- an array of levels
+- an array of levels,
 - and a definition object (that can probably be safely ignored for most users).
 **/
 @display("LDtk Json root")
@@ -14,12 +14,15 @@ typedef ProjectJson = {
 	var jsonVersion: String;
 
 	/** Default X pivot (0 to 1) for new entities **/
+	@internal
 	var defaultPivotX: Float;
 
 	/** Default Y pivot (0 to 1) for new entities **/
+	@internal
 	var defaultPivotY: Float;
 
 	/** Default grid size for new layers **/
+	@internal
 	var defaultGridSize: Int;
 
 	/** Project background color **/
@@ -29,6 +32,7 @@ typedef ProjectJson = {
 	/** Default background color of levels **/
 	@added("0.6.0")
 	@color
+	@internal
 	var defaultLevelBgColor: String;
 
 	/**
@@ -57,6 +61,7 @@ typedef ProjectJson = {
 	var externalLevels: Bool;
 
 	/** If TRUE, a Tiled compatible file will also be generated along with the LDtk JSON file (default is FALSE) **/
+	@internal
 	var exportTiled: Bool;
 
 	/** A structure containing all the definitions of this project **/
@@ -103,6 +108,7 @@ typedef LevelJson = {
 	/** Background color of the level. If `null`, the project `defaultLevelBgColor` should be used.**/
 	@added("0.6.0")
 	@color
+	@internal
 	var bgColor: Null<String>;
 
 	/** Background color of the level (same as `bgColor`, except the default value is automatically used here if its value is `null`) **/
@@ -188,6 +194,7 @@ typedef LayerInstanceJson = {
 
 	/** Random seed used for Auto-Layers rendering **/
 	@only("Auto-layers")
+	@internal
 	var seed: Int;
 
 	@only("IntGrid layers")
@@ -217,6 +224,9 @@ typedef LayerInstanceJson = {
 
 
 
+/**
+	This structure represents a single tile from a given Tileset.
+**/
 @section("1.1.1")
 @added("0.4.0")
 @display("Tile instance")
@@ -304,7 +314,7 @@ typedef FieldInstanceJson = {
 	**/
 	var __value: Dynamic;
 
-	/** Type of the field, such as Int, Float, Enum(enum_name), Bool, etc. **/
+	/** Type of the field, such as `Int`, `Float`, `Enum(my_enum_name)`, `Bool`, etc. **/
 	var __type: String;
 
 	/** Reference of the **Field definition** UID **/
@@ -317,7 +327,7 @@ typedef FieldInstanceJson = {
 
 
 /**
-If you're writing your own LDtk importer, you should probably just ignore *most* stuff in the `defs` section, as it contains data that are mostly useful to the editor. To keep you away from the `defs` section and avoid some unnecessary JSON parsing, important data from definitions is often duplicated in fields prefixed with a double underscore (eg. `__identifier` or `__type`).
+If you're writing your own LDtk importer, you should probably just ignore *most* stuff in the `defs` section, as it contains data that are mostly important to the editor. To keep you away from the `defs` section and avoid some unnecessary JSON parsing, important data from definitions is often duplicated in fields prefixed with a double underscore (eg. `__identifier` or `__type`).
 
 The 2 only definition types you might need here are **Tilesets** and **Enums**.
 **/
@@ -367,6 +377,7 @@ typedef LayerDefJson = {
 	/** Opacity of the layer (0 to 1.0) **/
 	var displayOpacity: Float;
 
+	/** An array (using IntGrid value as array index, starting from 0) that defines extra optional info for each IntGrid value. **/
 	@only("IntGrid layer")
 	var intGridValues: Array<{
 		var identifier:Null<String>;
@@ -381,6 +392,7 @@ typedef LayerDefJson = {
 
 	/** Contains all the auto-layer rule definitions. **/
 	@only("Auto-layers")
+	@internal
 	var autoRuleGroups: Array<{
 		var uid: Int;
 		var name: String;
@@ -391,16 +403,18 @@ typedef LayerDefJson = {
 	@only("Auto-layers")
 	var autoSourceLayerDefUid: Null<Int>;
 
-	/** Reference to the Tileset UID being used by this tile layer **/
+	/** Reference to the Tileset UID being used by this Tile layer **/
 	@only("Tile layers")
 	var tilesetDefUid: Null<Int>;
 
 	/** If the tiles are smaller or larger than the layer grid, the pivot value will be used to position the tile relatively its grid cell. **/
 	@only("Tile layers")
+	@internal
 	var tilePivotX: Float;
 
 	/** If the tiles are smaller or larger than the layer grid, the pivot value will be used to position the tile relatively its grid cell. **/
 	@only("Tile layers")
+	@internal
 	var tilePivotY: Float;
 
 }
@@ -408,6 +422,7 @@ typedef LayerDefJson = {
 /**
 	This complex section isn't meant to be used by game devs at all, as these rules are completely resolved internally by the editor before any saving. You should just ignore this part.
 **/
+@internal
 @section("2.1.1")
 @display("Auto-layer rule definition")
 typedef AutoRuleDef = {
@@ -519,6 +534,7 @@ typedef EntityDefJson = {
 	var pivotY: Float;
 
 	/** Array of field definitions **/
+	@internal
 	var fieldDefs: Array<FieldDefJson>;
 };
 
@@ -526,6 +542,7 @@ typedef EntityDefJson = {
 /**
 	This section is mostly only intended for the LDtk editor app itself. You can safely ignore it.
 **/
+@internal
 @added("0.6.0")
 @section("2.2.1")
 @display("Field definition")
@@ -588,7 +605,7 @@ typedef FieldDefJson = {
 
 
 /**
-	The `Tileset` definition is the most useful part among project definitions. It contains some extra informations about each integrated tileset. If you only had to parse one definition section, that would be the one.
+	The `Tileset` definition is the most important part among project definitions. It contains some extra informations about each integrated tileset. If you only had to parse one definition section, that would be the one.
 **/
 @section("2.3")
 @display("Tileset definition")
@@ -655,7 +672,7 @@ typedef EnumDefJson = {
 
 		/** An array of 4 Int values that refers to the tile in the tileset image: `[ x, y, width, height ]` **/
 		@added("0.4.0")
-		var __tileSrcRect:Array<Int>;
+		var __tileSrcRect:Array<Int>; // TODO use a Tile instance here?
 	}>;
 
 	/** Tileset UID if provided **/
