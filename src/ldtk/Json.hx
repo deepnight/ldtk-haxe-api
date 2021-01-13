@@ -64,6 +64,10 @@ typedef ProjectJson = {
 	@internal
 	var exportTiled: Bool;
 
+	/** If TRUE, all layers in all levels will also be exported as PNG along with the project file (default is FALSE)  **/
+	@internal
+	var exportPng: Bool;
+
 	/** A structure containing all the definitions of this project **/
 	var defs: DefinitionsJson;
 
