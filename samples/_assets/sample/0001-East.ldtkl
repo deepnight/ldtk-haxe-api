@@ -16,6 +16,9 @@
 	"pxHei": 160,
 	"__bgColor": "#121331",
 	"bgColor": null,
+	"bgRelPath": null,
+	"bgPos": null,
+	"__bgPos": null,
 	"externalRelPath": null,
 	"layerInstances": [
 		{
