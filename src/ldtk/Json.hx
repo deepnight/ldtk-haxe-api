@@ -167,18 +167,21 @@ typedef LevelJson = {
 	**/
 	@only("If background image exists")
 	@added("0.6.3")
-	var __bgPos: Null<LevelBgPos>;
+	var __bgPos: Null<LevelBgPosInfos>;
 }
 
 
 @section("1.3")
 @display("Level background position")
-typedef LevelBgPos = {
+typedef LevelBgPosInfos = {
 	/** An array containing the [x,y] pixel coordinates of the top-left corner of the background image, depending on `bgPos` option. **/
-	var px: Array<Int>;
+	var pos: Array<Int>;
 
 	/** An array containing the [scaleX,scaleY] values of the background image, depending on `bgPos` option. **/
 	var scale: Array<Float>;
+
+	/** An array of 4 integers describing the sub-rectangle of the displayed background image. This is useful when the initial image was cropped, because it was larger than the level bounds. Array format: `[ subX, subY, subWidth, subHeight ]`**/
+	var subRect: Array<Int>;
 }
 
 
