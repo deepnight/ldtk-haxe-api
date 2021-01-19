@@ -148,8 +148,19 @@ typedef LevelJson = {
 	/**
 		An enum defining the way the background image (if any) is positioned on the level. See `__bgPos` for resulting position info.
 	**/
+	@internal
 	@added("0.6.3")
 	var bgPos: BgImagePos;
+
+	// TODO doc
+	@internal
+	@added("0.6.3")
+	var bgPivotX: Float;
+
+	// TODO doc
+	@internal
+	@added("0.6.3")
+	var bgPivotY: Float;
 
 	/**
 		Position informations of the background image, if there is one.
