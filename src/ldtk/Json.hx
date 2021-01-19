@@ -138,6 +138,31 @@ typedef LevelJson = {
 	**/
 	@added("0.6.0")
 	var __neighbours: Array<{ levelUid:Int, dir:String }>;
+
+	/**
+		The *optional* relative path to the level background image.
+	**/
+	@added("0.6.3")
+	var bgRelPath: Null<String>;
+
+	/**
+		An enum defining the way the background image (if any) is positioned on the level. See `__bgPos` for resulting position info.
+	**/
+	@added("0.6.3")
+	var bgPos: BgImagePos;
+
+	/**
+		Position informations of the background image, if there is one.
+	**/
+	@only("If background image exists")
+	@added("0.6.3")
+	var __bgPos: Null<{
+		/** An array containing the [x,y] pixel coordinates of the top-left corner of the background image, depending on `bgPos` option. **/
+		var px: Array<Int>;
+
+		/** An array containing the [scaleX,scaleY] values of the background image, depending on `bgPos` option. **/
+		var scale: Array<Float>;
+	}>;
 }
 
 
@@ -751,4 +776,11 @@ enum FieldDisplayMode {
 	PointPath;
 	RadiusPx;
 	RadiusGrid;
+}
+
+enum BgImagePos {
+	Unscaled;
+	Contain;
+	Cover;
+	CoverDirty;
 }
