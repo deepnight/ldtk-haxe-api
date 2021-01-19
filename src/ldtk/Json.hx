@@ -134,10 +134,10 @@ typedef LevelJson = {
 	var externalRelPath: Null<String>;
 
 	/**
-		An array listing all other levels touching this one on the world map. The `dir` is a single lowercase character tipping on the level location (`n`orth, `s`outh, `w`est, `e`ast). In "linear" world layouts, this array is populated with previous/next levels in array, and `dir` depends on the linear horizontal/vertical layout.
+		An array listing all other levels touching this one on the world map. In "linear" world layouts, this array is populated with previous/next levels in array, and `dir` depends on the linear horizontal/vertical layout.
 	**/
 	@added("0.6.0")
-	var __neighbours: Array<{ levelUid:Int, dir:String }>;
+	var __neighbours: Array<NeighbourLevel>;
 
 	/**
 		The *optional* relative path to the level background image.
@@ -156,13 +156,18 @@ typedef LevelJson = {
 	**/
 	@only("If background image exists")
 	@added("0.6.3")
-	var __bgPos: Null<{
-		/** An array containing the [x,y] pixel coordinates of the top-left corner of the background image, depending on `bgPos` option. **/
-		var px: Array<Int>;
+	var __bgPos: Null<LevelBgPos>;
+}
 
-		/** An array containing the [scaleX,scaleY] values of the background image, depending on `bgPos` option. **/
-		var scale: Array<Float>;
-	}>;
+
+@section("1.3")
+@display("Level background position")
+typedef LevelBgPos = {
+	/** An array containing the [x,y] pixel coordinates of the top-left corner of the background image, depending on `bgPos` option. **/
+	var px: Array<Int>;
+
+	/** An array containing the [scaleX,scaleY] values of the background image, depending on `bgPos` option. **/
+	var scale: Array<Float>;
 }
 
 
@@ -311,13 +316,7 @@ typedef EntityInstanceJson = {
 		Optional Tile used to display this entity (it could either be the default Entity tile, or some tile provided by a field value, like an Enum).
 	**/
 	@added("0.4.0")
-	var __tile: Null<{
-		/** Tileset ID **/
-		var tilesetUid: Int;
-
-		/** An array of 4 Int values that refers to the tile in the tileset image: `[ x, y, width, height ]` **/
-		var srcRect: Array<Int>;
-	}>;
+	var __tile: Null<EntityInstanceTile>;
 
 	/** Reference of the **Entity definition** UID **/
 	var defUid: Int;
@@ -329,9 +328,22 @@ typedef EntityInstanceJson = {
 	var fieldInstances: Array<FieldInstanceJson>;
 }
 
-
-
+/**
+	Description of a tile used by an EntityInstance
+**/
 @section("1.1.3")
+@display("Entity instance tile")
+typedef EntityInstanceTile = {
+	/** Tileset ID **/
+	var tilesetUid: Int;
+
+	/** An array of 4 Int values that refers to the tile in the tileset image: `[ x, y, width, height ]` **/
+	var srcRect: Array<Int>;
+}
+
+
+
+@section("1.1.4")
 @display("Field instance")
 typedef FieldInstanceJson = {
 	/** Field definition identifier **/
@@ -692,17 +704,7 @@ typedef EnumDefJson = {
 	var identifier: String;
 
 	/** All possible enum values, with their optional Tile infos. **/
-	var values: Array<{
-		/** Enum value **/
-		var id:String;
-
-		/** The optional ID of the tile **/
-		var tileId:Null<Int>;
-
-		/** An array of 4 Int values that refers to the tile in the tileset image: `[ x, y, width, height ]` **/
-		@added("0.4.0")
-		var __tileSrcRect:Array<Int>; // TODO use a Tile instance here?
-	}>;
+	var values: Array<EnumDefValues>;
 
 	/** Tileset UID if provided **/
 	var iconTilesetUid: Null<Int>;
@@ -714,6 +716,28 @@ typedef EnumDefJson = {
 	var externalFileChecksum: Null<String>;
 };
 
+@section("2.4.1")
+@display("Enum value informations")
+typedef EnumDefValues = {
+	/** Enum value **/
+	var id:String;
+
+	/** The optional ID of the tile **/
+	var tileId:Null<Int>;
+
+	/** An array of 4 Int values that refers to the tile in the tileset image: `[ x, y, width, height ]` **/
+	@added("0.4.0")
+	var __tileSrcRect:Array<Int>; // TODO use a Tile instance here?
+}
+
+@section("1.2")
+@display("NeighbourLevel")
+typedef NeighbourLevel = {
+	var levelUid: Int;
+
+	/** A single lowercase character tipping on the level location (`n`orth, `s`outh, `w`est, `e`ast). **/
+	var dir: String;
+}
 
 
 // Misc enums
