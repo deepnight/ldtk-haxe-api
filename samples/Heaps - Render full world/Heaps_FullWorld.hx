@@ -30,8 +30,12 @@ class Heaps_FullWorld extends hxd.App {
 			levelWrapper.x = level.worldX;
 			levelWrapper.y = level.worldY;
 
+			// Level background image
+			if( level.hasBgImage() )
+				levelWrapper.addChild( level.getBgImage() );
+
 			// Render background layer
-			levelWrapper.addChild( level.l_Background.render() );
+			levelWrapper.addChild( level.l_Cavern_background.render() );
 
 			// Render collision layer tiles
 			levelWrapper.addChild( level.l_Collisions.render() );
