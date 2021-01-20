@@ -717,6 +717,7 @@ typedef EnumDefValues = {
 
 /** Tile data in an Entity instance **/
 @inline
+@display("Entity instance tile")
 typedef EntityInstanceTile = {
 	/** Tileset ID **/
 	var tilesetUid: Int;
@@ -727,6 +728,7 @@ typedef EntityInstanceTile = {
 
 /** Nearby level info **/
 @inline
+@display("Neighbour level")
 typedef NeighbourLevel = {
 	var levelUid: Int;
 
@@ -736,6 +738,7 @@ typedef NeighbourLevel = {
 
 /** Level background image position info **/
 @inline
+@display("Level background position")
 typedef LevelBgPosInfos = {
 	/** An array containing the `[x,y]` pixel coordinates of the top-left corner of the **cropped** background image, depending on `bgPos` option. **/
 	var topLeftPx: Array<Int>;
@@ -749,6 +752,7 @@ typedef LevelBgPosInfos = {
 
 /** IntGrid value instance **/
 @inline
+@display("IntGrid value instance")
 typedef IntGridValueInstance = {
 	/** Coordinate ID in the layer grid **/
 	var coordId:Int;
@@ -759,6 +763,7 @@ typedef IntGridValueInstance = {
 
 /** IntGrid value definition **/
 @inline
+@display("IntGrid value definition")
 typedef IntGridValueDef = {
 	/** Unique String identifier **/
 	var identifier:Null<String>;
