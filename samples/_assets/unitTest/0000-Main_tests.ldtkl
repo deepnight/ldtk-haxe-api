@@ -5,7 +5,7 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "0.6.3",
+		"appVersion": "0.7.0",
 		"url": "https://ldtk.io"
 	},
 	"identifier": "Main_tests",
@@ -16,6 +16,11 @@
 	"pxHei": 512,
 	"__bgColor": "#271E27",
 	"bgColor": "#271E27",
+	"bgRelPath": "N2D - SpaceWallpaper1280x448.png",
+	"bgPos": "Cover",
+	"bgPivotX": 0,
+	"bgPivotY": 0,
+	"__bgPos": { "topLeftPx": [0,0], "scale": [1.1428571428571428,1.1428571428571428], "subRect": [0,0,448,448] },
 	"externalRelPath": null,
 	"layerInstances": [
 		{
@@ -28,7 +33,7 @@
 			"__pxTotalOffsetX": 0,
 			"__pxTotalOffsetY": 0,
 			"__tilesetDefUid": 46,
-			"__tilesetRelPath": "Cavernas_by_Adam_Saltsman.png",
+			"__tilesetRelPath": "Cavernas_by_Adam_Saltsman-Extended.png",
 			"levelId": 0,
 			"layerDefUid": 41,
 			"pxOffsetX": 0,
@@ -347,7 +352,7 @@
 			"__pxTotalOffsetX": 0,
 			"__pxTotalOffsetY": 0,
 			"__tilesetDefUid": 46,
-			"__tilesetRelPath": "Cavernas_by_Adam_Saltsman.png",
+			"__tilesetRelPath": "Cavernas_by_Adam_Saltsman-Extended.png",
 			"levelId": 0,
 			"layerDefUid": 82,
 			"pxOffsetX": 0,

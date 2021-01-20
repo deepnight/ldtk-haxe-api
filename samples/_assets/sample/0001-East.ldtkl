@@ -5,7 +5,7 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "0.6.3",
+		"appVersion": "0.7.0",
 		"url": "https://ldtk.io"
 	},
 	"identifier": "East",
@@ -18,7 +18,9 @@
 	"bgColor": null,
 	"bgRelPath": "N2D - SpaceWallpaper1280x448.png",
 	"bgPos": "Cover",
-	"__bgPos": null,
+	"bgPivotX": 0.5,
+	"bgPivotY": 0.5,
+	"__bgPos": { "topLeftPx": [0,0], "scale": [0.35714285714285715,0.35714285714285715], "subRect": [259.2,0,761.6,448] },
 	"externalRelPath": null,
 	"layerInstances": [
 		{
