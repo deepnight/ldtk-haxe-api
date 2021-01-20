@@ -8,7 +8,7 @@
 		"appVersion": "0.7.0",
 		"url": "https://ldtk.io"
 	},
-	"identifier": "Level",
+	"identifier": "Treasure_room",
 	"uid": 41,
 	"worldX": 544,
 	"worldY": 224,
@@ -17,10 +17,10 @@
 	"__bgColor": "#121331",
 	"bgColor": null,
 	"bgRelPath": "N2D - SpaceWallpaper1280x448.png",
-	"bgPos": "Cover",
+	"bgPos": "Unscaled",
 	"bgPivotX": 0.5,
 	"bgPivotY": 0.5,
-	"__bgPos": { "topLeftPx": [0,0], "scale": [0.2857142857142857,0.2857142857142857], "subRect": [416,0,448,448] },
+	"__bgPos": { "topLeftPx": [0,0], "scale": [1,1], "cropRect": [256,48,128,128] },
 	"externalRelPath": null,
 	"layerInstances": [
 		{

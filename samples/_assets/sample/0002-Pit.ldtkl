@@ -17,10 +17,10 @@
 	"__bgColor": "#121331",
 	"bgColor": null,
 	"bgRelPath": "N2D - SpaceWallpaper1280x448.png",
-	"bgPos": "Cover",
+	"bgPos": "Unscaled",
 	"bgPivotX": 0.5,
 	"bgPivotY": 0.5,
-	"__bgPos": { "topLeftPx": [0,0], "scale": [0.2857142857142857,0.2857142857142857], "subRect": [248,0,784,448] },
+	"__bgPos": { "topLeftPx": [0,0], "scale": [1,1], "cropRect": [208,48,224,128] },
 	"externalRelPath": null,
 	"layerInstances": [
 		{
