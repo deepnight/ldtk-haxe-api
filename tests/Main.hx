@@ -218,10 +218,10 @@ class Main {
 
 
 			// Level background image
-			CiAssert.isTrue( project.all_levels.Offset_tests.bgImage==null );
-			CiAssert.isNotNull( project.all_levels.Main_tests.bgImage );
-			CiAssert.equals( project.all_levels.Main_tests.bgImage.topLeftX, 0 );
-			CiAssert.isNotNull( project.all_levels.Main_tests.bgImage.cropRect );
+			CiAssert.isTrue( project.all_levels.Offset_tests.bgImageInfos==null );
+			CiAssert.isNotNull( project.all_levels.Main_tests.bgImageInfos );
+			CiAssert.equals( project.all_levels.Main_tests.bgImageInfos.topLeftX, 0 );
+			CiAssert.isNotNull( project.all_levels.Main_tests.bgImageInfos.cropRect );
 
 
 			// Project in a package

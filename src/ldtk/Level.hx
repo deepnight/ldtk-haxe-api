@@ -80,10 +80,10 @@ class Level {
 			scaleX: json.__bgPos.scale[0],
 			scaleY: json.__bgPos.scale[1],
 			cropRect: {
-				x: json.__bgPos.subRect[0],
-				y: json.__bgPos.subRect[1],
-				w: json.__bgPos.subRect[2],
-				h: json.__bgPos.subRect[3],
+				x: json.__bgPos.cropRect[0],
+				y: json.__bgPos.cropRect[1],
+				w: json.__bgPos.cropRect[2],
+				h: json.__bgPos.cropRect[3],
 			},
 		}
 
@@ -145,45 +145,96 @@ class Level {
 	}
 
 
-	#if heaps
-	var _cachedBgTile : Null<h2d.Tile>;
+	#if !macro
 
-	/**
-		Get the full "raw" (ie. non-cropped, scaled or positioned) background Tile. Use `getBgImage()` instead to get the "ready for display" background image.
-	**/
-	public function getRawBgImageTile() : Null<h2d.Tile> {
-		if( bgImageInfos==null )
-			return null;
+		#if heaps
+		var _cachedBgTile : Null<h2d.Tile>;
 
-		if( _cachedBgTile==null ) {
-			var bytes = untypedProject.getAsset(bgImageInfos.relFilePath);
-			_cachedBgTile = dn.ImageDecoder.decodeTile(bytes);
-			if( _cachedBgTile==null )
-				_cachedBgTile = h2d.Tile.fromColor(0xff0000, pxWid, pxHei);
+		/**
+			Get the full "raw" (ie. non-cropped, scaled or positioned) background Tile. Use `getBgImage()` instead to get the "ready for display" background image.
+		**/
+		public function getRawBgImageTile() : Null<h2d.Tile> {
+			if( bgImageInfos==null )
+				return null;
+
+			if( _cachedBgTile==null ) {
+				var bytes = untypedProject.getAsset(bgImageInfos.relFilePath);
+				_cachedBgTile = dn.ImageDecoder.decodeTile(bytes);
+				if( _cachedBgTile==null )
+					_cachedBgTile = h2d.Tile.fromColor(0xff0000, pxWid, pxHei);
+			}
+			return _cachedBgTile;
 		}
-		return _cachedBgTile;
-	}
 
-	/**
-		Return the level background image, ready for display. The bitmap coordinates and scaling also match level background settings.
-	**/
-	public function getBgImage(?parent:h2d.Object) : Null<h2d.Bitmap> {
-		var t = getRawBgImageTile();
-		if( t==null )
-			return null;
+		/**
+			Return the level background image, ready for display. The bitmap coordinates and scaling also match level background settings.
+		**/
+		public function getBgImage(?parent:h2d.Object) : Null<h2d.Bitmap> {
+			var t = getRawBgImageTile();
+			if( t==null )
+				return null;
 
-		t = t.sub(
-			bgImageInfos.cropRect.x,
-			bgImageInfos.cropRect.y,
-			bgImageInfos.cropRect.w,
-			bgImageInfos.cropRect.h
-		);
-		var bmp = new h2d.Bitmap(t, parent);
-		bmp.x = bgImageInfos.topLeftX;
-		bmp.y = bgImageInfos.topLeftY;
-		bmp.scaleX = bgImageInfos.scaleX;
-		bmp.scaleY = bgImageInfos.scaleY;
-		return bmp;
-	}
-	#end
+			t = t.sub(
+				bgImageInfos.cropRect.x,
+				bgImageInfos.cropRect.y,
+				bgImageInfos.cropRect.w,
+				bgImageInfos.cropRect.h
+			);
+			var bmp = new h2d.Bitmap(t, parent);
+			bmp.x = bgImageInfos.topLeftX;
+			bmp.y = bgImageInfos.topLeftY;
+			bmp.scaleX = bgImageInfos.scaleX;
+			bmp.scaleY = bgImageInfos.scaleY;
+			return bmp;
+		}
+		#end
+
+		#if flixel
+		public function getBgImage() : Null< flixel.FlxSprite > {
+			if( bgImageInfos==null )
+				return null;
+
+			var graphic = untypedProject.getFlxGraphicAsset( bgImageInfos.relFilePath );
+			var spr = new flixel.FlxSprite();
+			// var f = flixel.graphics.frames.FlxImageFrame.fromGraphic(graphic, flixel.math.FlxRect.weak(
+			// 	bgImageInfos.cropRect.x,
+			// 	bgImageInfos.cropRect.y,
+			// 	bgImageInfos.cropRect.w,
+			// 	bgImageInfos.cropRect.h
+			// ));
+			// spr.frames = f;
+			spr.loadGraphic(graphic);
+			spr.x = bgImageInfos.topLeftX;
+			spr.y = bgImageInfos.topLeftY;
+			spr.origin.x = 0;
+			spr.origin.y = 0;
+			spr.scale.x = bgImageInfos.scaleX;
+			spr.scale.y = bgImageInfos.scaleY;
+			// spr.clipRect = flixel.math.FlxRect.get(
+			// 	bgImageInfos.cropRect.x,
+			// 	bgImageInfos.cropRect.y,
+			// 	bgImageInfos.cropRect.w,
+			// 	bgImageInfos.cropRect.h
+			// );
+			return spr;
+			// var f = flixel.graphics.frames.FlxImageFrame.fromGraphic(graphic, flixel.math.FlxRect.weak(
+			// 	bgImageInfos.cropRect.x,
+			// 	bgImageInfos.cropRect.y,
+			// 	bgImageInfos.cropRect.w,
+			// 	bgImageInfos.cropRect.h
+			// ));
+
+			// var f = new flixel.graphics.frames.FlxFrame(graphic);
+			// var crop = f.subFrameTo( flixel.math.FlxRect.weak(
+			// 	bgImageInfos.cropRect.x,
+			// 	bgImageInfos.cropRect.y,
+			// 	bgImageInfos.cropRect.w,
+			// 	bgImageInfos.cropRect.h
+			// ) );
+			// var g = flixel.graphics.FlxGraphic.fromFrames(f);
+			// return g;
+		}
+		#end
+
+	#end // End of "if !macro"
 }
