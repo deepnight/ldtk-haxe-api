@@ -25,8 +25,11 @@ class Heaps_TileLayers extends hxd.App {
 		// Get level data
 		var level = project.all_levels.West;
 
+		// Level background image
+		s2d.addChild( level.getBgImage() );
+
 		// Render "pure" auto-layer (ie. background walls)
-		s2d.addChild( level.l_Background.render() );
+		s2d.addChild( level.l_Cavern_background.render() );
 
 		// Render IntGrid Auto-layer tiles (ie. walls, ladders, etc.)
 		s2d.addChild( level.l_Collisions.render() );
