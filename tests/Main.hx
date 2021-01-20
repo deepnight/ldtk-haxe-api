@@ -217,6 +217,12 @@ class Main {
 			@:privateAccess CiAssert.equals( level.l_IntGrid_AutoLayer.tileset.untypedProject, project );
 
 
+			// Level background image
+			CiAssert.isTrue( project.all_levels.Offset_tests.bgImage==null );
+			CiAssert.isNotNull( project.all_levels.Main_tests.bgImage );
+			CiAssert.equals( project.all_levels.Main_tests.bgImage.topLeftX, 0 );
+			CiAssert.isNotNull( project.all_levels.Main_tests.bgImage.cropRect );
+
 
 			// Project in a package
 			section("PROJECT (WITH PACKAGE)...");
