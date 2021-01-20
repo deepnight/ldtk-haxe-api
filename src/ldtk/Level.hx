@@ -169,7 +169,7 @@ class Level {
 		/**
 			Return the level background image, ready for display. The bitmap coordinates and scaling also match level background settings.
 		**/
-		public function getBgImage(?parent:h2d.Object) : Null<h2d.Bitmap> {
+		public function getBgBitmap(?parent:h2d.Object) : Null<h2d.Bitmap> {
 			var t = getRawBgImageTile();
 			if( t==null )
 				return null;
@@ -190,49 +190,31 @@ class Level {
 		#end
 
 		#if flixel
-		public function getBgImage() : Null< flixel.FlxSprite > {
+		public function getBgSprite() : Null< flixel.FlxSprite > {
 			if( bgImageInfos==null )
 				return null;
 
+			// Full image
 			var graphic = untypedProject.getFlxGraphicAsset( bgImageInfos.relFilePath );
+			if( graphic==null )
+				return null;
+
+			// Cropped sub section
+			var f = flixel.graphics.frames.FlxImageFrame.fromGraphic(graphic, flixel.math.FlxRect.weak(
+				bgImageInfos.cropRect.x,
+				bgImageInfos.cropRect.y,
+				bgImageInfos.cropRect.w,
+				bgImageInfos.cropRect.h
+			));
+
+			// FlxSprite
 			var spr = new flixel.FlxSprite();
-			// var f = flixel.graphics.frames.FlxImageFrame.fromGraphic(graphic, flixel.math.FlxRect.weak(
-			// 	bgImageInfos.cropRect.x,
-			// 	bgImageInfos.cropRect.y,
-			// 	bgImageInfos.cropRect.w,
-			// 	bgImageInfos.cropRect.h
-			// ));
-			// spr.frames = f;
-			spr.loadGraphic(graphic);
+			spr.frame = f.frame;
 			spr.x = bgImageInfos.topLeftX;
 			spr.y = bgImageInfos.topLeftY;
-			spr.origin.x = 0;
-			spr.origin.y = 0;
-			spr.scale.x = bgImageInfos.scaleX;
-			spr.scale.y = bgImageInfos.scaleY;
-			// spr.clipRect = flixel.math.FlxRect.get(
-			// 	bgImageInfos.cropRect.x,
-			// 	bgImageInfos.cropRect.y,
-			// 	bgImageInfos.cropRect.w,
-			// 	bgImageInfos.cropRect.h
-			// );
+			spr.origin.set(0,0);
+			spr.scale.set(bgImageInfos.scaleX, bgImageInfos.scaleY);
 			return spr;
-			// var f = flixel.graphics.frames.FlxImageFrame.fromGraphic(graphic, flixel.math.FlxRect.weak(
-			// 	bgImageInfos.cropRect.x,
-			// 	bgImageInfos.cropRect.y,
-			// 	bgImageInfos.cropRect.w,
-			// 	bgImageInfos.cropRect.h
-			// ));
-
-			// var f = new flixel.graphics.frames.FlxFrame(graphic);
-			// var crop = f.subFrameTo( flixel.math.FlxRect.weak(
-			// 	bgImageInfos.cropRect.x,
-			// 	bgImageInfos.cropRect.y,
-			// 	bgImageInfos.cropRect.w,
-			// 	bgImageInfos.cropRect.h
-			// ) );
-			// var g = flixel.graphics.FlxGraphic.fromFrames(f);
-			// return g;
 		}
 		#end
 
