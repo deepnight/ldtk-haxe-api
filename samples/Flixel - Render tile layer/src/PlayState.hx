@@ -23,8 +23,12 @@ class PlayState extends FlxState
 			container.x = level.worldX;
 			container.y = level.worldY;
 
+			// Attach level background image, if any
+			if( level.hasBgImage() )
+				container.add( level.getBgSprite() );
+
 			// Render layer "Background"
-			level.l_Background.render( container );
+			level.l_Cavern_background.render( container );
 
 			// Render layer "Collisions"
 			level.l_Collisions.render( container );
