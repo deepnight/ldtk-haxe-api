@@ -140,6 +140,11 @@ class Level {
 	}
 
 
+	public inline function hasBgImage() {
+		return bgImageInfos!=null;
+	}
+
+
 	#if heaps
 	var _cachedBgTile : Null<h2d.Tile>;
 
