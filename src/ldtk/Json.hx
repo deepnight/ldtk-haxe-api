@@ -171,22 +171,6 @@ typedef LevelJson = {
 }
 
 
-/**
-	A small object describing the level background image position, based on level settings.
-**/
-@inline
-typedef LevelBgPosInfos = {
-	/** An array containing the `[x,y]` pixel coordinates of the top-left corner of the background image, depending on `bgPos` option. **/
-	var topLeftPx: Array<Int>;
-
-	/** An array containing the `[scaleX,scaleY]` values of the background image, depending on `bgPos` option. **/
-	var scale: Array<Float>;
-
-	/** An array of 4 float values describing the sub-rectangle of the displayed background image. This is useful when the initial image was cropped, because it was larger than the level bounds. Array format: `[ subX, subY, subWidth, subHeight ]`**/
-	var subRect: Array<Float>;
-}
-
-
 
 @section("1.1")
 @display("Layer instance")
@@ -267,26 +251,6 @@ typedef LayerInstanceJson = {
 }
 
 
-@inline
-typedef IntGridValueInstance = {
-	/** Coordinate ID in the layer grid **/
-	var coordId:Int;
-
-	/** IntGrid value **/
-	var v:Int;
-}
-
-
-@inline
-typedef IntGridValueDef = {
-	/** Unique String identifier **/
-	var identifier:Null<String>;
-
-	@color
-	var color:String ;
-}
-
-
 
 /**
 	This structure represents a single tile from a given Tileset.
@@ -356,18 +320,6 @@ typedef EntityInstanceJson = {
 	var px: Array<Int>;
 
 	var fieldInstances: Array<FieldInstanceJson>;
-}
-
-/**
-	Description of a tile used by an EntityInstance
-**/
-@inline
-typedef EntityInstanceTile = {
-	/** Tileset ID **/
-	var tilesetUid: Int;
-
-	/** An array of 4 Int values that refers to the tile in the tileset image: `[ x, y, width, height ]` **/
-	var srcRect: Array<Int>;
 }
 
 
@@ -759,6 +711,21 @@ typedef EnumDefValues = {
 	var __tileSrcRect:Array<Int>; // TODO use a Tile instance here?
 }
 
+
+
+/* INLINED TYPES *****************************************************************************/
+
+/** Tile data in an Entity instance **/
+@inline
+typedef EntityInstanceTile = {
+	/** Tileset ID **/
+	var tilesetUid: Int;
+
+	/** An array of 4 Int values that refers to the tile in the tileset image: `[ x, y, width, height ]` **/
+	var srcRect: Array<Int>;
+}
+
+/** Nearby level info **/
 @inline
 typedef NeighbourLevel = {
 	var levelUid: Int;
@@ -767,8 +734,42 @@ typedef NeighbourLevel = {
 	var dir: String;
 }
 
+/** Level background image position info **/
+@inline
+typedef LevelBgPosInfos = {
+	/** An array containing the `[x,y]` pixel coordinates of the top-left corner of the background image, depending on `bgPos` option. **/
+	var topLeftPx: Array<Int>;
 
-// Misc enums
+	/** An array containing the `[scaleX,scaleY]` values of the background image, depending on `bgPos` option. **/
+	var scale: Array<Float>;
+
+	/** An array of 4 float values describing the sub-rectangle of the displayed background image. This is useful when the initial image was cropped, because it was larger than the level bounds. Array format: `[ subX, subY, subWidth, subHeight ]`**/
+	var subRect: Array<Float>;
+}
+
+/** IntGrid value instance **/
+@inline
+typedef IntGridValueInstance = {
+	/** Coordinate ID in the layer grid **/
+	var coordId:Int;
+
+	/** IntGrid value **/
+	var v:Int;
+}
+
+/** IntGrid value definition **/
+@inline
+typedef IntGridValueDef = {
+	/** Unique String identifier **/
+	var identifier:Null<String>;
+
+	@color
+	var color:String ;
+}
+
+
+
+/* MISC ENUMS *****************************************************************************/
 
 enum WorldLayout {
 	Free;
