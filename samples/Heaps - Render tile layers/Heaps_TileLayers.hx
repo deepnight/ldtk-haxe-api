@@ -26,7 +26,7 @@ class Heaps_TileLayers extends hxd.App {
 		var level = project.all_levels.West;
 
 		// Level background image
-		s2d.addChild( level.getBgImage() );
+		s2d.addChild( level.getBgBitmap() );
 
 		// Render "pure" auto-layer (ie. background walls)
 		s2d.addChild( level.l_Cavern_background.render() );

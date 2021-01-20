@@ -32,7 +32,7 @@ class Heaps_FullWorld extends hxd.App {
 
 			// Level background image
 			if( level.hasBgImage() )
-				levelWrapper.addChild( level.getBgImage() );
+				levelWrapper.addChild( level.getBgBitmap() );
 
 			// Render background layer
 			levelWrapper.addChild( level.l_Cavern_background.render() );

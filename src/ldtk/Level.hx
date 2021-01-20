@@ -151,7 +151,7 @@ class Level {
 		var _cachedBgTile : Null<h2d.Tile>;
 
 		/**
-			Get the full "raw" (ie. non-cropped, scaled or positioned) background Tile. Use `getBgImage()` instead to get the "ready for display" background image.
+			Get the full "raw" (ie. non-cropped, scaled or positioned) background Tile. Use `getBgBitmap()` instead to get the "ready for display" background image.
 		**/
 		public function getRawBgImageTile() : Null<h2d.Tile> {
 			if( bgImageInfos==null )
