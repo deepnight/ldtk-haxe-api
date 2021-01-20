@@ -823,7 +823,7 @@
 			"bgPos": "Cover",
 			"bgPivotX": 0,
 			"bgPivotY": 0,
-			"__bgPos": { "topLeftPx": [0,0], "scale": [1.1428571428571428,1.1428571428571428], "subRect": [0,0,448,448] },
+			"__bgPos": { "topLeftPx": [0,0], "scale": [2.2857142857142856,2.2857142857142856], "cropRect": [0,0,224,224] },
 			"externalRelPath": "unitTest/0000-Main_tests.ldtkl",
 			"layerInstances": null,
 			"__neighbours": [{ "levelUid": 88, "dir": "e" }]
