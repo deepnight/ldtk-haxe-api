@@ -174,8 +174,7 @@ typedef LevelJson = {
 /**
 	A small object describing the level background image position, based on level settings.
 **/
-@section("1.3")
-@display("Level background position")
+@inline
 typedef LevelBgPosInfos = {
 	/** An array containing the `[x,y]` pixel coordinates of the top-left corner of the background image, depending on `bgPos` option. **/
 	var topLeftPx: Array<Int>;
@@ -249,13 +248,7 @@ typedef LayerInstanceJson = {
 	var seed: Int;
 
 	@only("IntGrid layers")
-	var intGrid: Array<{
-		/** Coordinate ID in the layer grid **/
-		var coordId:Int;
-
-		/** IntGrid value **/
-		var v:Int;
-	}>;
+	var intGrid: Array<IntGridValueInstance>;
 
 	@only("Tile layers")
 	var gridTiles: Array<Tile>;
@@ -271,6 +264,26 @@ typedef LayerInstanceJson = {
 
 	@only("Entity layers")
 	var entityInstances: Array<EntityInstanceJson>;
+}
+
+
+@inline
+typedef IntGridValueInstance = {
+	/** Coordinate ID in the layer grid **/
+	var coordId:Int;
+
+	/** IntGrid value **/
+	var v:Int;
+}
+
+
+@inline
+typedef IntGridValueDef = {
+	/** Unique String identifier **/
+	var identifier:Null<String>;
+
+	@color
+	var color:String ;
 }
 
 
@@ -348,8 +361,7 @@ typedef EntityInstanceJson = {
 /**
 	Description of a tile used by an EntityInstance
 **/
-@section("1.1.3")
-@display("Entity instance tile")
+@inline
 typedef EntityInstanceTile = {
 	/** Tileset ID **/
 	var tilesetUid: Int;
@@ -375,9 +387,14 @@ typedef FieldInstanceJson = {
 	/** Type of the field, such as `Int`, `Float`, `Enum(my_enum_name)`, `Bool`, etc. **/
 	var __type: String;
 
-	/** Reference of the **Field definition** UID **/
+	/**
+		Reference of the **Field definition** UID
+	**/
 	var defUid: Int;
 
+	/**
+		Editor internal raw values
+	**/
 	@internal
 	var realEditorValues: Array< Null<Enum<Dynamic>> >;
 }
@@ -437,12 +454,7 @@ typedef LayerDefJson = {
 
 	/** An array (using IntGrid value as array index, starting from 0) that defines extra optional info for each IntGrid value. **/
 	@only("IntGrid layer")
-	var intGridValues: Array<{
-		var identifier:Null<String>;
-
-		@color
-		var color:String ;
-	}>;
+	var intGridValues: Array<IntGridValueDef>;
 
 	/** Reference to the Tileset UID being used by this auto-layer rules **/
 	@only("Auto-layers")
@@ -734,7 +746,7 @@ typedef EnumDefJson = {
 };
 
 @section("2.4.1")
-@display("Enum value informations")
+@display("Enum value definition")
 typedef EnumDefValues = {
 	/** Enum value **/
 	var id:String;
@@ -747,8 +759,7 @@ typedef EnumDefValues = {
 	var __tileSrcRect:Array<Int>; // TODO use a Tile instance here?
 }
 
-@section("1.2")
-@display("NeighbourLevel")
+@inline
 typedef NeighbourLevel = {
 	var levelUid: Int;
 
