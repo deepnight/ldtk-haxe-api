@@ -737,14 +737,14 @@ typedef NeighbourLevel = {
 /** Level background image position info **/
 @inline
 typedef LevelBgPosInfos = {
-	/** An array containing the `[x,y]` pixel coordinates of the top-left corner of the background image, depending on `bgPos` option. **/
+	/** An array containing the `[x,y]` pixel coordinates of the top-left corner of the **cropped** background image, depending on `bgPos` option. **/
 	var topLeftPx: Array<Int>;
 
-	/** An array containing the `[scaleX,scaleY]` values of the background image, depending on `bgPos` option. **/
+	/** An array containing the `[scaleX,scaleY]` values of the **cropped** background image, depending on `bgPos` option. **/
 	var scale: Array<Float>;
 
-	/** An array of 4 float values describing the sub-rectangle of the displayed background image. This is useful when the initial image was cropped, because it was larger than the level bounds. Array format: `[ subX, subY, subWidth, subHeight ]`**/
-	var subRect: Array<Float>;
+	/** An array of 4 float values describing the cropped sub-rectangle of the displayed background image. This cropping happens when original is larger than the level bounds. Array format: `[ cropX, cropY, cropWidth, cropHeight ]`**/
+	var cropRect: Array<Float>;
 }
 
 /** IntGrid value instance **/
