@@ -68,6 +68,10 @@ typedef ProjectJson = {
 	@internal
 	var exportPng: Bool;
 
+	/** If TRUE, an extra copy of the project will be created in a sub folder, when saving. **/
+	@internal
+	var backupOnSave: Bool;
+
 	/** A structure containing all the definitions of this project **/
 	var defs: DefinitionsJson;
 
