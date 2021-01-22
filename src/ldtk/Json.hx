@@ -72,6 +72,10 @@ typedef ProjectJson = {
 	@internal
 	var backupOnSave: Bool;
 
+	/** Number of backup files to keep, if the `backupOnSave` is TRUE **/
+	@internal
+	var backupLimit: Int;
+
 	/** A structure containing all the definitions of this project **/
 	var defs: DefinitionsJson;
 
