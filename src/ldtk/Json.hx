@@ -58,6 +58,7 @@ typedef ProjectJson = {
 	var minifyJson: Bool;
 
 	/** If TRUE, one file will be saved the project (incl. all its definitions) and one file per-level in a sub-folder. **/
+	@added("0.7.0")
 	var externalLevels: Bool;
 
 	/** If TRUE, a Tiled compatible file will also be generated along with the LDtk JSON file (default is FALSE) **/
@@ -66,14 +67,17 @@ typedef ProjectJson = {
 
 	/** If TRUE, all layers in all levels will also be exported as PNG along with the project file (default is FALSE)  **/
 	@internal
+	@added("0.7.0")
 	var exportPng: Bool;
 
 	/** If TRUE, an extra copy of the project will be created in a sub folder, when saving. **/
 	@internal
+	@added("0.7.0")
 	var backupOnSave: Bool;
 
 	/** Number of backup files to keep, if the `backupOnSave` is TRUE **/
 	@internal
+	@added("0.7.0")
 	var backupLimit: Int;
 
 	/** A structure containing all the definitions of this project **/
@@ -160,12 +164,16 @@ typedef LevelJson = {
 	@added("0.7.0")
 	var bgPos: BgImagePos;
 
-	// TODO doc
+	/**
+		Background image X pivot (0-1)
+	**/
 	@internal
 	@added("0.7.0")
 	var bgPivotX: Float;
 
-	// TODO doc
+	/**
+		Background image Y pivot (0-1)
+	**/
 	@internal
 	@added("0.7.0")
 	var bgPivotY: Float;
