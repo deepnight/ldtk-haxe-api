@@ -1,0 +1,29 @@
+
+--cwd "Generic - Read project"
+"build.hxml"
+--next
+--cwd ..
+--next
+
+--cwd "Heaps - Object tiles"
+"build.hxml"
+--next
+--cwd ..
+--next
+
+--cwd "Heaps - Render full world"
+"build.hxml"
+--next
+--cwd ..
+--next
+
+--cwd "Heaps - Render IntGrid layer"
+"build.hxml"
+--next
+--cwd ..
+--next
+
+--cwd "Heaps - Render tile layers"
+"build.hxml"
+--next
+--cwd ..

@@ -1,9 +1,11 @@
 @echo off
 
 echo Samples...
-del samples\*.hxml 2>nul
-del samples\*.html 2>nul
-rmdir /Q/S samples\bin 2>nul
+del samples\index.html /s 2>nul
+del samples\build.hxml /s 2>nul
+del samples\*.hl /s 2>nul
+del samples\*.js /s 2>nul
+del samples\all.hxml 2>nul
 
 echo Dump...
 rmdir /Q/S dump 2>nul

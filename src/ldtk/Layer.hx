@@ -1,14 +1,10 @@
 package ldtk;
 
-enum LayerType {
-	IntGrid;
-	Tiles;
-	Entities;
-	AutoLayer;
-	Unknown;
-}
+import ldtk.Json;
 
 class Layer {
+	var untypedProject: ldtk.Project;
+
 	public var identifier : String;
 	public var type : LayerType;
 
@@ -40,17 +36,24 @@ class Layer {
 	/** Layer opacity (0-1) **/
 	public var opacity : Float;
 
-	public function new(json:ldtk.Json.LayerInstanceJson) {
+
+	public function new(p:ldtk.Project, json:ldtk.Json.LayerInstanceJson) {
+		untypedProject = p;
 		identifier = json.__identifier;
 		type =
 			try LayerType.createByName(json.__type)
-			catch(e:Dynamic) Unknown;
+			catch(e:Dynamic) throw 'Unknown layer type ${json.__type} in $identifier';
 		gridSize = json.__gridSize;
 		cWid = json.__cWid;
 		cHei = json.__cHei;
 		pxTotalOffsetX = json.__pxTotalOffsetX;
 		pxTotalOffsetY = json.__pxTotalOffsetY;
 		opacity = json.__opacity;
+	}
+
+	/** Print class debug info **/
+	@:keep public function toString() {
+		return 'ldtk.Layer[#$identifier, type=$type]';
 	}
 
 

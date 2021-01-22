@@ -1,6 +1,8 @@
 package ldtk;
 
 class Entity {
+	var untypedProject : ldtk.Project;
+
 	var _enumTypePrefix : String;
 	public var identifier : String;
 
@@ -16,20 +18,29 @@ class Entity {
 	/** Pixel-based Y coordinate **/
 	public var pixelY : Int;
 
+	/** Pivot X coord (0-1) **/
+	public var pivotX : Float;
+
+	/** Pivot Y coord (0-1) **/
+	public var pivotY : Float;
+
 	/** Tile infos if the entity has one (it could have be overridden by a Field value, such as Enums) **/
-	public var tileInfos : Null<{ tilesetUid:Int, x:Int, y:Int, w:Int, h:Int }>;
+	public var defaultTileInfos : Null<{ tilesetUid:Int, x:Int, y:Int, w:Int, h:Int }>;
 
 	var _fields : Map<String, Dynamic> = new Map();
 
 
-	public function new(json:ldtk.Json.EntityInstanceJson) {
+	public function new(p:ldtk.Project, json:ldtk.Json.EntityInstanceJson) {
+		untypedProject = p;
 		identifier = json.__identifier;
 		cx = json.__grid[0];
 		cy = json.__grid[1];
 		pixelX = json.px[0];
 		pixelY = json.px[1];
+		pivotX = json.__pivot==null ? 0 : json.__pivot[0];
+		pivotY = json.__pivot==null ? 0 : json.__pivot[1];
 
-		tileInfos = json.__tile==null ? null : {
+		defaultTileInfos = json.__tile==null ? null : {
 			tilesetUid: json.__tile.tilesetUid,
 			x: json.__tile.srcRect[0],
 			y: json.__tile.srcRect[1],
@@ -48,6 +59,9 @@ class Entity {
 
 			switch typeName {
 				case "Int", "Float", "Bool", "String" :
+					Reflect.setField(this, "f_"+f.__identifier, f.__value);
+
+				case "FilePath" :
 					Reflect.setField(this, "f_"+f.__identifier, f.__value);
 
 				case "Color":
@@ -82,7 +96,7 @@ class Entity {
 					var type = typeName.substr( typeName.indexOf(".")+1 );
 					var e = _resolveExternalEnum(type);
 					if( e==null )
-						throw "Couldn't create an instance of enum "+type+"! Please check if the PROJECT enum still matches the EXTERNAL FILE declaring it.";
+						Project.error("Couldn't create an instance of enum "+type+"! Please check if the PROJECT enum still matches the EXTERNAL FILE declaring it.");
 					if( !isArray )
 						Reflect.setField(this, "f_"+f.__identifier, Type.createEnum(e, f.__value) );
 					else {
@@ -91,7 +105,7 @@ class Entity {
 					}
 
 				case _ :
-					throw "Unknown field type "+typeName+" for "+identifier+"."+f.__identifier;
+					Project.error('Unknown field type $typeName for $identifier.${f.__identifier}');
 			}
 		}
 	}

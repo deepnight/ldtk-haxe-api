@@ -217,7 +217,7 @@ class TypeBuilder {
 			});
 		}
 		externEnumSwitchExpr = {
-			expr: ESwitch( macro name, cases, macro throw "Unknown external enum name" ),
+			expr: ESwitch( macro name, cases, macro { ldtk.Project.error("Unknown external enum name"); null; } ),
 			pos: curPos,
 		}
 	}
@@ -244,9 +244,9 @@ class TypeBuilder {
 				**/
 				public var entityType : $entityEnumType;
 
-				override public function new(json) {
+				override public function new(p, json) {
 					this._enumTypePrefix = $v{modPack.concat(["Enum_"]).join(".")};
-					super(json);
+					super(p, json);
 
 					entityType = Type.createEnum($entityEnumRef, json.__identifier);
 				}
@@ -287,12 +287,7 @@ class TypeBuilder {
 				doc: "Specialized Entity class for "+e.identifier,
 				pack : modPack,
 				kind : TDClass(parentTypePath),
-				fields : (macro class {
-					override public function new(json) {
-						super(json);
-					}
-
-				}).fields,
+				fields : (macro class { }).fields,
 			}
 
 			// Create field types
@@ -301,7 +296,7 @@ class TypeBuilder {
 				var isArray = arrayReg.match(f.__type);
 				var typeName = isArray ? arrayReg.matched(1) : f.__type;
 
-				var fields : Array<{ name:String, ct:ComplexType }> = [];
+				var fields : Array<{ name:String, ct:ComplexType, ?customKind:FieldType }> = [];
 				switch typeName {
 					case "Int":
 						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<Int>) : (macro : Int) });
@@ -312,11 +307,34 @@ class TypeBuilder {
 					case "String":
 						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<String>) : (macro : String) });
 
+					case "FilePath":
+						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<String>) : (macro : String) });
+						fields.push({
+							name: f.identifier+"_bytes",
+							ct: f.canBeNull ? (macro : Null<haxe.io.Bytes>) : (macro : haxe.io.Bytes),
+							customKind: FProp("get", "never", macro : Null<haxe.io.Bytes>)
+						});
+						// Build getter
+						var getterFunc : Function = {
+							expr: macro {
+								var relPath = Reflect.field(this, "f_"+$v{f.identifier});
+								return relPath==null ? null : untypedProject.getAsset(relPath);
+							},
+							args: [],
+							ret: macro : Null<haxe.io.Bytes>,
+						}
+						entityType.fields.push({
+							name: "get_f_"+f.identifier+"_bytes",
+							access: [APrivate],
+							kind: FFun(getterFunc),
+							pos: curPos,
+						});
+
 					case "Bool":
 						fields.push({ name: f.identifier, ct: macro : Bool });
 
 					case "Color":
-						fields.push({ name: f.identifier+"_int", ct: f.canBeNull ? (macro : Null<UInt>) : (macro : UInt) });
+						fields.push({ name: f.identifier+"_int", ct: f.canBeNull ? (macro : Null<Int>) : (macro : Int) });
 						fields.push({ name: f.identifier+"_hex", ct: f.canBeNull ? (macro : Null<String>) : (macro : String) });
 
 					case "Point":
@@ -354,7 +372,7 @@ class TypeBuilder {
 					entityType.fields.push({
 						name: "f_"+fi.name,
 						access: [ APublic ],
-						kind: FVar(fi.ct),
+						kind: fi.customKind==null ? FVar(fi.ct) : fi.customKind,
 						doc: "Entity field "+fi.name+" ("+f.__type+")",
 						pos: curPos,
 					});
@@ -382,8 +400,8 @@ class TypeBuilder {
 				doc: 'Tileset class of atlas "${e.relPath}"',
 				kind : TDClass(parentTypePath),
 				fields : (macro class {
-					override public function new(json) {
-						super(json);
+					override public function new(p,json) {
+						super(p,json);
 					}
 
 				}).fields,
@@ -403,8 +421,9 @@ class TypeBuilder {
 	static function createLayersClasses() {
 		timer("layerClasses");
 		for(l in json.defs.layers) {
-			switch l.type {
-				case "IntGrid":
+			var type = Type.createEnum(LayerType, Std.string(l.type)); // Json value is actually a String
+			switch type {
+				case IntGrid:
 
 					if( l.autoTilesetDefUid==null ) {
 						// IntGrid
@@ -416,8 +435,8 @@ class TypeBuilder {
 							doc: "IntGrid layer",
 							kind : TDClass(parentTypePath),
 							fields : (macro class {
-								override public function new(json) {
-									super(json);
+								override public function new(p,json) {
+									super(p,json);
 
 									for(v in $v{l.intGridValues} ) {
 										valueInfos.push({
@@ -434,9 +453,6 @@ class TypeBuilder {
 					else {
 						// Auto-layer IntGrid
 						var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_IntGrid_AutoLayer" }
-						var ts = l.autoTilesetDefUid!=null ? tilesets.get(l.autoTilesetDefUid) : null;
-						var tsComplexType = ts!=null ? Context.getType( ts.typeName ).toComplexType() : null;
-						var tsTypePath : TypePath = ts!=null ? { pack: modPack, name: ts.typeName } : null;
 
 						var layerType : TypeDefinition = {
 							pos : curPos,
@@ -445,41 +461,27 @@ class TypeBuilder {
 							doc: "IntGrid layer with auto-layer capabilities",
 							kind : TDClass(parentTypePath),
 							fields : (macro class {
-								override public function new(json) {
-									super(json);
+								override public function new(p,json) {
+									super(p,json);
 
+									// Store IntGrid values extra infos
 									for(v in $v{l.intGridValues} ) {
 										valueInfos.push({
 											identifier: v.identifier,
 											color: Std.parseInt( "0x"+v.color.substr(1) ),
 										});
 									}
-
-									tileset = ${ ts==null ? null : macro new $tsTypePath( cast $v{ts.json} ) }
 								}
-
-								override function _getTileset() return tileset;
 							}).fields,
 						}
-
-						// Auto-layer tileset class
-						layerType.fields.push({
-							name: "tileset",
-							access: [APublic],
-							kind: FVar( tsComplexType ),
-							pos: curPos,
-						});
 
 						registerTypeDefinitionModule(layerType, projectFilePath);
 					}
 
 
-				case "AutoLayer":
+				case AutoLayer:
 					// Pure Auto-layer
 					var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_AutoLayer" }
-					var ts = l.autoTilesetDefUid!=null ? tilesets.get(l.autoTilesetDefUid) : null;
-					var tsComplexType = ts!=null ? Context.getType( ts.typeName ).toComplexType() : null;
-					var tsTypePath : TypePath = ts!=null ? { pack: modPack, name: ts.typeName } : null;
 
 					var layerType : TypeDefinition = {
 						pos : curPos,
@@ -488,27 +490,16 @@ class TypeBuilder {
 						doc: "IntGrid layer with auto-layer capabilities",
 						kind : TDClass(parentTypePath),
 						fields : (macro class {
-							override public function new(json) {
-								super(json);
-								tileset = ${ ts==null ? null : macro new $tsTypePath( cast $v{ts.json} ) }
+							override public function new(p,json) {
+								super(p,json);
 							}
-
-							override function _getTileset() return tileset;
 						}).fields,
 					}
-
-					// Auto-layer tileset class
-					layerType.fields.push({
-						name: "tileset",
-						access: [APublic],
-						kind: FVar( tsComplexType ),
-						pos: curPos,
-					});
 
 					registerTypeDefinitionModule(layerType, projectFilePath);
 
 
-				case "Entities":
+				case Entities:
 					var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_Entities" }
 					var baseEntityComplexType = Context.getType(baseEntityType.name).toComplexType();
 
@@ -533,11 +524,11 @@ class TypeBuilder {
 						pack : modPack,
 						kind : TDClass(parentTypePath),
 						fields : entityArrayFields.concat( (macro class {
-							override public function new(json) {
+							override public function new(p,json) {
 								for( f in $a{entityArrayExpr} )
 									Reflect.setField(this, f, []);
 
-								super(json);
+								super(p,json);
 							}
 
 							override function _instanciateEntity(json) {
@@ -545,7 +536,7 @@ class TypeBuilder {
 								if( c==null )
 									return null;
 								else
-									return cast Type.createInstance(c, [json]);
+									return cast Type.createInstance(c, [untypedProject, json]);
 							}
 
 							/**
@@ -561,11 +552,7 @@ class TypeBuilder {
 					registerTypeDefinitionModule(layerType, projectFilePath);
 
 
-				case "Tiles":
-					var ts = tilesets.get(l.tilesetDefUid);
-					var tsComplexType = Context.getType( ts.typeName ).toComplexType();
-					var tsTypePath : TypePath = { pack: modPack, name: ts.typeName }
-
+				case Tiles:
 					var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_Tiles" }
 					var layerType : TypeDefinition = {
 						pos : curPos,
@@ -574,22 +561,11 @@ class TypeBuilder {
 						doc: "Tile layer",
 						kind : TDClass(parentTypePath),
 						fields : (macro class {
-							override public function new(json) {
-								super(json);
-
-								tileset = new $tsTypePath( cast $v{ts.json} );
+							override public function new(p,json) {
+								super(p,json);
 							}
-
-							override function _getTileset() return tileset;
 						}).fields,
 					}
-					// Tileset class
-					layerType.fields.push({
-						name: "tileset",
-						access: [APublic],
-						kind: FVar( tsComplexType ),
-						pos: curPos,
-					});
 					registerTypeDefinitionModule(layerType, projectFilePath);
 
 
@@ -615,6 +591,10 @@ class TypeBuilder {
 			fields : (macro class {
 				override public function new(project, json) {
 					super(project, json);
+				}
+
+				override function fromJson(json) {
+					super.fromJson(json);
 
 					// Init quick access
 					for(l in allUntypedLayers)
@@ -623,16 +603,19 @@ class TypeBuilder {
 
 				override function _instanciateLayer(json:ldtk.Json.LayerInstanceJson) {
 					var c = Type.resolveClass($v{modPack.concat(["Layer_"]).join(".")}+json.__identifier);
-					if( c==null )
-						throw "Couldn't instanciate layer "+json.__identifier;
+					if( c==null ) {
+						ldtk.Project.error("Couldn't instanciate layer "+json.__identifier);
+						return null;
+					}
 					else
-						return cast Type.createInstance(c, [json]);
+						return cast Type.createInstance(c, [untypedProject, json]);
 				}
 
 				/**
 					Get a layer using its identifier. WARNING: the class of this layer will be more generic than when using proper "f_layerName" fields.
 				**/
 				public function resolveLayer(id:String) : Null<ldtk.Layer> {
+					load();
 					for(l in allUntypedLayers)
 						if( l.identifier==id )
 							return l;
@@ -640,14 +623,34 @@ class TypeBuilder {
 				}
 			}).fields,
 		}
-		for(l in json.defs.layers)
-			levelType.fields.push({
+
+		// Create quick layer access fields
+		for(l in json.defs.layers) {
+			var layerComplexType = Context.getType("Layer_"+l.identifier).toComplexType();
+			var property : Field = {
 				name: "l_"+l.identifier,
 				access: [APublic],
-				kind: FVar( Context.getType("Layer_"+l.identifier).toComplexType() ),
+				kind: FProp("get","default", layerComplexType),
 				doc: l.type+" layer",
 				pos: curPos,
-			});
+			}
+			var getterFunc : Function = {
+				expr: macro {
+					load();
+					return Reflect.field(this, $v{property.name});
+				},
+				ret: layerComplexType,
+				args: [],
+			}
+			var getter : Field = {
+				name: "get_l_"+l.identifier,
+				kind: FFun(getterFunc),
+				access: [ APrivate, AInline ],
+				pos: curPos,
+			}
+			levelType.fields.push(property);
+			levelType.fields.push(getter);
+		}
 		registerTypeDefinitionModule(levelType, projectFilePath);
 	}
 
@@ -727,18 +730,29 @@ class TypeBuilder {
 				/**
 					Get a level using its identifier
 				**/
-				public function resolveLevelIdentfier(id:String) : Null<$levelComplexType> {
+				public function getLevelIdentifier(id:String) : Null<$levelComplexType> {
 					for(l in _untypedLevels)
 						if( l.identifier==id )
 							return cast l;
 					return null;
 				}
+
 				/**
 					Get a level using its UID
 				**/
-				public function resolveLevelUid(uid:Int) : Null<$levelComplexType> {
+				public function getLevelUid(uid:Int) : Null<$levelComplexType> {
 					for(l in _untypedLevels)
 						if( l.uid==uid )
+							return cast l;
+					return null;
+				}
+
+				/**
+					Get a level using a world pixel coord
+				**/
+				public function getLevelAt(worldX:Int, worldY:Int) : Null<$levelComplexType> {
+					for(l in _untypedLevels)
+						if( worldX>=l.worldX && worldX<l.worldX+l.pxWid && worldY>=l.worldY && worldY<l.worldY+l.pxHei )
 							return cast l;
 					return null;
 				}
@@ -824,7 +838,7 @@ class TypeBuilder {
 	/**
 		Convert "#rrggbb" to 0xrrggbb (Integer)
 	**/
-	static inline function hexColorToInt(hex:String) : UInt {
+	static inline function hexColorToInt(hex:String) : Int {
 		return Std.parseInt( "0x"+hex.substr(1) );
 	}
 

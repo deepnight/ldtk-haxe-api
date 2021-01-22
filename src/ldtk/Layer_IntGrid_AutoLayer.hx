@@ -2,15 +2,22 @@ package ldtk;
 
 class Layer_IntGrid_AutoLayer extends ldtk.Layer_IntGrid {
 	/**
-		A single array containing all AutoLayer tiles informations, in "render" order
+		A single array containing all AutoLayer tiles informations, in "render" order (ie. 1st is behind, last is on top)
 	**/
 	public var autoTiles : Array<ldtk.Layer_AutoLayer.AutoTile>;
 
 
-	public function new(json) {
-		super(json);
+	/** Getter to layer Tileset instance **/
+	public var tileset(get,never) : ldtk.Tileset;
+		inline function get_tileset() return untypedProject.tilesets.get(tilesetUid);
+	var tilesetUid : Int;
+
+
+	public function new(p,json) {
+		super(p,json);
 
 		autoTiles = [];
+		tilesetUid = json.__tilesetDefUid;
 
 		for(jsonAutoTile in json.autoLayerTiles)
 			autoTiles.push({
@@ -21,36 +28,52 @@ class Layer_IntGrid_AutoLayer extends ldtk.Layer_IntGrid {
 			});
 	}
 
-	function _getTileset() : Tileset return null; // replaced by Macros.hx
 
 
-	#if( !macro && heaps )
+	#if !macro
 
-	/**
-		Render layer using provided Tileset atlas tile
-	**/
-	public function render(tilesetAtlasTile:h2d.Tile, ?parent:h2d.Object) {
-		if( parent==null )
-			parent = new h2d.Object();
+		#if heaps
+		/**
+			Render layer to a `h2d.TileGroup`. If `target` isn't provided, a new h2d.TileGroup is created. If `target` is provided, it **must** have the same tile source as the layer tileset!
+		**/
+		public inline function render(?target:h2d.TileGroup) : h2d.TileGroup {
+			if( target==null )
+				target = new h2d.TileGroup( tileset.getAtlasTile() );
 
-		var tg = new h2d.TileGroup(tilesetAtlasTile, parent);
-		renderInTileGroup(tg,false);
+			for( autoTile in autoTiles )
+				target.add(
+					autoTile.renderX + pxTotalOffsetX,
+					autoTile.renderY + pxTotalOffsetY,
+					tileset.getAutoLayerTile(autoTile)
+				);
 
-		return parent;
-	}
-
-	public inline function renderInTileGroup(tg:h2d.TileGroup, clearContent:Bool) {
-		if( clearContent )
-			tg.clear();
-
-		for( autoTile in autoTiles ) {
-			tg.add(
-				autoTile.renderX + pxTotalOffsetX,
-				autoTile.renderY + pxTotalOffsetY,
-				_getTileset().getAutoLayerHeapsTile(tg.tile, autoTile)
-			);
+			return target;
 		}
-	}
+		#end
+
+
+		#if flixel
+		/**
+			Render layer to a `FlxGroup`. If `target` isn't provided, a new one is created.
+		**/
+		public function render(?target:flixel.group.FlxSpriteGroup) : flixel.group.FlxSpriteGroup {
+			if( target==null ) {
+				target = new flixel.group.FlxSpriteGroup();
+				target.active = false;
+			}
+
+
+			for( autoTile in autoTiles ) {
+				var s = new flixel.FlxSprite(autoTile.renderX, autoTile.renderY);
+				s.flipX = autoTile.flips & 1 != 0;
+				s.flipY = autoTile.flips & 2 != 0;
+				s.frame = tileset.getFrame(autoTile.tileId);
+				target.add(s);
+			}
+
+			return target;
+		}
+		#end
 
 	#end
 }

@@ -1,12 +1,13 @@
 -cp tests
--cp samples
+-cp samples/_srcCommon
 -cp src
 
 -lib deepnightLibs
+-lib heaps
+-D resourcesPath=samples/_assets
 
--D resourcesPath=samples/res
+# -D ldtk_times
 # -D dump=pretty
-
 --dce full
 -debug
 

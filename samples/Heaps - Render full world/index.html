@@ -1,0 +1,62 @@
+
+		<!DOCTYPE html>
+		<html>
+			<head>
+				<meta name="viewport" content="width=device-width, user-scalable=no">
+				<meta charset="utf-8"/><title>Heaps_FullWorld</title>
+				<style>
+					body {
+						font-family: sans-serif;
+						margin: 0;
+						padding: 0;
+						background-color: gray;
+					}
+					canvas {
+						width: 960px;
+						height: 480px;
+						margin: 20px;
+						border: 1px solid white;
+						background-color: #555;
+					}
+					#error {
+						display: none;
+						padding: 16px;
+						margin-bottom: 16px;
+						color: white;
+						background: red;
+					}
+					ul.toc {
+						display: flex;
+						list-style: none;
+						margin: 0;
+						padding: 8px;
+					}
+					ul.toc li a {
+						display: inline-block;
+						padding: 3px 8px;
+						background: black;
+						color: #fc0;
+						text-decoration: none;
+						border-radius: 3px;
+						margin-right: 1px;
+						margin-bottom: 1px;
+					}
+					ul.toc li:hover a {
+						color: black;
+						background-color: #fc0;
+						text-decoration: none;
+					}
+				</style>
+			</head>
+			<body id="body">
+				<ul class="toc"></ul>
+
+				<div id="error">Failed to load JS script! Please build it using the HXML file (run: <code>haxe build.hxml</code>).</div>
+
+				<canvas id="webgl"></canvas>
+
+				<script type="text/javascript" src="_javascript.js" onerror='document.getElementById("error").style.display="block"'></script>
+
+			</body>
+		</html>
+	

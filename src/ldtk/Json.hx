@@ -1,17 +1,28 @@
 package ldtk;
 
+
+/**
+	This is the root of any Project JSON file. It contains:
+
+- the project settings,
+- an array of levels,
+- and a definition object (that can probably be safely ignored for most users).
+**/
 @display("LDtk Json root")
 typedef ProjectJson = {
 	/** File format version **/
 	var jsonVersion: String;
 
 	/** Default X pivot (0 to 1) for new entities **/
+	@internal
 	var defaultPivotX: Float;
 
 	/** Default Y pivot (0 to 1) for new entities **/
+	@internal
 	var defaultPivotY: Float;
 
 	/** Default grid size for new layers **/
+	@internal
 	var defaultGridSize: Int;
 
 	/** Project background color **/
@@ -21,13 +32,14 @@ typedef ProjectJson = {
 	/** Default background color of levels **/
 	@added("0.6.0")
 	@color
+	@internal
 	var defaultLevelBgColor: String;
 
 	/**
-		An enum that describes how levels are organized in this project (ie. linearly or in a 2D space). Possible values are: Free, GridVania, LinearHorizontal and LinearVertical;
+		An enum that describes how levels are organized in this project (ie. linearly or in a 2D space).
 	**/
 	@added("0.6.0")
-	var worldLayout: String;
+	var worldLayout: WorldLayout;
 
 	/** Width of the world grid in pixels. **/
 	@only("'GridVania' layouts")
@@ -45,17 +57,42 @@ typedef ProjectJson = {
 	/** If TRUE, the Json is partially minified (no indentation, nor line breaks, default is FALSE) **/
 	var minifyJson: Bool;
 
+	/** If TRUE, one file will be saved the project (incl. all its definitions) and one file per-level in a sub-folder. **/
+	var externalLevels: Bool;
+
 	/** If TRUE, a Tiled compatible file will also be generated along with the LDtk JSON file (default is FALSE) **/
+	@internal
 	var exportTiled: Bool;
+
+	/** If TRUE, all layers in all levels will also be exported as PNG along with the project file (default is FALSE)  **/
+	@internal
+	var exportPng: Bool;
+
+	/** If TRUE, an extra copy of the project will be created in a sub folder, when saving. **/
+	@internal
+	var backupOnSave: Bool;
+
+	/** Number of backup files to keep, if the `backupOnSave` is TRUE **/
+	@internal
+	var backupLimit: Int;
 
 	/** A structure containing all the definitions of this project **/
 	var defs: DefinitionsJson;
 
-	/** All levels. The order of this array is only relevant in `LinearHorizontal` and `linearVertical` world layouts (see `worldLayout` value). Otherwise, you should refer to the `worldX`,`worldY` coordinates of each Level. **/
+	/**
+		All levels. The order of this array is only relevant in `LinearHorizontal` and `linearVertical` world layouts (see `worldLayout` value). Otherwise, you should refer to the `worldX`,`worldY` coordinates of each Level.
+	**/
 	var levels: Array<LevelJson>;
 }
 
+/**
+This section contains all the level data. It can be found in 2 distinct forms, depending on Project current settings:
 
+- If "*Separate level files*" is **disabled** (default): full level data is *embedded* inside the main Project JSON file,
+- If "*Separate level files*" is **enabled**: level data is stored in *separate* standalone `.ldtkl` files (one per level). In this case, the main Project JSON file will still contain most level data, except heavy sections, like the `layerInstances` array (which will be null). The `externalRelPath` string points to the `ldtkl` file.
+
+A `ldtkl` file is just a JSON file containing exactly what is described below.
+**/
 @section("1")
 @display("Level")
 typedef LevelJson = {
@@ -83,6 +120,7 @@ typedef LevelJson = {
 	/** Background color of the level. If `null`, the project `defaultLevelBgColor` should be used.**/
 	@added("0.6.0")
 	@color
+	@internal
 	var bgColor: Null<String>;
 
 	/** Background color of the level (same as `bgColor`, except the default value is automatically used here if its value is `null`) **/
@@ -90,18 +128,62 @@ typedef LevelJson = {
 	@color
 	var __bgColor: String;
 
-	var layerInstances: Array<LayerInstanceJson>;
+	/**
+		An array containing all Layer instances. **IMPORTANT**: if the project option "*Save levels separately*" is enabled, this field will be `null`.
+		This array is **sorted in display order**: the 1st layer is the top-most and the last is behind.
+	**/
+	@changed("0.6.3")
+	var layerInstances: Null< Array<LayerInstanceJson> >;
 
-	/** An array listing all other levels touching this one on the world map. The `dir` is a single lowercase character tipping on the level location (`n`orth, `s`outh, `w`est, `e`ast). In "linear" world layouts, this array is populated with previous/next levels in array, and `dir` depends on the linear horizontal/vertical layout. **/
+	/**
+		This value is not null if the project option "*Save levels separately*" is enabled. In this case, this **relative** path points to the level Json file.
+	**/
+	@added("0.6.3")
+	var externalRelPath: Null<String>;
+
+	/**
+		An array listing all other levels touching this one on the world map. In "linear" world layouts, this array is populated with previous/next levels in array, and `dir` depends on the linear horizontal/vertical layout.
+	**/
 	@added("0.6.0")
-	var __neighbours: Array<{ levelUid:Int, dir:String }>;
+	var __neighbours: Array<NeighbourLevel>;
+
+	/**
+		The *optional* relative path to the level background image.
+	**/
+	@added("0.6.3")
+	var bgRelPath: Null<String>;
+
+	/**
+		An enum defining the way the background image (if any) is positioned on the level. See `__bgPos` for resulting position info.
+	**/
+	@internal
+	@added("0.6.3")
+	var bgPos: BgImagePos;
+
+	// TODO doc
+	@internal
+	@added("0.6.3")
+	var bgPivotX: Float;
+
+	// TODO doc
+	@internal
+	@added("0.6.3")
+	var bgPivotY: Float;
+
+	/**
+		Position informations of the background image, if there is one.
+	**/
+	@only("If background image exists")
+	@added("0.6.3")
+	var __bgPos: Null<LevelBgPosInfos>;
 }
+
 
 
 @section("1.1")
 @display("Layer instance")
 typedef LayerInstanceJson = {
-	/** Unique String identifier **/
+	/** Layer definition identifier **/
 	var __identifier: String;
 
 	/** Layer type (possible values: IntGrid, Entities, Tiles or AutoLayer) **/
@@ -154,16 +236,11 @@ typedef LayerInstanceJson = {
 
 	/** Random seed used for Auto-Layers rendering **/
 	@only("Auto-layers")
+	@internal
 	var seed: Int;
 
 	@only("IntGrid layers")
-	var intGrid: Array<{
-		/** Coordinate ID in the layer grid **/
-		var coordId:Int;
-
-		/** IntGrid value **/
-		var v:Int;
-	}>;
+	var intGrid: Array<IntGridValueInstance>;
 
 	@only("Tile layers")
 	var gridTiles: Array<Tile>;
@@ -183,6 +260,9 @@ typedef LayerInstanceJson = {
 
 
 
+/**
+	This structure represents a single tile from a given Tileset.
+**/
 @section("1.1.1")
 @added("0.4.0")
 @display("Tile instance")
@@ -223,29 +303,27 @@ typedef Tile = {
 @section("1.1.2")
 @display("Entity instance")
 typedef EntityInstanceJson = {
-	/** Unique String identifier **/
+	/** Entity definition identifier **/
 	var __identifier: String;
 
 	/** Grid-based coordinates (`[x,y]` format) **/
 	@changed("0.4.0")
 	var __grid: Array<Int>;
 
+	/** Pivot coordinates  (`[x,y]` format, values are from 0 to 1) of the Entity **/
+	@added("0.6.3")
+	var __pivot: Array<Float>;
+
 	/**
 		Optional Tile used to display this entity (it could either be the default Entity tile, or some tile provided by a field value, like an Enum).
 	**/
 	@added("0.4.0")
-	var __tile: Null<{
-		/** Tileset ID **/
-		var tilesetUid: Int;
-
-		/** An array of 4 Int values that refers to the tile in the tileset image: `[ x, y, width, height ]` **/
-		var srcRect: Array<Int>;
-	}>;
+	var __tile: Null<EntityInstanceTile>;
 
 	/** Reference of the **Entity definition** UID **/
 	var defUid: Int;
 
-	/** Pixel coordinates (`[x,y]` format). Don't forget optional layer offsets, if they exist! **/
+	/** Pixel coordinates (`[x,y]` format) in current level coordinate space. Don't forget optional layer offsets, if they exist! **/
 	@changed("0.4.0")
 	var px: Array<Int>;
 
@@ -254,24 +332,29 @@ typedef EntityInstanceJson = {
 
 
 
-@section("1.1.3")
+@section("1.1.4")
 @display("Field instance")
 typedef FieldInstanceJson = {
-	/** Unique String identifier **/
+	/** Field definition identifier **/
 	var __identifier: String;
 
 	/**
 		Actual value of the field instance. The value type may vary, depending on `__type` (Integer, Boolean, String etc.)
-		It can also be an `Array` of various types.
+		It can also be an `Array` of those same types.
 	**/
 	var __value: Dynamic;
 
-	/** Type of the field, such as Int, Float, Enum(enum_name), Bool, etc. **/
+	/** Type of the field, such as `Int`, `Float`, `Enum(my_enum_name)`, `Bool`, etc. **/
 	var __type: String;
 
-	/** Reference of the **Field definition** UID **/
+	/**
+		Reference of the **Field definition** UID
+	**/
 	var defUid: Int;
 
+	/**
+		Editor internal raw values
+	**/
 	@internal
 	var realEditorValues: Array< Null<Enum<Dynamic>> >;
 }
@@ -279,7 +362,9 @@ typedef FieldInstanceJson = {
 
 
 /**
-	Games should not have to parse this section as many useful data found in `definitions` are actually duplicated in fields prefixed with a double underscore (ie. "__").
+If you're writing your own LDtk importer, you should probably just ignore *most* stuff in the `defs` section, as it contains data that are mostly important to the editor. To keep you away from the `defs` section and avoid some unnecessary JSON parsing, important data from definitions is often duplicated in fields prefixed with a double underscore (eg. `__identifier` or `__type`).
+
+The 2 only definition types you might need here are **Tilesets** and **Enums**.
 **/
 @section("2")
 @display("Definitions")
@@ -308,7 +393,7 @@ typedef LayerDefJson = {
 
 	/** Type of the layer as Haxe Enum **/
 	@internal
-	var type: String;
+	var type: LayerType;
 
 	/** Unique Int identifier **/
 	var uid: Int;
@@ -327,13 +412,9 @@ typedef LayerDefJson = {
 	/** Opacity of the layer (0 to 1.0) **/
 	var displayOpacity: Float;
 
+	/** An array (using IntGrid value as array index, starting from 0) that defines extra optional info for each IntGrid value. **/
 	@only("IntGrid layer")
-	var intGridValues: Array<{
-		var identifier:Null<String>;
-
-		@color
-		var color:String ;
-	}>;
+	var intGridValues: Array<IntGridValueDef>;
 
 	/** Reference to the Tileset UID being used by this auto-layer rules **/
 	@only("Auto-layers")
@@ -341,6 +422,7 @@ typedef LayerDefJson = {
 
 	/** Contains all the auto-layer rule definitions. **/
 	@only("Auto-layers")
+	@internal
 	var autoRuleGroups: Array<{
 		var uid: Int;
 		var name: String;
@@ -351,23 +433,28 @@ typedef LayerDefJson = {
 	@only("Auto-layers")
 	var autoSourceLayerDefUid: Null<Int>;
 
-	/** Reference to the Tileset UID being used by this tile layer **/
+	/** Reference to the Tileset UID being used by this Tile layer **/
 	@only("Tile layers")
 	var tilesetDefUid: Null<Int>;
 
 	/** If the tiles are smaller or larger than the layer grid, the pivot value will be used to position the tile relatively its grid cell. **/
 	@only("Tile layers")
+	@internal
 	var tilePivotX: Float;
 
 	/** If the tiles are smaller or larger than the layer grid, the pivot value will be used to position the tile relatively its grid cell. **/
 	@only("Tile layers")
+	@internal
 	var tilePivotY: Float;
 
 }
 
+/**
+	This complex section isn't meant to be used by game devs at all, as these rules are completely resolved internally by the editor before any saving. You should just ignore this part.
+**/
+@internal
 @section("2.1.1")
 @display("Auto-layer rule definition")
-/** This section isn't meant to be used by games, as these rules are completely resolved internally by the editor before any save. You should just ignore everything inside **/
 typedef AutoRuleDef = {
 	/** Unique Int identifier **/
 	var uid: Int;
@@ -391,7 +478,7 @@ typedef AutoRuleDef = {
 	var chance: Float;
 
 	/** Defines how tileIds array is used **/
-	var tileMode: Enum<Dynamic>;
+	var tileMode: AutoLayerRuleTileMode;
 
 	/** If TRUE, allow rule to be matched by flipping its pattern horizontally **/
 	var flipX: Bool;
@@ -399,8 +486,8 @@ typedef AutoRuleDef = {
 	/** If TRUE, allow rule to be matched by flipping its pattern vertically **/
 	var flipY: Bool;
 
-	/** Checker mode: None, Horizontal or Vertical. **/
-	var checker: Enum<Dynamic>;
+	/** Checker mode **/
+	var checker: AutoLayerRuleCheckerMode;
 
 	/** X pivot of a tile stamp (0-1) **/
 	@only("'Stamp' tile mode")
@@ -448,7 +535,7 @@ typedef EntityDefJson = {
 	var color: String;
 
 	@internal
-	var renderMode: Enum<Dynamic>;
+	var renderMode: EntityRenderMode;
 
 	/** Display entity name in editor **/
 	@internal
@@ -462,13 +549,13 @@ typedef EntityDefJson = {
 	var tileId: Null<Int>;
 
 	@internal
-	var tileRenderMode: Enum<Dynamic>;
+	var tileRenderMode: EntityTileRenderMode;
 
 	/** Max instances per level **/
 	var maxPerLevel: Int;
 
 	@internal
-	var limitBehavior: Enum<Dynamic>;
+	var limitBehavior: EntityLimitBehavior;
 
 	/** Pivot X coordinate (from 0 to 1.0) **/
 	var pivotX: Float;
@@ -477,11 +564,15 @@ typedef EntityDefJson = {
 	var pivotY: Float;
 
 	/** Array of field definitions **/
+	@internal
 	var fieldDefs: Array<FieldDefJson>;
 };
 
 
-
+/**
+	This section is mostly only intended for the LDtk editor app itself. You can safely ignore it.
+**/
+@internal
 @added("0.6.0")
 @section("2.2.1")
 @display("Field definition")
@@ -496,7 +587,7 @@ typedef FieldDefJson = {
 	var __type: String;
 
 	/** Internal type enum **/
-	var type: Enum<Dynamic>;
+	var type: Dynamic;
 
 	/** TRUE if the value is an array of multiple values **/
 	var isArray: Bool;
@@ -533,17 +624,19 @@ typedef FieldDefJson = {
 	var defaultOverride: Null< Enum<Dynamic> >;
 
 	@internal
-	var editorDisplayMode: Enum<Dynamic>;
+	var editorDisplayMode: FieldDisplayMode;
 
 	@internal
-	var editorDisplayPos: Enum<Dynamic>;
+	var editorDisplayPos: FieldDisplayPosition;
 
 	@internal
 	var editorAlwaysShow: Bool;
 }
 
 
-
+/**
+	The `Tileset` definition is the most important part among project definitions. It contains some extra informations about each integrated tileset. If you only had to parse one definition section, that would be the one.
+**/
 @section("2.3")
 @display("Tileset definition")
 typedef TilesetDefJson = {
@@ -600,17 +693,7 @@ typedef EnumDefJson = {
 	var identifier: String;
 
 	/** All possible enum values, with their optional Tile infos. **/
-	var values: Array<{
-		/** Enum value **/
-		var id:String;
-
-		/** The optional ID of the tile **/
-		var tileId:Null<Int>;
-
-		/** An array of 4 Int values that refers to the tile in the tileset image: `[ x, y, width, height ]` **/
-		@added("0.4.0")
-		var __tileSrcRect:Array<Int>;
-	}>;
+	var values: Array<EnumDefValues>;
 
 	/** Tileset UID if provided **/
 	var iconTilesetUid: Null<Int>;
@@ -621,3 +704,149 @@ typedef EnumDefJson = {
 	@internal
 	var externalFileChecksum: Null<String>;
 };
+
+@section("2.4.1")
+@display("Enum value definition")
+typedef EnumDefValues = {
+	/** Enum value **/
+	var id:String;
+
+	/** The optional ID of the tile **/
+	var tileId:Null<Int>;
+
+	/** An array of 4 Int values that refers to the tile in the tileset image: `[ x, y, width, height ]` **/
+	@added("0.4.0")
+	var __tileSrcRect:Array<Int>; // TODO use a Tile instance here?
+}
+
+
+
+/* INLINED TYPES *****************************************************************************/
+
+/** Tile data in an Entity instance **/
+@inline
+@display("Entity instance tile")
+typedef EntityInstanceTile = {
+	/** Tileset ID **/
+	var tilesetUid: Int;
+
+	/** An array of 4 Int values that refers to the tile in the tileset image: `[ x, y, width, height ]` **/
+	var srcRect: Array<Int>;
+}
+
+/** Nearby level info **/
+@inline
+@display("Neighbour level")
+typedef NeighbourLevel = {
+	var levelUid: Int;
+
+	/** A single lowercase character tipping on the level location (`n`orth, `s`outh, `w`est, `e`ast). **/
+	var dir: String;
+}
+
+/** Level background image position info **/
+@inline
+@display("Level background position")
+typedef LevelBgPosInfos = {
+	/** An array containing the `[x,y]` pixel coordinates of the top-left corner of the **cropped** background image, depending on `bgPos` option. **/
+	var topLeftPx: Array<Int>;
+
+	/** An array containing the `[scaleX,scaleY]` values of the **cropped** background image, depending on `bgPos` option. **/
+	var scale: Array<Float>;
+
+	/** An array of 4 float values describing the cropped sub-rectangle of the displayed background image. This cropping happens when original is larger than the level bounds. Array format: `[ cropX, cropY, cropWidth, cropHeight ]`**/
+	var cropRect: Array<Float>;
+}
+
+/** IntGrid value instance **/
+@inline
+@display("IntGrid value instance")
+typedef IntGridValueInstance = {
+	/** Coordinate ID in the layer grid **/
+	var coordId:Int;
+
+	/** IntGrid value **/
+	var v:Int;
+}
+
+/** IntGrid value definition **/
+@inline
+@display("IntGrid value definition")
+typedef IntGridValueDef = {
+	/** Unique String identifier **/
+	var identifier:Null<String>;
+
+	@color
+	var color:String ;
+}
+
+
+
+/* MISC ENUMS *****************************************************************************/
+
+enum WorldLayout {
+	Free;
+	GridVania;
+	LinearHorizontal;
+	LinearVertical;
+}
+
+enum LayerType {
+	IntGrid;
+	Entities;
+	Tiles;
+	AutoLayer;
+}
+
+enum AutoLayerRuleTileMode {
+	Single;
+	Stamp;
+}
+
+enum AutoLayerRuleCheckerMode {
+	None;
+	Horizontal;
+	Vertical;
+}
+
+enum FieldDisplayPosition {
+	Above;
+	Center;
+	Beneath;
+}
+
+enum EntityRenderMode {
+	Rectangle;
+	Ellipse;
+	Tile;
+	Cross;
+}
+
+enum EntityTileRenderMode {
+	Stretch;
+	Crop;
+}
+
+enum EntityLimitBehavior {
+	DiscardOldOnes;
+	PreventAdding;
+	MoveLastOne;
+}
+
+enum FieldDisplayMode {
+	Hidden;
+	ValueOnly;
+	NameAndValue;
+	EntityTile;
+	PointStar;
+	PointPath;
+	RadiusPx;
+	RadiusGrid;
+}
+
+enum BgImagePos {
+	Unscaled;
+	Contain;
+	Cover;
+	CoverDirty;
+}
