@@ -19,6 +19,8 @@
 	"externalLevels": true,
 	"exportTiled": false,
 	"exportPng": false,
+	"backupOnSave": false,
+	"backupLimit": 10,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
