@@ -132,13 +132,13 @@ typedef LevelJson = {
 		An array containing all Layer instances. **IMPORTANT**: if the project option "*Save levels separately*" is enabled, this field will be `null`.
 		This array is **sorted in display order**: the 1st layer is the top-most and the last is behind.
 	**/
-	@changed("0.6.3")
+	@changed("0.7.0")
 	var layerInstances: Null< Array<LayerInstanceJson> >;
 
 	/**
 		This value is not null if the project option "*Save levels separately*" is enabled. In this case, this **relative** path points to the level Json file.
 	**/
-	@added("0.6.3")
+	@added("0.7.0")
 	var externalRelPath: Null<String>;
 
 	/**
@@ -150,31 +150,31 @@ typedef LevelJson = {
 	/**
 		The *optional* relative path to the level background image.
 	**/
-	@added("0.6.3")
+	@added("0.7.0")
 	var bgRelPath: Null<String>;
 
 	/**
 		An enum defining the way the background image (if any) is positioned on the level. See `__bgPos` for resulting position info.
 	**/
 	@internal
-	@added("0.6.3")
+	@added("0.7.0")
 	var bgPos: BgImagePos;
 
 	// TODO doc
 	@internal
-	@added("0.6.3")
+	@added("0.7.0")
 	var bgPivotX: Float;
 
 	// TODO doc
 	@internal
-	@added("0.6.3")
+	@added("0.7.0")
 	var bgPivotY: Float;
 
 	/**
 		Position informations of the background image, if there is one.
 	**/
 	@only("If background image exists")
-	@added("0.6.3")
+	@added("0.7.0")
 	var __bgPos: Null<LevelBgPosInfos>;
 }
 
@@ -311,7 +311,7 @@ typedef EntityInstanceJson = {
 	var __grid: Array<Int>;
 
 	/** Pivot coordinates  (`[x,y]` format, values are from 0 to 1) of the Entity **/
-	@added("0.6.3")
+	@added("0.7.0")
 	var __pivot: Array<Float>;
 
 	/**
