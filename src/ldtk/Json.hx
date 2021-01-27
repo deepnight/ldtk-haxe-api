@@ -57,7 +57,7 @@ typedef ProjectJson = {
 	/** If TRUE, the Json is partially minified (no indentation, nor line breaks, default is FALSE) **/
 	var minifyJson: Bool;
 
-	/** If TRUE, one file will be saved the project (incl. all its definitions) and one file per-level in a sub-folder. **/
+	/** If TRUE, one file will be saved for the project (incl. all its definitions) and one file in a sub-folder for each level. **/
 	@added("0.7.0")
 	var externalLevels: Bool;
 
