@@ -872,7 +872,11 @@ enum BgImagePos {
 }
 
 enum TextLanguageMode {
-	JsonDoc;
-	Javascript;
-	Lua;
+	LangJS;
+	LangLua;
+	LangC;
+	LangHaxe;
+
+	LangJson;
+	LangXml;
 }
