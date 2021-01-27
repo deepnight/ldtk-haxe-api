@@ -70,6 +70,11 @@ typedef ProjectJson = {
 	@added("0.7.0")
 	var exportPng: Bool;
 
+	/** File naming pattern for exported PNGs **/
+	@internal
+	@added("0.7.2")
+	var pngFilePattern: Null<String>;
+
 	/** If TRUE, an extra copy of the project will be created in a sub folder, when saving. **/
 	@internal
 	@added("0.7.0")
