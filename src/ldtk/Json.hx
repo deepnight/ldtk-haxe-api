@@ -648,6 +648,9 @@ typedef FieldDefJson = {
 
 	@internal
 	var editorAlwaysShow: Bool;
+
+	@internal
+	var textLangageMode: Null<TextLanguageMode>;
 }
 
 
@@ -866,4 +869,10 @@ enum BgImagePos {
 	Contain;
 	Cover;
 	CoverDirty;
+}
+
+enum TextLanguageMode {
+	JsonDoc;
+	Javascript;
+	Lua;
 }
