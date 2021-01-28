@@ -252,8 +252,19 @@ typedef LayerInstanceJson = {
 	@internal
 	var seed: Int;
 
+	/**
+		The list of IntGrid values, stored using coordinate ID system (refer to online documentation for more info about "Coordinate IDs")
+	**/
+	@deprecation("0.1.0")
+	@changed("0.8.0")
 	@only("IntGrid layers")
 	var intGrid: Array<IntGridValueInstance>;
+
+
+	/** A list of all values in the IntGrid layer, stored from left to right, and top to bottom: `-1` means "empty cell" and IntGrid values start at 0. This array size is `__cWid` x `__cHei` cells. **/
+	@only("IntGrid layers")
+	@added("0.8.0")
+	var intGridCsv: Array<Int>;
 
 	@only("Tile layers")
 	var gridTiles: Array<Tile>;
