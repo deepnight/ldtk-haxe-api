@@ -872,6 +872,8 @@ enum BgImagePos {
 }
 
 enum TextLanguageMode {
+	LangPython;
+	LangRuby;
 	LangJS;
 	LangLua;
 	LangC;
