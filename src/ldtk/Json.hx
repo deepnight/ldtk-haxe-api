@@ -85,6 +85,11 @@ typedef ProjectJson = {
 	@added("0.7.0")
 	var backupLimit: Int;
 
+	/** An array containing various advanced export options, mostly for advanced users to deal with JSON format changes. **/
+	@internal
+	@added("0.8.0")
+	var advancedExportFlags: Array<String>;
+
 	/** A structure containing all the definitions of this project **/
 	var defs: DefinitionsJson;
 
