@@ -12,8 +12,21 @@ class Layer_IntGrid extends ldtk.Layer {
 	public function new(p,json) {
 		super(p,json);
 
-		for(ig in json.intGrid)
-			intGrid.set(ig.coordId, ig.v);
+		if( json.intGridCsv!=null ) {
+			// Read new CSV format
+			var idx = 0;
+			for(cy in 0...cHei)
+			for(cx in 0...cWid) {
+				idx = getCoordId(cx,cy);
+				if( json.intGridCsv[idx]>=0 )
+					intGrid.set(idx, json.intGridCsv[idx]);
+			}
+		}
+		else {
+			// Read old pre-CSV format
+			for(ig in json.intGrid)
+				intGrid.set(ig.coordId, ig.v);
+		}
 	}
 
 	/**
