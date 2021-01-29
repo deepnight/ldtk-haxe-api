@@ -347,6 +347,14 @@ typedef EntityInstanceJson = {
 	@added("0.7.0")
 	var __pivot: Array<Float>;
 
+	/** Entity width in pixels. For non-resizable entities, it will be the same as Entity definition. **/
+	@added("0.8.0")
+	var width: Int;
+
+	/** Entity height in pixels. For non-resizable entities, it will be the same as Entity definition. **/
+	@added("0.8.0")
+	var height: Int;
+
 	/**
 		Optional Tile used to display this entity (it could either be the default Entity tile, or some tile provided by a field value, like an Enum).
 	**/
