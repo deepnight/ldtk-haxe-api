@@ -5,10 +5,10 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "0.7.1",
+		"appVersion": "0.8.0",
 		"url": "https://ldtk.io"
 	},
-	"jsonVersion": "0.7.1",
+	"jsonVersion": "0.8.0",
 	"defaultPivotX": 0,
 	"defaultPivotY": 0,
 	"defaultGridSize": 16,
@@ -19,11 +19,13 @@
 	"externalLevels": true,
 	"exportTiled": false,
 	"exportPng": false,
+	"pngFilePattern": null,
 	"backupOnSave": false,
 	"backupLimit": 10,
 	"worldLayout": "GridVania",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
+	"advancedExportFlags": ["discardIntGrid"],
 	"defs": {
 		"layers": [
 			{
@@ -425,7 +427,8 @@
 						"max": null,
 						"regex": null,
 						"acceptFileTypes": null,
-						"defaultOverride": null
+						"defaultOverride": null,
+						"textLangageMode": null
 					}
 				]
 			},
@@ -461,7 +464,8 @@
 						"max": null,
 						"regex": null,
 						"acceptFileTypes": null,
-						"defaultOverride": null
+						"defaultOverride": null,
+						"textLangageMode": null
 					},
 					{
 						"identifier": "lootDrop",
@@ -479,7 +483,8 @@
 						"max": null,
 						"regex": null,
 						"acceptFileTypes": null,
-						"defaultOverride": null
+						"defaultOverride": null,
+						"textLangageMode": null
 					},
 					{
 						"identifier": "scale",
@@ -497,7 +502,8 @@
 						"max": 4,
 						"regex": null,
 						"acceptFileTypes": null,
-						"defaultOverride": { "id": "V_Float", "params": [1] }
+						"defaultOverride": { "id": "V_Float", "params": [1] },
+						"textLangageMode": null
 					},
 					{
 						"identifier": "path",
@@ -515,7 +521,8 @@
 						"max": null,
 						"regex": null,
 						"acceptFileTypes": null,
-						"defaultOverride": null
+						"defaultOverride": null,
+						"textLangageMode": null
 					}
 				]
 			},
@@ -551,7 +558,8 @@
 						"max": null,
 						"regex": null,
 						"acceptFileTypes": null,
-						"defaultOverride": null
+						"defaultOverride": null,
+						"textLangageMode": null
 					},
 					{
 						"identifier": "ints",
@@ -569,7 +577,8 @@
 						"max": null,
 						"regex": null,
 						"acceptFileTypes": null,
-						"defaultOverride": null
+						"defaultOverride": null,
+						"textLangageMode": null
 					},
 					{
 						"identifier": "strings",
@@ -587,7 +596,8 @@
 						"max": null,
 						"regex": null,
 						"acceptFileTypes": null,
-						"defaultOverride": null
+						"defaultOverride": null,
+						"textLangageMode": null
 					},
 					{
 						"identifier": "floats",
@@ -605,7 +615,8 @@
 						"max": 1,
 						"regex": null,
 						"acceptFileTypes": null,
-						"defaultOverride": { "id": "V_Float", "params": [0.5] }
+						"defaultOverride": { "id": "V_Float", "params": [0.5] },
+						"textLangageMode": null
 					},
 					{
 						"identifier": "bools",
@@ -623,7 +634,8 @@
 						"max": null,
 						"regex": null,
 						"acceptFileTypes": null,
-						"defaultOverride": null
+						"defaultOverride": null,
+						"textLangageMode": null
 					},
 					{
 						"identifier": "colors",
@@ -641,7 +653,8 @@
 						"max": null,
 						"regex": null,
 						"acceptFileTypes": null,
-						"defaultOverride": { "id": "V_Int", "params": [16777215] }
+						"defaultOverride": { "id": "V_Int", "params": [16777215] },
+						"textLangageMode": null
 					},
 					{
 						"identifier": "localEnums",
@@ -659,7 +672,8 @@
 						"max": null,
 						"regex": null,
 						"acceptFileTypes": null,
-						"defaultOverride": null
+						"defaultOverride": null,
+						"textLangageMode": null
 					},
 					{
 						"identifier": "externEnums",
@@ -677,7 +691,8 @@
 						"max": null,
 						"regex": null,
 						"acceptFileTypes": null,
-						"defaultOverride": null
+						"defaultOverride": null,
+						"textLangageMode": null
 					}
 				]
 			},
@@ -747,7 +762,8 @@
 						"max": null,
 						"regex": null,
 						"acceptFileTypes": null,
-						"defaultOverride": null
+						"defaultOverride": null,
+						"textLangageMode": null
 					}
 				]
 			}
