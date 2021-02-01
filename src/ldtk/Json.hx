@@ -21,6 +21,14 @@ typedef ProjectJson = {
 	@internal
 	var defaultPivotY: Float;
 
+	/** Default new level width **/
+	@internal
+	var defaultLevelWidth: Int;
+
+	/** Default new level height **/
+	@internal
+	var defaultLevelHeight: Int;
+
 	/** Default grid size for new layers **/
 	@internal
 	var defaultGridSize: Int;
