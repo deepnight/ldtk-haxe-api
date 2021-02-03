@@ -41,7 +41,7 @@ typedef ProjectJson = {
 	**/
 	var levels: Array<LevelJson>;
 
-	/** Various settings and data of this project **/
+	/** Various settings and data for this project **/
 	@added("0.8.0")
 	var settings: ProjectSettings;
 
@@ -158,7 +158,7 @@ typedef ProjectSettings = {
 	/** An array containing various advanced export options, mostly for advanced users to deal with JSON format changes. **/
 	@internal
 	@added("0.8.0")
-	var advancedExportFlags: Array<String>;
+	var advancedOptionFlags: Array<AdvancedOptionFlag>;
 
 }
 
@@ -968,4 +968,8 @@ enum TextLanguageMode {
 
 	LangJson;
 	LangXml;
+}
+
+enum AdvancedOptionFlag {
+	DiscardPreCsvIntGrid;
 }
