@@ -8,6 +8,7 @@ package ldtk;
 - an array of levels,
 - and a definition object (that can probably be safely ignored for most users).
 **/
+@section("1")
 @display("LDtk Json root")
 typedef ProjectJson = {
 	/** File format version **/
@@ -46,51 +47,55 @@ typedef ProjectJson = {
 	var settings: ProjectSettings;
 
 
-	@deprecation("0.8.0", "1.0.0", "settings.defaultPivotX")
+	@deprecation("0.8.0", "0.9.0", "settings.defaultPivotX")
 	var defaultPivotX: Float;
 
-	@deprecation("0.8.0", "1.0.0", "settings.defaultPivotY")
+	@deprecation("0.8.0", "0.9.0", "settings.defaultPivotY")
 	var defaultPivotY: Float;
 
-	@deprecation("0.8.0", "1.0.0", "settings.defaultLevelWidth")
+	@deprecation("0.8.0", "0.9.0", "settings.defaultLevelWidth")
 	var defaultLevelWidth: Int;
 
-	@deprecation("0.8.0", "1.0.0", "settings.defaultLevelWidth")
+	@deprecation("0.8.0", "0.9.0", "settings.defaultLevelWidth")
 	var defaultLevelHeight: Int;
 
-	@deprecation("0.8.0", "1.0.0", "settings.TODO")
+	@deprecation("0.8.0", "0.9.0", "settings.TODO")
 	var defaultGridSize: Int;
 
-	@deprecation("0.8.0", "1.0.0", "settings.TODO")
+	@deprecation("0.8.0", "0.9.0", "settings.TODO")
 	var bgColor: String;
 
-	@deprecation("0.8.0", "1.0.0", "settings.TODO")
+	@deprecation("0.8.0", "0.9.0", "settings.TODO")
 	var defaultLevelBgColor: String;
 
-	@deprecation("0.8.0", "1.0.0", "settings.TODO")
+	@deprecation("0.8.0", "0.9.0", "settings.TODO")
 	var minifyJson: Bool;
 
-	@deprecation("0.8.0", "1.0.0", "settings.TODO")
+	@deprecation("0.8.0", "0.9.0", "settings.TODO")
 	var externalLevels: Bool;
 
-	@deprecation("0.8.0", "1.0.0", "settings.TODO")
+	@deprecation("0.8.0", "0.9.0", "settings.TODO")
 	var exportTiled: Bool;
 
-	@deprecation("0.8.0", "1.0.0", "settings.TODO")
+	@deprecation("0.8.0", "0.9.0", "settings.TODO")
 	var exportPng: Bool;
 
-	@deprecation("0.8.0", "1.0.0", "settings.TODO")
+	@deprecation("0.8.0", "0.9.0", "settings.TODO")
 	var pngFilePattern: Null<String>;
 
-	@deprecation("0.8.0", "1.0.0", "settings.TODO")
+	@deprecation("0.8.0", "0.9.0", "settings.TODO")
 	var backupOnSave: Bool;
 
-	@deprecation("0.8.0", "1.0.0", "settings.TODO")
+	@deprecation("0.8.0", "0.9.0", "settings.TODO")
 	var backupLimit: Int;
 }
 
 
-
+/**
+	An object containing misc project settings and data.
+**/
+@section("1.1")
+@display("Project settings")
 typedef ProjectSettings = {
 
 	/** Default X pivot (0 to 1) for new entities **/
@@ -155,7 +160,7 @@ typedef ProjectSettings = {
 	@added("0.7.0")
 	var backupLimit: Int;
 
-	/** An array containing various advanced export options, mostly for advanced users to deal with JSON format changes. **/
+	/** An array containing various advanced export options (only for experienced users). **/
 	@internal
 	@added("0.8.0")
 	var advancedOptionFlags: Array<AdvancedOptionFlag>;
@@ -170,7 +175,7 @@ This section contains all the level data. It can be found in 2 distinct forms, d
 
 A `ldtkl` file is just a JSON file containing exactly what is described below.
 **/
-@section("1")
+@section("2")
 @display("Level")
 typedef LevelJson = {
 
@@ -261,7 +266,7 @@ typedef LevelJson = {
 
 
 
-@section("1.1")
+@section("2.1")
 @display("Layer instance")
 typedef LayerInstanceJson = {
 	/** Layer definition identifier **/
@@ -324,7 +329,7 @@ typedef LayerInstanceJson = {
 		The list of IntGrid values, stored using coordinate ID system (refer to online documentation for more info about "Coordinate IDs")
 	**/
 	@changed("0.8.0")
-	@deprecation("0.8.0", "1.0.0", "intGridCsv")
+	@deprecation("0.8.0", "0.9.0", "intGridCsv")
 	@only("IntGrid layers")
 	var intGrid: Array<IntGridValueInstance>;
 
@@ -359,7 +364,7 @@ typedef LayerInstanceJson = {
 /**
 	This structure represents a single tile from a given Tileset.
 **/
-@section("1.1.1")
+@section("2.1.1")
 @added("0.4.0")
 @display("Tile instance")
 typedef Tile = {
@@ -396,7 +401,7 @@ typedef Tile = {
 
 
 
-@section("1.1.2")
+@section("2.1.2")
 @display("Entity instance")
 typedef EntityInstanceJson = {
 	/** Entity definition identifier **/
@@ -436,7 +441,7 @@ typedef EntityInstanceJson = {
 
 
 
-@section("1.1.4")
+@section("2.1.3")
 @display("Field instance")
 typedef FieldInstanceJson = {
 	/** Field definition identifier **/
@@ -470,7 +475,7 @@ If you're writing your own LDtk importer, you should probably just ignore *most*
 
 The 2 only definition types you might need here are **Tilesets** and **Enums**.
 **/
-@section("2")
+@section("3")
 @display("Definitions")
 typedef DefinitionsJson = {
 	var layers : Array<LayerDefJson>;
@@ -486,7 +491,7 @@ typedef DefinitionsJson = {
 
 
 
-@section("2.1")
+@section("3.1")
 @display("Layer definition")
 typedef LayerDefJson = {
 	/** Unique String identifier **/
@@ -557,7 +562,7 @@ typedef LayerDefJson = {
 	This complex section isn't meant to be used by game devs at all, as these rules are completely resolved internally by the editor before any saving. You should just ignore this part.
 **/
 @internal
-@section("2.1.1")
+@section("3.1.1")
 @display("Auto-layer rule definition")
 typedef AutoRuleDef = {
 	/** Unique Int identifier **/
@@ -619,7 +624,7 @@ typedef AutoRuleDef = {
 
 
 
-@section("2.2")
+@section("3.2")
 @display("Entity definition")
 typedef EntityDefJson = {
 	/** Unique String identifier **/
@@ -678,7 +683,7 @@ typedef EntityDefJson = {
 **/
 @internal
 @added("0.6.0")
-@section("2.2.1")
+@section("3.2.1")
 @display("Field definition")
 typedef FieldDefJson = {
 	/** Unique String identifier **/
@@ -744,7 +749,7 @@ typedef FieldDefJson = {
 /**
 	The `Tileset` definition is the most important part among project definitions. It contains some extra informations about each integrated tileset. If you only had to parse one definition section, that would be the one.
 **/
-@section("2.3")
+@section("3.3")
 @display("Tileset definition")
 typedef TilesetDefJson = {
 	/** Unique String identifier **/
@@ -790,7 +795,7 @@ typedef TilesetDefJson = {
 
 
 
-@section("2.4")
+@section("3.4")
 @display("Enum definition")
 typedef EnumDefJson = {
 	/** Unique Int identifier **/
@@ -812,7 +817,7 @@ typedef EnumDefJson = {
 	var externalFileChecksum: Null<String>;
 };
 
-@section("2.4.1")
+@section("3.4.1")
 @display("Enum value definition")
 typedef EnumDefValues = {
 	/** Enum value **/
