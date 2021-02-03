@@ -42,62 +42,6 @@ typedef ProjectJson = {
 	**/
 	var levels: Array<LevelJson>;
 
-	/** Various settings and data for this project **/
-	@added("0.8.0")
-	var settings: ProjectSettings;
-
-
-	@deprecation("0.8.0", "0.9.0", "settings.defaultPivotX")
-	var defaultPivotX: Float;
-
-	@deprecation("0.8.0", "0.9.0", "settings.defaultPivotY")
-	var defaultPivotY: Float;
-
-	@deprecation("0.8.0", "0.9.0", "settings.defaultLevelWidth")
-	var defaultLevelWidth: Int;
-
-	@deprecation("0.8.0", "0.9.0", "settings.defaultLevelWidth")
-	var defaultLevelHeight: Int;
-
-	@deprecation("0.8.0", "0.9.0", "settings.TODO")
-	var defaultGridSize: Int;
-
-	@deprecation("0.8.0", "0.9.0", "settings.TODO")
-	var bgColor: String;
-
-	@deprecation("0.8.0", "0.9.0", "settings.TODO")
-	var defaultLevelBgColor: String;
-
-	@deprecation("0.8.0", "0.9.0", "settings.TODO")
-	var minifyJson: Bool;
-
-	@deprecation("0.8.0", "0.9.0", "settings.TODO")
-	var externalLevels: Bool;
-
-	@deprecation("0.8.0", "0.9.0", "settings.TODO")
-	var exportTiled: Bool;
-
-	@deprecation("0.8.0", "0.9.0", "settings.TODO")
-	var exportPng: Bool;
-
-	@deprecation("0.8.0", "0.9.0", "settings.TODO")
-	var pngFilePattern: Null<String>;
-
-	@deprecation("0.8.0", "0.9.0", "settings.TODO")
-	var backupOnSave: Bool;
-
-	@deprecation("0.8.0", "0.9.0", "settings.TODO")
-	var backupLimit: Int;
-}
-
-
-/**
-	An object containing misc project settings and data.
-**/
-@section("1.1")
-@display("Project settings")
-typedef ProjectSettings = {
-
 	/** Default X pivot (0 to 1) for new entities **/
 	@internal
 	var defaultPivotX: Float;
@@ -977,5 +921,4 @@ enum TextLanguageMode {
 
 enum AdvancedOptionFlag {
 	DiscardPreCsvIntGrid;
-	DiscardRootSettings;
 }
