@@ -268,8 +268,8 @@ typedef LayerInstanceJson = {
 	/**
 		The list of IntGrid values, stored using coordinate ID system (refer to online documentation for more info about "Coordinate IDs")
 	**/
-	@deprecation("0.1.0")
 	@changed("0.8.0")
+	@deprecation("0.8.0", "1.0.0", "intGridCsv")
 	@only("IntGrid layers")
 	var intGrid: Array<IntGridValueInstance>;
 
