@@ -972,4 +972,5 @@ enum TextLanguageMode {
 
 enum AdvancedOptionFlag {
 	DiscardPreCsvIntGrid;
+	DiscardRootSettings;
 }
