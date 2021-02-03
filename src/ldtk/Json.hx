@@ -13,6 +13,86 @@ typedef ProjectJson = {
 	/** File format version **/
 	var jsonVersion: String;
 
+	/**
+		An enum that describes how levels are organized in this project (ie. linearly or in a 2D space).
+	**/
+	@added("0.6.0")
+	var worldLayout: WorldLayout;
+
+	/** Width of the world grid in pixels. **/
+	@only("'GridVania' layouts")
+	@added("0.6.0")
+	var worldGridWidth: Int;
+
+	/** Height of the world grid in pixels. **/
+	@only("'GridVania' layouts")
+	@added("0.6.0")
+	var worldGridHeight: Int;
+
+	/** Next Unique integer ID available **/
+	@internal
+	var nextUid: Int;
+
+	/** A structure containing all the definitions of this project **/
+	var defs: DefinitionsJson;
+
+	/**
+		All levels. The order of this array is only relevant in `LinearHorizontal` and `linearVertical` world layouts (see `worldLayout` value). Otherwise, you should refer to the `worldX`,`worldY` coordinates of each Level.
+	**/
+	var levels: Array<LevelJson>;
+
+	/** Various settings and data of this project **/
+	@added("0.8.0")
+	var settings: ProjectSettings;
+
+
+	@deprecation("0.8.0", "1.0.0", "settings.defaultPivotX")
+	var defaultPivotX: Float;
+
+	@deprecation("0.8.0", "1.0.0", "settings.defaultPivotY")
+	var defaultPivotY: Float;
+
+	@deprecation("0.8.0", "1.0.0", "settings.defaultLevelWidth")
+	var defaultLevelWidth: Int;
+
+	@deprecation("0.8.0", "1.0.0", "settings.defaultLevelWidth")
+	var defaultLevelHeight: Int;
+
+	@deprecation("0.8.0", "1.0.0", "settings.TODO")
+	var defaultGridSize: Int;
+
+	@deprecation("0.8.0", "1.0.0", "settings.TODO")
+	var bgColor: String;
+
+	@deprecation("0.8.0", "1.0.0", "settings.TODO")
+	var defaultLevelBgColor: String;
+
+	@deprecation("0.8.0", "1.0.0", "settings.TODO")
+	var minifyJson: Bool;
+
+	@deprecation("0.8.0", "1.0.0", "settings.TODO")
+	var externalLevels: Bool;
+
+	@deprecation("0.8.0", "1.0.0", "settings.TODO")
+	var exportTiled: Bool;
+
+	@deprecation("0.8.0", "1.0.0", "settings.TODO")
+	var exportPng: Bool;
+
+	@deprecation("0.8.0", "1.0.0", "settings.TODO")
+	var pngFilePattern: Null<String>;
+
+	@deprecation("0.8.0", "1.0.0", "settings.TODO")
+	var backupOnSave: Bool;
+
+	@deprecation("0.8.0", "1.0.0", "settings.TODO")
+	var backupLimit: Int;
+}
+
+
+
+typedef ProjectSettings = {
+
 	/** Default X pivot (0 to 1) for new entities **/
 	@internal
 	var defaultPivotX: Float;
@@ -43,26 +123,8 @@ typedef ProjectJson = {
 	@internal
 	var defaultLevelBgColor: String;
 
-	/**
-		An enum that describes how levels are organized in this project (ie. linearly or in a 2D space).
-	**/
-	@added("0.6.0")
-	var worldLayout: WorldLayout;
-
-	/** Width of the world grid in pixels. **/
-	@only("'GridVania' layouts")
-	@added("0.6.0")
-	var worldGridWidth: Int;
-
-	/** Height of the world grid in pixels. **/
-	@only("'GridVania' layouts")
-	@added("0.6.0")
-	var worldGridHeight: Int;
-
-	@internal
-	var nextUid: Int;
-
 	/** If TRUE, the Json is partially minified (no indentation, nor line breaks, default is FALSE) **/
+	@internal
 	var minifyJson: Bool;
 
 	/** If TRUE, one file will be saved for the project (incl. all its definitions) and one file in a sub-folder for each level. **/
@@ -98,13 +160,6 @@ typedef ProjectJson = {
 	@added("0.8.0")
 	var advancedExportFlags: Array<String>;
 
-	/** A structure containing all the definitions of this project **/
-	var defs: DefinitionsJson;
-
-	/**
-		All levels. The order of this array is only relevant in `LinearHorizontal` and `linearVertical` world layouts (see `worldLayout` value). Otherwise, you should refer to the `worldX`,`worldY` coordinates of each Level.
-	**/
-	var levels: Array<LevelJson>;
 }
 
 /**
@@ -180,7 +235,7 @@ typedef LevelJson = {
 	**/
 	@internal
 	@added("0.7.0")
-	var bgPos: BgImagePos;
+	var bgPos: Null<BgImagePos>;
 
 	/**
 		Background image X pivot (0-1)
