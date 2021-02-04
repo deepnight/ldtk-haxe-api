@@ -926,6 +926,7 @@ enum TextLanguageMode {
 	LangC;
 	LangHaxe;
 
+	LangMarkdown;
 	LangJson;
 	LangXml;
 }
