@@ -161,6 +161,10 @@ typedef LevelJson = {
 	@changed("0.7.0")
 	var layerInstances: Null< Array<LayerInstanceJson> >;
 
+	/** An array containing this level custom field values. **/
+	@changed("0.8.0")
+	var fieldInstances: Array<FieldInstanceJson>;
+
 	/**
 		This value is not null if the project option "*Save levels separately*" is enabled. In this case, this **relative** path points to the level Json file.
 	**/
@@ -380,6 +384,7 @@ typedef EntityInstanceJson = {
 	@changed("0.4.0")
 	var px: Array<Int>;
 
+	/** An array of all custom fields and their values. **/
 	var fieldInstances: Array<FieldInstanceJson>;
 }
 
@@ -423,9 +428,15 @@ The 2 only definition types you might need here are **Tilesets** and **Enums**.
 @display("Definitions")
 typedef DefinitionsJson = {
 	var layers : Array<LayerDefJson>;
+
+	/** All entities, including their custom fields **/
 	var entities : Array<EntityDefJson>;
 	var tilesets : Array<TilesetDefJson>;
 	var enums : Array<EnumDefJson>;
+
+	/** An array containing all custom fields available to all levels. **/
+	@added("0.8.0")
+	var levelFields : Array<FieldDefJson>;
 
 	/**
 		Note: external enums are exactly the same as `enums`, except they have a `relPath` to point to an external source file.
