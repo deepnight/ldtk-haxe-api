@@ -615,8 +615,10 @@ typedef EntityDefJson = {
 	@internal
 	var tileRenderMode: EntityTileRenderMode;
 
-	/** Max instances per level **/
-	var maxPerLevel: Int;
+	/** Max instances count **/
+	@internal
+	@changed("0.8.0")
+	var maxCount: Int;
 
 	@internal
 	var limitBehavior: EntityLimitBehavior;
