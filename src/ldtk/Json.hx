@@ -620,6 +620,11 @@ typedef EntityDefJson = {
 	@changed("0.8.0")
 	var maxCount: Int;
 
+	/** If TRUE, the maxCount is a "per world" limit, if FALSE, it's a "per level". **/
+	@internal
+	@added("0.8.0")
+	var limitScope: EntityLimitScope;
+
 	@internal
 	var limitBehavior: EntityLimitBehavior;
 
@@ -939,4 +944,10 @@ enum TextLanguageMode {
 
 enum AdvancedOptionFlag {
 	DiscardPreCsvIntGrid;
+}
+
+enum EntityLimitScope {
+	PerLayer;
+	PerLevel;
+	PerWorld;
 }
