@@ -39,6 +39,16 @@
 				"id": "V_String",
 				"params": ["other"]
 			}]
+		},
+		{
+			"__identifier": "level_reward",
+			"__value": "Key",
+			"__type": "ExternEnum.DroppedItemType",
+			"defUid": 95,
+			"realEditorValues": [{
+				"id": "V_String",
+				"params": ["Key"]
+			}]
 		}
 	],
 	"layerInstances": [

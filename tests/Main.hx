@@ -122,10 +122,10 @@ class Main {
 
 			// Enums
 			section("Enums...");
-			CiAssert.isTrue( hero.f_startWeapon==LongBow );
-			CiAssert.isTrue( mob.f_type==Trash );
-			CiAssert.isTrue( mob.entityType==Mob );
-			CiAssert.isTrue( mob.f_lootDrop==ExternEnumTest.DroppedItemType.Gold );
+			CiAssert.equals( hero.f_startWeapon, LongBow );
+			CiAssert.equals( mob.f_type, Trash );
+			CiAssert.equals( mob.entityType, Mob );
+			CiAssert.equals( mob.f_lootDrop, ExternEnumTest.DroppedItemType.Gold );
 
 			// Arrays
 			CiAssert.isNotNull( test.f_ints );
@@ -171,6 +171,13 @@ class Main {
 				case Shooter:
 				case Shielder:
 			}
+
+			// Level custom fields
+			CiAssert.equals( project.all_levels.Main_tests.f_level_int, 1 );
+			CiAssert.equals( project.all_levels.Main_tests.f_level_string, "my string value" );
+			CiAssert.equals( project.all_levels.Main_tests.f_level_reward, Ammo );
+			CiAssert.equals( project.all_levels.Offset_tests.f_level_int, 2 );
+			CiAssert.equals( project.all_levels.Offset_tests.f_level_reward, Key );
 
 			// Tile layer
 			section("Tile layer...");

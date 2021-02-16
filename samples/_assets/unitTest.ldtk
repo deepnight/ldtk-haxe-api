@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.8.0",
-	"nextUid": 95,
+	"nextUid": 96,
 	"worldLayout": "GridVania",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -886,6 +886,26 @@
 			"acceptFileTypes": null,
 			"defaultOverride": null,
 			"textLangageMode": null
+		},
+		{
+			"identifier": "level_reward",
+			"__type": "ExternEnum.DroppedItemType",
+			"uid": 95,
+			"type": { "id": "F_Enum", "params": [29] },
+			"isArray": false,
+			"canBeNull": false,
+			"arrayMinLength": null,
+			"arrayMaxLength": null,
+			"editorDisplayMode": "NameAndValue",
+			"editorDisplayPos": "Above",
+			"editorAlwaysShow": false,
+			"editorCutLongValues": true,
+			"min": null,
+			"max": null,
+			"regex": null,
+			"acceptFileTypes": null,
+			"defaultOverride": null,
+			"textLangageMode": null
 		}
 	] },
 	"levels": [
@@ -920,6 +940,16 @@
 					"realEditorValues": [{
 						"id": "V_String",
 						"params": ["my string value"]
+					}]
+				},
+				{
+					"__identifier": "level_reward",
+					"__value": "Ammo",
+					"__type": "ExternEnum.DroppedItemType",
+					"defUid": 95,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ammo"]
 					}]
 				}
 			],
@@ -957,6 +987,16 @@
 					"realEditorValues": [{
 						"id": "V_String",
 						"params": ["other"]
+					}]
+				},
+				{
+					"__identifier": "level_reward",
+					"__value": "Key",
+					"__type": "ExternEnum.DroppedItemType",
+					"defUid": 95,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Key"]
 					}]
 				}
 			],
