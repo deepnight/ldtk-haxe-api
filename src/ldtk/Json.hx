@@ -282,7 +282,7 @@ typedef LayerInstanceJson = {
 	var intGrid: Array<IntGridValueInstance>;
 
 
-	/** A list of all values in the IntGrid layer, stored from left to right, and top to bottom: `-1` means "empty cell" and IntGrid values start at 0. This array size is `__cWid` x `__cHei` cells. **/
+	/** A list of all values in the IntGrid layer, stored from left to right, and top to bottom (ie. first row from left to right, followed by second row, etc). `0` means "empty cell" and IntGrid values start at 1. This array size is `__cWid` x `__cHei` cells. **/
 	@only("IntGrid layers")
 	@added("0.8.0")
 	var intGridCsv: Array<Int>;
@@ -476,7 +476,7 @@ typedef LayerDefJson = {
 	/** Opacity of the layer (0 to 1.0) **/
 	var displayOpacity: Float;
 
-	/** An array (using IntGrid value as array index, starting from 0) that defines extra optional info for each IntGrid value. **/
+	/** An array that defines extra optional info for each IntGrid value. The array is sorted using value (ascending). **/
 	@only("IntGrid layer")
 	var intGridValues: Array<IntGridValueDef>;
 
@@ -851,6 +851,10 @@ typedef IntGridValueInstance = {
 @inline
 @display("IntGrid value definition")
 typedef IntGridValueDef = {
+	/** The IntGrid value itself **/
+	@added("0.8.0")
+	var value: Int;
+
 	/** Unique String identifier **/
 	var identifier:Null<String>;
 
