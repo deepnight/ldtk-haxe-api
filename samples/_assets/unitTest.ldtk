@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.8.0",
-	"nextUid": 93,
+	"nextUid": 95,
 	"worldLayout": "GridVania",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -27,7 +27,7 @@
 	"pngFilePattern": null,
 	"backupOnSave": false,
 	"backupLimit": 10,
-	"advancedOptionFlags": [],
+	"advancedOptionFlags": ["DiscardPreCsvIntGrid"],
 	"defs": { "layers": [
 		{
 			"__type": "IntGrid",
@@ -846,7 +846,48 @@
 			{ "id": "Foo", "tileId": null, "__tileSrcRect": null },
 			{ "id": "Pouet", "tileId": null, "__tileSrcRect": null }
 		], "iconTilesetUid": null, "externalRelPath": "../_srcCommon/ExternEnumTest.hx", "externalFileChecksum": "411417ba762ae881749b425b1c129b19" }
-	], "levelFields": [] },
+	], "levelFields": [
+		{
+			"identifier": "level_int",
+			"__type": "Int",
+			"uid": 93,
+			"type": "F_Int",
+			"isArray": false,
+			"canBeNull": false,
+			"arrayMinLength": null,
+			"arrayMaxLength": null,
+			"editorDisplayMode": "NameAndValue",
+			"editorDisplayPos": "Above",
+			"editorAlwaysShow": false,
+			"editorCutLongValues": true,
+			"min": null,
+			"max": null,
+			"regex": null,
+			"acceptFileTypes": null,
+			"defaultOverride": null,
+			"textLangageMode": null
+		},
+		{
+			"identifier": "level_string",
+			"__type": "String",
+			"uid": 94,
+			"type": "F_String",
+			"isArray": false,
+			"canBeNull": false,
+			"arrayMinLength": null,
+			"arrayMaxLength": null,
+			"editorDisplayMode": "NameAndValue",
+			"editorDisplayPos": "Above",
+			"editorAlwaysShow": false,
+			"editorCutLongValues": true,
+			"min": null,
+			"max": null,
+			"regex": null,
+			"acceptFileTypes": null,
+			"defaultOverride": null,
+			"textLangageMode": null
+		}
+	] },
 	"levels": [
 		{
 			"identifier": "Main_tests",
@@ -863,7 +904,25 @@
 			"bgPivotY": 0,
 			"__bgPos": { "topLeftPx": [0,0], "scale": [2.2857142857142856,2.2857142857142856], "cropRect": [0,0,224,224] },
 			"externalRelPath": "unitTest/0000-Main_tests.ldtkl",
-			"fieldInstances": [],
+			"fieldInstances": [
+				{
+					"__identifier": "level_int",
+					"__value": 1,
+					"__type": "Int",
+					"defUid": 93,
+					"realEditorValues": [{ "id": "V_Int", "params": [1] }]
+				},
+				{
+					"__identifier": "level_string",
+					"__value": "my string value",
+					"__type": "String",
+					"defUid": 94,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["my string value"]
+					}]
+				}
+			],
 			"layerInstances": null,
 			"__neighbours": [{ "levelUid": 88, "dir": "e" }]
 		},
@@ -882,7 +941,25 @@
 			"bgPivotY": 0.5,
 			"__bgPos": null,
 			"externalRelPath": "unitTest/0001-Offset_tests.ldtkl",
-			"fieldInstances": [],
+			"fieldInstances": [
+				{
+					"__identifier": "level_int",
+					"__value": 2,
+					"__type": "Int",
+					"defUid": 93,
+					"realEditorValues": [{ "id": "V_Int", "params": [2] }]
+				},
+				{
+					"__identifier": "level_string",
+					"__value": "other",
+					"__type": "String",
+					"defUid": 94,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["other"]
+					}]
+				}
+			],
 			"layerInstances": null,
 			"__neighbours": [{ "levelUid": 0, "dir": "w" }]
 		}

@@ -27,7 +27,7 @@
 	"pngFilePattern": null,
 	"backupOnSave": false,
 	"backupLimit": 10,
-	"advancedOptionFlags": [],
+	"advancedOptionFlags": ["DiscardPreCsvIntGrid"],
 	"defs": { "layers": [
 		{
 			"__type": "Entities",
