@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.8.0",
-	"nextUid": 57,
+	"nextUid": 58,
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -83,7 +83,7 @@
 					"uid": 42,
 					"name": "Lava",
 					"active": true,
-					"collapsed": false,
+					"collapsed": true,
 					"rules": [
 						{
 							"uid": 44,
@@ -380,6 +380,27 @@
 							"perlinActive": false,
 							"perlinSeed": 6132148,
 							"perlinScale": 0.2,
+							"perlinOctaves": 2
+						},
+						{
+							"uid": 57,
+							"active": true,
+							"size": 1,
+							"tileIds": [25],
+							"chance": 0.76,
+							"breakOnMatch": true,
+							"pattern": [1],
+							"flipX": false,
+							"flipY": false,
+							"xModulo": 1,
+							"yModulo": 1,
+							"checker": "None",
+							"tileMode": "Single",
+							"pivotX": 0,
+							"pivotY": 0,
+							"perlinActive": true,
+							"perlinSeed": 44676336,
+							"perlinScale": 0.38,
 							"perlinOctaves": 2
 						},
 						{
