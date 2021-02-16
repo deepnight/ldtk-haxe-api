@@ -290,96 +290,103 @@ class TypeBuilder {
 				fields : (macro class { }).fields,
 			}
 
-			// Create field types
-			var arrayReg = ~/Array<(.*)>/gi;
-			for(f in e.fieldDefs) {
-				var isArray = arrayReg.match(f.__type);
-				var typeName = isArray ? arrayReg.matched(1) : f.__type;
-
-				var fields : Array<{ name:String, ct:ComplexType, ?customKind:FieldType }> = [];
-				switch typeName {
-					case "Int":
-						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<Int>) : (macro : Int) });
-
-					case "Float":
-						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<Float>) : (macro : Float) });
-
-					case "String":
-						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<String>) : (macro : String) });
-
-					case "FilePath":
-						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<String>) : (macro : String) });
-						fields.push({
-							name: f.identifier+"_bytes",
-							ct: f.canBeNull ? (macro : Null<haxe.io.Bytes>) : (macro : haxe.io.Bytes),
-							customKind: FProp("get", "never", macro : Null<haxe.io.Bytes>)
-						});
-						// Build getter
-						var getterFunc : Function = {
-							expr: macro {
-								var relPath = Reflect.field(this, "f_"+$v{f.identifier});
-								return relPath==null ? null : untypedProject.getAsset(relPath);
-							},
-							args: [],
-							ret: macro : Null<haxe.io.Bytes>,
-						}
-						entityType.fields.push({
-							name: "get_f_"+f.identifier+"_bytes",
-							access: [APrivate],
-							kind: FFun(getterFunc),
-							pos: curPos,
-						});
-
-					case "Bool":
-						fields.push({ name: f.identifier, ct: macro : Bool });
-
-					case "Color":
-						fields.push({ name: f.identifier+"_int", ct: f.canBeNull ? (macro : Null<Int>) : (macro : Int) });
-						fields.push({ name: f.identifier+"_hex", ct: f.canBeNull ? (macro : Null<String>) : (macro : String) });
-
-					case "Point":
-						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<ldtk.Point>) : (macro : ldtk.Point) });
-
-					case _.indexOf("LocalEnum.") => 0:
-						var type = typeName.substr( typeName.indexOf(".")+1 );
-						var enumType = Context.getType( "Enum_"+type ).toComplexType();
-						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<$enumType>) : (macro : $enumType) });
-
-					case _.indexOf("ExternEnum.") => 0:
-						var typeId = typeName.substr( typeName.indexOf(".")+1 );
-						var ct = externEnumTypes.get(typeId).ct;
-						fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<$ct>) : (macro : $ct) });
-
-					case _:
-						error("Unsupported field type "+typeName+" in Entity "+e.identifier);
-				}
+			addFieldsToTypeDef(entityType, e.fieldDefs);
+			registerTypeDefinitionModule(entityType, projectFilePath);
+		}
+	}
 
 
-				for(fi in fields) {
-					if( isArray ) {
-						// Turn field into Array<...>
-						switch fi.ct {
-						case TPath(p):
-							fi.ct = TPath({
-								name: "Array",
-								pack: [],
-								params: [ TPType(fi.ct) ],
-							});
-						case _: error("Unexpected array subtype "+fi.ct.getName());
-						}
+
+	/**
+		Add listed FieldDefs to a specificied macro TypeDefinition
+	**/
+	static function addFieldsToTypeDef(typeDef:TypeDefinition, fieldDefs:Array<FieldDefJson>) {
+		var arrayReg = ~/Array<(.*)>/gi;
+		for(f in fieldDefs) {
+			var isArray = arrayReg.match(f.__type);
+			var typeName = isArray ? arrayReg.matched(1) : f.__type;
+
+			var fields : Array<{ name:String, ct:ComplexType, ?customKind:FieldType }> = [];
+			switch typeName {
+				case "Int":
+					fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<Int>) : (macro : Int) });
+
+				case "Float":
+					fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<Float>) : (macro : Float) });
+
+				case "String":
+					fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<String>) : (macro : String) });
+
+				case "FilePath":
+					fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<String>) : (macro : String) });
+					fields.push({
+						name: f.identifier+"_bytes",
+						ct: f.canBeNull ? (macro : Null<haxe.io.Bytes>) : (macro : haxe.io.Bytes),
+						customKind: FProp("get", "never", macro : Null<haxe.io.Bytes>)
+					});
+					// Build getter
+					var getterFunc : Function = {
+						expr: macro {
+							var relPath = Reflect.field(this, "f_"+$v{f.identifier});
+							return relPath==null ? null : untypedProject.getAsset(relPath);
+						},
+						args: [],
+						ret: macro : Null<haxe.io.Bytes>,
 					}
-
-					entityType.fields.push({
-						name: "f_"+fi.name,
-						access: [ APublic ],
-						kind: fi.customKind==null ? FVar(fi.ct) : fi.customKind,
-						doc: "Entity field "+fi.name+" ("+f.__type+")",
+					typeDef.fields.push({
+						name: "get_f_"+f.identifier+"_bytes",
+						access: [APrivate],
+						kind: FFun(getterFunc),
 						pos: curPos,
 					});
-				}
+
+				case "Bool":
+					fields.push({ name: f.identifier, ct: macro : Bool });
+
+				case "Color":
+					fields.push({ name: f.identifier+"_int", ct: f.canBeNull ? (macro : Null<Int>) : (macro : Int) });
+					fields.push({ name: f.identifier+"_hex", ct: f.canBeNull ? (macro : Null<String>) : (macro : String) });
+
+				case "Point":
+					fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<ldtk.Point>) : (macro : ldtk.Point) });
+
+				case _.indexOf("LocalEnum.") => 0:
+					var type = typeName.substr( typeName.indexOf(".")+1 );
+					var enumType = Context.getType( "Enum_"+type ).toComplexType();
+					fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<$enumType>) : (macro : $enumType) });
+
+				case _.indexOf("ExternEnum.") => 0:
+					var typeId = typeName.substr( typeName.indexOf(".")+1 );
+					var ct = externEnumTypes.get(typeId).ct;
+					fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<$ct>) : (macro : $ct) });
+
+				case _:
+					error("Unsupported field type "+typeName); // TODO add some extra context
 			}
 
-			registerTypeDefinitionModule(entityType, projectFilePath);
+			// Add fields
+			for(fi in fields) {
+				if( isArray ) {
+					// Turn field into Array<...>
+					switch fi.ct {
+					case TPath(p):
+						fi.ct = TPath({
+							name: "Array",
+							pack: [],
+							params: [ TPType(fi.ct) ],
+						});
+					case _: error("Unexpected array subtype "+fi.ct.getName());
+					}
+				}
+
+				typeDef.fields.push({
+					name: "f_"+fi.name,
+					access: [ APublic ],
+					kind: fi.customKind==null ? FVar(fi.ct) : fi.customKind,
+					doc: "Entity field "+fi.name+" ("+f.__type+")",
+					pos: curPos,
+				});
+			}
 		}
 	}
 
