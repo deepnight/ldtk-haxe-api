@@ -52,6 +52,7 @@ class Level {
 	public function new(project:ldtk.Project, json:ldtk.Json.LevelJson) {
 		this.untypedProject = project;
 		fromJson(json);
+		project._assignFieldInstanceValues(this, json.fieldInstances);
 	}
 
 	/** Print class debug info **/

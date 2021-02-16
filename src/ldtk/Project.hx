@@ -107,6 +107,77 @@ class Project {
 	}
 
 
+	var _enumTypePrefix : String;
+
+	function _resolveExternalEnum<T>(name:String) : Enum<T> {
+		return null;
+	}
+
+	/** Used to populated field instances with actual values **/
+	@:allow(ldtk.Entity, ldtk.Level)
+	function _assignFieldInstanceValues(target:Dynamic, fieldInstances:Array<FieldInstanceJson>) {
+		var arrayReg = ~/Array<(.*)>/gi;
+		for(f in fieldInstances) {
+			if( f.__value==null )
+				continue;
+
+			var isArray = arrayReg.match(f.__type);
+			var typeName = isArray ? arrayReg.matched(1) : f.__type;
+
+			switch typeName {
+				case "Int", "Float", "Bool", "String" :
+					Reflect.setField(target, "f_"+f.__identifier, f.__value);
+
+				case "FilePath" :
+					Reflect.setField(target, "f_"+f.__identifier, f.__value);
+
+				case "Color":
+					Reflect.setField(target, "f_"+f.__identifier+"_hex", f.__value);
+					if( !isArray )
+						Reflect.setField(target, "f_"+f.__identifier+"_int", ldtk.Project.hexToInt(f.__value));
+					else {
+						var arr : Array<String> = f.__value;
+						Reflect.setField(target, "f_"+f.__identifier+"_int", arr.map( (c)->ldtk.Project.hexToInt(c) ) );
+					}
+
+				case "Point":
+					if( !isArray )
+						Reflect.setField(target, "f_"+f.__identifier, new ldtk.Point(f.__value.cx, f.__value.cy));
+					else {
+						var arr : Array<{ cx:Int, cy:Int }> = f.__value;
+						Reflect.setField(target, "f_"+f.__identifier, arr.map( (pt)->new ldtk.Point(pt.cx, pt.cy) ) );
+					}
+
+				case _.indexOf("LocalEnum.") => 0:
+					var type = _enumTypePrefix + typeName.substr( typeName.indexOf(".")+1 );
+					var e = Type.resolveEnum( type );
+					if( !isArray )
+						Reflect.setField(target, "f_"+f.__identifier, Type.createEnum(e, f.__value) );
+					else {
+						var arr : Array<String> = f.__value;
+						Reflect.setField(target, "f_"+f.__identifier, arr.map( (k)->Type.createEnum(e,k) ) );
+					}
+
+
+				case _.indexOf("ExternEnum.") => 0:
+					var type = typeName.substr( typeName.indexOf(".")+1 );
+					var e = _resolveExternalEnum(type);
+					if( e==null )
+						Project.error("Couldn't create an instance of enum "+type+"! Please check if the PROJECT enum still matches the EXTERNAL FILE declaring it.");
+					if( !isArray )
+						Reflect.setField(target, "f_"+f.__identifier, Type.createEnum(e, f.__value) );
+					else {
+						var arr : Array<String> = f.__value;
+						Reflect.setField(target, "f_"+f.__identifier, arr.map( (k)->Type.createEnum(e,k) ) );
+					}
+
+				case _ :
+					Project.error('Unknown field type $typeName'); // TODO add some helpful context here
+			}
+		}
+	}
+
+
 	@:keep public function toString() {
 		return 'ldtk.Project[${_untypedLevels.length} levels]';
 	}

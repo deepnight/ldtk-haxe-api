@@ -245,14 +245,9 @@ class TypeBuilder {
 				public var entityType : $entityEnumType;
 
 				override public function new(p, json) {
-					this._enumTypePrefix = $v{modPack.concat(["Enum_"]).join(".")};
 					super(p, json);
 
 					entityType = Type.createEnum($entityEnumRef, json.__identifier);
-				}
-
-				override function _resolveExternalEnum<T>(name:String) : Enum<T> {
-					return cast Type.resolveEnum($externEnumSwitchExpr);
 				}
 
 				public inline function is(e:$entityEnumType) {
@@ -383,7 +378,7 @@ class TypeBuilder {
 					name: "f_"+fi.name,
 					access: [ APublic ],
 					kind: fi.customKind==null ? FVar(fi.ct) : fi.customKind,
-					doc: "Entity field "+fi.name+" ("+f.__type+")",
+					doc: "Custom field "+fi.name+" ("+f.__type+")",
 					pos: curPos,
 				});
 			}
@@ -658,6 +653,8 @@ class TypeBuilder {
 			levelType.fields.push(property);
 			levelType.fields.push(getter);
 		}
+
+		addFieldsToTypeDef(levelType, json.defs.levelFields);
 		registerTypeDefinitionModule(levelType, projectFilePath);
 	}
 
@@ -715,6 +712,7 @@ class TypeBuilder {
 				**/
 				override public function new(?overrideEmbedJson:String) {
 					super();
+					this._enumTypePrefix = $v{modPack.concat(["Enum_"]).join(".")};
 					projectDir = $v{projectDir};
 					projectFilePath = $v{projectFilePath};
 					parseJson( overrideEmbedJson!=null ? overrideEmbedJson : $v{fileContent} );
@@ -732,6 +730,10 @@ class TypeBuilder {
 
 				override function _instanciateLevel(project, json) {
 					return new $levelTypePath(project, json);
+				}
+
+				override function _resolveExternalEnum<T>(name:String) : Enum<T> {
+					return cast Type.resolveEnum($externEnumSwitchExpr);
 				}
 
 				/**
