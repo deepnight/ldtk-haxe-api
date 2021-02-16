@@ -21,7 +21,7 @@ class Layer_IntGrid extends ldtk.Layer {
 		else {
 			// Read old pre-CSV format
 			for(ig in json.intGrid)
-				intGrid.set(ig.coordId, ig.v);
+				intGrid.set(ig.coordId, ig.v+1);
 		}
 	}
 
@@ -31,7 +31,7 @@ class Layer_IntGrid extends ldtk.Layer {
 		Return -1 if none.
 	**/
 	public inline function getInt(cx:Int, cy:Int) {
-		return !isCoordValid(cx,cy) || !intGrid.exists( getCoordId(cx,cy) ) ? -1 : intGrid.get( getCoordId(cx,cy) );
+		return !isCoordValid(cx,cy) || !intGrid.exists( getCoordId(cx,cy) ) ? 0 : intGrid.get( getCoordId(cx,cy) );
 	}
 
 	/**
@@ -40,7 +40,12 @@ class Layer_IntGrid extends ldtk.Layer {
 		Optional parameter "val" allows to check for a specific integer value.
 	**/
 	public inline function hasValue(cx:Int, cy:Int, ?val:Int) {
-		return val==null && getInt(cx,cy)!=-1 || val!=null && getInt(cx,cy)==val;
+		return val==null && getInt(cx,cy)!=0 || val!=null && getInt(cx,cy)==val;
+	}
+
+
+	inline function getValueInfos(v:Int) {
+		return valueInfos[v-1];
 	}
 
 	/**
@@ -49,7 +54,7 @@ class Layer_IntGrid extends ldtk.Layer {
 		Return null if none.
 	**/
 	public inline function getName(cx:Int, cy:Int) : Null<String> {
-		return !hasValue(cx,cy) ? null : valueInfos[ getInt(cx,cy) ].identifier;
+		return !hasValue(cx,cy) ? null : getValueInfos(getInt(cx,cy)).identifier;
 	}
 
 	/**
@@ -58,7 +63,7 @@ class Layer_IntGrid extends ldtk.Layer {
 		Return null if none.
 	**/
 	public inline function getColorInt(cx:Int, cy:Int) : Null<UInt> {
-		return !hasValue(cx,cy) ? null : valueInfos[ getInt(cx,cy) ].color;
+		return !hasValue(cx,cy) ? null : getValueInfos(getInt(cx,cy)).color;
 	}
 
 	/**
@@ -67,6 +72,6 @@ class Layer_IntGrid extends ldtk.Layer {
 		Return null if none.
 	**/
 	public inline function getColorHex(cx:Int, cy:Int) : Null<String> {
-		return !hasValue(cx,cy) ? null : ldtk.Project.intToHex( valueInfos[ getInt(cx,cy) ].color );
+		return !hasValue(cx,cy) ? null : ldtk.Project.intToHex( getValueInfos(getInt(cx,cy)).color );
 	}
 }
