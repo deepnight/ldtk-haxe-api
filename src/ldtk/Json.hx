@@ -600,11 +600,18 @@ typedef EntityDefJson = {
 
 	/** If TRUE, the entity instances will be resizable horizontally **/
 	@added("0.8.0")
+	@internal
 	var resizableX: Bool;
 
 	/** If TRUE, the entity instances will be resizable vertically **/
 	@added("0.8.0")
+	@internal
 	var resizableY: Bool;
+
+	/** Only applies to entities resizable on both X/Y. If TRUE, the entity instance width/height will keep the same aspect ratio as the definition. **/
+	@added("0.8.0")
+	@internal
+	var keepAspectRatio: Bool;
 
 	/** Base entity color **/
 	@color
