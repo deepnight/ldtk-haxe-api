@@ -598,6 +598,14 @@ typedef EntityDefJson = {
 	/** Pixel height **/
 	var height: Int;
 
+	/** If TRUE, the entity instances will be resizable horizontally **/
+	@added("0.8.0")
+	var resizableX: Bool;
+
+	/** If TRUE, the entity instances will be resizable vertically **/
+	@added("0.8.0")
+	var resizableY: Bool;
+
 	/** Base entity color **/
 	@color
 	var color: String;
