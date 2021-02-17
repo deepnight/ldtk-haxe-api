@@ -260,6 +260,10 @@ typedef LayerInstanceJson = {
 	/** Reference the Layer definition UID **/
 	var layerDefUid: Int;
 
+	/** Layer instance visibility **/
+	@added("0.8.0")
+	var visible: Bool;
+
 	/** X offset in pixels to render this layer, usually 0 (IMPORTANT: this should be added to the `LayerDef` optional offset, see `__pxTotalOffsetX`) **/
 	@changed("0.5.0")
 	var pxOffsetX: Int;
