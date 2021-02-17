@@ -67,6 +67,7 @@
 			"layerDefUid": 41,
 			"pxOffsetX": 0,
 			"pxOffsetY": 0,
+			"visible": true,
 			"intGridCsv": [
 				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -146,6 +147,7 @@
 			"layerDefUid": 82,
 			"pxOffsetX": 0,
 			"pxOffsetY": 0,
+			"visible": true,
 			"intGridCsv": [],
 			"autoLayerTiles": [
 				{ "px": [144,104], "src": [32,96], "f": 0, "t": 148, "d": [85,434] },
@@ -177,6 +179,7 @@
 			"layerDefUid": 4,
 			"pxOffsetX": 8,
 			"pxOffsetY": 8,
+			"visible": true,
 			"intGridCsv": [],
 			"autoLayerTiles": [],
 			"seed": 9962612,
@@ -211,6 +214,7 @@
 			"layerDefUid": 15,
 			"pxOffsetX": 8,
 			"pxOffsetY": 8,
+			"visible": true,
 			"intGridCsv": [],
 			"autoLayerTiles": [],
 			"seed": 1968104,
@@ -233,6 +237,7 @@
 			"layerDefUid": 13,
 			"pxOffsetX": 8,
 			"pxOffsetY": 8,
+			"visible": true,
 			"intGridCsv": [
 				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,
 				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -264,6 +269,7 @@
 			"layerDefUid": 87,
 			"pxOffsetX": 0,
 			"pxOffsetY": 0,
+			"visible": true,
 			"intGridCsv": [
 				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
