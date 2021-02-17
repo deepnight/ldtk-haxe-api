@@ -74,6 +74,9 @@ class Main {
 			CiAssert.equals( project.getLevelAt(10,10), project.all_levels.Main_tests );
 			CiAssert.equals( project.getLevelAt(600,400), project.all_levels.Offset_tests );
 
+			// Layer misc
+			CiAssert.equals( project.all_levels.Main_tests.l_IntGridTest.visible, true );
+
 			// Layer offsets
 			CiAssert.equals( project.all_levels.Offset_tests.l_IntGrid8.pxTotalOffsetX, 4 );
 			CiAssert.equals( project.all_levels.Offset_tests.l_IntGrid8.pxTotalOffsetY, 4 );

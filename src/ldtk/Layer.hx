@@ -8,19 +8,16 @@ class Layer {
 	public var identifier : String;
 	public var type : LayerType;
 
-	/**
-		Grid size in pixels
-	**/
+	/** Layer instance visibility **/
+	public var visible : Bool;
+
+	/** Grid size in pixels **/
 	public var gridSize : Int;
 
-	/**
-		Grid-based layer width
-	**/
+	/** Grid-based layer width **/
 	public var cWid : Int;
 
-	/**
-		Grid-based layer height
-	**/
+	/** Grid-based layer height **/
 	public var cHei : Int;
 
 	/**
@@ -49,6 +46,7 @@ class Layer {
 		pxTotalOffsetX = json.__pxTotalOffsetX;
 		pxTotalOffsetY = json.__pxTotalOffsetY;
 		opacity = json.__opacity;
+		visible = json.visible==true;
 	}
 
 	/** Print class debug info **/
