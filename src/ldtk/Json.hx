@@ -501,6 +501,11 @@ typedef LayerDefJson = {
 	@only("Auto-layers")
 	var autoSourceLayerDefUid: Null<Int>;
 
+	/** An array of tags to filter Entities that can be added to this layer **/
+	@added("0.8.0") 
+	@only("Entity layer")
+	var tags: Array<String>;
+
 	/** Reference to the Tileset UID being used by this Tile layer **/
 	@only("Tile layers")
 	var tilesetDefUid: Null<Int>;
@@ -591,6 +596,10 @@ typedef EntityDefJson = {
 
 	/** Unique Int identifier **/
 	var uid: Int;
+
+	/** An array of strings that classifies this entity **/
+	@added("0.8.0")
+	var tags: Array<String>;
 
 	/** Pixel width **/
 	var width: Int;
