@@ -637,6 +637,14 @@ typedef EntityDefJson = {
 	@internal
 	var renderMode: EntityRenderMode;
 
+	@internal
+	@added("0.8.0")
+	var fillOpacity: Float;
+
+	@internal
+	@added("0.8.0")
+	var lineOpacity: Float;
+
 	/** Display entity name in editor **/
 	@internal
 	@added("0.4.0")
