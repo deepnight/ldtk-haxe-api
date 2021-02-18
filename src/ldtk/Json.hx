@@ -502,11 +502,13 @@ typedef LayerDefJson = {
 	var autoSourceLayerDefUid: Null<Int>;
 
 	/** An array of tags to filter Entities that can be added to this layer **/
+	@internal
 	@added("0.8.0")
 	@only("Entity layer")
 	var requiredTags: Array<String>;
 
 	/** An array of tags to forbid some Entities in this layer **/
+	@internal
 	@added("0.8.0")
 	@only("Entity layer")
 	var excludedTags: Array<String>;
@@ -604,6 +606,7 @@ typedef EntityDefJson = {
 
 	/** An array of strings that classifies this entity **/
 	@added("0.8.0")
+	@internal
 	var tags: Array<String>;
 
 	/** Pixel width **/
