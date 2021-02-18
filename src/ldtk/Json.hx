@@ -645,6 +645,10 @@ typedef EntityDefJson = {
 	@added("0.8.0")
 	var lineOpacity: Float;
 
+	@internal
+	@added("0.8.0")
+	var hollow: Bool;
+
 	/** Display entity name in editor **/
 	@internal
 	@added("0.4.0")
