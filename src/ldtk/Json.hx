@@ -502,9 +502,14 @@ typedef LayerDefJson = {
 	var autoSourceLayerDefUid: Null<Int>;
 
 	/** An array of tags to filter Entities that can be added to this layer **/
-	@added("0.8.0") 
+	@added("0.8.0")
 	@only("Entity layer")
-	var tags: Array<String>;
+	var requiredTags: Array<String>;
+
+	/** An array of tags to forbid some Entities in this layer **/
+	@added("0.8.0")
+	@only("Entity layer")
+	var excludedTags: Array<String>;
 
 	/** Reference to the Tileset UID being used by this Tile layer **/
 	@only("Tile layers")
