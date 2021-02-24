@@ -104,10 +104,10 @@ typedef ProjectJson = {
 	@added("0.7.0")
 	var backupLimit: Int;
 
-	/** An array containing various advanced export options (only for experienced users). **/
+	/** An array containing various advanced flags (ie. options or other states). **/
 	@internal
 	@added("0.8.0")
-	var advancedOptionFlags: Array<AdvancedOptionFlag>;
+	var flags: Array<ProjectFlag>;
 
 }
 
@@ -994,7 +994,7 @@ enum TextLanguageMode {
 	LangXml;
 }
 
-enum AdvancedOptionFlag {
+enum ProjectFlag {
 	DiscardPreCsvIntGrid;
 }
 
