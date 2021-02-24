@@ -996,6 +996,7 @@ enum TextLanguageMode {
 
 enum ProjectFlag {
 	DiscardPreCsvIntGrid;
+	IgnoreBackupSuggest;
 }
 
 enum EntityLimitScope {
