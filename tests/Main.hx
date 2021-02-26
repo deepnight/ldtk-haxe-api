@@ -121,7 +121,18 @@ class Main {
 			CiAssert.isNotNull( mob );
 			CiAssert.isNotNull( test );
 			CiAssert.isNotNull( fileEnt );
-			CiAssert.isTrue( mob.f_scale==0.5 );
+			CiAssert.equals( mob.f_scale, 0.5 );
+			CiAssert.equals( hero.width, 16 );
+			CiAssert.equals( hero.height, 24 );
+			CiAssert.equals( test.width, 32 );
+			CiAssert.equals( test.height, 32 );
+
+			// Regions
+			var r = project.all_levels.Main_tests.l_EntityTest.all_Region[0];
+			CiAssert.isNotNull(r);
+			CiAssert.equals(r.width, 64);
+			CiAssert.equals(r.height, 48);
+			CiAssert.equals(r.f_flag, true);
 
 			// Enums
 			section("Enums...");

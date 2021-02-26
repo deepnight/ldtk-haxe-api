@@ -23,6 +23,12 @@ class Entity {
 	/** Pivot Y coord (0-1) **/
 	public var pivotY : Float;
 
+	/** Width in pixels **/
+	public var width : Int;
+
+	/** Height in pixels**/
+	public var height : Int;
+
 	/** Tile infos if the entity has one (it could have be overridden by a Field value, such as Enums) **/
 	public var defaultTileInfos : Null<{ tilesetUid:Int, x:Int, y:Int, w:Int, h:Int }>;
 
@@ -38,6 +44,8 @@ class Entity {
 		pixelY = json.px[1];
 		pivotX = json.__pivot==null ? 0 : json.__pivot[0];
 		pivotY = json.__pivot==null ? 0 : json.__pivot[1];
+		width = json.width;
+		height = json.height;
 
 		defaultTileInfos = json.__tile==null ? null : {
 			tilesetUid: json.__tile.tilesetUid,
