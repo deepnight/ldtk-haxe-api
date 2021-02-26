@@ -660,6 +660,26 @@
 							"params": ["Minecraft_texture_pack.gif"]
 						}]
 					}]
+				},
+				{
+					"__identifier": "Region",
+					"__grid": [5,20],
+					"__pivot": [0,0],
+					"__tile": null,
+					"width": 64,
+					"height": 48,
+					"defUid": 96,
+					"px": [80,320],
+					"fieldInstances": [{
+						"__identifier": "flag",
+						"__value": true,
+						"__type": "Bool",
+						"defUid": 99,
+						"realEditorValues": [{
+							"id": "V_Bool",
+							"params": [ true ]
+						}]
+					}]
 				}
 			]
 		},
