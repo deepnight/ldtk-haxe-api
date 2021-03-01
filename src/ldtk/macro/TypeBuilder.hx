@@ -736,25 +736,22 @@ class TypeBuilder {
 					return cast Type.resolveEnum($externEnumSwitchExpr);
 				}
 
-				/**
-					Get a level using its identifier
-				**/
-				public function getLevelIdentifier(id:String) : Null<$levelComplexType> {
+				/** Get a level from its UID (int) or Identifier (string) **/
+				public function getLevel(?uid:Int, ?id:String) : Null<$levelComplexType> {
+					if( uid==null && id==null )
+						return null;
+
 					for(l in _untypedLevels)
-						if( l.identifier==id )
+						if( id!=null && l.identifier==id || uid!=null && l.uid==uid )
 							return cast l;
 					return null;
 				}
 
-				/**
-					Get a level using its UID
-				**/
-				public function getLevelUid(uid:Int) : Null<$levelComplexType> {
-					for(l in _untypedLevels)
-						if( l.uid==uid )
-							return cast l;
-					return null;
-				}
+				@:noCompletion @:deprecated("Use getLevel()")
+				public function getLevelIdentifier(id:String) return getLevel(id);
+
+				@:noCompletion @:deprecated("Use getLevel()")
+				public function getLevelUid(uid:Int) return getLevel(uid);
 
 				/**
 					Get a level using a world pixel coord
