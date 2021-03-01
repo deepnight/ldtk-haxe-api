@@ -660,6 +660,7 @@ typedef EntityDefJson = {
 	/** Tile ID used for optional tile display **/
 	var tileId: Null<Int>;
 
+	@changed("0.8.1")
 	@internal
 	var tileRenderMode: EntityTileRenderMode;
 
@@ -953,8 +954,10 @@ enum EntityRenderMode {
 }
 
 enum EntityTileRenderMode {
+	Cover;
+	FitInside;
+	Repeat;
 	Stretch;
-	Crop;
 }
 
 enum EntityLimitBehavior {
