@@ -242,8 +242,23 @@ class Project {
 
 		#else
 
-			error("Project asset loading is not supported on this Haxe target or framework.");
+			// Generic Haxe Resource Loading for Unsupported Frameworks
+			// Browse resources to locate project file
+			for(key => value in haxe.Resource.listNames()) {
+				if(value == projectFilePath) {
+					// Found it
+					var baseDir = value.indexOf("/")<0 ? "" : value.substr( 0, value.lastIndexOf("/") );
+					return baseDir + "/" + projectRelativePath;
+				}
+			}
+
+			error('Project file is not loaded properly.\nPlease add "-r <path to project name.ldtk>" and "-r <path to each level file.ldtkl>" to your project.hxml build file and try again.');
 			return "";
+
+			/** Original error message here for unsupported frameworks
+			 *  error("Project asset loading is not supported on this Haxe target or framework.");
+			 * return "";
+			 */
 
 		#end
 	}
@@ -274,9 +289,19 @@ class Project {
 
 		#else
 
-			// TODO support asset loading on "sys" platform
-			error("Project asset loading is not supported on this Haxe target or framework.");
-			return null;
+			// Generic Haxe Resource Loading for Unsupported Frameworks
+			var assetId = makeAssetRelativePath(projectRelativePath);
+			var bytes : haxe.io.Bytes = try haxe.Resource.getBytes(assetId) catch(e:Dynamic) {
+				error('Asset not found or was not loaded properly at runtime: $assetId ; error=$e');
+				null;
+			}
+			return bytes;
+			
+			/** Original error message here for unsupported frameworks
+			 * // TODO support asset loading on "sys" platform
+			 * error("Project asset loading is not supported on this Haxe target or framework.");
+			 * return null;
+			 */
 
 		#end
 	}
