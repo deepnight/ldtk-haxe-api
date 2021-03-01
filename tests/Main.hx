@@ -61,9 +61,9 @@ class Main {
 			CiAssert.isNotNull( project.all_levels );
 			CiAssert.isNotNull( project.all_levels.Main_tests );
 			CiAssert.isNotNull( project.all_levels.Offset_tests );
-			CiAssert.isNotNull( project.getLevelIdentifier("Main_tests") );
-			CiAssert.equals( project.getLevelIdentifier("Main_tests"), project.all_levels.Main_tests );
-			CiAssert.equals( project.getLevelUid(0), project.all_levels.Main_tests );
+			CiAssert.isNotNull( project.getLevel("Main_tests") );
+			CiAssert.equals( project.getLevel("Main_tests"), project.all_levels.Main_tests );
+			CiAssert.equals( project.getLevel(0), project.all_levels.Main_tests );
 			CiAssert.isTrue( project.levels.length>0 );
 			CiAssert.isNotNull( project.levels[0].l_IntGridTest );
 			CiAssert.equals( project.levels[1].worldX, 512 );
