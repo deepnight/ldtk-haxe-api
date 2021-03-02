@@ -973,6 +973,7 @@ enum FieldDisplayMode {
 	EntityTile;
 	PointStar;
 	PointPath;
+	PointPathLoop;
 	RadiusPx;
 	RadiusGrid;
 }
