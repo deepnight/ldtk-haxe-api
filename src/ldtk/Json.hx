@@ -806,7 +806,7 @@ typedef TilesetDefJson = {
 	@added("0.8.2")
 	var metaDataEnumUid: Null<Int>;
 
-	/** Tileset Enum meta-data. The array contains 1 element per Enum value, and each has a list of tile IDs with the enum applied to. **/
+	/** Tileset Enum meta-data. The array contains 1 element per Enum value, with a list of all Tile IDs that have the enum value applied to. **/
 	@added("0.8.2")
 	var metaDataEnumValues: Array<{
 		enumValueId: String,
