@@ -971,6 +971,7 @@ enum FieldDisplayMode {
 	ValueOnly;
 	NameAndValue;
 	EntityTile;
+	Points;
 	PointStar;
 	PointPath;
 	PointPathLoop;
