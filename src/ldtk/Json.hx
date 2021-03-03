@@ -794,6 +794,10 @@ typedef TilesetDefJson = {
 	@internal
 	var savedSelections: Array<{ ids:Array<Int>, mode:Enum<Dynamic> }>;
 
+	/** Optional Enum definition UID used for this tileset meta-data **/
+	@added("0.8.2")
+	var metaDataEnumUid: Null<Int>;
+
 	/** The following data is used internally for various optimizations. It's always synced with source image changes. **/
 	@internal
 	@added("0.6.0")
