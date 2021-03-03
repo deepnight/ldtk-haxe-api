@@ -860,6 +860,10 @@ typedef EnumDefValues = {
 	/** The optional ID of the tile **/
 	var tileId:Null<Int>;
 
+	/** Optional color **/
+	@added("0.8.2")
+	var color:Int;
+
 	/** An array of 4 Int values that refers to the tile in the tileset image: `[ x, y, width, height ]` **/
 	@added("0.4.0")
 	var __tileSrcRect:Array<Int>; // TODO use a Tile instance here?
