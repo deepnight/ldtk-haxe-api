@@ -767,6 +767,14 @@ typedef FieldDefJson = {
 @section("3.3")
 @display("Tileset definition")
 typedef TilesetDefJson = {
+	/** Grid-based width **/
+	@added("0.8.2")
+	var __cWid : Int;
+
+	/** Grid-based height **/
+	@added("0.8.2")
+	var __cHei : Int;
+
 	/** Unique String identifier **/
 	var identifier: String;
 
@@ -797,6 +805,10 @@ typedef TilesetDefJson = {
 	/** Optional Enum definition UID used for this tileset meta-data **/
 	@added("0.8.2")
 	var metaDataEnumUid: Null<Int>;
+
+	/** Tileset meta as CSV, stored from left to right, and top to bottom (ie. first row from left to right, followed by second row, etc). `0` means "empty cell" and values start at 1. This array size is `__cWid` x `__cHei` cells. **/
+	@added("0.8.2")
+	var metaDataCsv: Array<Int>;
 
 	/** The following data is used internally for various optimizations. It's always synced with source image changes. **/
 	@internal
