@@ -806,8 +806,6 @@ typedef TilesetDefJson = {
 	@added("0.8.2")
 	var metaDataEnumUid: Null<Int>;
 
-	/** Tileset Enum meta-data. The array contains 1 element per Enum value, and each value has a CSV array. The CSV array size is `__cWid` x `__cHei` cells if the Enum value is used, or 0 otherwise. The values are stored from left to right, and top to bottom (ie. first row from left to right, followed by second row, etc). `0` means "empty cell" and values start at 1. **/
-
 	/** Tileset Enum meta-data. The array contains 1 element per Enum value, and each has a list of tile IDs with the enum applied to. **/
 	@added("0.8.2")
 	var metaDataEnumValues: Array<{
