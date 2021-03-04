@@ -804,11 +804,11 @@ typedef TilesetDefJson = {
 
 	/** Optional Enum definition UID used for this tileset meta-data **/
 	@added("0.8.2")
-	var metaDataEnumUid: Null<Int>;
+	var tagsSourceEnumUid: Null<Int>;
 
-	/** Tileset Enum meta-data. The array contains 1 element per Enum value, with a list of all Tile IDs that have the enum value applied to. **/
+	/** Tileset tags using Enum values specified by `tagsSourceEnumId`. This array contains 1 element per Enum value, which contains an array of all Tile IDs that are tagged with it. **/
 	@added("0.8.2")
-	var metaDataEnumValues: Array<{
+	var enumTags: Array<{
 		enumValueId: String,
 		tileIds: Array<Int>,
 	}>;
