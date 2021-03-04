@@ -767,6 +767,14 @@ typedef FieldDefJson = {
 @section("3.3")
 @display("Tileset definition")
 typedef TilesetDefJson = {
+	/** Grid-based width **/
+	@added("0.8.2")
+	var __cWid : Int;
+
+	/** Grid-based height **/
+	@added("0.8.2")
+	var __cHei : Int;
+
 	/** Unique String identifier **/
 	var identifier: String;
 
@@ -793,6 +801,17 @@ typedef TilesetDefJson = {
 	/** Array of group of tiles selections, only meant to be used in the editor **/
 	@internal
 	var savedSelections: Array<{ ids:Array<Int>, mode:Enum<Dynamic> }>;
+
+	/** Optional Enum definition UID used for this tileset meta-data **/
+	@added("0.8.2")
+	var tagsSourceEnumUid: Null<Int>;
+
+	/** Tileset tags using Enum values specified by `tagsSourceEnumId`. This array contains 1 element per Enum value, which contains an array of all Tile IDs that are tagged with it. **/
+	@added("0.8.2")
+	var enumTags: Array<{
+		enumValueId: String,
+		tileIds: Array<Int>,
+	}>;
 
 	/** The following data is used internally for various optimizations. It's always synced with source image changes. **/
 	@internal
@@ -840,6 +859,10 @@ typedef EnumDefValues = {
 
 	/** The optional ID of the tile **/
 	var tileId:Null<Int>;
+
+	/** Optional color **/
+	@added("0.8.2")
+	var color:Int;
 
 	/** An array of 4 Int values that refers to the tile in the tileset image: `[ x, y, width, height ]` **/
 	@added("0.4.0")
