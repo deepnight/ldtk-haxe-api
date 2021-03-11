@@ -817,6 +817,10 @@ typedef TilesetDefJson = {
 		tileIds: Array<Int>,
 	}>;
 
+	/** An array of custom tile metadata **/
+	@added("0.8.2")
+	var customData : Array<{ tileId:Int, data:String }>;
+
 	/** The following data is used internally for various optimizations. It's always synced with source image changes. **/
 	@internal
 	@added("0.6.0")
