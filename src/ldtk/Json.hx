@@ -545,6 +545,10 @@ typedef AutoRuleDef = {
 	/** Rule pattern (size x size) **/
 	var pattern: Array<Int>;
 
+	/** Default IntGrid value when checking cells outside of level bounds **/
+	@added("0.8.2")
+	var outOfBoundsValue: Null<Int>;
+
 	/** Array of all the tile IDs. They are used randomly or as stamps, based on `tileMode` value. **/
 	var tileIds: Array<Int>;
 
