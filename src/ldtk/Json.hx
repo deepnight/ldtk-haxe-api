@@ -874,7 +874,7 @@ typedef EnumDefValues = {
 
 	/** An array of 4 Int values that refers to the tile in the tileset image: `[ x, y, width, height ]` **/
 	@added("0.4.0")
-	var __tileSrcRect:Array<Int>; // TODO use a Tile instance here?
+	var __tileSrcRect:Null< Array<Int> >; // TODO use a Tile instance here?
 }
 
 
