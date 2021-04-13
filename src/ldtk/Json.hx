@@ -704,7 +704,7 @@ typedef FieldDefJson = {
 	/** Unique String identifier **/
 	var identifier: String;
 
-	/** Unique Intidentifier **/
+	/** Unique Int identifier **/
 	var uid: Int;
 
 	/** Human readable value type (eg. `Int`, `Float`, `Point`, etc.). If the field is an array, this field will look like `Array<...>` (eg. `Array<Int>`, `Array<Point>` etc.) **/
