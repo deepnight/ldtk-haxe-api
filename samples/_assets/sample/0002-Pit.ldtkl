@@ -5,7 +5,7 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "0.8.1",
+		"appVersion": "0.8.2",
 		"url": "https://ldtk.io"
 	},
 	"identifier": "Pit",
@@ -16,6 +16,7 @@
 	"pxHei": 128,
 	"__bgColor": "#121331",
 	"bgColor": null,
+	"useAutoIdentifier": false,
 	"bgRelPath": "N2D - SpaceWallpaper1280x448.png",
 	"bgPos": "Cover",
 	"bgPivotX": 0.5,
@@ -79,8 +80,8 @@
 			"__opacity": 1,
 			"__pxTotalOffsetX": 0,
 			"__pxTotalOffsetY": 0,
-			"__tilesetDefUid": 1,
-			"__tilesetRelPath": "Cavernas_by_Adam_Saltsman-Extended.png",
+			"__tilesetDefUid": 58,
+			"__tilesetRelPath": "Cavernas_by_Adam_Saltsman-Extended_hued.png",
 			"levelId": 40,
 			"layerDefUid": 2,
 			"pxOffsetX": 0,
@@ -453,7 +454,7 @@
 				{ "px": [72,64], "src": [48,40], "f": 0, "t": 66, "d": [19,233] }
 			],
 			"seed": 8630443,
-			"overrideTilesetUid": null,
+			"overrideTilesetUid": 58,
 			"gridTiles": [],
 			"entityInstances": []
 		},
@@ -466,8 +467,8 @@
 			"__opacity": 1,
 			"__pxTotalOffsetX": 0,
 			"__pxTotalOffsetY": 0,
-			"__tilesetDefUid": 1,
-			"__tilesetRelPath": "Cavernas_by_Adam_Saltsman-Extended.png",
+			"__tilesetDefUid": 58,
+			"__tilesetRelPath": "Cavernas_by_Adam_Saltsman-Extended_hued.png",
 			"levelId": 40,
 			"layerDefUid": 48,
 			"pxOffsetX": 0,
@@ -565,7 +566,7 @@
 				{ "px": [88,80], "src": [80,56], "f": 0, "t": 94, "d": [56,291] }
 			],
 			"seed": 5610164,
-			"overrideTilesetUid": null,
+			"overrideTilesetUid": 58,
 			"gridTiles": [],
 			"entityInstances": []
 		}
