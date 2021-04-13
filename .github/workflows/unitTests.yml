@@ -36,5 +36,10 @@ jobs:
       - run: haxelib list
 
       # Run tests
-      - run: haxe tests/js.hxml
-      - run: cd samples  &  haxe buildAll.hxml
+      - name: JS tests
+        run: haxe tests/js.hxml
+
+      # Samples
+      - name: Samples building
+        working-directory: ./samples
+        run: haxe buildAll.hxml
