@@ -493,7 +493,7 @@ typedef LayerDefJson = {
 	@only("IntGrid layer")
 	var intGridValues: Array<IntGridValueDef>;
 
-	/** Reference to the Tileset UID being used by this auto-layer rules **/
+	/** Reference to the Tileset UID being used by this auto-layer rules. WARNING: some layer *instances* might use a different tileset. So most of the time, you should probably use the `__tilesetDefUid` value from layer instances. **/
 	@only("Auto-layers")
 	var autoTilesetDefUid: Null<Int>;
 
@@ -522,7 +522,7 @@ typedef LayerDefJson = {
 	@only("Entity layer")
 	var excludedTags: Array<String>;
 
-	/** Reference to the Tileset UID being used by this Tile layer **/
+	/** Reference to the Tileset UID being used by this Tile layer. WARNING: some layer *instances* might use a different tileset. So most of the time, you should probably use the `__tilesetDefUid` value from layer instances. **/
 	@only("Tile layers")
 	var tilesetDefUid: Null<Int>;
 
