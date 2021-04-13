@@ -109,6 +109,10 @@ typedef ProjectJson = {
 	@added("0.8.0")
 	var flags: Array<ProjectFlag>;
 
+	/** The default naming convention for level identifiers. **/
+	@internal
+	@added("0.8.2")
+	var levelNamePattern: String;
 }
 
 /**
@@ -128,6 +132,11 @@ typedef LevelJson = {
 
 	/** Unique String identifier **/
 	var identifier: String;
+
+	/** If TRUE, the level identifier will always automatically use the naming pattern as defined in `Project.levelNamePattern`. Becomes FALSE if the identifier is manually modified by user. **/
+	@internal
+	@added("0.8.2")
+	var useAutoIdentifier: Bool;
 
 	/** World X coordinate in pixels **/
 	@added("0.6.0")
