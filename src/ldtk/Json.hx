@@ -500,13 +500,7 @@ typedef LayerDefJson = {
 	/** Contains all the auto-layer rule definitions. **/
 	@only("Auto-layers")
 	@internal
-	var autoRuleGroups: Array<{
-		var uid: Int;
-		var name: String;
-		var active: Bool;
-		var collapsed: Bool;
-		var rules: Array<AutoRuleDef>;
-	}>;
+	var autoRuleGroups: Array<AutoLayerRuleGroupJson>;
 	@only("Auto-layers")
 	var autoSourceLayerDefUid: Null<Int>;
 
@@ -535,7 +529,16 @@ typedef LayerDefJson = {
 	@only("Tile layers")
 	@internal
 	var tilePivotY: Float;
+}
 
+@inline
+@display("Auto-layer rule group")
+typedef AutoLayerRuleGroupJson = {
+	var uid: Int;
+	var name: String;
+	var active: Bool;
+	var collapsed: Bool;
+	var rules: Array<AutoRuleDef>;
 }
 
 /**
