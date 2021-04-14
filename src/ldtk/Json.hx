@@ -111,7 +111,7 @@ typedef ProjectJson = {
 
 	/** The default naming convention for level identifiers. **/
 	@internal
-	@added("0.8.2")
+	@added("0.9.0")
 	var levelNamePattern: String;
 }
 
@@ -135,7 +135,7 @@ typedef LevelJson = {
 
 	/** If TRUE, the level identifier will always automatically use the naming pattern as defined in `Project.levelNamePattern`. Becomes FALSE if the identifier is manually modified by user. **/
 	@internal
-	@added("0.8.2")
+	@added("0.9.0")
 	var useAutoIdentifier: Bool;
 
 	/** World X coordinate in pixels **/
@@ -290,7 +290,7 @@ typedef LayerInstanceJson = {
 		The list of IntGrid values, stored using coordinate ID system (refer to online documentation for more info about "Coordinate IDs")
 	**/
 	@changed("0.8.0")
-	@deprecation("0.8.0", "0.9.0", "intGridCsv")
+	@deprecation("0.8.0", "0.9.1", "intGridCsv")
 	@only("IntGrid layers")
 	var intGrid: Array<IntGridValueInstance>;
 
@@ -322,7 +322,7 @@ typedef LayerInstanceJson = {
 
 	/** An Array containing the UIDs of optional rules that were enabled in this specific layer instance. **/
 	@internal
-	@added("0.8.2")
+	@added("0.9.0")
 	var optionalRules: Array<Int>;
 }
 
@@ -545,7 +545,7 @@ typedef AutoLayerRuleGroupJson = {
 	var active: Bool;
 	var collapsed: Bool;
 	var rules: Array<AutoRuleDef>;
-	@added("0.8.2")
+	@added("0.9.0")
 	var isOptional: Bool;
 }
 
@@ -566,7 +566,7 @@ typedef AutoRuleDef = {
 	var pattern: Array<Int>;
 
 	/** Default IntGrid value when checking cells outside of level bounds **/
-	@added("0.8.2")
+	@added("0.9.0")
 	var outOfBoundsValue: Null<Int>;
 
 	/** Array of all the tile IDs. They are used randomly or as stamps, based on `tileMode` value. **/
@@ -792,11 +792,11 @@ typedef FieldDefJson = {
 @display("Tileset definition")
 typedef TilesetDefJson = {
 	/** Grid-based width **/
-	@added("0.8.2")
+	@added("0.9.0")
 	var __cWid : Int;
 
 	/** Grid-based height **/
-	@added("0.8.2")
+	@added("0.9.0")
 	var __cHei : Int;
 
 	/** Unique String identifier **/
@@ -827,18 +827,18 @@ typedef TilesetDefJson = {
 	var savedSelections: Array<{ ids:Array<Int>, mode:Enum<Dynamic> }>;
 
 	/** Optional Enum definition UID used for this tileset meta-data **/
-	@added("0.8.2")
+	@added("0.9.0")
 	var tagsSourceEnumUid: Null<Int>;
 
 	/** Tileset tags using Enum values specified by `tagsSourceEnumId`. This array contains 1 element per Enum value, which contains an array of all Tile IDs that are tagged with it. **/
-	@added("0.8.2")
+	@added("0.9.0")
 	var enumTags: Array<{
 		enumValueId: String,
 		tileIds: Array<Int>,
 	}>;
 
 	/** An array of custom tile metadata **/
-	@added("0.8.2")
+	@added("0.9.0")
 	var customData : Array<{ tileId:Int, data:String }>;
 
 	/** The following data is used internally for various optimizations. It's always synced with source image changes. **/
@@ -889,7 +889,7 @@ typedef EnumDefValues = {
 	var tileId:Null<Int>;
 
 	/** Optional color **/
-	@added("0.8.2")
+	@added("0.9.0")
 	var color:Int;
 
 	/** An array of 4 Int values that refers to the tile in the tileset image: `[ x, y, width, height ]` **/
