@@ -290,7 +290,7 @@
 					"uid": 3,
 					"name": "Walls",
 					"active": true,
-					"collapsed": false,
+					"collapsed": true,
 					"rules": [
 						{
 							"uid": 15,
@@ -833,7 +833,7 @@
 			"uid": 41,
 			"worldX": 544,
 			"worldY": 224,
-			"pxWid": 128,
+			"pxWid": 160,
 			"pxHei": 128,
 			"__bgColor": "#121331",
 			"bgColor": null,
@@ -842,7 +842,7 @@
 			"bgPos": "Cover",
 			"bgPivotX": 0.5,
 			"bgPivotY": 0.5,
-			"__bgPos": { "topLeftPx": [0,0], "scale": [0.5714285714285714,0.5714285714285714], "cropRect": [208,0,224,224] },
+			"__bgPos": { "topLeftPx": [0,0], "scale": [0.5714285714285714,0.5714285714285714], "cropRect": [180,0,280,224] },
 			"externalRelPath": "sample/0003-Treasure_room.ldtkl",
 			"fieldInstances": [],
 			"layerInstances": null,
