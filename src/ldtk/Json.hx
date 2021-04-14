@@ -545,6 +545,7 @@ typedef AutoLayerRuleGroupJson = {
 	var active: Bool;
 	var collapsed: Bool;
 	var rules: Array<AutoRuleDef>;
+	@added("0.8.2")
 	var isOptional: Bool;
 }
 
