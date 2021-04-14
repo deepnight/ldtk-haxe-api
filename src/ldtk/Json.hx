@@ -318,6 +318,12 @@ typedef LayerInstanceJson = {
 
 	@only("Entity layers")
 	var entityInstances: Array<EntityInstanceJson>;
+
+
+	/** An Array containing the UIDs of optional rules that were enabled in this specific layer instance. **/
+	@internal
+	@added("0.8.2")
+	var optionalRules: Array<Int>;
 }
 
 
@@ -539,6 +545,7 @@ typedef AutoLayerRuleGroupJson = {
 	var active: Bool;
 	var collapsed: Bool;
 	var rules: Array<AutoRuleDef>;
+	var isOptional: Bool;
 }
 
 /**
