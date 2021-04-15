@@ -344,34 +344,46 @@ class Project {
 	/**
 		Get a Layer definition using either its uid (Int) or identifier (String)
 	**/
-	public inline function getLayerDef(?uid:Int, ?identifier:String) : Null<ldtk.Json.LayerDefJson> {
+	public inline function getLayerDefJson(?uid:Int, ?identifier:String) : Null<ldtk.Json.LayerDefJson> {
 		return searchDef( defs.layers, uid, identifier );
 	}
+	@:noCompletion @:deprecated("Method was renamed to: getLayerDefJson")
+	public function getLayerDef(?uid,?identifier) return getLayerDefJson(uid,identifier);
 
 	/**
 		Get an Entity definition using either its uid (Int) or identifier (String)
 	**/
-	public inline function getEntityDef(?uid:Int, ?identifier:String) : Null<ldtk.Json.EntityDefJson> {
+	public inline function getEntityDefJson(?uid:Int, ?identifier:String) : Null<ldtk.Json.EntityDefJson> {
 		return searchDef( defs.entities, uid, identifier );
 	}
+	@:noCompletion @:deprecated("Method was renamed to: getEntityDefJson")
+	public function getEntityDef(?uid,?identifier) return getEntityDefJson(uid,identifier);
+
+
 
 	/**
 		Get a Tileset definition using either its uid (Int) or identifier (String)
 	**/
-	public inline function getTilesetDef(?uid:Int, ?identifier:String) : Null<ldtk.Json.TilesetDefJson> {
+	public inline function getTilesetDefJson(?uid:Int, ?identifier:String) : Null<ldtk.Json.TilesetDefJson> {
 		return searchDef( defs.tilesets, uid, identifier );
 	}
+	@:noCompletion @:deprecated("Method was renamed to: getTilesetDefJson")
+	public function getTilesetDef(?uid,?identifier) return getTilesetDefJson(uid,identifier);
+
 
 	/**
 		Get an Enum definition using either its uid (Int) or identifier (String)
 	**/
-	public inline function getEnumDef(?uid:Int, ?identifier:String) : Null<ldtk.Json.EnumDefJson> {
+	public inline function getEnumDefJson(?uid:Int, ?identifier:String) : Null<ldtk.Json.EnumDefJson> {
 		var e = searchDef( defs.enums, uid, identifier );
 		if( e!=null )
 			return e;
 		else
 			return searchDef( defs.externalEnums, uid, identifier );
 	}
+	@:noCompletion @:deprecated("Method was renamed to: getEnumDefJson")
+	public function getEnumDef(?uid,?identifier) return getEnumDefJson(uid,identifier);
+
 
 	/**
 		Get an Enum definition using an Enum value
@@ -381,7 +393,7 @@ class Project {
 			var name = Type.getEnum(v).getName();
 			var defId = name.substr( name.indexOf("_")+1 ); // get rid of the Macro prefix
 			defId = defId.substr( defId.lastIndexOf(".")+1 );
-			return getEnumDef(defId);
+			return getEnumDefJson(defId);
 		}
 		catch(err:Dynamic) {
 			return null;

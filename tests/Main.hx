@@ -39,10 +39,10 @@ class Main {
 			CiAssert.isTrue( project.defs.layers.length>0 );
 			CiAssert.isTrue( project.defs.tilesets.length>0 );
 
-			CiAssert.isNotNull( project.getLayerDef("IntGrid_AutoLayer") );
-			CiAssert.isNotNull( project.getEntityDef("Hero") );
-			CiAssert.isNotNull( project.getEnumDef("Weapons") );
-			CiAssert.isNotNull( project.getTilesetDef("Minecraft_texture_pack") );
+			CiAssert.isNotNull( project.getLayerDefJson("IntGrid_AutoLayer") );
+			CiAssert.isNotNull( project.getEntityDefJson("Hero") );
+			CiAssert.isNotNull( project.getEnumDefJson("Weapons") );
+			CiAssert.isNotNull( project.getTilesetDefJson("Minecraft_texture_pack") );
 
 			CiAssert.equals( project.getEnumDefFromValue(Trash).identifier, "Mobs" );
 			CiAssert.equals( project.getEnumDefFromValue(LongBow).identifier, "Weapons" );
