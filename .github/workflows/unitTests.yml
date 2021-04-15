@@ -41,5 +41,5 @@ jobs:
 
       # Samples
       - name: Samples building
-        working-directory: ./samples/_srcCommon/builder
-        run: haxe SamplesBuilder.hxml
+        working-directory: ./samples/_initSamples
+        run: haxe initSamples.hxml
