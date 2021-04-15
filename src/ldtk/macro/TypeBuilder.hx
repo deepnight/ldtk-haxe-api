@@ -415,10 +415,23 @@ class TypeBuilder {
 			if( t.tagsSourceEnumUid!=null ) {
 				var enumTypeDef = localEnums.get(t.tagsSourceEnumUid);
 				var enumComplexType = Context.getType(enumTypeDef.name).toComplexType();
+				var enumTypeExpr = { pos:curPos, expr:EConst(CIdent(enumTypeDef.name)) }
 				tilesetType.fields = tilesetType.fields.concat( (macro class {
+
+					/** Return TRUE if the specifiied tile ID was tagged with given enum `tag`. **/
 					public function hasTag(tileId:Int, tag:$enumComplexType) {
 						var allTileIds = untypedTags.get( tag.getName() );
 						return allTileIds==null ? false : allTileIds.exists(tileId);
+					}
+
+					/** Return an array of all tags associated with give tile ID. WARNING: this allocates a new array on call. **/
+					public function getAllTags(tileId:Int) : Array<$enumComplexType> {
+						var all = [];
+						for(t in untypedTags.keys()) {
+							if( untypedTags.get(t).exists(tileId) )
+								all.push( Type.createEnum( $enumTypeExpr, t) );
+						}
+						return all;
 					}
 				}).fields );
 			}

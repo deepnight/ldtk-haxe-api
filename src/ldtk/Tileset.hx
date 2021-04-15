@@ -33,6 +33,7 @@ class Tileset {
 		pxWid = json.pxWid;
 		pxHei = json.pxHei;
 
+		// Init untyped enum tags
 		untypedTags = new Map();
 		if( json.enumTags!=null ) {
 			for(t in json.enumTags) {
