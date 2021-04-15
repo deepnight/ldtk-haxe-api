@@ -8,8 +8,8 @@ class Layer_IntGrid_AutoLayer extends ldtk.Layer_IntGrid {
 
 
 	/** Getter to layer Tileset instance **/
-	public var tileset(get,never) : ldtk.Tileset;
-		inline function get_tileset() return untypedProject.tilesets.get(tilesetUid);
+	public var untypedTileset(get,never) : ldtk.Tileset;
+		inline function get_untypedTileset() return untypedProject._untypedTilesets.get(tilesetUid);
 	var tilesetUid : Int;
 
 
@@ -38,13 +38,13 @@ class Layer_IntGrid_AutoLayer extends ldtk.Layer_IntGrid {
 		**/
 		public inline function render(?target:h2d.TileGroup) : h2d.TileGroup {
 			if( target==null )
-				target = new h2d.TileGroup( tileset.getAtlasTile() );
+				target = new h2d.TileGroup( untypedTileset.getAtlasTile() );
 
 			for( autoTile in autoTiles )
 				target.add(
 					autoTile.renderX + pxTotalOffsetX,
 					autoTile.renderY + pxTotalOffsetY,
-					tileset.getAutoLayerTile(autoTile)
+					untypedTileset.getAutoLayerTile(autoTile)
 				);
 
 			return target;
@@ -67,7 +67,7 @@ class Layer_IntGrid_AutoLayer extends ldtk.Layer_IntGrid {
 				var s = new flixel.FlxSprite(autoTile.renderX, autoTile.renderY);
 				s.flipX = autoTile.flips & 1 != 0;
 				s.flipY = autoTile.flips & 2 != 0;
-				s.frame = tileset.getFrame(autoTile.tileId);
+				s.frame = untypedTileset.getFrame(autoTile.tileId);
 				target.add(s);
 			}
 

@@ -68,8 +68,9 @@ class Project {
 	/** World layout enum **/
 	public var worldLayout : WorldLayout;
 
-	/** A map containing all Tilesets, indexed using their JSON  `uid` (integer unique ID) **/
-	public var tilesets : Map<Int, ldtk.Tileset>;
+	/** A map containing all untyped Tilesets, indexed using their JSON  `uid` (integer unique ID). The typed tilesets will be added in a field called `all_tilesets` by macros. **/
+	@:allow(ldtk.Layer_Tiles, ldtk.Layer_AutoLayer, ldtk.Layer_IntGrid_AutoLayer)
+	var _untypedTilesets : Map<Int, ldtk.Tileset>;
 
 	/** Internal asset cache to avoid reloading of previously loaded data. **/
 	var assetCache : Map<String, haxe.io.Bytes>; // TODO support hot reloading
@@ -84,7 +85,7 @@ class Project {
 	**/
 	public function parseJson(jsonString:String) {
 		// Init
-		tilesets = new Map();
+		_untypedTilesets = new Map();
 		assetCache = new Map();
 
 		// Parse json
@@ -98,8 +99,11 @@ class Project {
 			_untypedLevels.push( _instanciateLevel(this, json) );
 
 		// Populate tilesets
-		for(tsJson in (cast json.defs.tilesets : Array<Dynamic>))
-			tilesets.set( tsJson.uid, new ldtk.Tileset(this, tsJson) );
+		Reflect.setField(this, "all_tilesets", {});
+		for(tsJson in (cast json.defs.tilesets : Array<Dynamic>)) {
+			_untypedTilesets.set( tsJson.uid, _instanciateTileset(this, tsJson) );
+			Reflect.setField( Reflect.field(this,"all_tilesets"), tsJson.identifier, _instanciateTileset(this, tsJson));
+		}
 
 		// Init misc fields
 		worldLayout = WorldLayout.createByName( Std.string(json.worldLayout) );
@@ -330,6 +334,11 @@ class Project {
 	}
 
 
+	function _instanciateTileset(project:ldtk.Project, json:ldtk.Json.TilesetDefJson) {
+		return null;
+	}
+
+
 	function searchDef<T:{uid:Int, identifier:String}>(arr:Array<T>, ?uid:Int, ?identifier:String) {
 		if( uid==null && identifier==null )
 			return null;
@@ -425,7 +434,7 @@ class Project {
 		if( tileInfos==null )
 			return null;
 
-		var tileset = tilesets.get(tileInfos.tilesetUid);
+		var tileset = _untypedTilesets.get(tileInfos.tilesetUid);
 		if( tileset==null )
 			return null;
 

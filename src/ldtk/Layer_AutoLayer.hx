@@ -31,10 +31,12 @@ class Layer_AutoLayer extends ldtk.Layer {
 	public var autoTiles : Array<AutoTile>;
 
 
-	/** Getter to layer Tileset instance **/
-	public var tileset(get,never) : ldtk.Tileset;
-		inline function get_tileset() return untypedProject.tilesets.get(tilesetUid);
-	var tilesetUid : Int;
+	/** Getter to layer untyped Tileset instance. The typed value is created in macro. **/
+	var untypedTileset(get,never) : ldtk.Tileset;
+		inline function get_untypedTileset() return untypedProject._untypedTilesets.get(tilesetUid);
+
+	/** Tileset UID **/
+	public var tilesetUid : Int;
 
 
 	public function new(p,json) {
@@ -62,13 +64,13 @@ class Layer_AutoLayer extends ldtk.Layer {
 		**/
 		public inline function render(?target:h2d.TileGroup) : h2d.TileGroup {
 			if( target==null )
-				target = new h2d.TileGroup( tileset.getAtlasTile() );
+				target = new h2d.TileGroup( untypedTileset.getAtlasTile() );
 
 			for( autoTile in autoTiles )
 				target.add(
 					autoTile.renderX + pxTotalOffsetX,
 					autoTile.renderY + pxTotalOffsetY,
-					tileset.getAutoLayerTile(autoTile)
+					untypedTileset.getAutoLayerTile(autoTile)
 				);
 
 			return target;
@@ -91,7 +93,7 @@ class Layer_AutoLayer extends ldtk.Layer {
 				var s = new flixel.FlxSprite(autoTile.renderX, autoTile.renderY);
 				s.flipX = autoTile.flips & 1 != 0;
 				s.flipY = autoTile.flips & 2 != 0;
-				s.frame = tileset.getFrame(autoTile.tileId);
+				s.frame = untypedTileset.getFrame(autoTile.tileId);
 				target.add(s);
 			}
 
