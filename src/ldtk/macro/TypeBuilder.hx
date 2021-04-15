@@ -392,26 +392,25 @@ class TypeBuilder {
 	static function createTilesetsClasses() {
 		timer("tilesetClasses");
 		tilesets = new Map();
-		for(e in json.defs.tilesets) {
+		for(t in json.defs.tilesets) {
 			// Create tileset class
 			var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Tileset" }
 			var tilesetType : TypeDefinition = {
 				pos : curPos,
-				name : "Tileset_"+e.identifier,
+				name : "Tileset_"+t.identifier,
 				pack : modPack,
-				doc: 'Tileset class of atlas "${e.relPath}"',
+				doc: 'Tileset class of atlas "${t.relPath}"',
 				kind : TDClass(parentTypePath),
 				fields : (macro class {
 					override public function new(p,json) {
 						super(p,json);
 					}
-
 				}).fields,
 			}
 			registerTypeDefinitionModule(tilesetType, projectFilePath);
-			tilesets.set(e.uid, {
+			tilesets.set(t.uid, {
 				typeName: tilesetType.name,
-				json: e,
+				json: t,
 			});
 		}
 	}
