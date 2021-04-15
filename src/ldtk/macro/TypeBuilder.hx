@@ -393,7 +393,7 @@ class TypeBuilder {
 		timer("tilesetClasses");
 		tilesets = new Map();
 		for(e in json.defs.tilesets) {
-			// Create entity class
+			// Create tileset class
 			var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Tileset" }
 			var tilesetType : TypeDefinition = {
 				pos : curPos,
