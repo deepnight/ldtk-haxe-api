@@ -205,14 +205,24 @@ class Main {
 			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.hasAnyTileAt(5,0) );
 			CiAssert.equals( project.all_levels.Main_tests.l_TileTest.getTileStackAt(5,0)[0].tileId, 1 );
 
-			// Tileset
-			section("Tileset...");
+
+			// Tilesets
+			section("Tilesets...");
 			CiAssert.isNotNull( project.all_levels.Main_tests.l_TileTest.tileset );
 			// CiAssert.isNotNull( project.all_levels.Main_tests.l_TileTest.tileset.atlasBytes );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.getTileStackAt(1,4)[0].tileId>=0 );
 			var gridSize = project.all_levels.Main_tests.l_TileTest.tileset.tileGridSize;
 			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.tileset.getAtlasX(1)==gridSize );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.tileset.getAtlasY(1)==0 );
+
+			// Tilesets enum tags
+			CiAssert.isNotNull( project.all_tilesets.Minecraft_texture_pack.hasTag );
+			CiAssert.isNotNull( project.all_levels.Main_tests.l_TileTest.tileset.hasTag );
+			CiAssert.isTrue( project.all_tilesets.Minecraft_texture_pack.hasTag(0,Grass) );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.tileset.hasTag(0,Grass) );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.tileset.hasTag(1,Stone) );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.tileset.hasTag(3,Grass) );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.tileset.hasTag(3,Dirt) );
 
 			// Auto-layer (IntGrid)
 			section("Auto-Layer (IntGrid)...");
