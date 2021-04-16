@@ -1,0 +1,7 @@
+{
+	"haxe.configurations": [
+		["tests/hl.hxml"],
+		["tests/js.hxml"],
+		["tests/neko.hxml"],
+	]
+}
