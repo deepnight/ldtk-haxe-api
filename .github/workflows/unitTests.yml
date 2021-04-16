@@ -1,0 +1,45 @@
+name: Unit tests
+
+on:
+  push:
+    branches:
+      - master
+      - dev*
+  pull_request:
+    branches:
+      - master
+      - dev*
+
+jobs:
+  build:
+
+    strategy:
+      matrix:
+        os: [windows-latest]
+        haxe: [4.2.0]
+      fail-fast: true
+    runs-on: windows-latest
+
+    steps:
+      # Checkout & install haxe
+      - uses: actions/checkout@v2
+      - uses: krdlab/setup-haxe@v1
+        with:
+          haxe-version: 4.2.0
+      - run: haxe -version
+
+      # Install libs
+      - run: haxelib install tests/js.hxml --always
+      - run: haxelib git deepnightLibs https://github.com/deepnight/deepnightLibs.git
+      - run: haxelib git heaps https://github.com/HeapsIO/heaps.git
+      - run: haxelib install hlsdl
+      - run: haxelib list
+
+      # Run tests
+      - name: JS tests
+        run: haxe tests/js.hxml
+
+      # Samples
+      - name: Samples building
+        working-directory: ./samples/_initSamples
+        run: haxe initSamples.hxml

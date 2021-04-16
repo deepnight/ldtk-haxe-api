@@ -1,11 +1,10 @@
 /**
-	NOTE:
-	this class isn't a sample nor a demo: it generates the samples HXML and HTML files.
+	NOTE: this class is not a sample nor a demo: it only generates the HXML and HTML files of each sample.
 **/
 
-class SamplesBuilder {
+class SamplesInitializer{
 	public static function run() {
-		var baseDir = "../.."; // no trailing "/"
+		var baseDir = ".."; // no trailing "/"
 
 		Sys.println("");
 		Sys.println('NOTE: please check the README for more infos.');

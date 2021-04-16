@@ -37,6 +37,7 @@ class TypeBuilder {
 	static var baseEntityType : TypeDefinition;
 	static var levelType : TypeDefinition;
 	static var tilesets : Map<Int,{ typeName:String, json:TilesetDefJson }> = new Map();
+	static var localEnums : Map<Int, TypeDefinition> = new Map();
 
 	#if ldtk_times
 	static var _curMod : String;
@@ -68,7 +69,7 @@ class TypeBuilder {
 			// warning("It is recommended to move this file to its own package to avoid potential name conflicts.");
 
 		loadJson();
-		createEnumDefs();
+		createLocalEnums();
 		createEntityIdEnum();
 		linkExternalEnums();
 		createBaseEntityClass();
@@ -77,6 +78,7 @@ class TypeBuilder {
 		createLayersClasses();
 		createLevelClass();
 		createLevelAccess();
+		createTilesetAccess();
 		createProjectClass();
 
 		haxe.macro.Compiler.keep( Context.getLocalModule() );
@@ -119,7 +121,7 @@ class TypeBuilder {
 	/**
 		Create enums from project EnumDefs
 	**/
-	static function createEnumDefs() {
+	static function createLocalEnums() {
 		timer("localEnums");
 		for(e in json.defs.enums) {
 			var enumTypeDef : TypeDefinition = {
@@ -136,6 +138,7 @@ class TypeBuilder {
 					}
 				}),
 			}
+			localEnums.set(e.uid, enumTypeDef);
 			registerTypeDefinitionModule(enumTypeDef, projectFilePath);
 		}
 	}
@@ -392,26 +395,51 @@ class TypeBuilder {
 	static function createTilesetsClasses() {
 		timer("tilesetClasses");
 		tilesets = new Map();
-		for(e in json.defs.tilesets) {
-			// Create entity class
+		for(t in json.defs.tilesets) {
+			// Create tileset class
 			var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Tileset" }
 			var tilesetType : TypeDefinition = {
 				pos : curPos,
-				name : "Tileset_"+e.identifier,
+				name : "Tileset_"+t.identifier,
 				pack : modPack,
-				doc: 'Tileset class of atlas "${e.relPath}"',
+				doc: 'Tileset class of atlas "${t.relPath}"',
 				kind : TDClass(parentTypePath),
 				fields : (macro class {
 					override public function new(p,json) {
 						super(p,json);
 					}
-
 				}).fields,
 			}
+
+			// Enum tags
+			if( t.tagsSourceEnumUid!=null ) {
+				var enumTypeDef = localEnums.get(t.tagsSourceEnumUid);
+				var enumComplexType = Context.getType(enumTypeDef.name).toComplexType();
+				var enumTypeExpr = { pos:curPos, expr:EConst(CIdent(enumTypeDef.name)) }
+				tilesetType.fields = tilesetType.fields.concat( (macro class {
+
+					/** Return TRUE if the specifiied tile ID was tagged with given enum `tag`. **/
+					public function hasTag(tileId:Int, tag:$enumComplexType) {
+						var allTileIds = untypedTags.get( tag.getName() );
+						return allTileIds==null ? false : allTileIds.exists(tileId);
+					}
+
+					/** Return an array of all tags associated with give tile ID. WARNING: this allocates a new array on call. **/
+					public function getAllTags(tileId:Int) : Array<$enumComplexType> {
+						var all = [];
+						for(t in untypedTags.keys()) {
+							if( untypedTags.get(t).exists(tileId) )
+								all.push( Type.createEnum( $enumTypeExpr, t) );
+						}
+						return all;
+					}
+				}).fields );
+			}
+
 			registerTypeDefinitionModule(tilesetType, projectFilePath);
-			tilesets.set(e.uid, {
+			tilesets.set(t.uid, {
 				typeName: tilesetType.name,
-				json: e,
+				json: t,
 			});
 		}
 	}
@@ -455,6 +483,7 @@ class TypeBuilder {
 					else {
 						// Auto-layer IntGrid
 						var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_IntGrid_AutoLayer" }
+						var tilesetCT = Context.getType( tilesets.get(l.autoTilesetDefUid).typeName ).toComplexType();
 
 						var layerType : TypeDefinition = {
 							pos : curPos,
@@ -463,6 +492,9 @@ class TypeBuilder {
 							doc: "IntGrid layer with auto-layer capabilities",
 							kind : TDClass(parentTypePath),
 							fields : (macro class {
+								public var tileset(get,never) : $tilesetCT;
+									inline function get_tileset() return cast untypedTileset;
+
 								override public function new(p,json) {
 									super(p,json);
 
@@ -484,6 +516,7 @@ class TypeBuilder {
 				case AutoLayer:
 					// Pure Auto-layer
 					var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_AutoLayer" }
+					var tilesetCT = Context.getType( tilesets.get(l.autoTilesetDefUid).typeName ).toComplexType();
 
 					var layerType : TypeDefinition = {
 						pos : curPos,
@@ -492,6 +525,9 @@ class TypeBuilder {
 						doc: "IntGrid layer with auto-layer capabilities",
 						kind : TDClass(parentTypePath),
 						fields : (macro class {
+							public var tileset(get,never) : $tilesetCT;
+							inline function get_tileset() return cast untypedTileset;
+
 							override public function new(p,json) {
 								super(p,json);
 							}
@@ -556,6 +592,7 @@ class TypeBuilder {
 
 				case Tiles:
 					var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_Tiles" }
+					var tilesetCT = Context.getType( tilesets.get(l.tilesetDefUid).typeName ).toComplexType();
 					var layerType : TypeDefinition = {
 						pos : curPos,
 						name : "Layer_"+l.identifier,
@@ -563,6 +600,10 @@ class TypeBuilder {
 						doc: "Tile layer",
 						kind : TDClass(parentTypePath),
 						fields : (macro class {
+							public var tileset(get,never) : $tilesetCT;
+								inline function get_tileset() return cast untypedTileset;
+
+
 							override public function new(p,json) {
 								super(p,json);
 							}
@@ -688,6 +729,48 @@ class TypeBuilder {
 	}
 
 
+	/**
+		Build quick tileset access using their identifier
+	**/
+	static function createTilesetAccess() {
+		var objectFields : Array<Field> = [];
+		// var constructors : Array<Expr> = [];
+
+		for(t in tilesets) {
+			var ct = Context.getType(t.typeName).toComplexType();
+			objectFields.push({
+				name: t.json.identifier,
+				kind: FVar(ct),
+				pos: curPos,
+			});
+
+			// var path : TypePath = { pack:modPack, name:t.typeName }
+			// constructors.push( macro function(projectJson:) {} );
+			// constructors.push( macro new $path() );
+		}
+		var accessType : ComplexType = TAnonymous(objectFields);
+
+		projectFields.push({
+			name: "all_tilesets",
+			doc: "A convenient way to access all tilesets in a type-safe environment",
+			kind: FVar(accessType),
+			pos: curPos,
+			access: [ APublic ],
+		});
+
+		// projectFields.push({
+		// 	name: "all_tilesets",
+		// 	doc: "A convenient way to access all tilesets in a type-safe environment",
+		// 	kind: FFun({
+		// 		args: [],
+		// 		ret:
+		// 	}),
+		// 	pos: curPos,
+		// 	access: [],
+		// });
+	}
+
+
 
 	/**
 		Create main Project class
@@ -726,6 +809,14 @@ class TypeBuilder {
 					// Init levels quick access
 					for(l in _untypedLevels)
 						Reflect.setField(all_levels, l.identifier, l);
+				}
+
+				override function _instanciateTileset(project, json) {
+					var c = Type.resolveClass( $v{modPack.concat(["Tileset_"]).join(".")}+json.identifier );
+					if( c==null )
+						return null;
+					else
+						return cast Type.createInstance(c, [project, json]);
 				}
 
 				override function _instanciateLevel(project, json) {

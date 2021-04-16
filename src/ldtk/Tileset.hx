@@ -21,6 +21,9 @@ class Tileset {
 
 	var cWid(get,never) : Int; inline function get_cWid() return Math.ceil(pxWid/tileGridSize);
 
+	/** Untyped Enum based tags (stored as String). The "typed" getter method is created in macro. **/
+	var untypedTags : Map< String, Map<Int,Int> >;
+
 
 	public function new(p:ldtk.Project, json:ldtk.Json.TilesetDefJson) {
 		untypedProject = p;
@@ -29,6 +32,16 @@ class Tileset {
 		relPath = json.relPath;
 		pxWid = json.pxWid;
 		pxHei = json.pxHei;
+
+		// Init untyped enum tags
+		untypedTags = new Map();
+		if( json.enumTags!=null ) {
+			for(t in json.enumTags) {
+				untypedTags.set(t.enumValueId, []);
+				for(tid in t.tileIds)
+					untypedTags.get(t.enumValueId).set(tid,tid);
+			}
+		}
 	}
 
 	/** Print class debug info **/

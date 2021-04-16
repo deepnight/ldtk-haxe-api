@@ -3,10 +3,12 @@ package ldtk;
 class Layer_Tiles extends ldtk.Layer {
 	var tiles : Map<Int, Array<{ tileId:Int, flipBits:Int }>>;
 
-	/** Getter to layer Tileset instance **/
-	public var tileset(get,never) : ldtk.Tileset;
-		inline function get_tileset() return untypedProject.tilesets.get(tilesetUid);
-	var tilesetUid : Int;
+	/** Getter to layer untyped Tileset instance. The typed value is created in macro. **/
+	var untypedTileset(get,never) : ldtk.Tileset;
+		inline function get_untypedTileset() return untypedProject._untypedTilesets.get(tilesetUid);
+
+	/** Tileset UID **/
+	public var tilesetUid(default,null) : Int;
 
 
 	public function new(p,json) {
@@ -48,7 +50,7 @@ class Layer_Tiles extends ldtk.Layer {
 		**/
 		public inline function render(?target:h2d.TileGroup) : h2d.TileGroup {
 			if( target==null )
-				target = new h2d.TileGroup( tileset.getAtlasTile() );
+				target = new h2d.TileGroup( untypedTileset.getAtlasTile() );
 
 			for( cy in 0...cHei )
 			for( cx in 0...cWid )
@@ -57,7 +59,7 @@ class Layer_Tiles extends ldtk.Layer {
 						target.add(
 							cx*gridSize + pxTotalOffsetX,
 							cy*gridSize + pxTotalOffsetY,
-							tileset.getTile(tile.tileId, tile.flipBits)
+							untypedTileset.getTile(tile.tileId, tile.flipBits)
 						);
 					}
 				}
@@ -85,7 +87,7 @@ class Layer_Tiles extends ldtk.Layer {
 						var s = new flixel.FlxSprite(cx*gridSize + pxTotalOffsetX, cy*gridSize + pxTotalOffsetY);
 						s.flipX = tile.flipBits & 1 != 0;
 						s.flipY = tile.flipBits & 2 != 0;
-						s.frame = tileset.getFrame(tile.tileId);
+						s.frame = untypedTileset.getFrame(tile.tileId);
 						s.width = cWid;
 						s.height = cHei;
 						target.add(s);

@@ -68,8 +68,9 @@ class Project {
 	/** World layout enum **/
 	public var worldLayout : WorldLayout;
 
-	/** A map containing all Tilesets, indexed using their JSON  `uid` (integer unique ID) **/
-	public var tilesets : Map<Int, ldtk.Tileset>;
+	/** A map containing all untyped Tilesets, indexed using their JSON  `uid` (integer unique ID). The typed tilesets will be added in a field called `all_tilesets` by macros. **/
+	@:allow(ldtk.Layer_Tiles, ldtk.Layer_AutoLayer, ldtk.Layer_IntGrid_AutoLayer)
+	var _untypedTilesets : Map<Int, ldtk.Tileset>;
 
 	/** Internal asset cache to avoid reloading of previously loaded data. **/
 	var assetCache : Map<String, haxe.io.Bytes>; // TODO support hot reloading
@@ -84,7 +85,7 @@ class Project {
 	**/
 	public function parseJson(jsonString:String) {
 		// Init
-		tilesets = new Map();
+		_untypedTilesets = new Map();
 		assetCache = new Map();
 
 		// Parse json
@@ -98,8 +99,11 @@ class Project {
 			_untypedLevels.push( _instanciateLevel(this, json) );
 
 		// Populate tilesets
-		for(tsJson in (cast json.defs.tilesets : Array<Dynamic>))
-			tilesets.set( tsJson.uid, new ldtk.Tileset(this, tsJson) );
+		Reflect.setField(this, "all_tilesets", {});
+		for(tsJson in (cast json.defs.tilesets : Array<Dynamic>)) {
+			_untypedTilesets.set( tsJson.uid, _instanciateTileset(this, tsJson) );
+			Reflect.setField( Reflect.field(this,"all_tilesets"), tsJson.identifier, _instanciateTileset(this, tsJson));
+		}
 
 		// Init misc fields
 		worldLayout = WorldLayout.createByName( Std.string(json.worldLayout) );
@@ -330,6 +334,11 @@ class Project {
 	}
 
 
+	function _instanciateTileset(project:ldtk.Project, json:ldtk.Json.TilesetDefJson) {
+		return null;
+	}
+
+
 	function searchDef<T:{uid:Int, identifier:String}>(arr:Array<T>, ?uid:Int, ?identifier:String) {
 		if( uid==null && identifier==null )
 			return null;
@@ -344,34 +353,46 @@ class Project {
 	/**
 		Get a Layer definition using either its uid (Int) or identifier (String)
 	**/
-	public inline function getLayerDef(?uid:Int, ?identifier:String) : Null<ldtk.Json.LayerDefJson> {
+	public inline function getLayerDefJson(?uid:Int, ?identifier:String) : Null<ldtk.Json.LayerDefJson> {
 		return searchDef( defs.layers, uid, identifier );
 	}
+	@:noCompletion @:deprecated("Method was renamed to: getLayerDefJson")
+	public function getLayerDef(?uid,?identifier) return getLayerDefJson(uid,identifier);
 
 	/**
 		Get an Entity definition using either its uid (Int) or identifier (String)
 	**/
-	public inline function getEntityDef(?uid:Int, ?identifier:String) : Null<ldtk.Json.EntityDefJson> {
+	public inline function getEntityDefJson(?uid:Int, ?identifier:String) : Null<ldtk.Json.EntityDefJson> {
 		return searchDef( defs.entities, uid, identifier );
 	}
+	@:noCompletion @:deprecated("Method was renamed to: getEntityDefJson")
+	public function getEntityDef(?uid,?identifier) return getEntityDefJson(uid,identifier);
+
+
 
 	/**
 		Get a Tileset definition using either its uid (Int) or identifier (String)
 	**/
-	public inline function getTilesetDef(?uid:Int, ?identifier:String) : Null<ldtk.Json.TilesetDefJson> {
+	public inline function getTilesetDefJson(?uid:Int, ?identifier:String) : Null<ldtk.Json.TilesetDefJson> {
 		return searchDef( defs.tilesets, uid, identifier );
 	}
+	@:noCompletion @:deprecated("Method was renamed to: getTilesetDefJson")
+	public function getTilesetDef(?uid,?identifier) return getTilesetDefJson(uid,identifier);
+
 
 	/**
 		Get an Enum definition using either its uid (Int) or identifier (String)
 	**/
-	public inline function getEnumDef(?uid:Int, ?identifier:String) : Null<ldtk.Json.EnumDefJson> {
+	public inline function getEnumDefJson(?uid:Int, ?identifier:String) : Null<ldtk.Json.EnumDefJson> {
 		var e = searchDef( defs.enums, uid, identifier );
 		if( e!=null )
 			return e;
 		else
 			return searchDef( defs.externalEnums, uid, identifier );
 	}
+	@:noCompletion @:deprecated("Method was renamed to: getEnumDefJson")
+	public function getEnumDef(?uid,?identifier) return getEnumDefJson(uid,identifier);
+
 
 	/**
 		Get an Enum definition using an Enum value
@@ -381,7 +402,7 @@ class Project {
 			var name = Type.getEnum(v).getName();
 			var defId = name.substr( name.indexOf("_")+1 ); // get rid of the Macro prefix
 			defId = defId.substr( defId.lastIndexOf(".")+1 );
-			return getEnumDef(defId);
+			return getEnumDefJson(defId);
 		}
 		catch(err:Dynamic) {
 			return null;
@@ -413,7 +434,7 @@ class Project {
 		if( tileInfos==null )
 			return null;
 
-		var tileset = tilesets.get(tileInfos.tilesetUid);
+		var tileset = _untypedTilesets.get(tileInfos.tilesetUid);
 		if( tileset==null )
 			return null;
 

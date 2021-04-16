@@ -1,0 +1,10 @@
+-lib deepnightLibs
+--macro SamplesInitializer.run()
+--macro SamplesInitializer.print("Compiling all samples...")
+
+--next
+--cmd haxe --cwd .. buildAll.hxml
+
+--next
+-lib deepnightLibs
+--macro SamplesInitializer.print("Done!")

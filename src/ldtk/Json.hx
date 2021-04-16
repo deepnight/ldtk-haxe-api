@@ -109,6 +109,10 @@ typedef ProjectJson = {
 	@added("0.8.0")
 	var flags: Array<ProjectFlag>;
 
+	/** The default naming convention for level identifiers. **/
+	@internal
+	@added("0.9.0")
+	var levelNamePattern: String;
 }
 
 /**
@@ -128,6 +132,11 @@ typedef LevelJson = {
 
 	/** Unique String identifier **/
 	var identifier: String;
+
+	/** If TRUE, the level identifier will always automatically use the naming pattern as defined in `Project.levelNamePattern`. Becomes FALSE if the identifier is manually modified by user. **/
+	@internal
+	@added("0.9.0")
+	var useAutoIdentifier: Bool;
 
 	/** World X coordinate in pixels **/
 	@added("0.6.0")
@@ -281,7 +290,7 @@ typedef LayerInstanceJson = {
 		The list of IntGrid values, stored using coordinate ID system (refer to online documentation for more info about "Coordinate IDs")
 	**/
 	@changed("0.8.0")
-	@deprecation("0.8.0", "0.9.0", "intGridCsv")
+	@deprecation("0.8.0", "0.9.1", "intGridCsv")
 	@only("IntGrid layers")
 	var intGrid: Array<IntGridValueInstance>;
 
@@ -309,6 +318,12 @@ typedef LayerInstanceJson = {
 
 	@only("Entity layers")
 	var entityInstances: Array<EntityInstanceJson>;
+
+
+	/** An Array containing the UIDs of optional rules that were enabled in this specific layer instance. **/
+	@internal
+	@added("0.9.0")
+	var optionalRules: Array<Int>;
 }
 
 
@@ -484,20 +499,14 @@ typedef LayerDefJson = {
 	@only("IntGrid layer")
 	var intGridValues: Array<IntGridValueDef>;
 
-	/** Reference to the Tileset UID being used by this auto-layer rules **/
+	/** Reference to the Tileset UID being used by this auto-layer rules. WARNING: some layer *instances* might use a different tileset. So most of the time, you should probably use the `__tilesetDefUid` value from layer instances. **/
 	@only("Auto-layers")
 	var autoTilesetDefUid: Null<Int>;
 
 	/** Contains all the auto-layer rule definitions. **/
 	@only("Auto-layers")
 	@internal
-	var autoRuleGroups: Array<{
-		var uid: Int;
-		var name: String;
-		var active: Bool;
-		var collapsed: Bool;
-		var rules: Array<AutoRuleDef>;
-	}>;
+	var autoRuleGroups: Array<AutoLayerRuleGroupJson>;
 	@only("Auto-layers")
 	var autoSourceLayerDefUid: Null<Int>;
 
@@ -513,7 +522,7 @@ typedef LayerDefJson = {
 	@only("Entity layer")
 	var excludedTags: Array<String>;
 
-	/** Reference to the Tileset UID being used by this Tile layer **/
+	/** Reference to the Tileset UID being used by this Tile layer. WARNING: some layer *instances* might use a different tileset. So most of the time, you should probably use the `__tilesetDefUid` value from layer instances. **/
 	@only("Tile layers")
 	var tilesetDefUid: Null<Int>;
 
@@ -526,7 +535,18 @@ typedef LayerDefJson = {
 	@only("Tile layers")
 	@internal
 	var tilePivotY: Float;
+}
 
+@inline
+@display("Auto-layer rule group")
+typedef AutoLayerRuleGroupJson = {
+	var uid: Int;
+	var name: String;
+	var active: Bool;
+	var collapsed: Bool;
+	var rules: Array<AutoRuleDef>;
+	@added("0.9.0")
+	var isOptional: Bool;
 }
 
 /**
@@ -544,6 +564,10 @@ typedef AutoRuleDef = {
 
 	/** Rule pattern (size x size) **/
 	var pattern: Array<Int>;
+
+	/** Default IntGrid value when checking cells outside of level bounds **/
+	@added("0.9.0")
+	var outOfBoundsValue: Null<Int>;
 
 	/** Array of all the tile IDs. They are used randomly or as stamps, based on `tileMode` value. **/
 	var tileIds: Array<Int>;
@@ -700,7 +724,7 @@ typedef FieldDefJson = {
 	/** Unique String identifier **/
 	var identifier: String;
 
-	/** Unique Intidentifier **/
+	/** Unique Int identifier **/
 	var uid: Int;
 
 	/** Human readable value type (eg. `Int`, `Float`, `Point`, etc.). If the field is an array, this field will look like `Array<...>` (eg. `Array<Int>`, `Array<Point>` etc.) **/
@@ -767,6 +791,14 @@ typedef FieldDefJson = {
 @section("3.3")
 @display("Tileset definition")
 typedef TilesetDefJson = {
+	/** Grid-based width **/
+	@added("0.9.0")
+	var __cWid : Int;
+
+	/** Grid-based height **/
+	@added("0.9.0")
+	var __cHei : Int;
+
 	/** Unique String identifier **/
 	var identifier: String;
 
@@ -793,6 +825,21 @@ typedef TilesetDefJson = {
 	/** Array of group of tiles selections, only meant to be used in the editor **/
 	@internal
 	var savedSelections: Array<{ ids:Array<Int>, mode:Enum<Dynamic> }>;
+
+	/** Optional Enum definition UID used for this tileset meta-data **/
+	@added("0.9.0")
+	var tagsSourceEnumUid: Null<Int>;
+
+	/** Tileset tags using Enum values specified by `tagsSourceEnumId`. This array contains 1 element per Enum value, which contains an array of all Tile IDs that are tagged with it. **/
+	@added("0.9.0")
+	var enumTags: Array<{
+		enumValueId: String,
+		tileIds: Array<Int>,
+	}>;
+
+	/** An array of custom tile metadata **/
+	@added("0.9.0")
+	var customData : Array<{ tileId:Int, data:String }>;
 
 	/** The following data is used internally for various optimizations. It's always synced with source image changes. **/
 	@internal
@@ -841,9 +888,13 @@ typedef EnumDefValues = {
 	/** The optional ID of the tile **/
 	var tileId:Null<Int>;
 
+	/** Optional color **/
+	@added("0.9.0")
+	var color:Int;
+
 	/** An array of 4 Int values that refers to the tile in the tileset image: `[ x, y, width, height ]` **/
 	@added("0.4.0")
-	var __tileSrcRect:Array<Int>; // TODO use a Tile instance here?
+	var __tileSrcRect:Null< Array<Int> >; // TODO use a Tile instance here?
 }
 
 
@@ -971,8 +1022,10 @@ enum FieldDisplayMode {
 	ValueOnly;
 	NameAndValue;
 	EntityTile;
+	Points;
 	PointStar;
 	PointPath;
+	PointPathLoop;
 	RadiusPx;
 	RadiusGrid;
 }
