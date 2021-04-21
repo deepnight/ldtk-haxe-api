@@ -6,6 +6,7 @@ import ExternEnumTest;
 
 class ReadProject {
 	static function main() {
+		hxd.Res.initEmbed();
 		var project = new LdtkProject();
 
 		var myLevel = project.all_levels.West;
