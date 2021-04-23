@@ -446,20 +446,23 @@ The 2 only definition types you might need here are **Tilesets** and **Enums**.
 @section("3")
 @display("Definitions")
 typedef DefinitionsJson = {
+	/** All layer definitions **/
 	var layers : Array<LayerDefJson>;
 
-	/** All entities, including their custom fields **/
+	/** All entities definitions, including their custom fields **/
 	var entities : Array<EntityDefJson>;
+
+	/** All tilesets **/
 	var tilesets : Array<TilesetDefJson>;
+
+	/** All internal enums **/
 	var enums : Array<EnumDefJson>;
 
-	/** An array containing all custom fields available to all levels. **/
+	/** All custom fields available to all levels. **/
 	@added("0.8.0")
 	var levelFields : Array<FieldDefJson>;
 
-	/**
-		Note: external enums are exactly the same as `enums`, except they have a `relPath` to point to an external source file.
-	**/
+	/** Note: external enums are exactly the same as `enums`, except they have a `relPath` to point to an external source file. **/
 	var externalEnums : Array<EnumDefJson>;
 }
 
