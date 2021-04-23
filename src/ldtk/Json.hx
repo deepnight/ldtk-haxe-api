@@ -86,12 +86,12 @@ typedef ProjectJson = {
 
 	/** TRUE is equivalent to OneImagePerLayer, FALSE is None. **/
 	@internal
-	@deprecation("0.9.2", "0.9.2", "imageExportMode")
+	@deprecation("0.9.3", "0.9.3", "imageExportMode")
 	var ?exportPng: Bool;
 
 	/** "Image export" option when saving project. **/
 	@internal
-	@added("0.9.2")
+	@added("0.9.3")
 	var imageExportMode: ImageExportMode;
 
 	/** File naming pattern for exported PNGs **/
