@@ -789,6 +789,7 @@ typedef FieldDefJson = {
 	var editorCutLongValues: Bool;
 
 	@internal
+	@changed("0.9.3")
 	var textLanguageMode: Null<TextLanguageMode>;
 }
 
