@@ -6,7 +6,7 @@ package ldtk;
 
 - the project settings,
 - an array of levels,
-- and a definition object (that can probably be safely ignored for most users).
+- a group of definitions (that can probably be safely ignored for most users).
 **/
 @section("1")
 @display("LDtk Json root")
@@ -84,10 +84,15 @@ typedef ProjectJson = {
 	@internal
 	var exportTiled: Bool;
 
-	/** If TRUE, all layers in all levels will also be exported as PNG along with the project file (default is FALSE)  **/
+	/** TRUE is equivalent to OneImagePerLayer, FALSE is None. **/
 	@internal
-	@added("0.7.0")
-	var exportPng: Bool;
+	@deprecation("0.9.2", "0.9.2", "imageExportMode")
+	var ?exportPng: Bool;
+
+	/** "Image export" option when saving project. **/
+	@internal
+	@added("0.9.2")
+	var imageExportMode: ImageExportMode;
 
 	/** File naming pattern for exported PNGs **/
 	@internal
@@ -1062,4 +1067,10 @@ enum EntityLimitScope {
 	PerLayer;
 	PerLevel;
 	PerWorld;
+}
+
+enum ImageExportMode {
+	None;
+	OneImagePerLayer;
+	OneImagePerLevel;
 }
