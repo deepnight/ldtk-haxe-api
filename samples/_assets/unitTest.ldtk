@@ -5,10 +5,10 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "0.9.2",
+		"appVersion": "0.9.3",
 		"url": "https://ldtk.io"
 	},
-	"jsonVersion": "0.9.2",
+	"jsonVersion": "0.9.3",
 	"nextUid": 101,
 	"worldLayout": "GridVania",
 	"worldGridWidth": 256,
@@ -23,7 +23,7 @@
 	"minifyJson": false,
 	"externalLevels": true,
 	"exportTiled": false,
-	"exportPng": false,
+	"imageExportMode": "None",
 	"pngFilePattern": null,
 	"backupOnSave": false,
 	"backupLimit": 10,
@@ -441,7 +441,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLangageMode": null
+					"textLanguageMode": null
 				}
 			]
 		},
@@ -487,7 +487,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLangageMode": null
+					"textLanguageMode": null
 				},
 				{
 					"identifier": "lootDrop",
@@ -507,7 +507,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLangageMode": null
+					"textLanguageMode": null
 				},
 				{
 					"identifier": "scale",
@@ -527,7 +527,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": { "id": "V_Float", "params": [1] },
-					"textLangageMode": null
+					"textLanguageMode": null
 				},
 				{
 					"identifier": "path",
@@ -547,7 +547,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLangageMode": null
+					"textLanguageMode": null
 				}
 			]
 		},
@@ -593,7 +593,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLangageMode": null
+					"textLanguageMode": null
 				},
 				{
 					"identifier": "ints",
@@ -613,7 +613,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLangageMode": null
+					"textLanguageMode": null
 				},
 				{
 					"identifier": "strings",
@@ -633,7 +633,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLangageMode": null
+					"textLanguageMode": null
 				},
 				{
 					"identifier": "floats",
@@ -653,7 +653,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": { "id": "V_Float", "params": [0.5] },
-					"textLangageMode": null
+					"textLanguageMode": null
 				},
 				{
 					"identifier": "bools",
@@ -673,7 +673,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLangageMode": null
+					"textLanguageMode": null
 				},
 				{
 					"identifier": "colors",
@@ -693,7 +693,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": { "id": "V_Int", "params": [16777215] },
-					"textLangageMode": null
+					"textLanguageMode": null
 				},
 				{
 					"identifier": "localEnums",
@@ -713,7 +713,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLangageMode": null
+					"textLanguageMode": null
 				},
 				{
 					"identifier": "externEnums",
@@ -733,7 +733,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLangageMode": null
+					"textLanguageMode": null
 				}
 			]
 		},
@@ -829,7 +829,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLangageMode": null
+					"textLanguageMode": null
 				}
 			]
 		},
@@ -875,7 +875,7 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLangageMode": null
+					"textLanguageMode": null
 				}
 			]
 		}
@@ -969,7 +969,7 @@
 			"regex": null,
 			"acceptFileTypes": null,
 			"defaultOverride": null,
-			"textLangageMode": null
+			"textLanguageMode": null
 		},
 		{
 			"identifier": "level_string",
@@ -989,7 +989,7 @@
 			"regex": null,
 			"acceptFileTypes": null,
 			"defaultOverride": null,
-			"textLangageMode": null
+			"textLanguageMode": null
 		},
 		{
 			"identifier": "level_reward",
@@ -1009,7 +1009,7 @@
 			"regex": null,
 			"acceptFileTypes": null,
 			"defaultOverride": null,
-			"textLangageMode": null
+			"textLanguageMode": null
 		}
 	] },
 	"levels": [
