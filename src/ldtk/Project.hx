@@ -224,7 +224,7 @@ class Project {
 					}
 					else if( f.name==projectFileName ) {
 						// Found it
-						return ( f.directory.length==0 ? "" : f.directory+"/" ) + projectRelativePath;
+						return dn.FilePath.cleanUp( ( f.directory.length==0 ? "" : f.directory+"/" ) + projectRelativePath, true );
 					}
 				}
 			}
@@ -238,7 +238,7 @@ class Project {
 				if( e.indexOf(projectFileName)>=0 ) {
 					// Found it
 					var baseDir = e.indexOf("/")<0 ? "" : e.substr( 0, e.lastIndexOf("/") );
-					return baseDir + "/" + projectRelativePath;
+					return dn.FilePath.cleanUp( baseDir + "/" + projectRelativePath, true );
 				}
 
 			error('Project file is not in OpenFL assets!');
@@ -252,17 +252,12 @@ class Project {
 				if(value == projectFilePath) {
 					// Found it
 					var baseDir = value.indexOf("/")<0 ? "" : value.substr( 0, value.lastIndexOf("/") );
-					return baseDir + "/" + projectRelativePath;
+					return dn.FilePath.cleanUp( baseDir + "/" + projectRelativePath, true );
 				}
 			}
 
 			error('Project file is not loaded properly.\nPlease add "-r <path to project name.ldtk>" and "-r <path to each level file.ldtkl>" to your project.hxml build file and try again.');
 			return "";
-
-			/** Original error message here for unsupported frameworks
-			 *  error("Project asset loading is not supported on this Haxe target or framework.");
-			 * return "";
-			 */
 
 		#end
 	}
@@ -276,7 +271,7 @@ class Project {
 
 			var resPath = makeAssetRelativePath(projectRelativePath);
 			if( !hxd.Res.loader.exists(resPath) )
-				error('Asset not found in Heaps res/ folder: $projectRelativePath');
+				error('Asset not found in Heaps res/ folder: $resPath');
 
 			var res = hxd.Res.load(resPath);
 			return res.entry.getBytes();
