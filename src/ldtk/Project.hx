@@ -437,6 +437,13 @@ class Project {
 	}
 	#end
 
+	public function getEnumColor(enumValue:EnumValue) : UInt {
+		var ed = getEnumDefFromValue(enumValue);
+		for(v in ed.values)
+			if( v.id==enumValue.getName() )
+				return v.color;
+		return 0xff00ff;
+	}
 
 	@:noCompletion
 	public static inline function hexToInt(hex:String) : Int {
