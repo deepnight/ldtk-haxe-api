@@ -95,8 +95,9 @@ class Project {
 
 		// Populate levels
 		_untypedLevels = [];
+		var idx = 0;
 		for(json in (cast json.levels : Array<Dynamic>))
-			_untypedLevels.push( _instanciateLevel(this, json) );
+			_untypedLevels.push( _instanciateLevel(this, idx++, json) );
 
 		// Populate tilesets
 		Reflect.setField(this, "all_tilesets", {});
@@ -324,7 +325,7 @@ class Project {
 	}
 
 
-	function _instanciateLevel(project:ldtk.Project, json:ldtk.Json.LevelJson) {
+	function _instanciateLevel(project:ldtk.Project, arrayIndex:Int, json:ldtk.Json.LevelJson) {
 		return null; // overriden by Macros.hx
 	}
 

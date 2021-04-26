@@ -632,8 +632,8 @@ class TypeBuilder {
 			doc: "Project specific Level class",
 			kind : TDClass(parentTypePath),
 			fields : (macro class {
-				override public function new(project, json) {
-					super(project, json);
+				override public function new(project, arrayIdx, json) {
+					super(project, arrayIdx, json);
 				}
 
 				override function fromJson(json) {
@@ -819,8 +819,8 @@ class TypeBuilder {
 						return cast Type.createInstance(c, [project, json]);
 				}
 
-				override function _instanciateLevel(project, json) {
-					return new $levelTypePath(project, json);
+				override function _instanciateLevel(project, arrayIndex:Int, json) {
+					return new $levelTypePath(project, arrayIndex, json);
 				}
 
 				override function _resolveExternalEnum<T>(name:String) : Enum<T> {

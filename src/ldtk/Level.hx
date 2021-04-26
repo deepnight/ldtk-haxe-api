@@ -45,12 +45,16 @@ class Level {
 	public var neighbours : Array<{ levelUid:Int, dir: NeighbourDir }>; // TODO resolve level instance
 	public var bgImageInfos : Null<LevelBgImage>;
 
+	/** Index in project `levels` array **/
+	public var arrayIndex(default,null) : Int;
+
 	/** Only exists if levels are stored in separate level files **/
 	var externalRelPath : Null<String>;
 
 
-	public function new(project:ldtk.Project, json:ldtk.Json.LevelJson) {
+	public function new(project:ldtk.Project, arrayIdx:Int, json:ldtk.Json.LevelJson) {
 		this.untypedProject = project;
+		this.arrayIndex = arrayIdx;
 		fromJson(json);
 		project._assignFieldInstanceValues(this, json.fieldInstances);
 	}
