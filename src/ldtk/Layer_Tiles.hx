@@ -88,8 +88,8 @@ class Layer_Tiles extends ldtk.Layer {
 						s.flipX = tile.flipBits & 1 != 0;
 						s.flipY = tile.flipBits & 2 != 0;
 						s.frame = untypedTileset.getFrame(tile.tileId);
-						s.width = cWid;
-						s.height = cHei;
+						s.width = gridSize;
+						s.height = gridSize;
 						target.add(s);
 					}
 
