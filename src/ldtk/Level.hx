@@ -41,10 +41,10 @@ class Level {
 	public var worldX : Int;
 	public var worldY : Int;
 
-	/** Project background color (as Hex "#rrggbb") **/
+	/** Level background color (as Hex "#rrggbb") **/
 	public var bgColor_hex: String;
 
-	/** Project background color (as Int 0xrrggbb) **/
+	/** Level background color (as Int 0xrrggbb) **/
 	public var bgColor_int: UInt;
 
 	@:deprecated("Use bgColor_int instead") @:noCompletion
