@@ -40,7 +40,16 @@ class Level {
 	public var pxHei : Int;
 	public var worldX : Int;
 	public var worldY : Int;
+
+	/** Project background color (as Hex "#rrggbb") **/
+	public var bgColor_hex: String;
+
+	/** Project background color (as Int 0xrrggbb) **/
+	public var bgColor_int: UInt;
+
+	@:deprecated("Use bgColor_int instead") @:noCompletion
 	public var bgColor : UInt;
+
 	public var allUntypedLayers(default,null) : Array<Layer>;
 	public var neighbours : Array<{ levelUid:Int, dir: NeighbourDir }>; // TODO resolve level instance
 	public var bgImageInfos : Null<LevelBgImage>;
@@ -76,7 +85,9 @@ class Level {
 		pxHei = json.pxHei;
 		worldX = json.worldX;
 		worldY = json.worldY;
-		bgColor = Project.hexToInt(json.__bgColor);
+		bgColor_hex = json.__bgColor;
+		bgColor_int = Project.hexToInt(json.__bgColor);
+		bgColor = bgColor_int;
 
 		bgImageInfos = json.bgRelPath==null || json.__bgPos==null ? null : {
 			relFilePath: json.bgRelPath,
