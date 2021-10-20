@@ -139,7 +139,7 @@ class Level {
 			return true;
 		}
 		catch(e:Dynamic) {
-			Project.error('Failed to parse external level: $externalRelPath ($e)');
+			Project.error('Failed to parse external level $identifier: $externalRelPath ($e)');
 			return false;
 		}
 	}
