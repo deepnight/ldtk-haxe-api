@@ -1037,6 +1037,8 @@ enum FieldDisplayMode {
 	PointPathLoop;
 	RadiusPx;
 	RadiusGrid;
+	ArrayCountWithLabel;
+	ArrayCountNoLabel;
 }
 
 enum BgImagePos {
