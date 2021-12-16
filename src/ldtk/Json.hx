@@ -503,6 +503,11 @@ typedef LayerDefJson = {
 	/** Opacity of the layer (0 to 1.0) **/
 	var displayOpacity: Float;
 
+	/** When TRUE, the layer will be faded out if it isn't the active one.  **/
+	@internal
+	@added("0.10.0")
+	var fadeInactive: Bool;
+
 	/** An array that defines extra optional info for each IntGrid value. The array is sorted using value (ascending). **/
 	@only("IntGrid layer")
 	var intGridValues: Array<IntGridValueDef>;
