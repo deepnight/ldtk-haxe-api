@@ -224,6 +224,15 @@ typedef LevelJson = {
 	@only("If background image exists")
 	@added("0.7.0")
 	var __bgPos: Null<LevelBgPosInfos>;
+
+
+	/**
+		The "guessed" color for this level in the editor, decided using either the background color or an existing custom field.
+	**/
+	@internal
+	@added("0.10.0")
+	@color
+	var __smartColor: String;
 }
 
 
