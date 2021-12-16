@@ -775,6 +775,7 @@ typedef FieldDefJson = {
 	/** Default value if selected value is null or invalid. **/
 	var defaultOverride: Null< Enum<Dynamic> >;
 
+	@changed("0.10.0")
 	@internal
 	var editorDisplayMode: FieldDisplayMode;
 
