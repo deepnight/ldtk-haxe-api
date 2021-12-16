@@ -508,6 +508,11 @@ typedef LayerDefJson = {
 	@added("0.10.0")
 	var fadeInactive: Bool;
 
+	/** Hide the layer from the list on the side of the editor view. **/
+	@internal
+	@added("0.10.0")
+	var hideInList: Bool;
+
 	/** An array that defines extra optional info for each IntGrid value. The array is sorted using value (ascending). **/
 	@only("IntGrid layer")
 	var intGridValues: Array<IntGridValueDef>;
