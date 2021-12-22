@@ -819,6 +819,11 @@ typedef FieldDefJson = {
 	@internal
 	@changed("0.9.3")
 	var textLanguageMode: Null<TextLanguageMode>;
+
+	/** If TRUE, the color associated with this field will override the Entity or Level default color in the editor UI. For Enum fields, this would be the color associated to their values. **/
+	@internal
+	@added("0.10.0")
+	var useForSmartColor: Bool;
 }
 
 
