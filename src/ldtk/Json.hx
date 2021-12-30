@@ -509,6 +509,15 @@ typedef LayerDefJson = {
 	@added("0.5.0")
 	var pxOffsetY: Int;
 
+	/**
+		Parallax factor (from -1 to 1, defaults to 0) which affects the scrolling speed of this layer, creating a fake 3D (parallax) effect.
+	**/
+	@added("0.10.0")
+	var parallaxFactor: Float;
+
+	@added("0.10.0")
+	var parallaxType: ParallaxType;
+
 	/** Opacity of the layer (0 to 1.0) **/
 	var displayOpacity: Float;
 
@@ -1109,4 +1118,9 @@ enum ImageExportMode {
 	None;
 	OneImagePerLayer;
 	OneImagePerLevel;
+}
+
+enum ParallaxType {
+	ScaleAndScroll;
+	ScrollOnly;
 }
