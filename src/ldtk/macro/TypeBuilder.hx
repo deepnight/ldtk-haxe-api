@@ -419,8 +419,8 @@ class TypeBuilder {
 				tilesetType.fields = tilesetType.fields.concat( (macro class {
 
 					/** Return TRUE if the specifiied tile ID was tagged with given enum `tag`. **/
-					public function hasTag(tileId:Int, tag:$enumComplexType) {
-						var allTileIds = untypedTags.get( tag.getName() );
+					public inline function hasTag(tileId:Int, tag:$enumComplexType) {
+						final allTileIds = untypedTags.get( tag.getName() );
 						return allTileIds==null ? false : allTileIds.exists(tileId);
 					}
 
