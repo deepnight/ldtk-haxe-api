@@ -515,9 +515,6 @@ typedef LayerDefJson = {
 	@added("0.10.0")
 	var parallaxFactor: Float;
 
-	@added("0.10.0")
-	var parallaxType: ParallaxType;
-
 	/** Opacity of the layer (0 to 1.0) **/
 	var displayOpacity: Float;
 
@@ -1118,9 +1115,4 @@ enum ImageExportMode {
 	None;
 	OneImagePerLayer;
 	OneImagePerLevel;
-}
-
-enum ParallaxType {
-	ScaleAndScroll;
-	ScrollOnly;
 }
