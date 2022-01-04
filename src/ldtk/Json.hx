@@ -510,10 +510,16 @@ typedef LayerDefJson = {
 	var pxOffsetY: Int;
 
 	/**
-		Parallax factor (from -1 to 1, defaults to 0) which affects the scrolling speed of this layer, creating a fake 3D (parallax) effect.
+		Parallax horizontal factor (from -1 to 1, defaults to 0) which affects the scrolling speed of this layer, creating a fake 3D (parallax) effect.
 	**/
 	@added("0.10.0")
-	var parallaxFactor: Float;
+	var parallaxFactorX: Float;
+
+	/**
+		Parallax vertical factor (from -1 to 1, defaults to 0) which affects the scrolling speed of this layer, creating a fake 3D (parallax) effect.
+	**/
+	@added("0.10.0")
+	var parallaxFactorY: Float;
 
 	/**
 		If true (default), a layer with a parallax factor will also be scaled up/down accordingly.
