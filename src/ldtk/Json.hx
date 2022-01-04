@@ -515,6 +515,12 @@ typedef LayerDefJson = {
 	@added("0.10.0")
 	var parallaxFactor: Float;
 
+	/**
+		If true (default), a layer with a parallax factor will also be scaled up/down accordingly.
+	**/
+	@added("0.10.0")
+	var parallaxScaling: Bool;
+
 	/** Opacity of the layer (0 to 1.0) **/
 	var displayOpacity: Float;
 
