@@ -102,7 +102,7 @@ class Main {
 			CiAssert.equals( project.all_levels.Main_tests.l_IntGridTest.hasValue(0,1), false );
 			CiAssert.equals( project.all_levels.Main_tests.l_IntGridTest.hasValue(3,0, 4), true );
 
-			CiAssert.equals( project.all_levels.Main_tests.l_IntGridTest.isCoordValid(0,0), true )
+			CiAssert.equals( project.all_levels.Main_tests.l_IntGridTest.isCoordValid(0,0), true );
 			CiAssert.equals( project.all_levels.Main_tests.l_IntGridTest.isCoordValid(-1,0), false );
 			CiAssert.equals( project.all_levels.Main_tests.l_IntGridTest.isCoordValid(999,0), false );
 
