@@ -395,6 +395,7 @@
 			"intGridValues": [
 				{ "value": 1, "identifier": "a", "color": "#FFFFFF" },
 				{ "value": 2, "identifier": "b", "color": "#FF0000" },
+				{ "value": 4, "identifier": "d_sorted", "color": "#0045FF" },
 				{ "value": 3, "identifier": "c", "color": "#00FF1E" }
 			],
 			"autoTilesetDefUid": null,

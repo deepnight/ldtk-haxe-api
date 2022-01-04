@@ -94,12 +94,17 @@ class Main {
 			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGridTest.getInt(0,0)==1 );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGridTest.hasValue(0,0) );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGridTest.getName(0,0)=="a" );
+
 			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGridTest.getInt(1,0)==2 );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGridTest.getInt(2,0)==3 );
-			CiAssert.isFalse( project.all_levels.Main_tests.l_IntGridTest.hasValue(0,1) );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGridTest.isCoordValid(0,0) );
-			CiAssert.isFalse( project.all_levels.Main_tests.l_IntGridTest.isCoordValid(-1,0) );
-			CiAssert.isFalse( project.all_levels.Main_tests.l_IntGridTest.isCoordValid(999,0) );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGridTest.getInt(3,0)==4 );
+
+			CiAssert.equals( project.all_levels.Main_tests.l_IntGridTest.hasValue(0,1), false );
+			CiAssert.equals( project.all_levels.Main_tests.l_IntGridTest.hasValue(3,0, 4), true );
+
+			CiAssert.equals( project.all_levels.Main_tests.l_IntGridTest.isCoordValid(0,0), true )
+			CiAssert.equals( project.all_levels.Main_tests.l_IntGridTest.isCoordValid(-1,0), false );
+			CiAssert.equals( project.all_levels.Main_tests.l_IntGridTest.isCoordValid(999,0), false );
 
 			// Entity layer
 			section("Entity...");
