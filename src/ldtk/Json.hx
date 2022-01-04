@@ -540,7 +540,11 @@ typedef LayerDefJson = {
 	@added("0.10.0")
 	var hideInList: Bool;
 
-	/** An array that defines extra optional info for each IntGrid value. The array is sorted using value (ascending). **/
+	/**
+		An array that defines extra optional info for each IntGrid value.
+		WARNING: the array order is not related to actual IntGrid values! As user can re-order IntGrid values freely, you may value "2" before value "1" in this array.
+	**/
+	@changed("0.10.0")
 	@only("IntGrid layer")
 	var intGridValues: Array<IntGridValueDef>;
 
@@ -1011,7 +1015,9 @@ typedef IntGridValueInstance = {
 @inline
 @display("IntGrid value definition")
 typedef IntGridValueDef = {
-	/** The IntGrid value itself **/
+	/**
+		The IntGrid value itself
+	**/
 	@added("0.8.0")
 	var value: Int;
 
