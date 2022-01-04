@@ -5,7 +5,7 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "0.9.3",
+		"appVersion": "0.10.0",
 		"url": "https://ldtk.io"
 	},
 	"identifier": "Main_tests",
@@ -21,6 +21,7 @@
 	"bgPos": "Cover",
 	"bgPivotX": 0,
 	"bgPivotY": 0,
+	"__smartColor": "#888388",
 	"__bgPos": { "topLeftPx": [0,0], "scale": [2.2857142857142856,2.2857142857142856], "cropRect": [0,0,224,224] },
 	"externalRelPath": null,
 	"fieldInstances": [
