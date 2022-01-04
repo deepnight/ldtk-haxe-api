@@ -469,7 +469,8 @@ class TypeBuilder {
 									super(p,json);
 
 									for(v in $v{l.intGridValues} ) {
-										valueInfos.push({
+										valueInfos.set( v.value, {
+											value: v.value,
 											identifier: v.identifier,
 											color: Std.parseInt( "0x"+v.color.substr(1) ),
 										});
@@ -500,7 +501,8 @@ class TypeBuilder {
 
 									// Store IntGrid values extra infos
 									for(v in $v{l.intGridValues} ) {
-										valueInfos.push({
+										valueInfos.set( v.value, {
+											value: v.value,
 											identifier: v.identifier,
 											color: Std.parseInt( "0x"+v.color.substr(1) ),
 										});

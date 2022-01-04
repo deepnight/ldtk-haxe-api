@@ -1,7 +1,7 @@
 package ldtk;
 
 class Layer_IntGrid extends ldtk.Layer {
-	var valueInfos : Array<{ identifier:Null<String>, color:UInt }> = [];
+	var valueInfos : Map<Int, { value:Int, identifier:Null<String>, color:UInt }> = new Map();
 
 	/**
 		IntGrid integer values, map is based on coordIds
@@ -45,7 +45,7 @@ class Layer_IntGrid extends ldtk.Layer {
 
 
 	inline function getValueInfos(v:Int) {
-		return valueInfos[v-1];
+		return valueInfos.get(v);
 	}
 
 	/**
