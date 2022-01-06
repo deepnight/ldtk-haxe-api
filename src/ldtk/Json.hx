@@ -15,6 +15,14 @@ typedef ProjectJson = {
 	var jsonVersion: String;
 
 	/**
+		LDtk application build identifier.
+		This is only used to identify the LDtk version that generated this particular project file, which can be useful for specific bug fixing. Note that the build identifier is global (one per LDtk public release), and as a result, completely anonymous.
+	**/
+	@internal
+	var appBuildId : Float;
+
+
+	/**
 		An enum that describes how levels are organized in this project (ie. linearly or in a 2D space).
 	**/
 	@added("0.6.0")
