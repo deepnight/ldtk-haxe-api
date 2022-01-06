@@ -778,11 +778,14 @@ typedef FieldDefJson = {
 	/** Unique Int identifier **/
 	var uid: Int;
 
-	/** Human readable value type (eg. `Int`, `Float`, `Point`, etc.). If the field is an array, this field will look like `Array<...>` (eg. `Array<Int>`, `Array<Point>` etc.) **/
+	/**
+		Human readable value type. Possible values: `Int, Float, String, Bool, Color, ExternEnum.XXX, LocalEnum.XXX, Point, FilePath`.
+		If the field is an array, this field will look like `Array<...>` (eg. `Array<Int>`, `Array<Point>` etc.)
+	**/
 	var __type: String;
 
 	/** Internal type enum **/
-	var type: Dynamic;
+	var type: FieldType;
 
 	/** TRUE if the value is an array of multiple values **/
 	var isArray: Bool;
