@@ -396,6 +396,10 @@ typedef EntityInstanceJson = {
 	@added("0.7.0")
 	var __pivot: Array<Float>;
 
+	/** Array of tags defined in this Entity definition **/
+	@added("0.10.0")
+	var __tags: Array<String>;
+
 	/** Entity width in pixels. For non-resizable entities, it will be the same as Entity definition. **/
 	@added("0.8.0")
 	var width: Int;
