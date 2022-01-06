@@ -1065,6 +1065,19 @@ enum FieldDisplayPosition {
 	Beneath;
 }
 
+enum FieldType {
+	F_Int;
+	F_Float;
+	F_String;
+	F_Text;
+	F_Bool;
+	F_Color;
+	F_Enum(enumDefUid:Int);
+	F_Point;
+	F_Path;
+}
+
+
 enum EntityRenderMode {
 	Rectangle;
 	Ellipse;
