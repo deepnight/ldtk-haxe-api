@@ -1025,6 +1025,10 @@ typedef EntityInstanceTile = {
 @inline
 @display("Neighbour level")
 typedef NeighbourLevel = {
+	/** Neighbour Instance Identifier **/
+	@added("0.10.0")
+	var levelIid : String;
+
 	// @deprecation("0.10.0", "0.12.0", "levelIid")
 	var levelUid: Int;
 
