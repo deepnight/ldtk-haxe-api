@@ -142,6 +142,7 @@ A `ldtkl` file is just a JSON file containing exactly what is described below.
 typedef LevelJson = {
 
 	/** Unique Int identifier **/
+	// @deprecation("0.10.0", "0.12.0", "iid")
 	var uid: Int;
 
 	/**
@@ -434,7 +435,7 @@ typedef EntityInstanceJson = {
 	var __tile: Null<EntityInstanceTile>;
 
 	/**
-		Unique instance ID
+		Unique instance identifier
 	**/
 	@added("0.10.0")
 	var iid : String;
