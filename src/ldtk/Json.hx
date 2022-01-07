@@ -427,6 +427,12 @@ typedef EntityInstanceJson = {
 	@added("0.4.0")
 	var __tile: Null<EntityInstanceTile>;
 
+	/**
+		Unique instance ID
+	**/
+	@added("0.10.0")
+	var iid : String;
+
 	/** Reference of the **Entity definition** UID **/
 	var defUid: Int;
 
