@@ -1169,6 +1169,7 @@ enum TextLanguageMode {
 enum ProjectFlag {
 	ExportPreCsvIntGridFormat;
 	IgnoreBackupSuggest;
+	PrependIndexToLevelFileNames;
 }
 
 enum EntityLimitScope {
