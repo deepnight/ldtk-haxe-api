@@ -144,6 +144,12 @@ typedef LevelJson = {
 	/** Unique Int identifier **/
 	var uid: Int;
 
+	/**
+		Unique instance identifier
+	**/
+	@added("0.10.0")
+	var iid: String;
+
 	/** Unique String identifier **/
 	var identifier: String;
 
