@@ -159,12 +159,20 @@ typedef LevelJson = {
 	@added("0.9.0")
 	var useAutoIdentifier: Bool;
 
-	/** World X coordinate in pixels **/
+	/**
+		World X coordinate in pixels.
+		Only relevant for world layouts where level spatial positioning is manual (ie. GridVania, Free). For Horizontal and Vertical layouts, the value is always -1 here.
+	**/
 	@added("0.6.0")
+	@changed("0.10.0")
 	var worldX: Int;
 
-	/** World Y coordinate in pixels **/
+	/**
+		World Y coordinate in pixels.
+		Only relevant for world layouts where level spatial positioning is manual (ie. GridVania, Free). For Horizontal and Vertical layouts, the value is always -1 here.
+	**/
 	@added("0.6.0")
+	@changed("0.10.0")
 	var worldY: Int;
 
 	/** Width of the level in pixels **/
@@ -202,9 +210,11 @@ typedef LevelJson = {
 	var externalRelPath: Null<String>;
 
 	/**
-		An array listing all other levels touching this one on the world map. In "linear" world layouts, this array is populated with previous/next levels in array, and `dir` depends on the linear horizontal/vertical layout.
+		An array listing all other levels touching this one on the world map.
+		Only relevant for world layouts where level spatial positioning is manual (ie. GridVania, Free). For Horizontal and Vertical layouts, this array is always empty.
 	**/
 	@added("0.6.0")
+	@changed("0.10.0")
 	var __neighbours: Array<NeighbourLevel>;
 
 	/**
@@ -1015,6 +1025,7 @@ typedef EntityInstanceTile = {
 @inline
 @display("Neighbour level")
 typedef NeighbourLevel = {
+	// @deprecation("0.10.0", "0.12.0", "levelIid")
 	var levelUid: Int;
 
 	/** A single lowercase character tipping on the level location (`n`orth, `s`outh, `w`est, `e`ast). **/
