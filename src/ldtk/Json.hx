@@ -1123,6 +1123,7 @@ enum FieldType {
 	F_Enum(enumDefUid:Int);
 	F_Point;
 	F_Path;
+	F_EntityRef;
 }
 
 
