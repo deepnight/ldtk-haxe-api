@@ -890,6 +890,10 @@ typedef FieldDefJson = {
 	@changed("0.9.3")
 	var textLanguageMode: Null<TextLanguageMode>;
 
+	@internal
+	@added("0.10.0")
+	var symetricalRef: Bool;
+
 	/** If TRUE, the color associated with this field will override the Entity or Level default color in the editor UI. For Enum fields, this would be the color associated to their values. **/
 	@internal
 	@added("0.10.0")
@@ -1126,6 +1130,7 @@ enum FieldType {
 	F_Enum(enumDefUid:Int);
 	F_Point;
 	F_Path;
+	@added("0.10.0")
 	F_EntityRef;
 }
 
