@@ -9,6 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"identifier": "Offset_tests",
+	"iid": "f2f66840-66b0-11ec-91ab-e506cb005a35",
 	"uid": 88,
 	"worldX": 512,
 	"worldY": 256,
@@ -195,7 +196,9 @@
 					"__identifier": "OffsetTest",
 					"__grid": [0,0],
 					"__pivot": [0,0],
+					"__tags": [],
 					"__tile": null,
+					"iid": "f2f66841-66b0-11ec-91ab-554b0e889009",
 					"width": 16,
 					"height": 16,
 					"defUid": 89,
@@ -317,5 +320,5 @@
 			"entityInstances": []
 		}
 	],
-	"__neighbours": [{ "levelUid": 0, "dir": "w" }]
+	"__neighbours": [{ "levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e", "levelUid": 0, "dir": "w" }]
 }

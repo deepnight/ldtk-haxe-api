@@ -9,6 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"identifier": "Main_tests",
+	"iid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e",
 	"uid": 0,
 	"worldX": 0,
 	"worldY": 0,
@@ -465,7 +466,9 @@
 					"__identifier": "Mob",
 					"__grid": [13,9],
 					"__pivot": [0.5,1],
+					"__tags": [],
 					"__tile": { "tilesetUid": 14, "srcRect": [32,32,32,32] },
+					"iid": "f2f3d031-66b0-11ec-91ab-11efec00697b",
 					"width": 20,
 					"height": 32,
 					"defUid": 2,
@@ -538,7 +541,9 @@
 					"__identifier": "Hero",
 					"__grid": [1,15],
 					"__pivot": [0.5,1],
+					"__tags": [],
 					"__tile": null,
+					"iid": "f2f3d032-66b0-11ec-91ab-159ce9d99f47",
 					"width": 16,
 					"height": 24,
 					"defUid": 23,
@@ -558,7 +563,9 @@
 					"__identifier": "Test",
 					"__grid": [25,11],
 					"__pivot": [0.5,1],
+					"__tags": [],
 					"__tile": null,
+					"iid": "f2f3f740-66b0-11ec-91ab-910cd77ba401",
 					"width": 32,
 					"height": 32,
 					"defUid": 66,
@@ -650,7 +657,9 @@
 					"__identifier": "File",
 					"__grid": [16,18],
 					"__pivot": [0.5,0.5],
+					"__tags": [],
 					"__tile": null,
+					"iid": "f2f3f741-66b0-11ec-91ab-2743239ae865",
 					"width": 16,
 					"height": 16,
 					"defUid": 91,
@@ -670,7 +679,9 @@
 					"__identifier": "Region",
 					"__grid": [5,20],
 					"__pivot": [0,0],
+					"__tags": ["region"],
 					"__tile": null,
+					"iid": "f2f3f742-66b0-11ec-91ab-db823d005230",
 					"width": 64,
 					"height": 48,
 					"defUid": 96,
@@ -1078,5 +1089,5 @@
 			"entityInstances": []
 		}
 	],
-	"__neighbours": [{ "levelUid": 88, "dir": "e" }]
+	"__neighbours": [{ "levelIid": "f2f66840-66b0-11ec-91ab-e506cb005a35", "levelUid": 88, "dir": "e" }]
 }
