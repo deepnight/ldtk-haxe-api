@@ -304,7 +304,7 @@ class TypeBuilder {
 			var isArray = arrayReg.match(f.__type);
 			var typeName = isArray ? arrayReg.matched(1) : f.__type;
 
-			var fields : Array<{ name:String, ct:ComplexType, ?customKind:FieldType }> = [];
+			var fields : Array<{ name:String, ct:ComplexType, ?customTypeFieldKind:Dynamic }> = [];
 			switch typeName {
 				case "Int":
 					fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<Int>) : (macro : Int) });
@@ -320,7 +320,7 @@ class TypeBuilder {
 					fields.push({
 						name: f.identifier+"_bytes",
 						ct: f.canBeNull ? (macro : Null<haxe.io.Bytes>) : (macro : haxe.io.Bytes),
-						customKind: FProp("get", "never", macro : Null<haxe.io.Bytes>)
+						customTypeFieldKind: FProp("get", "never", macro : Null<haxe.io.Bytes>)
 					});
 					// Build getter
 					var getterFunc : Function = {
@@ -380,7 +380,7 @@ class TypeBuilder {
 				typeDef.fields.push({
 					name: "f_"+fi.name,
 					access: [ APublic ],
-					kind: fi.customKind==null ? FVar(fi.ct) : fi.customKind,
+					kind: fi.customTypeFieldKind==null ? FVar(fi.ct) : fi.customTypeFieldKind,
 					doc: "Custom field "+fi.name+" ("+f.__type+")",
 					pos: curPos,
 				});
