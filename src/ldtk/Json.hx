@@ -303,6 +303,9 @@ typedef LayerInstanceJson = {
 	@added("0.6.0")
 	var __tilesetRelPath: Null<String>;
 
+	/** Unique layer instance identifier **/
+	var iid : String;
+
 	/** Reference to the UID of the level containing this layer instance **/
 	var levelId: Int;
 
