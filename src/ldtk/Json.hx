@@ -1168,6 +1168,7 @@ enum FieldDisplayMode {
 	RadiusGrid;
 	ArrayCountWithLabel;
 	ArrayCountNoLabel;
+	RefLink;
 }
 
 enum BgImagePos {
