@@ -145,6 +145,9 @@ class Main {
 			CiAssert.equals( mob.f_type, Trash );
 			CiAssert.equals( mob.entityType, Mob );
 			CiAssert.equals( mob.f_lootDrops[0], ExternEnumTest.DroppedItemType.Ammo );
+			CiAssert.equals( mob.f_lootDrops[1], ExternEnumTest.DroppedItemType.Food );
+			CiAssert.equals( mob.f_lootDrops[2], ExternEnumTest.DroppedItemType.Gold );
+			CiAssert.equals( mob.f_lootDrops[3], ExternEnumTest.DroppedItemType.Key );
 
 			// Arrays
 			CiAssert.isNotNull( test.f_ints );
@@ -176,7 +179,7 @@ class Main {
 			CiAssert.isTrue( mob.f_path.length>0 );
 			CiAssert.isTrue( mob.f_path[0].cy == mob.cy );
 
-			// Switch check
+			// Enum switch check
 			section("Switch...");
 			CiAssert.isTrue( switch project.all_levels.Main_tests.l_EntityTest.all_Mob[0].f_lootDrops[0] {
 				case null: false;
