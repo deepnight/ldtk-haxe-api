@@ -144,7 +144,7 @@ class Main {
 			CiAssert.equals( hero.f_startWeapon, LongBow );
 			CiAssert.equals( mob.f_type, Trash );
 			CiAssert.equals( mob.entityType, Mob );
-			CiAssert.equals( mob.f_lootDrop, ExternEnumTest.DroppedItemType.Gold );
+			CiAssert.equals( mob.f_lootDrops[0], ExternEnumTest.DroppedItemType.Ammo );
 
 			// Arrays
 			CiAssert.isNotNull( test.f_ints );
@@ -178,11 +178,11 @@ class Main {
 
 			// Switch check
 			section("Switch...");
-			CiAssert.isTrue( switch project.all_levels.Main_tests.l_EntityTest.all_Mob[0].f_lootDrop {
+			CiAssert.isTrue( switch project.all_levels.Main_tests.l_EntityTest.all_Mob[0].f_lootDrops[0] {
 				case null: false;
+				case Ammo: true;
 				case Food: false;
-				case Gold: true;
-				case Ammo: false;
+				case Gold: false;
 				case Key: false;
 			});
 			switch project.all_levels.Main_tests.l_EntityTest.all_Mob[0].f_type {
@@ -274,7 +274,7 @@ class Main {
 			CiAssert.isTrue( project.all_levels.Offset_tests.load() );
 			CiAssert.isNotNull( project.all_levels.Main_tests );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.all_Mob.length>0 );
-			CiAssert.isNotNull( project.all_levels.Main_tests.l_EntityTest.all_Mob[0].f_lootDrop );
+			CiAssert.isNotNull( project.all_levels.Main_tests.l_EntityTest.all_Mob[0].f_lootDrops );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.all_Hero[0].f_startWeapon == packageTest.ProjectPackage.Enum_Weapons.LongBow );
 
 		}

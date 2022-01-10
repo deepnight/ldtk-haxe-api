@@ -552,11 +552,11 @@
 					"textLanguageMode": null
 				},
 				{
-					"identifier": "lootDrop",
-					"__type": "ExternEnum.DroppedItemType",
+					"identifier": "lootDrops",
+					"__type": "Array<ExternEnum.DroppedItemType>",
 					"uid": 38,
 					"type": { "id": "F_Enum", "params": [29] },
-					"isArray": false,
+					"isArray": true,
 					"canBeNull": true,
 					"arrayMinLength": null,
 					"arrayMaxLength": null,

@@ -492,14 +492,23 @@
 							"realEditorValues": [{ "id": "V_Float", "params": [0.5] }]
 						},
 						{
-							"__identifier": "lootDrop",
-							"__value": "Gold",
-							"__type": "ExternEnum.DroppedItemType",
+							"__identifier": "lootDrops",
+							"__value": [ "Ammo", "Food", "Gold", "Key" ],
+							"__type": "Array<ExternEnum.DroppedItemType>",
 							"defUid": 38,
-							"realEditorValues": [{
+							"realEditorValues": [ {
+								"id": "V_String",
+								"params": ["Ammo"]
+							}, {
+								"id": "V_String",
+								"params": ["Food"]
+							}, {
 								"id": "V_String",
 								"params": ["Gold"]
-							}]
+							}, {
+								"id": "V_String",
+								"params": ["Key"]
+							} ]
 						},
 						{
 							"__identifier": "path",
