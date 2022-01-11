@@ -898,6 +898,10 @@ typedef FieldDefJson = {
 	@added("0.10.0")
 	var allowOutOfLevelRef: Bool;
 
+	@internal
+	@added("0.10.0")
+	var allowedRefs: EntityReferenceTarget;
+
 	/** If TRUE, the color associated with this field will override the Entity or Level default color in the editor UI. For Enum fields, this would be the color associated to their values. **/
 	@internal
 	@added("0.10.0")
@@ -1211,4 +1215,11 @@ enum ImageExportMode {
 	None;
 	OneImagePerLayer;
 	OneImagePerLevel;
+}
+
+@added("0.10.0")
+enum EntityReferenceTarget {
+	Any;
+	OnlySame;
+	// Custom;
 }
