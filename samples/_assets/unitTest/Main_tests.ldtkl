@@ -66,6 +66,7 @@
 			"__pxTotalOffsetY": 0,
 			"__tilesetDefUid": 46,
 			"__tilesetRelPath": "Cavernas_by_Adam_Saltsman-Extended.png",
+			"iid": "273576b0-66b0-11ec-8446-a93eeec321c9",
 			"levelId": 0,
 			"layerDefUid": 41,
 			"pxOffsetX": 0,
@@ -393,6 +394,7 @@
 			"__pxTotalOffsetY": 0,
 			"__tilesetDefUid": 46,
 			"__tilesetRelPath": "Cavernas_by_Adam_Saltsman-Extended.png",
+			"iid": "27359dc0-66b0-11ec-8446-c762d8298a4e",
 			"levelId": 0,
 			"layerDefUid": 82,
 			"pxOffsetX": 0,
@@ -450,6 +452,7 @@
 			"__pxTotalOffsetY": 0,
 			"__tilesetDefUid": null,
 			"__tilesetRelPath": null,
+			"iid": "27359dc1-66b0-11ec-8446-ff4b9136ca03",
 			"levelId": 0,
 			"layerDefUid": 4,
 			"pxOffsetX": 0,
@@ -659,6 +662,19 @@
 								"id": "V_String",
 								"params": ["Gold"]
 							}]
+						},
+						{
+							"__identifier": "entityRefs",
+							"__value": [ "57c51ab0-66b0-11ec-8446-f3a61ee63449", "58f66ec0-66b0-11ec-8446-9b40d7be219b" ],
+							"__type": "Array<EntityRef>",
+							"defUid": 101,
+							"realEditorValues": [ {
+								"id": "V_String",
+								"params": ["57c51ab0-66b0-11ec-8446-f3a61ee63449"]
+							}, {
+								"id": "V_String",
+								"params": ["58f66ec0-66b0-11ec-8446-9b40d7be219b"]
+							} ]
 						}
 					]
 				},
@@ -705,6 +721,32 @@
 							"params": [ true ]
 						}]
 					}]
+				},
+				{
+					"__identifier": "RefTarget",
+					"__grid": [30,7],
+					"__pivot": [0.5,0.5],
+					"__tags": [],
+					"__tile": null,
+					"iid": "57c51ab0-66b0-11ec-8446-f3a61ee63449",
+					"width": 16,
+					"height": 16,
+					"defUid": 102,
+					"px": [488,120],
+					"fieldInstances": []
+				},
+				{
+					"__identifier": "RefTarget",
+					"__grid": [30,13],
+					"__pivot": [0.5,0.5],
+					"__tags": [],
+					"__tile": null,
+					"iid": "58f66ec0-66b0-11ec-8446-9b40d7be219b",
+					"width": 16,
+					"height": 16,
+					"defUid": 102,
+					"px": [488,216],
+					"fieldInstances": []
 				}
 			]
 		},
@@ -719,6 +761,7 @@
 			"__pxTotalOffsetY": 0,
 			"__tilesetDefUid": 14,
 			"__tilesetRelPath": "Minecraft_texture_pack.gif",
+			"iid": "2735c4d0-66b0-11ec-8446-63f0a767b212",
 			"levelId": 0,
 			"layerDefUid": 15,
 			"pxOffsetX": 0,
@@ -910,6 +953,7 @@
 			"__pxTotalOffsetY": 0,
 			"__tilesetDefUid": null,
 			"__tilesetRelPath": null,
+			"iid": "2735c4d1-66b0-11ec-8446-8d14e61d6532",
 			"levelId": 0,
 			"layerDefUid": 13,
 			"pxOffsetX": 0,
@@ -965,6 +1009,7 @@
 			"__pxTotalOffsetY": 4,
 			"__tilesetDefUid": null,
 			"__tilesetRelPath": null,
+			"iid": "2735c4d2-66b0-11ec-8446-8f6e9c0d9353",
 			"levelId": 0,
 			"layerDefUid": 87,
 			"pxOffsetX": 0,

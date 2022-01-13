@@ -9,8 +9,8 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.10.0",
-	"appBuildId": 456056,
-	"nextUid": 101,
+	"appBuildId": 456143,
+	"nextUid": 103,
 	"worldLayout": "GridVania",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -37,6 +37,8 @@
 			"type": "IntGrid",
 			"uid": 41,
 			"gridSize": 8,
+			"guideGridWid": 0,
+			"guideGridHei": 0,
 			"displayOpacity": 1,
 			"fadeInactive": false,
 			"hideInList": false,
@@ -274,7 +276,7 @@
 				}
 			],
 			"autoSourceLayerDefUid": null,
-			"tilesetDefUid": null,
+			"tilesetDefUid": 46,
 			"tilePivotX": 0,
 			"tilePivotY": 0
 		},
@@ -284,6 +286,8 @@
 			"type": "AutoLayer",
 			"uid": 82,
 			"gridSize": 8,
+			"guideGridWid": 0,
+			"guideGridHei": 0,
 			"displayOpacity": 1,
 			"fadeInactive": false,
 			"hideInList": false,
@@ -349,7 +353,7 @@
 				]
 			}],
 			"autoSourceLayerDefUid": 41,
-			"tilesetDefUid": null,
+			"tilesetDefUid": 46,
 			"tilePivotX": 0,
 			"tilePivotY": 0
 		},
@@ -359,6 +363,8 @@
 			"type": "Entities",
 			"uid": 4,
 			"gridSize": 16,
+			"guideGridWid": 0,
+			"guideGridHei": 0,
 			"displayOpacity": 1,
 			"fadeInactive": false,
 			"hideInList": false,
@@ -383,6 +389,8 @@
 			"type": "Tiles",
 			"uid": 15,
 			"gridSize": 32,
+			"guideGridWid": 0,
+			"guideGridHei": 0,
 			"displayOpacity": 1,
 			"fadeInactive": false,
 			"hideInList": false,
@@ -394,7 +402,7 @@
 			"requiredTags": [],
 			"excludedTags": [],
 			"intGridValues": [{ "value": 1, "identifier": null, "color": "#000000" }],
-			"autoTilesetDefUid": null,
+			"autoTilesetDefUid": 14,
 			"autoRuleGroups": [],
 			"autoSourceLayerDefUid": null,
 			"tilesetDefUid": 14,
@@ -407,6 +415,8 @@
 			"type": "IntGrid",
 			"uid": 13,
 			"gridSize": 16,
+			"guideGridWid": 0,
+			"guideGridHei": 0,
 			"displayOpacity": 0.62,
 			"fadeInactive": false,
 			"hideInList": false,
@@ -436,6 +446,8 @@
 			"type": "IntGrid",
 			"uid": 87,
 			"gridSize": 8,
+			"guideGridWid": 0,
+			"guideGridHei": 0,
 			"displayOpacity": 1,
 			"fadeInactive": false,
 			"hideInList": false,
@@ -500,7 +512,11 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLanguageMode": null
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefTags": []
 				}
 			]
 		},
@@ -549,7 +565,11 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLanguageMode": null
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefTags": []
 				},
 				{
 					"identifier": "lootDrops",
@@ -572,7 +592,11 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLanguageMode": null
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefTags": []
 				},
 				{
 					"identifier": "scale",
@@ -595,7 +619,11 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": { "id": "V_Float", "params": [1] },
-					"textLanguageMode": null
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefTags": []
 				},
 				{
 					"identifier": "path",
@@ -618,7 +646,11 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLanguageMode": null
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefTags": []
 				}
 			]
 		},
@@ -667,7 +699,11 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLanguageMode": null
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefTags": []
 				},
 				{
 					"identifier": "ints",
@@ -690,7 +726,11 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLanguageMode": null
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefTags": []
 				},
 				{
 					"identifier": "strings",
@@ -713,7 +753,11 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLanguageMode": null
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefTags": []
 				},
 				{
 					"identifier": "floats",
@@ -736,7 +780,11 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": { "id": "V_Float", "params": [0.5] },
-					"textLanguageMode": null
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefTags": []
 				},
 				{
 					"identifier": "bools",
@@ -759,7 +807,11 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLanguageMode": null
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefTags": []
 				},
 				{
 					"identifier": "colors",
@@ -782,7 +834,11 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": { "id": "V_Int", "params": [16777215] },
-					"textLanguageMode": null
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefTags": []
 				},
 				{
 					"identifier": "localEnums",
@@ -805,7 +861,11 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLanguageMode": null
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefTags": []
 				},
 				{
 					"identifier": "externEnums",
@@ -828,7 +888,38 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLanguageMode": null
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefTags": []
+				},
+				{
+					"identifier": "entityRefs",
+					"__type": "Array<EntityRef>",
+					"uid": 101,
+					"type": "F_EntityRef",
+					"isArray": true,
+					"canBeNull": true,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "RefLink",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "Any",
+					"allowedRefTags": []
 				}
 			]
 		},
@@ -927,7 +1018,11 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLanguageMode": null
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefTags": []
 				}
 			]
 		},
@@ -976,9 +1071,38 @@
 					"regex": null,
 					"acceptFileTypes": null,
 					"defaultOverride": null,
-					"textLanguageMode": null
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefTags": []
 				}
 			]
+		},
+		{
+			"identifier": "RefTarget",
+			"uid": 102,
+			"tags": [],
+			"width": 16,
+			"height": 16,
+			"resizableX": false,
+			"resizableY": false,
+			"keepAspectRatio": false,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#FFCC00",
+			"renderMode": "Cross",
+			"showName": true,
+			"tilesetId": null,
+			"tileId": null,
+			"tileRenderMode": "FitInside",
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0.5,
+			"pivotY": 0.5,
+			"fieldDefs": []
 		}
 	], "tilesets": [
 		{
@@ -1073,7 +1197,11 @@
 			"regex": null,
 			"acceptFileTypes": null,
 			"defaultOverride": null,
-			"textLanguageMode": null
+			"textLanguageMode": null,
+			"symmetricalRef": false,
+			"allowOutOfLevelRef": true,
+			"allowedRefs": "OnlySame",
+			"allowedRefTags": []
 		},
 		{
 			"identifier": "level_string",
@@ -1096,7 +1224,11 @@
 			"regex": null,
 			"acceptFileTypes": null,
 			"defaultOverride": null,
-			"textLanguageMode": null
+			"textLanguageMode": null,
+			"symmetricalRef": false,
+			"allowOutOfLevelRef": true,
+			"allowedRefs": "OnlySame",
+			"allowedRefTags": []
 		},
 		{
 			"identifier": "level_reward",
@@ -1119,7 +1251,11 @@
 			"regex": null,
 			"acceptFileTypes": null,
 			"defaultOverride": null,
-			"textLanguageMode": null
+			"textLanguageMode": null,
+			"symmetricalRef": false,
+			"allowOutOfLevelRef": true,
+			"allowedRefs": "OnlySame",
+			"allowedRefTags": []
 		}
 	] },
 	"levels": [
