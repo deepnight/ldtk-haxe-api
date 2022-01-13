@@ -348,6 +348,9 @@ class TypeBuilder {
 				case "Point":
 					fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<ldtk.Point>) : (macro : ldtk.Point) });
 
+				case "EntityRef":
+					fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<String>) : (macro : String) });
+
 				case _.indexOf("LocalEnum.") => 0:
 					var type = typeName.substr( typeName.indexOf(".")+1 );
 					var enumType = Context.getType( "Enum_"+type ).toComplexType();

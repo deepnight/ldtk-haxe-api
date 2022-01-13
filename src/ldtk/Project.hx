@@ -153,6 +153,9 @@ class Project {
 						Reflect.setField(target, "f_"+f.__identifier, arr.map( (pt)->new ldtk.Point(pt.cx, pt.cy) ) );
 					}
 
+				case "EntityRef":
+					Reflect.setField(target, "f_"+f.__identifier, f.__value);
+
 				case _.indexOf("LocalEnum.") => 0:
 					var type = _enumTypePrefix + typeName.substr( typeName.indexOf(".")+1 );
 					var e = Type.resolveEnum( type );
