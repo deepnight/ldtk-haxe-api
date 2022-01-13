@@ -601,7 +601,10 @@ typedef LayerDefJson = {
 	@only("IntGrid layer")
 	var intGridValues: Array<IntGridValueDef>;
 
-	/** Reference to the Tileset UID being used by this auto-layer rules. WARNING: some layer *instances* might use a different tileset. So most of the time, you should probably use the `__tilesetDefUid` value from layer instances. **/
+	/**
+		Reference to the Tileset UID being used by this auto-layer rules. WARNING: some layer *instances* might use a different tileset. So most of the time, you should probably use the `__tilesetDefUid` value from layer instances.
+	**/
+	@deprecation("0.10.0", "0.12.0", "tilesetDefUid")
 	@only("Auto-layers")
 	var autoTilesetDefUid: Null<Int>;
 
@@ -624,8 +627,13 @@ typedef LayerDefJson = {
 	@only("Entity layer")
 	var excludedTags: Array<String>;
 
-	/** Reference to the Tileset UID being used by this Tile layer. WARNING: some layer *instances* might use a different tileset. So most of the time, you should probably use the `__tilesetDefUid` value from layer instances. **/
-	@only("Tile layers")
+	/**
+		Reference to the default Tileset UID being used by this layer definition.
+		**WARNING**: some layer *instances* might use a different tileset. So most of the time, you should probably use the `__tilesetDefUid` value found in layer instances.
+		Note: since version 0.10.0, the old `autoTilesetDefUid` was removed and merged into this value.
+	**/
+	@changed("0.10.0")
+	@only("Tile layers, Auto-layers")
 	var tilesetDefUid: Null<Int>;
 
 	/** If the tiles are smaller or larger than the layer grid, the pivot value will be used to position the tile relatively its grid cell. **/
