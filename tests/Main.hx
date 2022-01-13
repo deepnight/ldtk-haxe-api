@@ -131,6 +131,7 @@ class Main {
 			CiAssert.equals( hero.height, 24 );
 			CiAssert.equals( test.width, 32 );
 			CiAssert.equals( test.height, 32 );
+			CiAssert.equals( test.iid, "f2f3f740-66b0-11ec-91ab-910cd77ba401" );
 
 			// Regions
 			var r = project.all_levels.Main_tests.l_EntityTest.all_Region[0];
