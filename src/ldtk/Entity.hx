@@ -5,6 +5,9 @@ class Entity {
 
 	public var identifier : String;
 
+	/** Unique instance identifier **/
+	public var iid : String;
+
 	/** Grid-based X coordinate **/
 	public var cx : Int;
 
@@ -38,6 +41,7 @@ class Entity {
 	public function new(p:ldtk.Project, json:ldtk.Json.EntityInstanceJson) {
 		untypedProject = p;
 		identifier = json.__identifier;
+		iid = json.iid;
 		cx = json.__grid[0];
 		cy = json.__grid[1];
 		pixelX = json.px[0];

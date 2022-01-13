@@ -8,6 +8,9 @@ class Layer {
 	public var identifier : String;
 	public var type : LayerType;
 
+	/** Unique instance identifier **/
+	public var iid : String;
+
 	/** Layer instance visibility **/
 	public var visible : Bool;
 
@@ -40,6 +43,7 @@ class Layer {
 		type =
 			try LayerType.createByName(json.__type)
 			catch(e:Dynamic) throw 'Unknown layer type ${json.__type} in $identifier';
+		iid = json.iid;
 		gridSize = json.__gridSize;
 		cWid = json.__cWid;
 		cHei = json.__cHei;
