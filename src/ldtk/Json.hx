@@ -544,6 +544,16 @@ typedef LayerDefJson = {
 	/** Width and height of the grid in pixels **/
 	var gridSize: Int;
 
+	/** Width of the optional "guide" grid in pixels **/
+	@internal
+	@added("0.10.0")
+	var guideGridWid: Int;
+
+	/** Height of the optional "guide" grid in pixels **/
+	@internal
+	@added("0.10.0")
+	var guideGridHei: Int;
+
 	/** X offset of the layer, in pixels (IMPORTANT: this should be added to the `LayerInstance` optional offset) **/
 	@added("0.5.0")
 	var pxOffsetX: Int;
