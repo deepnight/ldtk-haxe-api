@@ -56,6 +56,21 @@ typedef ProjectJson = {
 	**/
 	var levels: Array<LevelJson>;
 
+	/**
+This array is not used yet in current LDtk version (so, for now, it's always empty).
+
+In a later update, it will be possible to have multiple Worlds in a single project, each containing multiple Levels.
+
+What will change when "Multiple worlds" support will be added to LDtk:
+
+ - in current version, a LDtk project file can only contain a single world with multiple levels in it. In this case, levels and world layout related settings are stored in the root of the JSON.
+ - after the "Multiple worlds" update, there will be a `worlds` array in root, each world containing levels and layout settings. Basically, it's pretty much only about moving the `levels` array to the `worlds` array, along with world layout related values (eg. `worldGridWidth` etc).
+
+If you want to start supporting this future update easily, please refer to this documentation: https://github.com/deepnight/ldtk/issues/231
+	**/
+	@added("0.10.0")
+	var worlds: Array<WorldJson>;
+
 	/** Default X pivot (0 to 1) for new entities **/
 	@internal
 	var defaultPivotX: Float;
@@ -133,6 +148,42 @@ typedef ProjectJson = {
 	@added("0.9.0")
 	var levelNamePattern: String;
 }
+
+
+/**
+**IMPORTANT**: this type is not used *yet* in current LDtk version. It's only presented here as a preview of a planned feature.
+
+A World contains multiple levels, and it has its own layout settings.
+**/
+@added("0.10.0")
+@section("1.1")
+@display("World")
+typedef WorldJson = {
+	/** Unique instance identifer **/
+	var iid: String;
+
+	/** User defined unique identifier **/
+	var identifier: String;
+
+	/**
+		All levels from this world. The order of this array is only relevant in `LinearHorizontal` and `linearVertical` world layouts (see `worldLayout` value). Otherwise, you should refer to the `worldX`,`worldY` coordinates of each Level.
+	**/
+	var levels: Array<LevelJson>;
+
+	/**
+		An enum that describes how levels are organized in this project (ie. linearly or in a 2D space).
+	**/
+	var worldLayout: WorldLayout;
+
+	/** Width of the world grid in pixels. **/
+	@only("'GridVania' layouts")
+	var worldGridWidth: Int;
+
+	/** Height of the world grid in pixels. **/
+	@only("'GridVania' layouts")
+	var worldGridHeight: Int;
+}
+
 
 /**
 This section contains all the level data. It can be found in 2 distinct forms, depending on Project current settings:
