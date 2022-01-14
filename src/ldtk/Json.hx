@@ -29,12 +29,16 @@ typedef ProjectJson = {
 	@added("0.6.0")
 	var worldLayout: WorldLayout;
 
-	/** Width of the world grid in pixels. **/
+	/**
+		Width of the world grid in pixels.
+	**/
 	@only("'GridVania' layouts")
 	@added("0.6.0")
 	var worldGridWidth: Int;
 
-	/** Height of the world grid in pixels. **/
+	/**
+		Height of the world grid in pixels.
+	**/
 	@only("'GridVania' layouts")
 	@added("0.6.0")
 	var worldGridHeight: Int;
@@ -47,7 +51,8 @@ typedef ProjectJson = {
 	var defs: DefinitionsJson;
 
 	/**
-		All levels. The order of this array is only relevant in `LinearHorizontal` and `linearVertical` world layouts (see `worldLayout` value). Otherwise, you should refer to the `worldX`,`worldY` coordinates of each Level.
+		All levels. The order of this array is only relevant in `LinearHorizontal` and `linearVertical` world layouts (see `worldLayout` value).
+		Otherwise, you should refer to the `worldX`,`worldY` coordinates of each Level.
 	**/
 	var levels: Array<LevelJson>;
 
@@ -151,7 +156,7 @@ typedef LevelJson = {
 	@added("0.10.0")
 	var iid: String;
 
-	/** Unique String identifier **/
+	/** User defined unique identifier **/
 	var identifier: String;
 
 	/** If TRUE, the level identifier will always automatically use the naming pattern as defined in `Project.levelNamePattern`. Becomes FALSE if the identifier is manually modified by user. **/
@@ -528,7 +533,7 @@ typedef DefinitionsJson = {
 @section("3.1")
 @display("Layer definition")
 typedef LayerDefJson = {
-	/** Unique String identifier **/
+	/** User defined unique identifier **/
 	var identifier: String;
 
 	/** Type of the layer (*IntGrid, Entities, Tiles or AutoLayer*) **/
@@ -734,7 +739,7 @@ typedef AutoRuleDef = {
 @section("3.2")
 @display("Entity definition")
 typedef EntityDefJson = {
-	/** Unique String identifier **/
+	/** User defined unique identifier **/
 	var identifier: String;
 
 	/** Unique Int identifier **/
@@ -833,7 +838,7 @@ typedef EntityDefJson = {
 @section("3.2.1")
 @display("Field definition")
 typedef FieldDefJson = {
-	/** Unique String identifier **/
+	/** User defined unique identifier **//** User defined unique identifier **/
 	var identifier: String;
 
 	/** Unique Int identifier **/
@@ -946,7 +951,7 @@ typedef TilesetDefJson = {
 	@added("0.9.0")
 	var __cHei : Int;
 
-	/** Unique String identifier **/
+	/** User defined unique identifier **/
 	var identifier: String;
 
 	/** Unique Intidentifier **/
@@ -979,14 +984,11 @@ typedef TilesetDefJson = {
 
 	/** Tileset tags using Enum values specified by `tagsSourceEnumId`. This array contains 1 element per Enum value, which contains an array of all Tile IDs that are tagged with it. **/
 	@added("0.9.0")
-	var enumTags: Array<{
-		enumValueId: String,
-		tileIds: Array<Int>,
-	}>;
+	var enumTags: Array<EnumTagValue>;
 
 	/** An array of custom tile metadata **/
 	@added("0.9.0")
-	var customData : Array<{ tileId:Int, data:String }>;
+	var customData : Array<TileCustomMetadata>;
 
 	/** The following data is used internally for various optimizations. It's always synced with source image changes. **/
 	@internal
@@ -1010,7 +1012,7 @@ typedef EnumDefJson = {
 	/** Unique Int identifier **/
 	var uid: Int;
 
-	/** Unique String identifier **/
+	/** User defined unique identifier **/
 	var identifier: String;
 
 	/** All possible enum values, with their optional Tile infos. **/
@@ -1109,13 +1111,28 @@ typedef IntGridValueDef = {
 	@added("0.8.0")
 	var value: Int;
 
-	/** Unique String identifier **/
+	/** User defined unique identifier **/
 	var identifier:Null<String>;
 
 	@color
 	var color:String ;
 }
 
+/** In a tileset definition, enum based tag infos **/
+@inline
+@added("0.10.0")
+typedef EnumTagValue = {
+	var enumValueId: String;
+	var tileIds: Array<Int>;
+}
+
+/** In a tileset definition, user defined meta-data of a tile. **/
+@inline
+@added("0.10.0")
+typedef TileCustomMetadata = {
+	var tileId:Int;
+	var data:String;
+}
 
 
 /* MISC ENUMS *****************************************************************************/
@@ -1246,3 +1263,4 @@ enum EntityReferenceTarget {
 	OnlySame;
 	OnlyTags;
 }
+
