@@ -1011,6 +1011,14 @@ typedef FieldDefJson = {
 	@added("0.10.0")
 	var allowedRefTags: Array<String>;
 
+	/**
+		UID of the tileset used for a Tile
+	**/
+	@only("Tile")
+	@internal
+	@added("0.10.0")
+	var tilesetUid: Null<Int>;
+
 
 	/** If TRUE, the color associated with this field will override the Entity or Level default color in the editor UI. For Enum fields, this would be the color associated to their values. **/
 	@internal
