@@ -1260,8 +1260,12 @@ enum FieldType {
 	F_Enum(enumDefUid:Int);
 	F_Point;
 	F_Path;
+
 	@added("0.10.0")
 	F_EntityRef;
+
+	@added("0.10.0")
+	F_Tile;
 }
 
 
