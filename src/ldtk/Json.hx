@@ -477,6 +477,23 @@ typedef Tile = {
 }
 
 
+/**
+	An array of 4 integers (`[x,y,width,height]` in pixels) representing a custom rectangle from a Tileset image.
+**/
+@display("Atlas tile rectangle")
+@section("3.2.2")
+@added("0.10.0")
+typedef AtlasTileRect = {
+	/** X pixel coord of the tile in the Tileset atlas **/
+	var x : Int;
+
+	/** Y pixel coord of the tile in the Tileset atlas **/
+	var y : Int;
+
+	var w : Int;
+	var h : Int;
+}
+
 
 @section("2.1.2")
 @display("Entity instance")
@@ -858,6 +875,12 @@ typedef EntityDefJson = {
 
 	/** Tile ID used for optional tile display **/
 	var tileId: Null<Int>;
+
+	/**
+		An array of 4 values (`[x,y,width,height]` in pixels) describing a sub rectangle from the tileset pointed by `tilesetId`.
+	**/
+	@added("0.10.0")
+	var tileRect: Null<AtlasTileRect>;
 
 	@changed("0.8.1")
 	@internal
