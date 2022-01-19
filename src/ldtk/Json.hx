@@ -874,6 +874,7 @@ typedef EntityDefJson = {
 	var tilesetId: Null<Int>;
 
 	/** Tile ID used for optional tile display **/
+	@deprecation("0.10.0", "0.12.0", "tileRect")
 	var tileId: Null<Int>;
 
 	/**
