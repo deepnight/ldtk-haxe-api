@@ -1289,6 +1289,8 @@ enum EntityTileRenderMode {
 	FitInside;
 	Repeat;
 	Stretch;
+	FullSizeCropped;
+	FullSizeUncropped;
 }
 
 enum EntityLimitBehavior {
