@@ -525,7 +525,7 @@ typedef EntityInstanceJson = {
 		Optional Tile used to display this entity (it could either be the default Entity tile, or some tile provided by a field value, like an Enum).
 	**/
 	@added("0.4.0")
-	var __tile: Null<EntityInstanceTile>;
+	var __tile: Null<FieldInstanceTile>;
 
 	/**
 		Unique instance identifier
@@ -555,6 +555,7 @@ typedef FieldInstanceJson = {
 	/**
 		Actual value of the field instance. The value type may vary, depending on `__type` (Integer, Boolean, String etc.)
 		It can also be an `Array` of those same types.
+		For tiles, the value will be of `FieldInstanceTile` type.
 	**/
 	var __value: Dynamic;
 
@@ -1140,10 +1141,10 @@ typedef EnumDefValues = {
 
 /* INLINED TYPES *****************************************************************************/
 
-/** Tile data in an Entity instance **/
+/** Tile data in an Field instance **/
 @inline
-@display("Entity instance tile")
-typedef EntityInstanceTile = {
+@display("Field instance tile")
+typedef FieldInstanceTile = {
 	/** Tileset ID **/
 	var tilesetUid: Int;
 
