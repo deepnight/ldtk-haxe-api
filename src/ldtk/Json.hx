@@ -1340,6 +1340,7 @@ enum ProjectFlag {
 	ExportPreCsvIntGridFormat;
 	IgnoreBackupSuggest;
 	PrependIndexToLevelFileNames;
+	MultiWorlds;
 }
 
 enum EntityLimitScope {
