@@ -1362,3 +1362,10 @@ enum EntityReferenceTarget {
 	OnlyTags;
 }
 
+@added("0.10.0")
+enum IdentifierStyle {
+	Capitalized;
+	Uppercase;
+	Lowercase;
+	Free;
+}
