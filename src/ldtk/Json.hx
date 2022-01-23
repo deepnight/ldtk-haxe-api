@@ -47,6 +47,11 @@ typedef ProjectJson = {
 	@internal
 	var nextUid: Int;
 
+	/** Naming convention for Identifiers (first-letter uppercase, full uppercase etc.) **/
+	@internal
+	@added("0.10.0")
+	var identifierStyle : IdentifierStyle;
+
 	/** A structure containing all the definitions of this project **/
 	var defs: DefinitionsJson;
 
