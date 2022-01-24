@@ -37,9 +37,9 @@ class Tileset {
 		untypedTags = new Map();
 		if( json.enumTags!=null ) {
 			for(t in json.enumTags) {
-				untypedTags.set(t.enumValueId, []);
+				untypedTags.set( p.capitalize(t.enumValueId), [] );
 				for(tid in t.tileIds)
-					untypedTags.get(t.enumValueId).set(tid,tid);
+					untypedTags.get( p.capitalize(t.enumValueId) ).set(tid,tid);
 			}
 		}
 	}

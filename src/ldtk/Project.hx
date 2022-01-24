@@ -112,6 +112,20 @@ class Project {
 	}
 
 
+	/** Transform an identifier string by capitalizing its first letter **/
+	@:noCompletion
+	public function capitalize(id:String) {
+		if( id==null )
+			id = "";
+
+		var reg = ~/^(_*)([a-z])([a-zA-Z0-9_]*)/g; // extract first letter, if it's lowercase
+		if( reg.match(id) )
+			id = reg.matched(1) + reg.matched(2).toUpperCase() + reg.matched(3);
+
+		return id;
+	}
+
+
 	var _enumTypePrefix : String;
 
 	function _resolveExternalEnum<T>(name:String) : Enum<T> {
@@ -160,10 +174,10 @@ class Project {
 					var type = _enumTypePrefix + typeName.substr( typeName.indexOf(".")+1 );
 					var e = Type.resolveEnum( type );
 					if( !isArray )
-						Reflect.setField(target, "f_"+f.__identifier, Type.createEnum(e, f.__value) );
+						Reflect.setField(target, "f_"+f.__identifier, Type.createEnum(e, capitalize(f.__value)) );
 					else {
 						var arr : Array<String> = f.__value;
-						Reflect.setField(target, "f_"+f.__identifier, arr.map( (k)->Type.createEnum(e,k) ) );
+						Reflect.setField(target, "f_"+f.__identifier, arr.map( (k)->Type.createEnum(e,capitalize(k)) ) );
 					}
 
 

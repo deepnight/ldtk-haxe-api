@@ -86,6 +86,23 @@ class TypeBuilder {
 		return macro : Void;
 	}
 
+	static function sanitizeIdentifier(id:String, capitalize=true) {
+		if( id==null )
+			id = "_";
+
+		// Replace any invalid char with "_"
+		var reg = ~/([^a-z0-9_])+/gi;
+		id = reg.replace(id, "_");
+
+		// Capitalize
+		if( capitalize ) {
+			var reg = ~/^(_*)([a-z])([a-zA-Z0-9_]*)/g; // extract first letter, if it's lowercase
+			if( reg.match(id) )
+				id = reg.matched(1) + reg.matched(2).toUpperCase() + reg.matched(3);
+		}
+
+		return id;
+	}
 
 	/**
 		Load and parse the Json from disk
@@ -132,7 +149,7 @@ class TypeBuilder {
 				pos: curPos,
 				fields: e.values.map( function(json) : Field {
 					return {
-						name: json.id,
+						name: sanitizeIdentifier(json.id),
 						pos: curPos,
 						kind: FVar(null, null),
 					}
@@ -157,7 +174,7 @@ class TypeBuilder {
 			pos: curPos,
 			fields: json.defs.entities.map( function(json) : Field {
 				return {
-					name: json.identifier,
+					name: sanitizeIdentifier(json.identifier),
 					pos: curPos,
 					kind: FVar(null, null),
 				}
@@ -250,7 +267,7 @@ class TypeBuilder {
 				override public function new(p, json) {
 					super(p, json);
 
-					entityType = Type.createEnum($entityEnumRef, json.__identifier);
+					entityType = Type.createEnum($entityEnumRef, p.capitalize(json.__identifier));
 				}
 
 				public inline function is(e:$entityEnumType) {
@@ -762,17 +779,6 @@ class TypeBuilder {
 			pos: curPos,
 			access: [ APublic ],
 		});
-
-		// projectFields.push({
-		// 	name: "all_tilesets",
-		// 	doc: "A convenient way to access all tilesets in a type-safe environment",
-		// 	kind: FFun({
-		// 		args: [],
-		// 		ret:
-		// 	}),
-		// 	pos: curPos,
-		// 	access: [],
-		// });
 	}
 
 
