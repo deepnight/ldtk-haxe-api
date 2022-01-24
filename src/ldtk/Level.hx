@@ -46,7 +46,7 @@ class Level {
 	public var worldY : Int;
 	public var bgColor : UInt;
 	public var allUntypedLayers(default,null) : Array<Layer>;
-	public var neighbours : Array<{ levelUid:Int, dir: NeighbourDir }>; // TODO resolve level instance
+	public var neighbours : Array<{ levelIid:String, dir: NeighbourDir }>;
 	public var bgImageInfos : Null<LevelBgImage>;
 
 	/** Index in project `levels` array **/
@@ -107,7 +107,7 @@ class Level {
 		if( json.__neighbours!=null )
 			for(n in json.__neighbours)
 				neighbours.push({
-					levelUid: n.levelUid,
+					levelIid: n.levelIid,
 					dir: switch n.dir {
 						case "n": North;
 						case "s": South;
