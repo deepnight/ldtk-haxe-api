@@ -37,6 +37,7 @@ class Level {
 	/** Original parsed JSON object **/
 	public var json(default,null) : ldtk.Json.LevelJson;
 
+	public var iid : String;
 	public var uid : Int;
 	public var identifier : String;
 	public var pxWid : Int;
@@ -74,6 +75,7 @@ class Level {
 		neighbours = [];
 		allUntypedLayers = [];
 
+		iid = json.iid;
 		uid = json.uid;
 		identifier = json.identifier;
 		pxWid = json.pxWid;
