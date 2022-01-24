@@ -53,7 +53,8 @@
 				"id": "V_String",
 				"params": ["Key"]
 			}]
-		}
+		},
+		{ "__identifier": "lowercase_enum", "__value": [], "__type": "Array<LocalEnum.lowercase_enum>", "defUid": 106, "realEditorValues": [] }
 	],
 	"layerInstances": [
 		{

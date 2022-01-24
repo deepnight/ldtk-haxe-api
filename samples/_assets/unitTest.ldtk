@@ -9,9 +9,9 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.10.0",
-	"appBuildId": 456392,
-	"nextUid": 103,
-	"identifierStyle": "Capitalize",
+	"appBuildId": 456393,
+	"nextUid": 107,
+	"identifierStyle": "Free",
 	"worldLayout": "GridVania",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -938,6 +938,34 @@
 					"allowedRefs": "Any",
 					"allowedRefTags": [],
 					"tilesetUid": null
+				},
+				{
+					"identifier": "lowercaseEnum",
+					"__type": "Array<LocalEnum.lowercase_enum>",
+					"uid": 104,
+					"type": { "id": "F_Enum", "params": [103] },
+					"isArray": true,
+					"canBeNull": false,
+					"arrayMinLength": 1,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "NameAndValue",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefTags": [],
+					"tilesetUid": null
 				}
 			]
 		},
@@ -1161,8 +1189,8 @@
 			"tileGridSize": 8,
 			"spacing": 0,
 			"padding": 0,
-			"tagsSourceEnumUid": null,
-			"enumTags": [],
+			"tagsSourceEnumUid": 103,
+			"enumTags": [ { "enumValueId": "lc_a", "tileIds": [0] }, { "enumValueId": "lc_b", "tileIds": [1] }, { "enumValueId": "lc_c", "tileIds": [2] }, { "enumValueId": "lc_d", "tileIds": [3] } ],
 			"customData": [],
 			"savedSelections": [],
 			"cachedPixelData": {
@@ -1187,6 +1215,12 @@
 			{ "id": "Stone", "tileId": null, "color": 9475234, "__tileSrcRect": null },
 			{ "id": "Grass", "tileId": null, "color": 4964962, "__tileSrcRect": null },
 			{ "id": "Wood", "tileId": null, "color": 10312771, "__tileSrcRect": null }
+		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null },
+		{ "identifier": "lowercase_enum", "uid": 103, "values": [
+			{ "id": "lc_a", "tileId": null, "color": 16711680, "__tileSrcRect": null },
+			{ "id": "lc_b", "tileId": null, "color": 65280, "__tileSrcRect": null },
+			{ "id": "lc_c", "tileId": null, "color": 255, "__tileSrcRect": null },
+			{ "id": "lc_d", "tileId": null, "color": 16711935, "__tileSrcRect": null }
 		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null }
 	], "externalEnums": [
 		{ "identifier": "DroppedItemType", "uid": 29, "values": [
@@ -1284,6 +1318,34 @@
 			"allowedRefs": "OnlySame",
 			"allowedRefTags": [],
 			"tilesetUid": null
+		},
+		{
+			"identifier": "lowercase_enum",
+			"__type": "Array<LocalEnum.lowercase_enum>",
+			"uid": 106,
+			"type": { "id": "F_Enum", "params": [103] },
+			"isArray": true,
+			"canBeNull": false,
+			"arrayMinLength": null,
+			"arrayMaxLength": null,
+			"editorDisplayMode": "NameAndValue",
+			"editorDisplayPos": "Above",
+			"editorAlwaysShow": false,
+			"editorCutLongValues": true,
+			"editorTextSuffix": null,
+			"editorTextPrefix": null,
+			"useForSmartColor": false,
+			"min": null,
+			"max": null,
+			"regex": null,
+			"acceptFileTypes": null,
+			"defaultOverride": null,
+			"textLanguageMode": null,
+			"symmetricalRef": false,
+			"allowOutOfLevelRef": true,
+			"allowedRefs": "OnlySame",
+			"allowedRefTags": [],
+			"tilesetUid": null
 		}
 	] },
 	"levels": [
@@ -1333,6 +1395,19 @@
 						"id": "V_String",
 						"params": ["Ammo"]
 					}]
+				},
+				{
+					"__identifier": "lowercase_enum",
+					"__value": [ "lc_a", "lc_b" ],
+					"__type": "Array<LocalEnum.lowercase_enum>",
+					"defUid": 106,
+					"realEditorValues": [ {
+						"id": "V_String",
+						"params": ["lc_a"]
+					}, {
+						"id": "V_String",
+						"params": ["lc_b"]
+					} ]
 				}
 			],
 			"layerInstances": null,
@@ -1384,7 +1459,8 @@
 						"id": "V_String",
 						"params": ["Key"]
 					}]
-				}
+				},
+				{ "__identifier": "lowercase_enum", "__value": [], "__type": "Array<LocalEnum.lowercase_enum>", "defUid": 106, "realEditorValues": [] }
 			],
 			"layerInstances": null,
 			"__neighbours": [{ "levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e", "levelUid": 0, "dir": "w" }]

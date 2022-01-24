@@ -42,10 +42,12 @@ class Main {
 			CiAssert.isNotNull( project.getLayerDefJson("IntGrid_AutoLayer") );
 			CiAssert.isNotNull( project.getEntityDefJson("Hero") );
 			CiAssert.isNotNull( project.getEnumDefJson("Weapons") );
+			CiAssert.isNotNull( project.getEnumDefJson("lowercase_enum") );
 			CiAssert.isNotNull( project.getTilesetDefJson("Minecraft_texture_pack") );
 
 			CiAssert.equals( project.getEnumDefFromValue(Trash).identifier, "Mobs" );
 			CiAssert.equals( project.getEnumDefFromValue(LongBow).identifier, "Weapons" );
+			CiAssert.equals( project.getEnumDefFromValue(Lc_a).identifier, "lowercase_enum" );
 			CiAssert.equals( project.getEnumDefFromValue(Ammo).identifier, "DroppedItemType" ); // extern
 			CiAssert.equals( project.getEnumDefFromValue(Foo).identifier, "SomeEnum" ); // extern
 			CiAssert.equals( project.getEnumDefFromValue(null), null );
@@ -144,6 +146,10 @@ class Main {
 
 			// Enums
 			section("Enums...");
+			CiAssert.isNotNull( Enum_Weapons );
+			CiAssert.isNotNull( Enum_lowercase_enum );
+			CiAssert.equals( Enum_Weapons.getConstructors()[0], "LongBow" );
+			CiAssert.equals( Enum_Weapons.getConstructors()[1], "Torch" );
 			CiAssert.equals( hero.f_startWeapon, LongBow );
 			CiAssert.equals( mob.f_type, Trash );
 			CiAssert.equals( mob.entityType, Mob );
@@ -154,20 +160,24 @@ class Main {
 
 			// Arrays
 			CiAssert.isNotNull( test.f_ints );
-			CiAssert.isTrue( test.f_ints.length==3 );
-			CiAssert.isTrue( test.f_ints[0]==0 );
-			CiAssert.isTrue( test.f_ints[1]==1 );
-			CiAssert.isTrue( test.f_ints[2]==2 );
-			CiAssert.isTrue( test.f_strings[0]=="a" );
-			CiAssert.isTrue( test.f_floats[1]==0.5 );
-			CiAssert.isTrue( test.f_bools[0]==false );
-			CiAssert.isTrue( test.f_bools[2]==true );
-			CiAssert.isTrue( test.f_colors_hex[0]=="#FF0000" );
-			CiAssert.isTrue( test.f_colors_int[0]==0xff0000 );
+			CiAssert.equals( test.f_ints.length, 3 );
+			CiAssert.equals( test.f_ints[0], 0 );
+			CiAssert.equals( test.f_ints[1], 1 );
+			CiAssert.equals( test.f_ints[2], 2 );
+			CiAssert.equals( test.f_strings[0], "a" );
+			CiAssert.equals( test.f_floats[1], 0.5 );
+			CiAssert.equals( test.f_bools[0], false );
+			CiAssert.equals( test.f_bools[2], true );
+			CiAssert.equals( test.f_colors_hex[0],"#FF0000" );
+			CiAssert.equals( test.f_colors_int[0], 0xff0000 );
 			CiAssert.isTrue( test.f_localEnums.length>0 );
-			CiAssert.isTrue( test.f_localEnums[0]==FireBall );
+			CiAssert.equals( test.f_localEnums[0], FireBall );
 			CiAssert.isTrue( test.f_externEnums.length>0 );
-			CiAssert.isTrue( test.f_externEnums[0]==Gold );
+			CiAssert.equals( test.f_externEnums[0], Gold );
+			CiAssert.equals( test.f_externEnums[1], null );
+			CiAssert.equals( test.f_lowercaseEnum[0], Lc_a );
+			CiAssert.equals( test.f_lowercaseEnum[1], Lc_b );
+			CiAssert.equals( test.f_lowercaseEnum[2], null );
 
 			// FilePath entity field & loading
 			CiAssert.isNotNull( fileEnt.f_filePath );
@@ -203,6 +213,10 @@ class Main {
 			CiAssert.equals( project.all_levels.Main_tests.f_level_reward, Ammo );
 			CiAssert.equals( project.all_levels.Offset_tests.f_level_int, 2 );
 			CiAssert.equals( project.all_levels.Offset_tests.f_level_reward, Key );
+			CiAssert.equals( project.all_levels.Main_tests.f_lowercase_enum[0], Lc_a );
+			CiAssert.equals( project.all_levels.Main_tests.f_lowercase_enum[1], Lc_b );
+			CiAssert.equals( project.all_levels.Main_tests.f_lowercase_enum.length, 2 );
+			CiAssert.equals( project.all_levels.Main_tests.f_lowercase_enum[2], null );
 
 			// Tile layer
 			section("Tile layer...");
@@ -227,13 +241,27 @@ class Main {
 			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.tileset.getAtlasY(1)==0 );
 
 			// Tilesets enum tags
+			CiAssert.isNotNull( project.all_tilesets.Minecraft_texture_pack );
 			CiAssert.isNotNull( project.all_tilesets.Minecraft_texture_pack.hasTag );
+			CiAssert.isNotNull( project.all_levels.Main_tests.l_TileTest.tileset );
 			CiAssert.isNotNull( project.all_levels.Main_tests.l_TileTest.tileset.hasTag );
 			CiAssert.isTrue( project.all_tilesets.Minecraft_texture_pack.hasTag(0,Grass) );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.tileset.hasTag(0,Grass) );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.tileset.hasTag(1,Stone) );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.tileset.hasTag(3,Grass) );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.tileset.hasTag(3,Dirt) );
+			CiAssert.isFalse( project.all_levels.Main_tests.l_TileTest.tileset.hasTag(1,Grass) );
+			CiAssert.isFalse( project.all_levels.Main_tests.l_TileTest.tileset.hasTag(4,Grass) );
+
+			CiAssert.isNotNull( project.all_tilesets.Cavernas_by_Adam_Saltsman );
+			CiAssert.isNotNull( project.all_tilesets.Cavernas_by_Adam_Saltsman.hasTag );
+			CiAssert.isTrue( project.all_tilesets.Cavernas_by_Adam_Saltsman.hasTag(0,Lc_a) );
+			CiAssert.isTrue( project.all_tilesets.Cavernas_by_Adam_Saltsman.hasTag(1,Lc_b) );
+			CiAssert.isTrue( project.all_tilesets.Cavernas_by_Adam_Saltsman.hasTag(2,Lc_c) );
+			CiAssert.isTrue( project.all_tilesets.Cavernas_by_Adam_Saltsman.hasTag(3,Lc_d) );
+			CiAssert.isFalse( project.all_tilesets.Cavernas_by_Adam_Saltsman.hasTag(1,Lc_a) );
+			CiAssert.isFalse( project.all_tilesets.Cavernas_by_Adam_Saltsman.hasTag(4,Lc_a) );
+
 
 			// Auto-layer (IntGrid)
 			section("Auto-Layer (IntGrid)...");
