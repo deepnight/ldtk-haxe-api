@@ -19,7 +19,7 @@ typedef ProjectJson = {
 		This is only used to identify the LDtk version that generated this particular project file, which can be useful for specific bug fixing. Note that the build identifier is just the date of the release, so it's not unique to each user (one single global ID per LDtk public release), and as a result, completely anonymous.
 	**/
 	@internal
-	@added("0.10.0")
+	@added("1.0.0")
 	var appBuildId : Float;
 
 
@@ -49,7 +49,7 @@ typedef ProjectJson = {
 
 	/** Naming convention for Identifiers (first-letter uppercase, full uppercase etc.) **/
 	@internal
-	@added("0.10.0")
+	@added("1.0.0")
 	var identifierStyle : IdentifierStyle;
 
 	/** A structure containing all the definitions of this project **/
@@ -73,7 +73,7 @@ What will change when "Multiple worlds" support will be added to LDtk:
 
 If you want to start supporting this future update easily, please refer to this documentation: https://github.com/deepnight/ldtk/issues/231
 	**/
-	@added("0.10.0")
+	@added("1.0.0")
 	var worlds: Array<WorldJson>;
 
 	/** Default X pivot (0 to 1) for new entities **/
@@ -160,7 +160,7 @@ If you want to start supporting this future update easily, please refer to this 
 
 A World contains multiple levels, and it has its own layout settings.
 **/
-@added("0.10.0")
+@added("1.0.0")
 @section("1.1")
 @display("World")
 typedef WorldJson = {
@@ -203,13 +203,13 @@ A `ldtkl` file is just a JSON file containing exactly what is described below.
 typedef LevelJson = {
 
 	/** Unique Int identifier **/
-	// @deprecation("0.10.0", "0.12.0", "iid")
+	// @deprecation("1.0.0", "1.2.0", "iid")
 	var uid: Int;
 
 	/**
 		Unique instance identifier
 	**/
-	@added("0.10.0")
+	@added("1.0.0")
 	var iid: String;
 
 	/** User defined unique identifier **/
@@ -225,7 +225,7 @@ typedef LevelJson = {
 		Only relevant for world layouts where level spatial positioning is manual (ie. GridVania, Free). For Horizontal and Vertical layouts, the value is always -1 here.
 	**/
 	@added("0.6.0")
-	@changed("0.10.0")
+	@changed("1.0.0")
 	var worldX: Int;
 
 	/**
@@ -233,14 +233,14 @@ typedef LevelJson = {
 		Only relevant for world layouts where level spatial positioning is manual (ie. GridVania, Free). For Horizontal and Vertical layouts, the value is always -1 here.
 	**/
 	@added("0.6.0")
-	@changed("0.10.0")
+	@changed("1.0.0")
 	var worldY: Int;
 
 	/**
 		Index that represents the "depth" of the level in the world. Default is 0, greater means "above", lower means "below".
 		This value is mostly used for display only and is intended to make stacking of levels easier to manage.
 	**/
-	@added("0.10.0")
+	@added("1.0.0")
 	var worldDepth: Int;
 
 	/** Width of the level in pixels **/
@@ -282,7 +282,7 @@ typedef LevelJson = {
 		Only relevant for world layouts where level spatial positioning is manual (ie. GridVania, Free). For Horizontal and Vertical layouts, this array is always empty.
 	**/
 	@added("0.6.0")
-	@changed("0.10.0")
+	@changed("1.0.0")
 	var __neighbours: Array<NeighbourLevel>;
 
 	/**
@@ -324,7 +324,7 @@ typedef LevelJson = {
 		The "guessed" color for this level in the editor, decided using either the background color or an existing custom field.
 	**/
 	@internal
-	@added("0.10.0")
+	@added("1.0.0")
 	@color
 	var __smartColor: String;
 }
@@ -400,7 +400,7 @@ typedef LayerInstanceJson = {
 	/**
 		The list of IntGrid values, stored using coordinate ID system (refer to online documentation for more info about "Coordinate IDs")
 	**/
-	@deprecation("0.8.0", "0.10.0", "intGridCsv")
+	@deprecation("0.8.0", "1.0.0", "intGridCsv")
 	@only("IntGrid layers")
 	var ?intGrid: Array<IntGridValueInstance>;
 
@@ -487,7 +487,7 @@ typedef Tile = {
 **/
 @display("Atlas tile rectangle")
 @section("3.2.2")
-@added("0.10.0")
+@added("1.0.0")
 typedef AtlasTileRect = {
 	/** X pixel coord of the tile in the Tileset atlas **/
 	var x : Int;
@@ -515,7 +515,7 @@ typedef EntityInstanceJson = {
 	var __pivot: Array<Float>;
 
 	/** Array of tags defined in this Entity definition **/
-	@added("0.10.0")
+	@added("1.0.0")
 	var __tags: Array<String>;
 
 	/** Entity width in pixels. For non-resizable entities, it will be the same as Entity definition. **/
@@ -535,7 +535,7 @@ typedef EntityInstanceJson = {
 	/**
 		Unique instance identifier
 	**/
-	@added("0.10.0")
+	@added("1.0.0")
 	var iid : String;
 
 	/** Reference of the **Entity definition** UID **/
@@ -638,12 +638,12 @@ typedef LayerDefJson = {
 
 	/** Width of the optional "guide" grid in pixels **/
 	@internal
-	@added("0.10.0")
+	@added("1.0.0")
 	var guideGridWid: Int;
 
 	/** Height of the optional "guide" grid in pixels **/
 	@internal
-	@added("0.10.0")
+	@added("1.0.0")
 	var guideGridHei: Int;
 
 	/** X offset of the layer, in pixels (IMPORTANT: this should be added to the `LayerInstance` optional offset) **/
@@ -657,19 +657,19 @@ typedef LayerDefJson = {
 	/**
 		Parallax horizontal factor (from -1 to 1, defaults to 0) which affects the scrolling speed of this layer, creating a fake 3D (parallax) effect.
 	**/
-	@added("0.10.0")
+	@added("1.0.0")
 	var parallaxFactorX: Float;
 
 	/**
 		Parallax vertical factor (from -1 to 1, defaults to 0) which affects the scrolling speed of this layer, creating a fake 3D (parallax) effect.
 	**/
-	@added("0.10.0")
+	@added("1.0.0")
 	var parallaxFactorY: Float;
 
 	/**
 		If true (default), a layer with a parallax factor will also be scaled up/down accordingly.
 	**/
-	@added("0.10.0")
+	@added("1.0.0")
 	var parallaxScaling: Bool;
 
 	/** Opacity of the layer (0 to 1.0) **/
@@ -677,26 +677,26 @@ typedef LayerDefJson = {
 
 	/** When TRUE, the layer will be faded out if it isn't the active one.  **/
 	@internal
-	@added("0.10.0")
+	@added("1.0.0")
 	var fadeInactive: Bool;
 
 	/** Hide the layer from the list on the side of the editor view. **/
 	@internal
-	@added("0.10.0")
+	@added("1.0.0")
 	var hideInList: Bool;
 
 	/**
 		An array that defines extra optional info for each IntGrid value.
 		WARNING: the array order is not related to actual IntGrid values! As user can re-order IntGrid values freely, you may value "2" before value "1" in this array.
 	**/
-	@changed("0.10.0")
+	@changed("1.0.0")
 	@only("IntGrid layer")
 	var intGridValues: Array<IntGridValueDef>;
 
 	/**
 		Reference to the Tileset UID being used by this auto-layer rules. WARNING: some layer *instances* might use a different tileset. So most of the time, you should probably use the `__tilesetDefUid` value from layer instances.
 	**/
-	@deprecation("0.10.0", "0.12.0", "tilesetDefUid")
+	@deprecation("1.0.0", "1.2.0", "tilesetDefUid")
 	@only("Auto-layers")
 	var autoTilesetDefUid: Null<Int>;
 
@@ -722,9 +722,9 @@ typedef LayerDefJson = {
 	/**
 		Reference to the default Tileset UID being used by this layer definition.
 		**WARNING**: some layer *instances* might use a different tileset. So most of the time, you should probably use the `__tilesetDefUid` value found in layer instances.
-		Note: since version 0.10.0, the old `autoTilesetDefUid` was removed and merged into this value.
+		Note: since version 1.0.0, the old `autoTilesetDefUid` was removed and merged into this value.
 	**/
-	@changed("0.10.0")
+	@changed("1.0.0")
 	@only("Tile layers, Auto-layers")
 	var tilesetDefUid: Null<Int>;
 
@@ -749,7 +749,7 @@ typedef AutoLayerRuleGroupJson = {
 	@added("0.9.0")
 	var isOptional: Bool;
 
-	@removed("0.10.0")
+	@removed("1.0.0")
 	var ?collapsed: Bool;
 }
 
@@ -886,13 +886,13 @@ typedef EntityDefJson = {
 	var tilesetId: Null<Int>;
 
 	/** Tile ID used for optional tile display **/
-	@deprecation("0.10.0", "0.12.0", "tileRect")
+	@deprecation("1.0.0", "1.2.0", "tileRect")
 	var tileId: Null<Int>;
 
 	/**
 		An array of 4 values (`[x,y,width,height]` in pixels) describing a sub rectangle from the tileset pointed by `tilesetId`.
 	**/
-	@added("0.10.0")
+	@added("1.0.0")
 	var tileRect: Null<AtlasTileRect>;
 
 	@changed("0.8.1")
@@ -981,7 +981,7 @@ typedef FieldDefJson = {
 	/** Default value if selected value is null or invalid. **/
 	var defaultOverride: Null< Enum<Dynamic> >;
 
-	@changed("0.10.0")
+	@changed("1.0.0")
 	@internal
 	var editorDisplayMode: FieldDisplayMode;
 
@@ -992,11 +992,11 @@ typedef FieldDefJson = {
 	var editorAlwaysShow: Bool;
 
 	@internal
-	@added("0.10.0")
+	@added("1.0.0")
 	var editorTextPrefix: Null<String>;
 
 	@internal
-	@added("0.10.0")
+	@added("1.0.0")
 	var editorTextSuffix: Null<String>;
 
 	@added("0.8.0")
@@ -1008,19 +1008,19 @@ typedef FieldDefJson = {
 	var textLanguageMode: Null<TextLanguageMode>;
 
 	@internal
-	@added("0.10.0")
+	@added("1.0.0")
 	var symmetricalRef: Bool;
 
 	@internal
-	@added("0.10.0")
+	@added("1.0.0")
 	var allowOutOfLevelRef: Bool;
 
 	@internal
-	@added("0.10.0")
+	@added("1.0.0")
 	var allowedRefs: EntityReferenceTarget;
 
 	@internal
-	@added("0.10.0")
+	@added("1.0.0")
 	var allowedRefTags: Array<String>;
 
 	/**
@@ -1028,13 +1028,13 @@ typedef FieldDefJson = {
 	**/
 	@only("Tile")
 	@internal
-	@added("0.10.0")
+	@added("1.0.0")
 	var tilesetUid: Null<Int>;
 
 
 	/** If TRUE, the color associated with this field will override the Entity or Level default color in the editor UI. For Enum fields, this would be the color associated to their values. **/
 	@internal
-	@added("0.10.0")
+	@added("1.0.0")
 	var useForSmartColor: Bool;
 }
 
@@ -1168,10 +1168,10 @@ typedef FieldInstanceTile = {
 @display("Neighbour level")
 typedef NeighbourLevel = {
 	/** Neighbour Instance Identifier **/
-	@added("0.10.0")
+	@added("1.0.0")
 	var levelIid : String;
 
-	@deprecation("0.10.0", "0.12.0", "levelIid")
+	@deprecation("1.0.0", "1.2.0", "levelIid")
 	var levelUid: Int;
 
 	/** A single lowercase character tipping on the level location (`n`orth, `s`outh, `w`est, `e`ast). **/
@@ -1222,7 +1222,7 @@ typedef IntGridValueDef = {
 
 /** In a tileset definition, enum based tag infos **/
 @inline
-@added("0.10.0")
+@added("1.0.0")
 typedef EnumTagValue = {
 	var enumValueId: String;
 	var tileIds: Array<Int>;
@@ -1230,7 +1230,7 @@ typedef EnumTagValue = {
 
 /** In a tileset definition, user defined meta-data of a tile. **/
 @inline
-@added("0.10.0")
+@added("1.0.0")
 typedef TileCustomMetadata = {
 	var tileId:Int;
 	var data:String;
@@ -1238,7 +1238,7 @@ typedef TileCustomMetadata = {
 
 /** This object is used in Field Instances to describe an EntityRef value. **/
 @section("2.1.5")
-@added("0.10.0")
+@added("1.0.0")
 typedef EntityReferenceInfos = {
 	var entityIid : String;
 	var layerIid : String;
@@ -1290,10 +1290,10 @@ enum FieldType {
 	F_Point;
 	F_Path;
 
-	@added("0.10.0")
+	@added("1.0.0")
 	F_EntityRef;
 
-	@added("0.10.0")
+	@added("1.0.0")
 	F_Tile;
 }
 
@@ -1375,14 +1375,14 @@ enum ImageExportMode {
 	OneImagePerLevel;
 }
 
-@added("0.10.0")
+@added("1.0.0")
 enum EntityReferenceTarget {
 	Any;
 	OnlySame;
 	OnlyTags;
 }
 
-@added("0.10.0")
+@added("1.0.0")
 enum IdentifierStyle {
 	Capitalize;
 	Uppercase;
