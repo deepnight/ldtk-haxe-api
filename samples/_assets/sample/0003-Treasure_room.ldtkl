@@ -5,13 +5,15 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "0.9.3",
+		"appVersion": "0.10.0",
 		"url": "https://ldtk.io"
 	},
 	"identifier": "Treasure_room",
+	"iid": "6004c190-66b0-11ec-a36b-37ad7b095a6c",
 	"uid": 41,
 	"worldX": 544,
 	"worldY": 224,
+	"worldDepth": 0,
 	"pxWid": 160,
 	"pxHei": 128,
 	"__bgColor": "#121331",
@@ -21,6 +23,7 @@
 	"bgPos": "Cover",
 	"bgPivotX": 0.5,
 	"bgPivotY": 0.5,
+	"__smartColor": "#7D7D8E",
 	"__bgPos": { "topLeftPx": [0,0], "scale": [0.5714285714285714,0.5714285714285714], "cropRect": [180,0,280,224] },
 	"externalRelPath": null,
 	"fieldInstances": [],
@@ -36,6 +39,7 @@
 			"__pxTotalOffsetY": 0,
 			"__tilesetDefUid": null,
 			"__tilesetRelPath": null,
+			"iid": "6004c195-66b0-11ec-a36b-7deaadd71cf6",
 			"levelId": 41,
 			"layerDefUid": 28,
 			"pxOffsetX": 0,
@@ -52,7 +56,9 @@
 					"__identifier": "Item",
 					"__grid": [10,9],
 					"__pivot": [0.5,1],
+					"__tags": [],
 					"__tile": { "tilesetUid": 31, "srcRect": [0,0,16,16] },
+					"iid": "6004c196-66b0-11ec-a36b-230838ef99d1",
 					"width": 10,
 					"height": 10,
 					"defUid": 29,
@@ -81,6 +87,7 @@
 			"__pxTotalOffsetY": 0,
 			"__tilesetDefUid": 1,
 			"__tilesetRelPath": "Cavernas_by_Adam_Saltsman-Extended.png",
+			"iid": "6004c197-66b0-11ec-a36b-a73c51bcd20e",
 			"levelId": 41,
 			"layerDefUid": 34,
 			"pxOffsetX": 0,
@@ -105,6 +112,7 @@
 			"__pxTotalOffsetY": 0,
 			"__tilesetDefUid": 58,
 			"__tilesetRelPath": "Cavernas_by_Adam_Saltsman-Extended_hued.png",
+			"iid": "6004c198-66b0-11ec-a36b-010522b658ac",
 			"levelId": 41,
 			"layerDefUid": 2,
 			"pxOffsetX": 0,
@@ -359,6 +367,7 @@
 			"__pxTotalOffsetY": 0,
 			"__tilesetDefUid": 1,
 			"__tilesetRelPath": "Cavernas_by_Adam_Saltsman-Extended.png",
+			"iid": "6004e8a0-66b0-11ec-a36b-81200e7178cb",
 			"levelId": 41,
 			"layerDefUid": 48,
 			"pxOffsetX": 0,
@@ -521,5 +530,5 @@
 			"entityInstances": []
 		}
 	],
-	"__neighbours": [{ "levelUid": 39, "dir": "w" }]
+	"__neighbours": [{ "levelIid": "60038910-66b0-11ec-a36b-1ff7a8a0ffd4", "levelUid": 39, "dir": "w" }]
 }
