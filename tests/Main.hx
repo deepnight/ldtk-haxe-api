@@ -52,6 +52,12 @@ class Main {
 			CiAssert.equals( project.getEnumDefFromValue(Foo).identifier, "SomeEnum" ); // extern
 			CiAssert.equals( project.getEnumDefFromValue(null), null );
 
+			// Original JSON fields
+			CiAssert.isNotNull( project.all_levels.Main_tests.json );
+			CiAssert.isNotNull( project.all_levels.Main_tests.l_IntGrid8.json );
+			CiAssert.isNotNull( project.all_levels.Main_tests.l_EntityTest.all_Mob[0].json );
+			CiAssert.isNotNull( project.all_tilesets.Cavernas_by_Adam_Saltsman.json );
+
 			// Types
 			section("Types...");
 			CiAssert.isNotNull( ProjectNoPackage.Enum_Mobs );

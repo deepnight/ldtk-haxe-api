@@ -3,6 +3,10 @@ package ldtk;
 class Tileset {
 	var untypedProject: ldtk.Project;
 
+	/** Original parsed JSON object **/
+	public var json(default,null) : ldtk.Json.TilesetDefJson;
+
+
 	/** Tileset unique identifier **/
 	public var identifier : String;
 
@@ -26,6 +30,7 @@ class Tileset {
 
 
 	public function new(p:ldtk.Project, json:ldtk.Json.TilesetDefJson) {
+		this.json = json;
 		untypedProject = p;
 		identifier = json.identifier;
 		tileGridSize = json.tileGridSize;

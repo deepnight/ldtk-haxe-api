@@ -5,6 +5,9 @@ import ldtk.Json;
 class Layer {
 	var untypedProject: ldtk.Project;
 
+	/** Original parsed JSON object **/
+	public var json(default,null) : LayerInstanceJson;
+
 	public var identifier : String;
 	public var type : LayerType;
 
@@ -38,6 +41,7 @@ class Layer {
 
 
 	public function new(p:ldtk.Project, json:ldtk.Json.LayerInstanceJson) {
+		this.json = json;
 		untypedProject = p;
 		identifier = json.__identifier;
 		type =
