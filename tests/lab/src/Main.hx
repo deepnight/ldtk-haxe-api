@@ -15,7 +15,6 @@ class Main extends dn.Process {
 		level = p.all_levels.Level_0;
 
 		// Render
-		root.setScale( dn.heaps.Scaler.bestFit_i(level.pxWid, level.pxHei) );
 		root.addChild( level.l_Collisions.render() );
 
 		// Level tile field
@@ -31,10 +30,14 @@ class Main extends dn.Process {
 			var bmp = new h2d.Bitmap(e.getTile(), root);
 			bmp.setPosition( e.pixelX, e.pixelY );
 		}
+
+		Process.resizeAll();
 	}
 
 	override function onResize() {
 		super.onResize();
+		
+		root.setScale( dn.heaps.Scaler.bestFit_i(level.pxWid, level.pxHei) );
 	}
 
 	override function update() {
