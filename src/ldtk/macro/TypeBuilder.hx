@@ -378,6 +378,18 @@ class TypeBuilder {
 					var ct = externEnumTypes.get(typeId).ct;
 					fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<$ct>) : (macro : $ct) });
 
+				case "Tile":
+					#if heaps
+					fields.push({
+						name: f.identifier+"_getTile",
+						ct: f.canBeNull ? (macro : Void->Null<h2d.Tile>) : (macro : Void->h2d.Tile)
+					});
+					#end
+					fields.push({
+						name: f.identifier+"_infos",
+						ct: f.canBeNull ? (macro : Null<ldtk.Json.FieldInstanceTile>) : (macro : ldtk.Json.FieldInstanceTile)
+					});
+
 				case _:
 					error("Unsupported field type "+typeName); // TODO add some extra context
 			}

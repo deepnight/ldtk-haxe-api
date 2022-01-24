@@ -33,7 +33,7 @@ class Entity {
 	public var height : Int;
 
 	/** Tile infos if the entity has one (it could have be overridden by a Field value, such as Enums) **/
-	public var defaultTileInfos : Null<{ tilesetUid:Int, x:Int, y:Int, w:Int, h:Int }>;
+	public var smartTileInfos : Null<{ tilesetUid:Int, x:Int, y:Int, w:Int, h:Int }>;
 
 	var _fields : Map<String, Dynamic> = new Map();
 
@@ -51,7 +51,7 @@ class Entity {
 		width = json.width;
 		height = json.height;
 
-		defaultTileInfos = json.__tile==null ? null : {
+		smartTileInfos = json.__tile==null ? null : {
 			tilesetUid: json.__tile.tilesetUid,
 			x: json.__tile.srcRect[0],
 			y: json.__tile.srcRect[1],
@@ -61,5 +61,19 @@ class Entity {
 
 		p._assignFieldInstanceValues(this, json.fieldInstances);
 	}
+
+
+	#if heaps
+	public function getTile() : Null<h2d.Tile> {
+		if( smartTileInfos==null )
+			return null;
+
+		var tileset = untypedProject._untypedTilesets.get(smartTileInfos.tilesetUid);
+		if( tileset==null )
+			return null;
+
+		return tileset.getFreeTile(smartTileInfos.x, smartTileInfos.y, smartTileInfos.w, smartTileInfos.h);
+	}
+	#end
 
 }

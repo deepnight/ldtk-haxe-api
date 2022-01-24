@@ -69,7 +69,7 @@ class Project {
 	public var worldLayout : WorldLayout;
 
 	/** A map containing all untyped Tilesets, indexed using their JSON  `uid` (integer unique ID). The typed tilesets will be added in a field called `all_tilesets` by macros. **/
-	@:allow(ldtk.Layer_Tiles, ldtk.Layer_AutoLayer, ldtk.Layer_IntGrid_AutoLayer)
+	@:allow(ldtk.Layer_Tiles, ldtk.Layer_AutoLayer, ldtk.Layer_IntGrid_AutoLayer, ldtk.Entity)
 	var _untypedTilesets : Map<Int, ldtk.Tileset>;
 
 	/** Internal asset cache to avoid reloading of previously loaded data. **/
@@ -193,8 +193,23 @@ class Project {
 						Reflect.setField(target, "f_"+f.__identifier, arr.map( (k)->Type.createEnum(e,k) ) );
 					}
 
+				case "Tile":
+					var tileInf : FieldInstanceTile = f.__value;
+					Reflect.setField(target, "f_"+f.__identifier+"_infos", tileInf);
+
+					#if heaps
+					Reflect.setField(target, "f_"+f.__identifier+"_getTile", ()->{
+						if( tileInf==null || !_untypedTilesets.exists(tileInf.tilesetUid))
+							return null;
+
+						var tileset = _untypedTilesets.get(tileInf.tilesetUid);
+						var tile = tileset.getFreeTile( tileInf.srcRect[0], tileInf.srcRect[1], tileInf.srcRect[2], tileInf.srcRect[3] );
+						return tile;
+					});
+					#end
+
 				case _ :
-					Project.error('Unknown field type $typeName'); // TODO add some helpful context here
+					Project.error('Unknown field type $typeName at runtime'); // TODO add some helpful context here
 			}
 		}
 	}
