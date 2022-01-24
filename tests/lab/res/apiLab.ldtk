@@ -9,8 +9,8 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.10.0",
-	"appBuildId": 456396,
-	"nextUid": 21,
+	"appBuildId": 456399,
+	"nextUid": 23,
 	"identifierStyle": "Capitalize",
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
@@ -429,6 +429,61 @@
 					"tilesetUid": 1
 				}
 			]
+		},
+		{
+			"identifier": "Entity",
+			"uid": 21,
+			"tags": [],
+			"width": 16,
+			"height": 16,
+			"resizableX": false,
+			"resizableY": false,
+			"keepAspectRatio": false,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#94D9B3",
+			"renderMode": "Rectangle",
+			"showName": true,
+			"tilesetId": null,
+			"tileId": null,
+			"tileRenderMode": "FitInside",
+			"tileRect": null,
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": [
+				{
+					"identifier": "Entity_ref",
+					"__type": "EntityRef",
+					"uid": 22,
+					"type": "F_EntityRef",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "RefLink",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "Any",
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
 		}
 	], "tilesets": [
 		{
@@ -613,6 +668,32 @@
 									}]
 								}
 							]
+						},
+						{
+							"__identifier": "Entity",
+							"__grid": [4,3],
+							"__pivot": [0,0],
+							"__tags": [],
+							"__tile": null,
+							"iid": "2e7ea540-66b0-11ec-a15d-e161fbf7841e",
+							"width": 16,
+							"height": 16,
+							"defUid": 21,
+							"px": [32,24],
+							"fieldInstances": [{
+								"__identifier": "Entity_ref",
+								"__value": {
+									"entityIid": "6af8f040-66b0-11ec-ad58-97d921e29d00",
+									"layerIid": "83048f80-66b0-11ec-80fa-59ffd8c3eb19",
+									"levelIid": "9b8c9441-66b0-11ec-80fa-3d41e1aed0f9"
+								},
+								"__type": "EntityRef",
+								"defUid": 22,
+								"realEditorValues": [{
+									"id": "V_String",
+									"params": ["6af8f040-66b0-11ec-ad58-97d921e29d00"]
+								}]
+							}]
 						}
 					]
 				},
