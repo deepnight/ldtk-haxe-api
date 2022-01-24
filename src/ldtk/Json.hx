@@ -558,9 +558,15 @@ typedef FieldInstanceJson = {
 	var __identifier: String;
 
 	/**
-		Actual value of the field instance. The value type may vary, depending on `__type` (Integer, Boolean, String etc.)
-		It can also be an `Array` of those same types.
-		For tiles, the value will be of `FieldInstanceTile` type.
+		Actual value of the field instance. The value type varies, depending on `__type`:
+		 - For **classic types** (ie. Integer, Float, Boolean, String, Text and FilePath), you just get the actual value with the expected type.
+		 - For **Color**, the value is an hexadecimal string using "#rrggbb" format.
+		 - For **Enum**, the value is a String representing the selected enum value.
+		 - For **Point**, the value is an object `{ cx : Int, cy : Int }` containing grid-based coordinates.
+		 - For **Tile**, the value will be an `FieldInstanceTile` object (see below).
+		 - For **EntityRef**, the value will be an `EntityReferenceInfos` object (see below).
+
+		If the field is an array, then this `__value` will also be a JSON array.
 	**/
 	var __value: Dynamic;
 
@@ -1146,8 +1152,8 @@ typedef EnumDefValues = {
 
 /* INLINED TYPES *****************************************************************************/
 
-/** Tile data in an Field instance **/
-@inline
+/** This object is used in Field Instances to describe a Tile value. **/
+@section("2.1.4")
 @display("Field instance tile")
 typedef FieldInstanceTile = {
 	/** Tileset ID **/
@@ -1228,6 +1234,15 @@ typedef EnumTagValue = {
 typedef TileCustomMetadata = {
 	var tileId:Int;
 	var data:String;
+}
+
+/** This object is used in Field Instances to describe an EntityRef value. **/
+@section("2.1.5")
+@added("0.10.0")
+typedef EntityReferenceInfos = {
+	var entityIid : String;
+	var layerIid : String;
+	var levelIid : String;
 }
 
 
@@ -1374,3 +1389,4 @@ enum IdentifierStyle {
 	Lowercase;
 	Free;
 }
+
