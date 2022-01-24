@@ -1369,7 +1369,7 @@ enum EntityReferenceTarget {
 
 @added("0.10.0")
 enum IdentifierStyle {
-	Capitalized;
+	Capitalize;
 	Uppercase;
 	Lowercase;
 	Free;
