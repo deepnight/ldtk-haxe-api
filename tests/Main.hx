@@ -10,7 +10,15 @@ class Main {
 		#else
 			hxd.Res.initEmbed();
 		#end
-		// CiAssert.VERBOSE = true;
+
+
+		// Check args
+		CiAssert.VERBOSE = false;
+		for( a in Sys.args() )
+			if( a=="-v" )
+				CiAssert.VERBOSE = true;
+
+		print("Running tests...");
 
 		// Run tests
 		var project = new ProjectNoPackage();
@@ -326,7 +334,8 @@ class Main {
 			return;
 		}
 
-		print("");
+		if( CiAssert.VERBOSE )
+			print("");
 		print("Success.");
 		exit(0);
 	}
