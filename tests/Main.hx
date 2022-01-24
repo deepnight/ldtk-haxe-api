@@ -85,7 +85,7 @@ class Main {
 			CiAssert.equals( project.levels[1].worldX, 512 );
 			CiAssert.equals( project.levels[1].worldY, 256 );
 			CiAssert.equals( project.levels[0].bgColor, 0x271E27 );
-			CiAssert.equals( project.levels[0].neighbours.length, 1 );
+			CiAssert.equals( project.levels[0].neighbours.length, 2 );
 			CiAssert.equals( project.levels[0].neighbours[0].dir, ldtk.Level.NeighbourDir.East );
 			CiAssert.equals( project.getLevelAt(10,10), project.all_levels.Main_tests );
 			CiAssert.equals( project.getLevelAt(600,400), project.all_levels.Offset_tests );
@@ -129,27 +129,44 @@ class Main {
 			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.type==Entities );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.all_Hero.length!=0 );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.all_Mob.length!=0 );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.all_Test.length!=0 );
+			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.all_AllFields.length!=0 );
 			CiAssert.equals( project.all_levels.Main_tests.l_EntityTest.all_Unused.length, 0 );
 			CiAssert.isNotNull( project.all_levels.Main_tests.l_EntityTest.all_Mob[0].smartTileInfos );
 
 			// Entities
 			var hero = project.all_levels.Main_tests.l_EntityTest.all_Hero[0];
 			var mob = project.all_levels.Main_tests.l_EntityTest.all_Mob[0];
-			var test = project.all_levels.Main_tests.l_EntityTest.all_Test[0];
+			var allFieldsTest = project.all_levels.Main_tests.l_EntityTest.all_AllFields[0];
 			var fileEnt = project.all_levels.Main_tests.l_EntityTest.all_File[0];
 			CiAssert.isNotNull( hero );
 			CiAssert.isNotNull( mob );
-			CiAssert.isNotNull( test );
+			CiAssert.isNotNull( allFieldsTest );
 			CiAssert.isNotNull( fileEnt );
 			CiAssert.equals( mob.f_scale, 0.5 );
 			CiAssert.equals( hero.width, 16 );
 			CiAssert.equals( hero.height, 24 );
-			CiAssert.equals( test.width, 32 );
-			CiAssert.equals( test.height, 32 );
-			CiAssert.equals( test.iid, "f2f3f740-66b0-11ec-91ab-910cd77ba401" );
-			CiAssert.equals( test.f_entityRefs[0], "57c51ab0-66b0-11ec-8446-f3a61ee63449" );
-			CiAssert.equals( test.f_entityRefs[1], "58f66ec0-66b0-11ec-8446-9b40d7be219b" );
+			CiAssert.equals( allFieldsTest.width, 32 );
+			CiAssert.equals( allFieldsTest.height, 32 );
+			CiAssert.equals( allFieldsTest.iid, "f2f3f740-66b0-11ec-91ab-910cd77ba401" );
+			CiAssert.equals( allFieldsTest.f_entityRefs.length, 2 );
+			CiAssert.equals( allFieldsTest.f_entityRefs[0].entityIid, "57c51ab0-66b0-11ec-8446-f3a61ee63449" );
+			CiAssert.equals( allFieldsTest.f_entityRefs[1].entityIid, "58f66ec0-66b0-11ec-8446-9b40d7be219b" );
+
+			// Sym ref 1
+			var fromSymRef = project.all_levels.Main_tests.l_EntityTest.all_SymRef[0];
+			var toSymRef = project.all_levels.Target_level_ref.l_EntityTest.all_SymRef[0];
+			CiAssert.equals( fromSymRef.f_ref.entityIid, toSymRef.iid );
+			CiAssert.equals( fromSymRef.f_ref.levelIid, project.all_levels.Target_level_ref.iid );
+			CiAssert.equals( toSymRef.f_ref.entityIid, fromSymRef.iid );
+			CiAssert.equals( toSymRef.f_ref.levelIid, project.all_levels.Main_tests.iid );
+
+			// Sym ref 2
+			var fromSymRef = project.all_levels.Main_tests.l_EntityTest.all_SymRef[1];
+			var toSymRef = project.all_levels.Main_tests.l_EntityTest.all_SymRef[2];
+			CiAssert.equals( fromSymRef.f_ref.entityIid, toSymRef.iid );
+			CiAssert.equals( fromSymRef.f_ref.levelIid, project.all_levels.Main_tests.iid );
+			CiAssert.equals( toSymRef.f_ref.entityIid, fromSymRef.iid );
+			CiAssert.equals( toSymRef.f_ref.levelIid, project.all_levels.Main_tests.iid );
 
 			// Regions
 			var r = project.all_levels.Main_tests.l_EntityTest.all_Region[0];
@@ -173,25 +190,25 @@ class Main {
 			CiAssert.equals( mob.f_lootDrops[3], ExternEnumTest.DroppedItemType.Key );
 
 			// Arrays
-			CiAssert.isNotNull( test.f_ints );
-			CiAssert.equals( test.f_ints.length, 3 );
-			CiAssert.equals( test.f_ints[0], 0 );
-			CiAssert.equals( test.f_ints[1], 1 );
-			CiAssert.equals( test.f_ints[2], 2 );
-			CiAssert.equals( test.f_strings[0], "a" );
-			CiAssert.equals( test.f_floats[1], 0.5 );
-			CiAssert.equals( test.f_bools[0], false );
-			CiAssert.equals( test.f_bools[2], true );
-			CiAssert.equals( test.f_colors_hex[0],"#FF0000" );
-			CiAssert.equals( test.f_colors_int[0], 0xff0000 );
-			CiAssert.isTrue( test.f_localEnums.length>0 );
-			CiAssert.equals( test.f_localEnums[0], FireBall );
-			CiAssert.isTrue( test.f_externEnums.length>0 );
-			CiAssert.equals( test.f_externEnums[0], Gold );
-			CiAssert.equals( test.f_externEnums[1], null );
-			CiAssert.equals( test.f_lowercaseEnum[0], Lc_a );
-			CiAssert.equals( test.f_lowercaseEnum[1], Lc_b );
-			CiAssert.equals( test.f_lowercaseEnum[2], null );
+			CiAssert.isNotNull( allFieldsTest.f_ints );
+			CiAssert.equals( allFieldsTest.f_ints.length, 3 );
+			CiAssert.equals( allFieldsTest.f_ints[0], 0 );
+			CiAssert.equals( allFieldsTest.f_ints[1], 1 );
+			CiAssert.equals( allFieldsTest.f_ints[2], 2 );
+			CiAssert.equals( allFieldsTest.f_strings[0], "a" );
+			CiAssert.equals( allFieldsTest.f_floats[1], 0.5 );
+			CiAssert.equals( allFieldsTest.f_bools[0], false );
+			CiAssert.equals( allFieldsTest.f_bools[2], true );
+			CiAssert.equals( allFieldsTest.f_colors_hex[0],"#FF0000" );
+			CiAssert.equals( allFieldsTest.f_colors_int[0], 0xff0000 );
+			CiAssert.isTrue( allFieldsTest.f_localEnums.length>0 );
+			CiAssert.equals( allFieldsTest.f_localEnums[0], FireBall );
+			CiAssert.isTrue( allFieldsTest.f_externEnums.length>0 );
+			CiAssert.equals( allFieldsTest.f_externEnums[0], Gold );
+			CiAssert.equals( allFieldsTest.f_externEnums[1], null );
+			CiAssert.equals( allFieldsTest.f_lowercaseEnum[0], Lc_a );
+			CiAssert.equals( allFieldsTest.f_lowercaseEnum[1], Lc_b );
+			CiAssert.equals( allFieldsTest.f_lowercaseEnum[2], null );
 
 			// FilePath entity field & loading
 			CiAssert.isNotNull( fileEnt.f_filePath );
@@ -201,7 +218,7 @@ class Main {
 
 			// Points / paths
 			section("Points/paths...");
-			CiAssert.isTrue( test.f_point.cx==19 );
+			CiAssert.isTrue( allFieldsTest.f_point.cx==19 );
 			CiAssert.isTrue( mob.f_path!=null );
 			CiAssert.isTrue( mob.f_path.length>0 );
 			CiAssert.isTrue( mob.f_path[0].cy == mob.cy );

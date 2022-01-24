@@ -9,8 +9,8 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.10.0",
-	"appBuildId": 456393,
-	"nextUid": 107,
+	"appBuildId": 456399,
+	"nextUid": 110,
 	"identifierStyle": "Free",
 	"worldLayout": "GridVania",
 	"worldGridWidth": 256,
@@ -663,7 +663,7 @@
 			]
 		},
 		{
-			"identifier": "Test",
+			"identifier": "AllFields",
 			"uid": 66,
 			"tags": [],
 			"width": 32,
@@ -1135,8 +1135,8 @@
 			"identifier": "RefTarget",
 			"uid": 102,
 			"tags": [],
-			"width": 16,
-			"height": 16,
+			"width": 12,
+			"height": 12,
 			"resizableX": false,
 			"resizableY": false,
 			"keepAspectRatio": false,
@@ -1144,7 +1144,7 @@
 			"lineOpacity": 1,
 			"hollow": false,
 			"color": "#FFCC00",
-			"renderMode": "Cross",
+			"renderMode": "Ellipse",
 			"showName": true,
 			"tilesetId": null,
 			"tileId": null,
@@ -1156,6 +1156,61 @@
 			"pivotX": 0.5,
 			"pivotY": 0.5,
 			"fieldDefs": []
+		},
+		{
+			"identifier": "SymRef",
+			"uid": 107,
+			"tags": [],
+			"width": 16,
+			"height": 16,
+			"resizableX": false,
+			"resizableY": false,
+			"keepAspectRatio": false,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#FF6700",
+			"renderMode": "Rectangle",
+			"showName": true,
+			"tilesetId": null,
+			"tileId": null,
+			"tileRenderMode": "FitInside",
+			"tileRect": null,
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": [
+				{
+					"identifier": "ref",
+					"__type": "EntityRef",
+					"uid": 108,
+					"type": "F_EntityRef",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "RefLink",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
 		}
 	], "tilesets": [
 		{
@@ -1411,7 +1466,7 @@
 				}
 			],
 			"layerInstances": null,
-			"__neighbours": [{ "levelIid": "f2f66840-66b0-11ec-91ab-e506cb005a35", "levelUid": 88, "dir": "e" }]
+			"__neighbours": [ { "levelIid": "f2f66840-66b0-11ec-91ab-e506cb005a35", "levelUid": 88, "dir": "e" }, { "levelIid": "bdabeb40-66b0-11ec-88f3-5d5bfa64cc93", "levelUid": 109, "dir": "e" } ]
 		},
 		{
 			"identifier": "Offset_tests",
@@ -1463,7 +1518,44 @@
 				{ "__identifier": "lowercase_enum", "__value": [], "__type": "Array<LocalEnum.lowercase_enum>", "defUid": 106, "realEditorValues": [] }
 			],
 			"layerInstances": null,
-			"__neighbours": [{ "levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e", "levelUid": 0, "dir": "w" }]
+			"__neighbours": [ { "levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e", "levelUid": 0, "dir": "w" }, { "levelIid": "bdabeb40-66b0-11ec-88f3-5d5bfa64cc93", "levelUid": 109, "dir": "n" } ]
+		},
+		{
+			"identifier": "Target_level_ref",
+			"iid": "bdabeb40-66b0-11ec-88f3-5d5bfa64cc93",
+			"uid": 109,
+			"worldX": 512,
+			"worldY": 0,
+			"worldDepth": 0,
+			"pxWid": 256,
+			"pxHei": 256,
+			"__bgColor": "#7F8093",
+			"bgColor": null,
+			"useAutoIdentifier": false,
+			"bgRelPath": null,
+			"bgPos": null,
+			"bgPivotX": 0.5,
+			"bgPivotY": 0.5,
+			"__smartColor": "#B9B9C4",
+			"__bgPos": null,
+			"externalRelPath": "unitTest/Target_level_ref.ldtkl",
+			"fieldInstances": [
+				{ "__identifier": "level_int", "__value": 0, "__type": "Int", "defUid": 93, "realEditorValues": [] },
+				{ "__identifier": "level_string", "__value": "", "__type": "String", "defUid": 94, "realEditorValues": [] },
+				{
+					"__identifier": "level_reward",
+					"__value": "Ammo",
+					"__type": "ExternEnum.DroppedItemType",
+					"defUid": 95,
+					"realEditorValues": [{
+						"id": "V_String",
+						"params": ["Ammo"]
+					}]
+				},
+				{ "__identifier": "lowercase_enum", "__value": [], "__type": "Array<LocalEnum.lowercase_enum>", "defUid": 106, "realEditorValues": [] }
+			],
+			"layerInstances": null,
+			"__neighbours": [ { "levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e", "levelUid": 0, "dir": "w" }, { "levelIid": "f2f66840-66b0-11ec-91ab-e506cb005a35", "levelUid": 88, "dir": "s" } ]
 		}
 	],
 	"worlds": []
