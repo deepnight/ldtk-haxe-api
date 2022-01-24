@@ -366,7 +366,10 @@ class TypeBuilder {
 					fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<ldtk.Point>) : (macro : ldtk.Point) });
 
 				case "EntityRef":
-					fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<String>) : (macro : String) });
+					fields.push({
+						name: f.identifier,
+						ct: f.canBeNull ? (macro : Null<ldtk.Json.EntityReferenceInfos>) : (macro : ldtk.Json.EntityReferenceInfos),
+					});
 
 				case _.indexOf("LocalEnum.") => 0:
 					var type = typeName.substr( typeName.indexOf(".")+1 );
