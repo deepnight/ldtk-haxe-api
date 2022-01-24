@@ -13,6 +13,7 @@
 	"uid": 0,
 	"worldX": 0,
 	"worldY": 0,
+	"worldDepth": 0,
 	"pxWid": 512,
 	"pxHei": 512,
 	"__bgColor": "#271E27",
