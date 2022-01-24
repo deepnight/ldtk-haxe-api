@@ -322,22 +322,23 @@ class Main {
 			// Unknown errors
 			print("Exception: "+e);
 			print("");
-			die();
+			exit(1);
 			return;
 		}
 
 		print("");
 		print("Success.");
+		exit(0);
 	}
 
 
-	static function die() {
+	static function exit(code=0) {
 		#if hxnodejs
-			js.node.Require.require("process").exit(1);
+			js.node.Require.require("process").exit(code);
 		#elseif js
 			// unsupported
 		#else
-			Sys.exit(1);
+			Sys.exit(code);
 		#end
 	}
 
