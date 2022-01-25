@@ -1059,6 +1059,12 @@ typedef TilesetDefJson = {
 	/** Unique Intidentifier **/
 	var uid: Int;
 
+	/**
+		If this value is set, then it means that this atlas uses an internal LDtk atlas image instead of a loaded one.
+	**/
+	@added("1.0.0")
+	var embedAtlas : Null<EmbedAtlas>;
+
 	/** Path to the source file, relative to the current project JSON file **/
 	var relPath: String;
 
@@ -1390,3 +1396,6 @@ enum IdentifierStyle {
 	Free;
 }
 
+enum EmbedAtlas {
+	LdtkIcons;
+}
