@@ -1013,6 +1013,10 @@ typedef FieldDefJson = {
 
 	@internal
 	@added("1.0.0")
+	var autoChainRef: Bool;
+
+	@internal
+	@added("1.0.0")
 	var allowOutOfLevelRef: Bool;
 
 	@internal
