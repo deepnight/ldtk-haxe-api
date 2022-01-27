@@ -866,6 +866,10 @@ typedef EntityDefJson = {
 	var renderMode: EntityRenderMode;
 
 	@internal
+	@added("0.10.0")
+	var tileOpacity: Float;
+
+	@internal
 	@added("0.8.0")
 	var fillOpacity: Float;
 
