@@ -675,10 +675,10 @@ typedef LayerDefJson = {
 	/** Opacity of the layer (0 to 1.0) **/
 	var displayOpacity: Float;
 
-	/** When TRUE, the layer will be faded out if it isn't the active one.  **/
+	/** Alpha of this layer when it is not the active one. **/
 	@internal
 	@added("1.0.0")
-	var fadeInactive: Bool;
+	var inactiveOpacity: Float;
 
 	/** Hide the layer from the list on the side of the editor view. **/
 	@internal
