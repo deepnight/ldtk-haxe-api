@@ -152,6 +152,10 @@ If you want to start supporting this future update easily, please refer to this 
 	@internal
 	@added("0.9.0")
 	var levelNamePattern: String;
+
+	@internal
+	@added("1.0.0")
+	var description: Null<String>;
 }
 
 
