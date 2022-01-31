@@ -153,9 +153,12 @@ If you want to start supporting this future update easily, please refer to this 
 	@added("0.9.0")
 	var levelNamePattern: String;
 
+	/**
+		This optional description is used by LDtk Samples to show up some informations and instructions.
+	**/
 	@internal
 	@added("1.0.0")
-	var description: Null<String>;
+	var tutorialDesc: Null<String>;
 }
 
 
