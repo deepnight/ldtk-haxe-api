@@ -1358,7 +1358,8 @@ enum FieldDisplayMode {
 	RadiusGrid;
 	ArrayCountWithLabel;
 	ArrayCountNoLabel;
-	RefLink;
+	RefLinkBetweenPivots;
+	RefLinkBetweenCenters;
 }
 
 enum BgImagePos {
