@@ -1379,6 +1379,8 @@ enum TextLanguageMode {
 	LangMarkdown;
 	LangJson;
 	LangXml;
+
+	LangLog;
 }
 
 enum ProjectFlag {
