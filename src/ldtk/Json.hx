@@ -24,24 +24,33 @@ typedef ProjectJson = {
 
 
 	/**
+		**WARNING**: this field will move to the `worlds` array after the "multi-worlds" update. It will then be `null`. You can enable the Multi-worlds advanced project option to enable the change immediately.
+
 		An enum that describes how levels are organized in this project (ie. linearly or in a 2D space).
 	**/
-	@added("0.6.0")
-	var worldLayout: WorldLayout;
+	@changed("1.0.0")
+	var worldLayout: Null<WorldLayout>;
+
 
 	/**
+		**WARNING**: this field will move to the `worlds` array after the "multi-worlds" update. It will then be `null`. You can enable the Multi-worlds advanced project option to enable the change immediately.
+
 		Width of the world grid in pixels.
 	**/
 	@only("'GridVania' layouts")
-	@added("0.6.0")
-	var worldGridWidth: Int;
+	@changed("1.0.0")
+	var worldGridWidth: Null<Int>;
+
 
 	/**
+		**WARNING**: this field will move to the `worlds` array after the "multi-worlds" update. It will then be `null`. You can enable the Multi-worlds advanced project option to enable the change immediately.
+
 		Height of the world grid in pixels.
 	**/
 	@only("'GridVania' layouts")
-	@added("0.6.0")
-	var worldGridHeight: Int;
+	@changed("1.0.0")
+	var worldGridHeight: Null<Int>;
+
 
 	/** Next Unique integer ID available **/
 	@internal
@@ -84,13 +93,26 @@ If you want to start supporting this future update easily, please refer to this 
 	@internal
 	var defaultPivotY: Float;
 
-	/** Default new level width **/
-	@internal
-	var defaultLevelWidth: Int;
 
-	/** Default new level height **/
+	/**
+		**WARNING**: this field will move to the `worlds` array after the "multi-worlds" update. It will then be `null`. You can enable the Multi-worlds advanced project option to enable the change immediately.
+
+		Default new level width
+	**/
+	@changed("1.0.0")
 	@internal
-	var defaultLevelHeight: Int;
+	var defaultLevelWidth: Null<Int>;
+
+
+	/**
+		**WARNING**: this field will move to the `worlds` array after the "multi-worlds" update. It will then be `null`. You can enable the Multi-worlds advanced project option to enable the change immediately.
+
+		Default new level height
+	**/
+	@changed("1.0.0")
+	@internal
+	var defaultLevelHeight: Null<Int>;
+
 
 	/** Default grid size for new layers **/
 	@internal
