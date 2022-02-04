@@ -182,6 +182,14 @@ typedef WorldJson = {
 	**/
 	var levels: Array<LevelJson>;
 
+	/** Default new level width **/
+	@internal
+	var defaultLevelWidth: Int;
+
+	/** Default new level height **/
+	@internal
+	var defaultLevelHeight: Int;
+
 	/**
 		An enum that describes how levels are organized in this project (ie. linearly or in a 2D space).
 	**/
