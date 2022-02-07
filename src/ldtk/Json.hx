@@ -1183,6 +1183,10 @@ typedef EnumDefJson = {
 
 	@internal
 	var externalFileChecksum: Null<String>;
+
+	/** An array of user-defined tags to organize the Enums **/
+	@added("1.0.0")
+	var tags: Array<String>;
 };
 
 @section("3.4.1")
