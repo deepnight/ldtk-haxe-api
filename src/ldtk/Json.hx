@@ -1159,6 +1159,10 @@ typedef TilesetDefJson = {
 		@added("0.6.0")
 		var averageColors: Null<String>;
 	}>;
+
+	/** An array of user-defined tags to organize the Tilesets **/
+	@added("1.0.0")
+	var tags: Array<String>;
 }
 
 
