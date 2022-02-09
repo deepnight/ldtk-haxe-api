@@ -194,35 +194,43 @@ A World contains multiple levels, and it has its own layout settings.
 @display("World")
 typedef WorldJson = {
 	/** Unique instance identifer **/
+	@added("1.0.0")
 	var iid: String;
 
 	/** User defined unique identifier **/
+	@added("1.0.0")
 	var identifier: String;
 
 	/**
 		All levels from this world. The order of this array is only relevant in `LinearHorizontal` and `linearVertical` world layouts (see `worldLayout` value). Otherwise, you should refer to the `worldX`,`worldY` coordinates of each Level.
 	**/
+	@added("1.0.0")
 	var levels: Array<LevelJson>;
 
 	/** Default new level width **/
 	@internal
+	@added("1.0.0")
 	var defaultLevelWidth: Int;
 
 	/** Default new level height **/
 	@internal
+	@added("1.0.0")
 	var defaultLevelHeight: Int;
 
 	/**
 		An enum that describes how levels are organized in this project (ie. linearly or in a 2D space).
 	**/
+	@added("1.0.0")
 	var worldLayout: WorldLayout;
 
 	/** Width of the world grid in pixels. **/
 	@only("'GridVania' layouts")
+	@added("1.0.0")
 	var worldGridWidth: Int;
 
 	/** Height of the world grid in pixels. **/
 	@only("'GridVania' layouts")
+	@added("1.0.0")
 	var worldGridHeight: Int;
 }
 
