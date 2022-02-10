@@ -1310,6 +1310,7 @@ typedef TileCustomMetadata = {
 /** This object is used in Field Instances to describe an EntityRef value. **/
 @section("2.1.5")
 @added("1.0.0")
+@display("Entity reference infos")
 typedef EntityReferenceInfos = {
 	var entityIid : String;
 	var layerIid : String;
