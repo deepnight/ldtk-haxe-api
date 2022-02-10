@@ -1295,6 +1295,7 @@ typedef IntGridValueDef = {
 /** In a tileset definition, enum based tag infos **/
 @inline
 @added("1.0.0")
+@display("Enum tag value")
 typedef EnumTagValue = {
 	var enumValueId: String;
 	var tileIds: Array<Int>;
@@ -1303,6 +1304,7 @@ typedef EnumTagValue = {
 /** In a tileset definition, user defined meta-data of a tile. **/
 @inline
 @added("1.0.0")
+@display("Tile custom metadata")
 typedef TileCustomMetadata = {
 	var tileId:Int;
 	var data:String;
