@@ -491,7 +491,7 @@ typedef LayerInstanceJson = {
 /**
 	This structure represents a single tile from a given Tileset.
 **/
-@section("2.1.1")
+@section("2.2")
 @added("0.4.0")
 @display("Tile instance")
 typedef Tile = {
@@ -545,7 +545,7 @@ typedef AtlasTileRect = {
 }
 
 
-@section("2.1.2")
+@section("2.3")
 @display("Entity instance")
 typedef EntityInstanceJson = {
 	/** Entity definition identifier **/
@@ -596,7 +596,7 @@ typedef EntityInstanceJson = {
 
 
 
-@section("2.1.3")
+@section("2.4")
 @display("Field instance")
 typedef FieldInstanceJson = {
 	/** Field definition identifier **/
@@ -1225,7 +1225,7 @@ typedef EnumDefValues = {
 /* INLINED TYPES *****************************************************************************/
 
 /** This object is used in Field Instances to describe a Tile value. **/
-@section("2.1.4")
+@section("2.4.1")
 @display("Field instance tile")
 typedef FieldInstanceTile = {
 	/** Tileset ID **/
@@ -1311,9 +1311,9 @@ typedef TileCustomMetadata = {
 }
 
 /** This object is used in Field Instances to describe an EntityRef value. **/
-@section("2.1.5")
+@section("2.4.2")
 @added("1.0.0")
-@display("Entity reference infos")
+@display("Field instance entity reference")
 typedef EntityReferenceInfos = {
 	var entityIid : String;
 	var layerIid : String;
@@ -1323,9 +1323,9 @@ typedef EntityReferenceInfos = {
 /**
 	This object is just a grid-based coordinate used in Field values.
 **/
-@section("2.1.6")
+@section("2.4.3")
 @added("1.0.0")
-@display("Grid point")
+@display("Field instance grid point")
 typedef GridPoint = {
 	var cx: Int;
 	var cy: Int;
