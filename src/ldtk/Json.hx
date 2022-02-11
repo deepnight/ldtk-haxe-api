@@ -616,7 +616,10 @@ typedef FieldInstanceJson = {
 	@types(Int, Float, Bool, String, ldtk.GridPoint, ldtk.FieldInstanceTile, ldtk.EntityReferenceInfos)
 	var __value: Dynamic;
 
-	/** Type of the field, such as `Int`, `Float`, `Enum(my_enum_name)`, `Bool`, etc. **/
+	/**
+		Type of the field, such as `Int`, `Float`, `String`, `Enum(my_enum_name)`, `Bool`, etc.
+		NOTE: if you enable the advanced option **Use Multilines type**, you will have "*Multilines*" instead of "*String*" when relevant.
+	**/
 	var __type: String;
 
 	/**
@@ -995,6 +998,7 @@ typedef FieldDefJson = {
 	/**
 		Human readable value type. Possible values: `Int, Float, String, Bool, Color, ExternEnum.XXX, LocalEnum.XXX, Point, FilePath`.
 		If the field is an array, this field will look like `Array<...>` (eg. `Array<Int>`, `Array<Point>` etc.)
+		NOTE: if you enable the advanced option **Use Multilines type**, you will have "*Multilines*" instead of "*String*" when relevant.
 	**/
 	var __type: String;
 
