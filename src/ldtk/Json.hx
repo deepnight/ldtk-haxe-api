@@ -1326,8 +1326,16 @@ typedef TileCustomMetadata = {
 @added("1.0.0")
 @display("Field instance entity reference")
 typedef EntityReferenceInfos = {
+	/** IID of the refered EntityInstance **/
+	@added("1.0.0")
 	var entityIid : String;
+
+	/** IID of the LayerInstance containing the refered EntityInstance **/
+	@added("1.0.0")
 	var layerIid : String;
+
+	/** IID of the Level containing the refered EntityInstance **/
+	@added("1.0.0")
 	var levelIid : String;
 }
 
