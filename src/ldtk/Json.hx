@@ -1449,6 +1449,7 @@ enum ProjectFlag {
 	IgnoreBackupSuggest;
 	PrependIndexToLevelFileNames;
 	MultiWorlds;
+	UseMultilinesType;
 }
 
 enum EntityLimitScope {
