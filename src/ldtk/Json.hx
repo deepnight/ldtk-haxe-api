@@ -535,12 +535,19 @@ typedef Tile = {
 @added("1.0.0")
 typedef AtlasTileRect = {
 	/** X pixel coord of the tile in the Tileset atlas **/
+	@added("1.0.0")
 	var x : Int;
 
 	/** Y pixel coord of the tile in the Tileset atlas **/
+	@added("1.0.0")
 	var y : Int;
 
+	/** Width in pixels **/
+	@added("1.0.0")
 	var w : Int;
+
+	/** Height in pixels **/
+	@added("1.0.0")
 	var h : Int;
 }
 
@@ -919,7 +926,7 @@ typedef EntityDefJson = {
 	var renderMode: EntityRenderMode;
 
 	@internal
-	@added("0.10.0")
+	@added("1.0.0")
 	var tileOpacity: Float;
 
 	@internal
@@ -1331,7 +1338,12 @@ typedef EntityReferenceInfos = {
 @added("1.0.0")
 @display("Field instance grid point")
 typedef GridPoint = {
+	/** X grid-based coordinate **/
+	@added("1.0.0")
 	var cx: Int;
+
+	/** Y grid-based coordinate **/
+	@added("1.0.0")
 	var cy: Int;
 }
 
