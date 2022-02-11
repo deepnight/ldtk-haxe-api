@@ -583,10 +583,11 @@ typedef EntityInstanceJson = {
 	var height: Int;
 
 	/**
-		Optional Tile used to display this entity (it could either be the default Entity tile, or some tile provided by a field value, like an Enum).
+		Optional AtlasTileRect used to display this entity (it could either be the default Entity tile, or some tile provided by a field value, like an Enum).
 	**/
 	@added("0.4.0")
-	var __tile: Null<FieldInstanceTile>;
+	@changed("1.0.0")
+	var __tile: Null<AtlasTileRect>;
 
 	/**
 		Unique instance identifier
@@ -1238,17 +1239,6 @@ typedef EnumDefValues = {
 
 
 /* INLINED TYPES *****************************************************************************/
-
-/** This object is used in Field Instances to describe a Tile value. **/
-@section("2.4.1")
-@display("Field instance tile")
-typedef FieldInstanceTile = {
-	/** Tileset ID **/
-	var tilesetUid: Int;
-
-	/** An array of 4 Int values that refers to the tile in the tileset image: `[ x, y, width, height ]` **/
-	var srcRect: Array<Int>;
-}
 
 /** Nearby level info **/
 @inline
