@@ -528,21 +528,21 @@ typedef Tile = {
 
 
 /**
-	An array of 4 integers (`[x,y,width,height]` in pixels) representing a custom rectangle from a Tileset image.
+	This object represents a custom sub rectangle in a Tileset image.
 **/
-@display("Atlas tile rectangle")
+@display("Tileset rectangle")
 @section("3.2.2")
 @added("1.0.0")
-typedef AtlasTileRect = {
+typedef TilesetRect = {
 	/** UID of the tileset **/
 	@added("1.0.0")
 	var tilesetUid : Int;
 
-	/** X pixel coord of the tile in the Tileset atlas **/
+	/** X pixels coordinate of the top-left corner in the Tileset image **/
 	@added("1.0.0")
 	var x : Int;
 
-	/** Y pixel coord of the tile in the Tileset atlas **/
+	/** Y pixels coordinate of the top-left corner in the Tileset image **/
 	@added("1.0.0")
 	var y : Int;
 
@@ -583,11 +583,11 @@ typedef EntityInstanceJson = {
 	var height: Int;
 
 	/**
-		Optional AtlasTileRect used to display this entity (it could either be the default Entity tile, or some tile provided by a field value, like an Enum).
+		Optional TilesetRect used to display this entity (it could either be the default Entity tile, or some tile provided by a field value, like an Enum).
 	**/
 	@added("0.4.0")
 	@changed("1.0.0")
-	var __tile: Null<AtlasTileRect>;
+	var __tile: Null<TilesetRect>;
 
 	/**
 		Unique instance identifier
@@ -620,12 +620,12 @@ typedef FieldInstanceJson = {
 		 - For **Color**, the value is an hexadecimal string using "#rrggbb" format.
 		 - For **Enum**, the value is a String representing the selected enum value.
 		 - For **Point**, the value is a [GridPoint](#ldtk-GridPoint) object.
-		 - For **Tile**, the value is a [AtlasTileRect](#ldtk-AtlasTileRect) object.
+		 - For **Tile**, the value is a [TilesetRect](#ldtk-TilesetRect) object.
 		 - For **EntityRef**, the value is an [EntityReferenceInfos](#ldtk-EntityReferenceInfos) object.
 
 		If the field is an array, then this `__value` will also be a JSON array.
 	**/
-	@types(Int, Float, Bool, String, ldtk.GridPoint, ldtk.AtlasTileRect, ldtk.EntityReferenceInfos)
+	@types(Int, Float, Bool, String, ldtk.GridPoint, ldtk.TilesetRect, ldtk.EntityReferenceInfos)
 	var __value: Dynamic;
 
 	/**
@@ -635,10 +635,10 @@ typedef FieldInstanceJson = {
 	var __type: String;
 
 	/**
-		Optional AtlasTileRect used to display this field (this can be the field own Tile, or some other Tile guessed from the value, like an Enum).
+		Optional TilesetRect used to display this field (this can be the field own Tile, or some other Tile guessed from the value, like an Enum).
 	**/
 	@added("1.0.0")
-	var __tile: Null<AtlasTileRect>;
+	var __tile: Null<TilesetRect>;
 
 	/**
 		Reference of the **Field definition** UID
@@ -968,7 +968,7 @@ typedef EntityDefJson = {
 		An object representing a rectangle from an existing Tileset
 	**/
 	@added("1.0.0")
-	var tileRect: Null<AtlasTileRect>;
+	var tileRect: Null<TilesetRect>;
 
 	@changed("0.8.1")
 	@internal
