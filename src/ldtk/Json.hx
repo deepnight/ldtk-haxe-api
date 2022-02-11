@@ -620,12 +620,12 @@ typedef FieldInstanceJson = {
 		 - For **Color**, the value is an hexadecimal string using "#rrggbb" format.
 		 - For **Enum**, the value is a String representing the selected enum value.
 		 - For **Point**, the value is a [GridPoint](#ldtk-GridPoint) object.
-		 - For **Tile**, the value is a [FieldInstanceTile](#ldtk-FieldInstanceTile) object.
+		 - For **Tile**, the value is a [AtlasTileRect](#ldtk-AtlasTileRect) object.
 		 - For **EntityRef**, the value is an [EntityReferenceInfos](#ldtk-EntityReferenceInfos) object.
 
 		If the field is an array, then this `__value` will also be a JSON array.
 	**/
-	@types(Int, Float, Bool, String, ldtk.GridPoint, ldtk.FieldInstanceTile, ldtk.EntityReferenceInfos)
+	@types(Int, Float, Bool, String, ldtk.GridPoint, ldtk.AtlasTileRect, ldtk.EntityReferenceInfos)
 	var __value: Dynamic;
 
 	/**
