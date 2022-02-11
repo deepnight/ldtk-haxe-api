@@ -635,6 +635,12 @@ typedef FieldInstanceJson = {
 	var __type: String;
 
 	/**
+		Optional AtlasTileRect used to display this field (this can be the field own Tile, or some other Tile guessed from the value, like an Enum).
+	**/
+	@added("1.0.0")
+	var __tile: Null<AtlasTileRect>;
+
+	/**
 		Reference of the **Field definition** UID
 	**/
 	var defUid: Int;
