@@ -534,6 +534,10 @@ typedef Tile = {
 @section("3.2.2")
 @added("1.0.0")
 typedef AtlasTileRect = {
+	/** UID of the tileset **/
+	@added("1.0.0")
+	var tilesetUid : Int;
+
 	/** X pixel coord of the tile in the Tileset atlas **/
 	@added("1.0.0")
 	var x : Int;
@@ -954,7 +958,7 @@ typedef EntityDefJson = {
 	var tileId: Null<Int>;
 
 	/**
-		An array of 4 values (`[x,y,width,height]` in pixels) describing a sub rectangle from the tileset pointed by `tilesetId`.
+		An object representing a rectangle from an existing Tileset
 	**/
 	@added("1.0.0")
 	var tileRect: Null<AtlasTileRect>;
