@@ -1337,6 +1337,10 @@ typedef EntityReferenceInfos = {
 	/** IID of the Level containing the refered EntityInstance **/
 	@added("1.0.0")
 	var levelIid : String;
+
+	/** IID of the World containing the refered EntityInstance **/
+	@added("1.0.0")
+	var worldIid : String;
 }
 
 /**
