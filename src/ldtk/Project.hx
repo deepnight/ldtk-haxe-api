@@ -194,16 +194,18 @@ class Project {
 					}
 
 				case "Tile":
-					var tileInf : FieldInstanceTile = f.__value;
-					Reflect.setField(target, "f_"+f.__identifier+"_infos", tileInf);
+					var tileRect : TilesetRect = f.__value;
+					if( !dn.M.isValidNumber(tileRect.x) )
+						tileRect = null; // old format
+					Reflect.setField(target, "f_"+f.__identifier+"_infos", tileRect);
 
 					#if heaps
 					Reflect.setField(target, "f_"+f.__identifier+"_getTile", ()->{
-						if( tileInf==null || !_untypedTilesets.exists(tileInf.tilesetUid))
+						if( tileRect==null || !_untypedTilesets.exists(tileRect.tilesetUid))
 							return null;
 
-						var tileset = _untypedTilesets.get(tileInf.tilesetUid);
-						var tile = tileset.getFreeTile( tileInf.srcRect[0], tileInf.srcRect[1], tileInf.srcRect[2], tileInf.srcRect[3] );
+						var tileset = _untypedTilesets.get(tileRect.tilesetUid);
+						var tile = tileset.getFreeTile( tileRect.x, tileRect.y, tileRect.w, tileRect.h );
 						return tile;
 					});
 					#end

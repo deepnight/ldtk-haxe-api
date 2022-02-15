@@ -390,7 +390,7 @@ class TypeBuilder {
 					#end
 					fields.push({
 						name: f.identifier+"_infos",
-						ct: f.canBeNull ? (macro : Null<ldtk.Json.FieldInstanceTile>) : (macro : ldtk.Json.FieldInstanceTile)
+						ct: f.canBeNull ? (macro : Null<ldtk.Json.TilesetRect>) : (macro : ldtk.Json.TilesetRect)
 					});
 
 				case _:

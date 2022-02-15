@@ -36,7 +36,7 @@ class Entity {
 	public var height : Int;
 
 	/** Tile infos if the entity has one (it could have be overridden by a Field value, such as Enums) **/
-	public var smartTileInfos : Null<{ tilesetUid:Int, x:Int, y:Int, w:Int, h:Int }>;
+	public var tileInfos : Null<ldtk.Json.TilesetRect>;
 
 	var _fields : Map<String, Dynamic> = new Map();
 
@@ -55,13 +55,7 @@ class Entity {
 		width = json.width;
 		height = json.height;
 
-		smartTileInfos = json.__tile==null ? null : {
-			tilesetUid: json.__tile.tilesetUid,
-			x: json.__tile.srcRect[0],
-			y: json.__tile.srcRect[1],
-			w: json.__tile.srcRect[2],
-			h: json.__tile.srcRect[3],
-		}
+		tileInfos = json.__tile;
 
 		p._assignFieldInstanceValues(this, json.fieldInstances);
 	}
@@ -69,14 +63,14 @@ class Entity {
 
 	#if heaps
 	public function getTile() : Null<h2d.Tile> {
-		if( smartTileInfos==null )
+		if( tileInfos==null )
 			return null;
 
-		var tileset = untypedProject._untypedTilesets.get(smartTileInfos.tilesetUid);
+		var tileset = untypedProject._untypedTilesets.get(tileInfos.tilesetUid);
 		if( tileset==null )
 			return null;
 
-		return tileset.getFreeTile(smartTileInfos.x, smartTileInfos.y, smartTileInfos.w, smartTileInfos.h);
+		return tileset.getFreeTile(tileInfos.x, tileInfos.y, tileInfos.w, tileInfos.h);
 	}
 	#end
 
