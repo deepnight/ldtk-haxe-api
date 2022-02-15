@@ -31,6 +31,10 @@ class Main extends dn.Process {
 			bmp.setPosition( e.pixelX, e.pixelY );
 		}
 
+		// Refs
+		for(e in level.l_Entities.all_RefSource)
+			trace(e.f_name+" => "+(e.f_target!=null ? e.f_target.entityIid : null));
+
 		Process.resizeAll();
 	}
 
