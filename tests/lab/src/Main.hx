@@ -12,7 +12,7 @@ class Main extends dn.Process {
 		createRoot(Boot.ME.s2d);
 
 		p = new LdtkProject();
-		level = p.all_levels.Level_0;
+		level = p.all_levels.World_Level_0;
 
 		// Render
 		root.addChild( level.l_Collisions.render() );
@@ -36,7 +36,7 @@ class Main extends dn.Process {
 
 	override function onResize() {
 		super.onResize();
-		
+
 		root.setScale( dn.heaps.Scaler.bestFit_i(level.pxWid, level.pxHei) );
 	}
 
