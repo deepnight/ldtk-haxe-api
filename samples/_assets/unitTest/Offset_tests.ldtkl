@@ -5,7 +5,7 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "0.10.0",
+		"appVersion": "0.10.0-beta1",
 		"url": "https://ldtk.io"
 	},
 	"identifier": "Offset_tests",
@@ -27,34 +27,16 @@
 	"__bgPos": null,
 	"externalRelPath": null,
 	"fieldInstances": [
-		{
-			"__identifier": "level_int",
-			"__value": 2,
-			"__type": "Int",
-			"defUid": 93,
-			"realEditorValues": [{ "id": "V_Int", "params": [2] }]
-		},
-		{
-			"__identifier": "level_string",
-			"__value": "other",
-			"__type": "String",
-			"defUid": 94,
-			"realEditorValues": [{
-				"id": "V_String",
-				"params": ["other"]
-			}]
-		},
-		{
-			"__identifier": "level_reward",
-			"__value": "Key",
-			"__type": "ExternEnum.DroppedItemType",
-			"defUid": 95,
-			"realEditorValues": [{
-				"id": "V_String",
-				"params": ["Key"]
-			}]
-		},
-		{ "__identifier": "lowercase_enum", "__value": [], "__type": "Array<LocalEnum.lowercase_enum>", "defUid": 106, "realEditorValues": [] }
+		{ "__identifier": "level_int", "__value": 2, "__type": "Int", "__tile": null, "defUid": 93, "realEditorValues": [{ "id": "V_Int", "params": [2] }] },
+		{ "__identifier": "level_string", "__value": "other", "__type": "String", "__tile": null, "defUid": 94, "realEditorValues": [{
+			"id": "V_String",
+			"params": ["other"]
+		}] },
+		{ "__identifier": "level_reward", "__value": "Key", "__type": "ExternEnum.DroppedItemType", "__tile": null, "defUid": 95, "realEditorValues": [{
+			"id": "V_String",
+			"params": ["Key"]
+		}] },
+		{ "__identifier": "lowercase_enum", "__value": [], "__type": "Array<LocalEnum.lowercase_enum>", "__tile": null, "defUid": 106, "realEditorValues": [] }
 	],
 	"layerInstances": [
 		{

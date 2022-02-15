@@ -5,21 +5,21 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "0.10.0",
+		"appVersion": "0.10.0-beta1",
 		"url": "https://ldtk.io"
 	},
-	"jsonVersion": "0.10.0",
-	"appBuildId": 456399,
-	"nextUid": 110,
+	"jsonVersion": "0.10.0-beta1",
+	"appBuildId": 456924,
+	"nextUid": 112,
 	"identifierStyle": "Free",
 	"worldLayout": "GridVania",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
+	"defaultLevelWidth": 256,
+	"defaultLevelHeight": 256,
 	"defaultPivotX": 0,
 	"defaultPivotY": 0,
 	"defaultGridSize": 16,
-	"defaultLevelWidth": 256,
-	"defaultLevelHeight": 256,
 	"bgColor": "#3C3E54",
 	"defaultLevelBgColor": "#7F8093",
 	"minifyJson": false,
@@ -29,7 +29,8 @@
 	"pngFilePattern": null,
 	"backupOnSave": false,
 	"backupLimit": 10,
-	"levelNamePattern": "Level_%idx",
+	"levelNamePattern": "%world_Level_%idx",
+	"tutorialDesc": null,
 	"flags": [],
 	"defs": { "layers": [
 		{
@@ -41,8 +42,9 @@
 			"guideGridWid": 0,
 			"guideGridHei": 0,
 			"displayOpacity": 1,
-			"fadeInactive": false,
+			"inactiveOpacity": 1,
 			"hideInList": false,
+			"hideFieldsWhenInactive": true,
 			"pxOffsetX": 0,
 			"pxOffsetY": 0,
 			"parallaxFactorX": 0,
@@ -290,8 +292,9 @@
 			"guideGridWid": 0,
 			"guideGridHei": 0,
 			"displayOpacity": 1,
-			"fadeInactive": false,
+			"inactiveOpacity": 1,
 			"hideInList": false,
+			"hideFieldsWhenInactive": true,
 			"pxOffsetX": 0,
 			"pxOffsetY": 0,
 			"parallaxFactorX": 0,
@@ -367,8 +370,9 @@
 			"guideGridWid": 0,
 			"guideGridHei": 0,
 			"displayOpacity": 1,
-			"fadeInactive": false,
+			"inactiveOpacity": 0.6,
 			"hideInList": false,
+			"hideFieldsWhenInactive": true,
 			"pxOffsetX": 0,
 			"pxOffsetY": 0,
 			"parallaxFactorX": 0,
@@ -393,8 +397,9 @@
 			"guideGridWid": 0,
 			"guideGridHei": 0,
 			"displayOpacity": 1,
-			"fadeInactive": false,
+			"inactiveOpacity": 1,
 			"hideInList": false,
+			"hideFieldsWhenInactive": true,
 			"pxOffsetX": 0,
 			"pxOffsetY": 0,
 			"parallaxFactorX": 0,
@@ -419,8 +424,9 @@
 			"guideGridWid": 0,
 			"guideGridHei": 0,
 			"displayOpacity": 0.62,
-			"fadeInactive": false,
+			"inactiveOpacity": 1,
 			"hideInList": false,
+			"hideFieldsWhenInactive": true,
 			"pxOffsetX": 0,
 			"pxOffsetY": 0,
 			"parallaxFactorX": 0,
@@ -450,8 +456,9 @@
 			"guideGridWid": 0,
 			"guideGridHei": 0,
 			"displayOpacity": 1,
-			"fadeInactive": false,
+			"inactiveOpacity": 1,
 			"hideInList": false,
+			"hideFieldsWhenInactive": true,
 			"pxOffsetX": 4,
 			"pxOffsetY": 4,
 			"parallaxFactorX": 0,
@@ -477,6 +484,7 @@
 			"resizableX": false,
 			"resizableY": false,
 			"keepAspectRatio": false,
+			"tileOpacity": 1,
 			"fillOpacity": 1,
 			"lineOpacity": 1,
 			"hollow": false,
@@ -516,6 +524,7 @@
 					"defaultOverride": null,
 					"textLanguageMode": null,
 					"symmetricalRef": false,
+					"autoChainRef": true,
 					"allowOutOfLevelRef": true,
 					"allowedRefs": "OnlySame",
 					"allowedRefTags": [],
@@ -532,6 +541,7 @@
 			"resizableX": false,
 			"resizableY": false,
 			"keepAspectRatio": false,
+			"tileOpacity": 1,
 			"fillOpacity": 1,
 			"lineOpacity": 1,
 			"hollow": false,
@@ -571,6 +581,7 @@
 					"defaultOverride": null,
 					"textLanguageMode": null,
 					"symmetricalRef": false,
+					"autoChainRef": true,
 					"allowOutOfLevelRef": true,
 					"allowedRefs": "OnlySame",
 					"allowedRefTags": [],
@@ -599,6 +610,7 @@
 					"defaultOverride": null,
 					"textLanguageMode": null,
 					"symmetricalRef": false,
+					"autoChainRef": true,
 					"allowOutOfLevelRef": true,
 					"allowedRefs": "OnlySame",
 					"allowedRefTags": [],
@@ -627,6 +639,7 @@
 					"defaultOverride": { "id": "V_Float", "params": [1] },
 					"textLanguageMode": null,
 					"symmetricalRef": false,
+					"autoChainRef": true,
 					"allowOutOfLevelRef": true,
 					"allowedRefs": "OnlySame",
 					"allowedRefTags": [],
@@ -655,6 +668,7 @@
 					"defaultOverride": null,
 					"textLanguageMode": null,
 					"symmetricalRef": false,
+					"autoChainRef": true,
 					"allowOutOfLevelRef": true,
 					"allowedRefs": "OnlySame",
 					"allowedRefTags": [],
@@ -671,6 +685,7 @@
 			"resizableX": false,
 			"resizableY": false,
 			"keepAspectRatio": false,
+			"tileOpacity": 1,
 			"fillOpacity": 1,
 			"lineOpacity": 1,
 			"hollow": false,
@@ -710,6 +725,7 @@
 					"defaultOverride": null,
 					"textLanguageMode": null,
 					"symmetricalRef": false,
+					"autoChainRef": true,
 					"allowOutOfLevelRef": true,
 					"allowedRefs": "OnlySame",
 					"allowedRefTags": [],
@@ -738,6 +754,7 @@
 					"defaultOverride": null,
 					"textLanguageMode": null,
 					"symmetricalRef": false,
+					"autoChainRef": true,
 					"allowOutOfLevelRef": true,
 					"allowedRefs": "OnlySame",
 					"allowedRefTags": [],
@@ -766,6 +783,7 @@
 					"defaultOverride": null,
 					"textLanguageMode": null,
 					"symmetricalRef": false,
+					"autoChainRef": true,
 					"allowOutOfLevelRef": true,
 					"allowedRefs": "OnlySame",
 					"allowedRefTags": [],
@@ -794,6 +812,7 @@
 					"defaultOverride": { "id": "V_Float", "params": [0.5] },
 					"textLanguageMode": null,
 					"symmetricalRef": false,
+					"autoChainRef": true,
 					"allowOutOfLevelRef": true,
 					"allowedRefs": "OnlySame",
 					"allowedRefTags": [],
@@ -822,6 +841,7 @@
 					"defaultOverride": null,
 					"textLanguageMode": null,
 					"symmetricalRef": false,
+					"autoChainRef": true,
 					"allowOutOfLevelRef": true,
 					"allowedRefs": "OnlySame",
 					"allowedRefTags": [],
@@ -850,6 +870,7 @@
 					"defaultOverride": { "id": "V_Int", "params": [16777215] },
 					"textLanguageMode": null,
 					"symmetricalRef": false,
+					"autoChainRef": true,
 					"allowOutOfLevelRef": true,
 					"allowedRefs": "OnlySame",
 					"allowedRefTags": [],
@@ -878,6 +899,7 @@
 					"defaultOverride": null,
 					"textLanguageMode": null,
 					"symmetricalRef": false,
+					"autoChainRef": true,
 					"allowOutOfLevelRef": true,
 					"allowedRefs": "OnlySame",
 					"allowedRefTags": [],
@@ -906,6 +928,7 @@
 					"defaultOverride": null,
 					"textLanguageMode": null,
 					"symmetricalRef": false,
+					"autoChainRef": true,
 					"allowOutOfLevelRef": true,
 					"allowedRefs": "OnlySame",
 					"allowedRefTags": [],
@@ -920,7 +943,7 @@
 					"canBeNull": true,
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
-					"editorDisplayMode": "RefLink",
+					"editorDisplayMode": "RefLinkBetweenPivots",
 					"editorDisplayPos": "Above",
 					"editorAlwaysShow": false,
 					"editorCutLongValues": true,
@@ -934,6 +957,7 @@
 					"defaultOverride": null,
 					"textLanguageMode": null,
 					"symmetricalRef": false,
+					"autoChainRef": true,
 					"allowOutOfLevelRef": true,
 					"allowedRefs": "Any",
 					"allowedRefTags": [],
@@ -962,6 +986,7 @@
 					"defaultOverride": null,
 					"textLanguageMode": null,
 					"symmetricalRef": false,
+					"autoChainRef": true,
 					"allowOutOfLevelRef": true,
 					"allowedRefs": "OnlySame",
 					"allowedRefTags": [],
@@ -978,6 +1003,7 @@
 			"resizableX": false,
 			"resizableY": false,
 			"keepAspectRatio": false,
+			"tileOpacity": 1,
 			"fillOpacity": 1,
 			"lineOpacity": 1,
 			"hollow": false,
@@ -1004,6 +1030,7 @@
 			"resizableX": false,
 			"resizableY": false,
 			"keepAspectRatio": false,
+			"tileOpacity": 1,
 			"fillOpacity": 1,
 			"lineOpacity": 1,
 			"hollow": false,
@@ -1030,6 +1057,7 @@
 			"resizableX": false,
 			"resizableY": false,
 			"keepAspectRatio": false,
+			"tileOpacity": 1,
 			"fillOpacity": 1,
 			"lineOpacity": 1,
 			"hollow": false,
@@ -1069,6 +1097,7 @@
 					"defaultOverride": null,
 					"textLanguageMode": null,
 					"symmetricalRef": false,
+					"autoChainRef": true,
 					"allowOutOfLevelRef": true,
 					"allowedRefs": "OnlySame",
 					"allowedRefTags": [],
@@ -1085,7 +1114,8 @@
 			"resizableX": true,
 			"resizableY": true,
 			"keepAspectRatio": false,
-			"fillOpacity": 1,
+			"tileOpacity": 0.25,
+			"fillOpacity": 0.15,
 			"lineOpacity": 1,
 			"hollow": true,
 			"color": "#94D9B3",
@@ -1124,6 +1154,7 @@
 					"defaultOverride": null,
 					"textLanguageMode": null,
 					"symmetricalRef": false,
+					"autoChainRef": true,
 					"allowOutOfLevelRef": true,
 					"allowedRefs": "OnlySame",
 					"allowedRefTags": [],
@@ -1140,6 +1171,7 @@
 			"resizableX": false,
 			"resizableY": false,
 			"keepAspectRatio": false,
+			"tileOpacity": 1,
 			"fillOpacity": 1,
 			"lineOpacity": 1,
 			"hollow": false,
@@ -1166,6 +1198,7 @@
 			"resizableX": false,
 			"resizableY": false,
 			"keepAspectRatio": false,
+			"tileOpacity": 1,
 			"fillOpacity": 1,
 			"lineOpacity": 1,
 			"hollow": false,
@@ -1191,7 +1224,7 @@
 					"canBeNull": false,
 					"arrayMinLength": null,
 					"arrayMaxLength": null,
-					"editorDisplayMode": "RefLink",
+					"editorDisplayMode": "RefLinkBetweenPivots",
 					"editorDisplayPos": "Above",
 					"editorAlwaysShow": false,
 					"editorCutLongValues": true,
@@ -1205,10 +1238,68 @@
 					"defaultOverride": null,
 					"textLanguageMode": null,
 					"symmetricalRef": true,
+					"autoChainRef": true,
 					"allowOutOfLevelRef": true,
 					"allowedRefs": "OnlySame",
 					"allowedRefTags": [],
 					"tilesetUid": null
+				}
+			]
+		},
+		{
+			"identifier": "EntityTiles",
+			"uid": 110,
+			"tags": [],
+			"width": 32,
+			"height": 32,
+			"resizableX": false,
+			"resizableY": false,
+			"keepAspectRatio": false,
+			"tileOpacity": 1,
+			"fillOpacity": 0.08,
+			"lineOpacity": 0,
+			"hollow": false,
+			"color": "#94D9B3",
+			"renderMode": "Tile",
+			"showName": true,
+			"tilesetId": 14,
+			"tileId": 7,
+			"tileRenderMode": "FitInside",
+			"tileRect": { "tilesetUid": 14, "x": 32, "y": 32, "w": 32, "h": 32 },
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0,
+			"pivotY": 0,
+			"fieldDefs": [
+				{
+					"identifier": "altTile",
+					"__type": "Tile",
+					"uid": 111,
+					"type": "F_Tile",
+					"isArray": false,
+					"canBeNull": true,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "EntityTile",
+					"editorDisplayPos": "Above",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefTags": [],
+					"tilesetUid": 14
 				}
 			]
 		}
@@ -1219,11 +1310,13 @@
 			"identifier": "Minecraft_texture_pack",
 			"uid": 14,
 			"relPath": "Minecraft_texture_pack.gif",
+			"embedAtlas": null,
 			"pxWid": 192,
 			"pxHei": 128,
 			"tileGridSize": 32,
 			"spacing": 0,
 			"padding": 0,
+			"tags": [],
 			"tagsSourceEnumUid": 100,
 			"enumTags": [ { "enumValueId": "Dirt", "tileIds": [2,3,8,9] }, { "enumValueId": "Stone", "tileIds": [1,5,6,7,11,12,13,14,16,17,18,19,20,21,22,23] }, { "enumValueId": "Grass", "tileIds": [0,3] }, { "enumValueId": "Wood", "tileIds": [4,10,15] } ],
 			"customData": [],
@@ -1239,11 +1332,13 @@
 			"identifier": "Cavernas_by_Adam_Saltsman",
 			"uid": 46,
 			"relPath": "Cavernas_by_Adam_Saltsman-Extended.png",
+			"embedAtlas": null,
 			"pxWid": 96,
 			"pxHei": 256,
 			"tileGridSize": 8,
 			"spacing": 0,
 			"padding": 0,
+			"tags": [],
 			"tagsSourceEnumUid": 103,
 			"enumTags": [ { "enumValueId": "lc_a", "tileIds": [0] }, { "enumValueId": "lc_b", "tileIds": [1] }, { "enumValueId": "lc_c", "tileIds": [2] }, { "enumValueId": "lc_d", "tileIds": [3] } ],
 			"customData": [],
@@ -1258,37 +1353,37 @@
 			{ "id": "Trash", "tileId": 7, "color": 4473907, "__tileSrcRect": [32,32,32,32] },
 			{ "id": "Shooter", "tileId": 12, "color": 7824981, "__tileSrcRect": [0,64,32,32] },
 			{ "id": "Shielder", "tileId": 13, "color": 6706500, "__tileSrcRect": [32,64,32,32] }
-		], "iconTilesetUid": 14, "externalRelPath": null, "externalFileChecksum": null },
+		], "iconTilesetUid": 14, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
 		{ "identifier": "Weapons", "uid": 10, "values": [
 			{ "id": "LongBow", "tileId": null, "color": 0, "__tileSrcRect": null },
 			{ "id": "Torch", "tileId": null, "color": 0, "__tileSrcRect": null },
 			{ "id": "Grenade", "tileId": null, "color": 0, "__tileSrcRect": null },
 			{ "id": "FireBall", "tileId": null, "color": 0, "__tileSrcRect": null }
-		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null },
+		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
 		{ "identifier": "CollisionType", "uid": 100, "values": [
 			{ "id": "Dirt", "tileId": null, "color": 12951109, "__tileSrcRect": null },
 			{ "id": "Stone", "tileId": null, "color": 9475234, "__tileSrcRect": null },
 			{ "id": "Grass", "tileId": null, "color": 4964962, "__tileSrcRect": null },
 			{ "id": "Wood", "tileId": null, "color": 10312771, "__tileSrcRect": null }
-		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null },
+		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
 		{ "identifier": "lowercase_enum", "uid": 103, "values": [
 			{ "id": "lc_a", "tileId": null, "color": 16711680, "__tileSrcRect": null },
 			{ "id": "lc_b", "tileId": null, "color": 65280, "__tileSrcRect": null },
 			{ "id": "lc_c", "tileId": null, "color": 255, "__tileSrcRect": null },
 			{ "id": "lc_d", "tileId": null, "color": 16711935, "__tileSrcRect": null }
-		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null }
+		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] }
 	], "externalEnums": [
 		{ "identifier": "DroppedItemType", "uid": 29, "values": [
 			{ "id": "Ammo", "tileId": null, "color": 0, "__tileSrcRect": null },
 			{ "id": "Food", "tileId": null, "color": 0, "__tileSrcRect": null },
 			{ "id": "Gold", "tileId": null, "color": 0, "__tileSrcRect": null },
 			{ "id": "Key", "tileId": null, "color": 0, "__tileSrcRect": null }
-		], "iconTilesetUid": null, "externalRelPath": "../_srcCommon/ExternEnumTest.hx", "externalFileChecksum": "411417ba762ae881749b425b1c129b19" },
+		], "iconTilesetUid": null, "externalRelPath": "../_srcCommon/ExternEnumTest.hx", "externalFileChecksum": "411417ba762ae881749b425b1c129b19", "tags": [] },
 		{ "identifier": "SomeEnum", "uid": 31, "values": [
 			{ "id": "Bar", "tileId": null, "color": 0, "__tileSrcRect": null },
 			{ "id": "Foo", "tileId": null, "color": 0, "__tileSrcRect": null },
 			{ "id": "Pouet", "tileId": null, "color": 0, "__tileSrcRect": null }
-		], "iconTilesetUid": null, "externalRelPath": "../_srcCommon/ExternEnumTest.hx", "externalFileChecksum": "411417ba762ae881749b425b1c129b19" }
+		], "iconTilesetUid": null, "externalRelPath": "../_srcCommon/ExternEnumTest.hx", "externalFileChecksum": "411417ba762ae881749b425b1c129b19", "tags": [] }
 	], "levelFields": [
 		{
 			"identifier": "level_int",
@@ -1313,6 +1408,7 @@
 			"defaultOverride": null,
 			"textLanguageMode": null,
 			"symmetricalRef": false,
+			"autoChainRef": true,
 			"allowOutOfLevelRef": true,
 			"allowedRefs": "OnlySame",
 			"allowedRefTags": [],
@@ -1341,6 +1437,7 @@
 			"defaultOverride": null,
 			"textLanguageMode": null,
 			"symmetricalRef": false,
+			"autoChainRef": true,
 			"allowOutOfLevelRef": true,
 			"allowedRefs": "OnlySame",
 			"allowedRefTags": [],
@@ -1369,6 +1466,7 @@
 			"defaultOverride": null,
 			"textLanguageMode": null,
 			"symmetricalRef": false,
+			"autoChainRef": true,
 			"allowOutOfLevelRef": true,
 			"allowedRefs": "OnlySame",
 			"allowedRefTags": [],
@@ -1397,6 +1495,7 @@
 			"defaultOverride": null,
 			"textLanguageMode": null,
 			"symmetricalRef": false,
+			"autoChainRef": true,
 			"allowOutOfLevelRef": true,
 			"allowedRefs": "OnlySame",
 			"allowedRefTags": [],
@@ -1424,46 +1523,22 @@
 			"__bgPos": { "topLeftPx": [0,0], "scale": [2.2857142857142856,2.2857142857142856], "cropRect": [0,0,224,224] },
 			"externalRelPath": "unitTest/Main_tests.ldtkl",
 			"fieldInstances": [
-				{
-					"__identifier": "level_int",
-					"__value": 1,
-					"__type": "Int",
-					"defUid": 93,
-					"realEditorValues": [{ "id": "V_Int", "params": [1] }]
-				},
-				{
-					"__identifier": "level_string",
-					"__value": "my string value",
-					"__type": "String",
-					"defUid": 94,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["my string value"]
-					}]
-				},
-				{
-					"__identifier": "level_reward",
-					"__value": "Ammo",
-					"__type": "ExternEnum.DroppedItemType",
-					"defUid": 95,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ammo"]
-					}]
-				},
-				{
-					"__identifier": "lowercase_enum",
-					"__value": [ "lc_a", "lc_b" ],
-					"__type": "Array<LocalEnum.lowercase_enum>",
-					"defUid": 106,
-					"realEditorValues": [ {
-						"id": "V_String",
-						"params": ["lc_a"]
-					}, {
-						"id": "V_String",
-						"params": ["lc_b"]
-					} ]
-				}
+				{ "__identifier": "level_int", "__value": 1, "__type": "Int", "__tile": null, "defUid": 93, "realEditorValues": [{ "id": "V_Int", "params": [1] }] },
+				{ "__identifier": "level_string", "__value": "my string value", "__type": "String", "__tile": null, "defUid": 94, "realEditorValues": [{
+					"id": "V_String",
+					"params": ["my string value"]
+				}] },
+				{ "__identifier": "level_reward", "__value": "Ammo", "__type": "ExternEnum.DroppedItemType", "__tile": null, "defUid": 95, "realEditorValues": [{
+					"id": "V_String",
+					"params": ["Ammo"]
+				}] },
+				{ "__identifier": "lowercase_enum", "__value": [ "lc_a", "lc_b" ], "__type": "Array<LocalEnum.lowercase_enum>", "__tile": null, "defUid": 106, "realEditorValues": [ {
+					"id": "V_String",
+					"params": ["lc_a"]
+				}, {
+					"id": "V_String",
+					"params": ["lc_b"]
+				} ] }
 			],
 			"layerInstances": null,
 			"__neighbours": [ { "levelIid": "f2f66840-66b0-11ec-91ab-e506cb005a35", "levelUid": 88, "dir": "e" }, { "levelIid": "bdabeb40-66b0-11ec-88f3-5d5bfa64cc93", "levelUid": 109, "dir": "e" } ]
@@ -1488,34 +1563,16 @@
 			"__bgPos": null,
 			"externalRelPath": "unitTest/Offset_tests.ldtkl",
 			"fieldInstances": [
-				{
-					"__identifier": "level_int",
-					"__value": 2,
-					"__type": "Int",
-					"defUid": 93,
-					"realEditorValues": [{ "id": "V_Int", "params": [2] }]
-				},
-				{
-					"__identifier": "level_string",
-					"__value": "other",
-					"__type": "String",
-					"defUid": 94,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["other"]
-					}]
-				},
-				{
-					"__identifier": "level_reward",
-					"__value": "Key",
-					"__type": "ExternEnum.DroppedItemType",
-					"defUid": 95,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Key"]
-					}]
-				},
-				{ "__identifier": "lowercase_enum", "__value": [], "__type": "Array<LocalEnum.lowercase_enum>", "defUid": 106, "realEditorValues": [] }
+				{ "__identifier": "level_int", "__value": 2, "__type": "Int", "__tile": null, "defUid": 93, "realEditorValues": [{ "id": "V_Int", "params": [2] }] },
+				{ "__identifier": "level_string", "__value": "other", "__type": "String", "__tile": null, "defUid": 94, "realEditorValues": [{
+					"id": "V_String",
+					"params": ["other"]
+				}] },
+				{ "__identifier": "level_reward", "__value": "Key", "__type": "ExternEnum.DroppedItemType", "__tile": null, "defUid": 95, "realEditorValues": [{
+					"id": "V_String",
+					"params": ["Key"]
+				}] },
+				{ "__identifier": "lowercase_enum", "__value": [], "__type": "Array<LocalEnum.lowercase_enum>", "__tile": null, "defUid": 106, "realEditorValues": [] }
 			],
 			"layerInstances": null,
 			"__neighbours": [ { "levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e", "levelUid": 0, "dir": "w" }, { "levelIid": "bdabeb40-66b0-11ec-88f3-5d5bfa64cc93", "levelUid": 109, "dir": "n" } ]
@@ -1540,19 +1597,13 @@
 			"__bgPos": null,
 			"externalRelPath": "unitTest/Target_level_ref.ldtkl",
 			"fieldInstances": [
-				{ "__identifier": "level_int", "__value": 0, "__type": "Int", "defUid": 93, "realEditorValues": [] },
-				{ "__identifier": "level_string", "__value": "", "__type": "String", "defUid": 94, "realEditorValues": [] },
-				{
-					"__identifier": "level_reward",
-					"__value": "Ammo",
-					"__type": "ExternEnum.DroppedItemType",
-					"defUid": 95,
-					"realEditorValues": [{
-						"id": "V_String",
-						"params": ["Ammo"]
-					}]
-				},
-				{ "__identifier": "lowercase_enum", "__value": [], "__type": "Array<LocalEnum.lowercase_enum>", "defUid": 106, "realEditorValues": [] }
+				{ "__identifier": "level_int", "__value": 0, "__type": "Int", "__tile": null, "defUid": 93, "realEditorValues": [] },
+				{ "__identifier": "level_string", "__value": "", "__type": "String", "__tile": null, "defUid": 94, "realEditorValues": [] },
+				{ "__identifier": "level_reward", "__value": "Ammo", "__type": "ExternEnum.DroppedItemType", "__tile": null, "defUid": 95, "realEditorValues": [{
+					"id": "V_String",
+					"params": ["Ammo"]
+				}] },
+				{ "__identifier": "lowercase_enum", "__value": [], "__type": "Array<LocalEnum.lowercase_enum>", "__tile": null, "defUid": 106, "realEditorValues": [] }
 			],
 			"layerInstances": null,
 			"__neighbours": [ { "levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e", "levelUid": 0, "dir": "w" }, { "levelIid": "f2f66840-66b0-11ec-91ab-e506cb005a35", "levelUid": 88, "dir": "s" } ]
