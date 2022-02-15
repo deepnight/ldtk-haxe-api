@@ -131,7 +131,7 @@ class Main {
 			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.all_Mob.length!=0 );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.all_AllFields.length!=0 );
 			CiAssert.equals( project.all_levels.Main_tests.l_EntityTest.all_Unused.length, 0 );
-			CiAssert.isNotNull( project.all_levels.Main_tests.l_EntityTest.all_Mob[0].smartTileInfos );
+			CiAssert.isNotNull( project.all_levels.Main_tests.l_EntityTest.all_Mob[0].tileInfos );
 
 			// Entities
 			var hero = project.all_levels.Main_tests.l_EntityTest.all_Hero[0];
@@ -151,6 +151,17 @@ class Main {
 			CiAssert.equals( allFieldsTest.f_entityRefs.length, 2 );
 			CiAssert.equals( allFieldsTest.f_entityRefs[0].entityIid, "57c51ab0-66b0-11ec-8446-f3a61ee63449" );
 			CiAssert.equals( allFieldsTest.f_entityRefs[1].entityIid, "58f66ec0-66b0-11ec-8446-9b40d7be219b" );
+
+			// Entity tiles
+			var eTiles = project.all_levels.Main_tests.l_EntityTest.all_EntityTiles;
+			CiAssert.isNotNull( eTiles );
+			CiAssert.isTrue( eTiles.length>=2 );
+			CiAssert.isNotNull( eTiles[0].tileInfos );
+			CiAssert.equals( eTiles[0].tileInfos.tilesetUid, 14 );
+			CiAssert.equals( eTiles[0].tileInfos.x, 32 );
+			CiAssert.equals( eTiles[0].tileInfos.y, 32 );
+			CiAssert.equals( eTiles[1].tileInfos.x, 64 );
+			CiAssert.equals( eTiles[1].tileInfos.y, 0 );
 
 			// Sym ref 1
 			var fromSymRef = project.all_levels.Main_tests.l_EntityTest.all_SymRef[0];
