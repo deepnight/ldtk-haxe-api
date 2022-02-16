@@ -888,6 +888,12 @@ typedef AutoRuleDef = {
 	/** Y cell coord modulo **/
 	var yModulo: Int;
 
+	/** X cell start offset **/
+	var xOffset: Int;
+
+	/** Y cell start offset **/
+	var yOffset: Int;
+
 	/** If TRUE, enable Perlin filtering to only apply rule on specific random area **/
 	var perlinActive: Bool;
 
