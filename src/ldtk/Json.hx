@@ -590,6 +590,12 @@ typedef EntityInstanceJson = {
 	var __tile: Null<TilesetRect>;
 
 	/**
+		The entity "smart" color, guessed from either Entity definition, or one its field instances.
+	**/
+	@added("1.0.0")
+	var __smartColor : String;
+
+	/**
 		Unique instance identifier
 	**/
 	@added("1.0.0")
