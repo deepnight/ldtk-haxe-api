@@ -113,7 +113,7 @@ class TypeBuilder {
 				error("Failed to parse project JSON");
 			}
 
-		if( dn.Version.lower(json.jsonVersion, MIN_JSON_VERSION) )
+		if( dn.Version.lower(json.jsonVersion, MIN_JSON_VERSION, true) )
 			error('JSON version: "${json.jsonVersion}", required at least: "$MIN_JSON_VERSION"');
 	}
 
