@@ -20,14 +20,6 @@
 			"priority": -1
 		},
 		{
-			"text": "Neko",
-			"color": "#19dbdd",
-			"command": "haxe tests/neko.hxml",
-			"alignment": "right",
-			"skipTerminateQuickPick": false,
-			"priority": -2
-		},
-		{
 			"text": "Samples",
 			"color": "#ff8600",
 			"command": "cd samples  &&  cd _initSamples  &&  haxe initSamples.hxml",
