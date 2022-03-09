@@ -5,7 +5,7 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "0.10.0-beta1",
+		"appVersion": "0.10.0-beta4",
 		"url": "https://ldtk.io"
 	},
 	"identifier": "Target_level_ref",
@@ -147,6 +147,7 @@
 					"__pivot": [0,0],
 					"__tags": [],
 					"__tile": null,
+					"__smartColor": "#FF6700",
 					"iid": "be92c8d0-66b0-11ec-88f3-df87634ca4af",
 					"width": 16,
 					"height": 16,
@@ -156,7 +157,7 @@
 						"entityIid": "bcf852b0-66b0-11ec-88f3-f1c676c28598",
 						"layerIid": "27359dc1-66b0-11ec-8446-ff4b9136ca03",
 						"levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e",
-						"worldIid": "f191edc0-8dc0-11ec-ba3a-e5566858b376"
+						"worldIid": "d65f0af0-8dc0-11ec-b197-dff2ea42a1d1"
 					}, "__type": "EntityRef", "__tile": null, "defUid": 108, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["bcf852b0-66b0-11ec-88f3-f1c676c28598"]
