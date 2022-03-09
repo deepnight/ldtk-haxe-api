@@ -24,9 +24,6 @@ class Main extends dn.Process {
 
 		// Entity tiles
 		for(e in level.l_Entities.all_TilesTest) {
-			trace(e);
-			trace(" skin="+e.f_skin_infos);
-			trace(" opt="+e.f_optTile_infos);
 			var bmp = new h2d.Bitmap(e.getTile(), root);
 			bmp.setPosition( e.pixelX, e.pixelY );
 		}
