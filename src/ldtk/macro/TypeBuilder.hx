@@ -399,12 +399,21 @@ class TypeBuilder {
 				case _.indexOf("LocalEnum.") => 0:
 					var enumId = typeName.substr( typeName.indexOf(".")+1 );
 					var enumType = Context.getType( "Enum_"+enumId ).toComplexType();
-					fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<$enumType>) : (macro : $enumType) });
+					fields.push({
+						name: f.identifier,
+						desc: "Enum value of "+enumId+". To retrieve the enum color or tile, use `project` methods (eg. `project.getEnumColor(myEnumValue)`)",
+						ct: f.canBeNull ? (macro : Null<$enumType>) : (macro : $enumType)
+					});
 
 				case _.indexOf("ExternEnum.") => 0:
 					var enumId = typeName.substr( typeName.indexOf(".")+1 );
 					var ct = externEnumTypes.get(enumId).ct;
-					fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<$ct>) : (macro : $ct) });
+					var ed = getEnumDefJson(enumId);
+					fields.push({
+						name: f.identifier,
+						desc: "Enum value of "+enumId+". To retrieve the enum color or tile, use `project` methods (eg. `project.getEnumColor(myEnumValue)`)" + (ed==null?"":"\nExtern source: "+ed.externalRelPath),
+						ct: f.canBeNull ? (macro : Null<$ct>) : (macro : $ct)
+					});
 
 				case "Tile":
 					#if heaps
