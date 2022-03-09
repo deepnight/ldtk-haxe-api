@@ -86,6 +86,31 @@ class TypeBuilder {
 		return macro : Void;
 	}
 
+
+	static function getEnumDefJson(id:String) : Null<EnumDefJson> {
+		for(ed in json.defs.enums)
+			if( ed.identifier==id )
+				return ed;
+
+		for(ed in json.defs.externalEnums)
+			if( ed.identifier==id )
+				return ed;
+
+		return null;
+	}
+
+
+	static function getTilesetDefJson(uid:Null<Int>) : Null<TilesetDefJson> {
+		if( uid==null || uid<0 )
+			return null;
+
+		for(d in json.defs.tilesets)
+			if( d.uid==uid )
+				return d;
+		return null;
+	}
+
+
 	static function sanitizeIdentifier(id:String, capitalize=true) {
 		if( id==null )
 			id = "_";
@@ -321,7 +346,7 @@ class TypeBuilder {
 			var isArray = arrayReg.match(f.__type);
 			var typeName = isArray ? arrayReg.matched(1) : f.__type;
 
-			var fields : Array<{ name:String, ct:ComplexType, ?customTypeFieldKind:Dynamic }> = [];
+			var fields : Array<{ name:String, ?desc:String, ct:ComplexType, ?customTypeFieldKind:Dynamic }> = [];
 			switch typeName {
 				case "Int":
 					fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<Int>) : (macro : Int) });
@@ -372,13 +397,13 @@ class TypeBuilder {
 					});
 
 				case _.indexOf("LocalEnum.") => 0:
-					var type = typeName.substr( typeName.indexOf(".")+1 );
-					var enumType = Context.getType( "Enum_"+type ).toComplexType();
+					var enumId = typeName.substr( typeName.indexOf(".")+1 );
+					var enumType = Context.getType( "Enum_"+enumId ).toComplexType();
 					fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<$enumType>) : (macro : $enumType) });
 
 				case _.indexOf("ExternEnum.") => 0:
-					var typeId = typeName.substr( typeName.indexOf(".")+1 );
-					var ct = externEnumTypes.get(typeId).ct;
+					var enumId = typeName.substr( typeName.indexOf(".")+1 );
+					var ct = externEnumTypes.get(enumId).ct;
 					fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<$ct>) : (macro : $ct) });
 
 				case "Tile":
@@ -402,13 +427,14 @@ class TypeBuilder {
 				if( isArray ) {
 					// Turn field into Array<...>
 					switch fi.ct {
-					case TPath(p):
+					case TPath(_), TFunction(_):
 						fi.ct = TPath({
 							name: "Array",
 							pack: [],
 							params: [ TPType(fi.ct) ],
 						});
-					case _: error("Unexpected array subtype "+fi.ct.getName());
+
+					case _: error("Cannot turn custom field type "+fi.ct.getName()+" into an Array");
 					}
 				}
 
@@ -416,7 +442,7 @@ class TypeBuilder {
 					name: "f_"+fi.name,
 					access: [ APublic ],
 					kind: fi.customTypeFieldKind==null ? FVar(fi.ct) : fi.customTypeFieldKind,
-					doc: "Custom field "+fi.name+" ("+f.__type+")",
+					doc: fi.desc!=null ? fi.desc : "Custom field "+fi.name+" ("+f.__type+")",
 					pos: curPos,
 				});
 			}

@@ -194,21 +194,37 @@ class Project {
 					}
 
 				case "Tile":
-					var tileRect : TilesetRect = f.__value;
-					if( !dn.M.isValidNumber(tileRect.x) )
-						tileRect = null; // old format
-					Reflect.setField(target, "f_"+f.__identifier+"_infos", tileRect);
-
+					function _checkTile(tileRect : TilesetRect) {
+						if( tileRect==null || !dn.M.isValidNumber(tileRect.x) )
+							return null; // old format
+						else
+							return tileRect;
+					}
 					#if heaps
-					Reflect.setField(target, "f_"+f.__identifier+"_getTile", ()->{
-						if( tileRect==null || !_untypedTilesets.exists(tileRect.tilesetUid))
+					function _heapsTileGetter(tileRect:TilesetRect) {
+						if( tileRect==null || !dn.M.isValidNumber(tileRect.x) || !_untypedTilesets.exists(tileRect.tilesetUid))
 							return null;
 
 						var tileset = _untypedTilesets.get(tileRect.tilesetUid);
 						var tile = tileset.getFreeTile( tileRect.x, tileRect.y, tileRect.w, tileRect.h );
 						return tile;
-					});
+					}
 					#end
+
+					if( isArray ) {
+						var arr : Array<TilesetRect> = f.__value;
+						Reflect.setField(target, "f_"+f.__identifier+"_infos", arr.map( tr->_checkTile(tr) ) );
+						#if heaps
+						Reflect.setField(target, "f_"+f.__identifier+"_getTile", arr.map( tr->_heapsTileGetter.bind(tr) ) );
+						#end
+
+					}
+					else {
+						Reflect.setField(target, "f_"+f.__identifier+"_infos", _checkTile(f.__value));
+						#if heaps
+						Reflect.setField(target, "f_"+f.__identifier+"_getTile", _heapsTileGetter.bind(f.__value));
+						#end
+					}
 
 				case _ :
 					Project.error('Unknown field type $typeName at runtime'); // TODO add some helpful context here
