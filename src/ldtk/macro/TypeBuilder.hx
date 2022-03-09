@@ -361,6 +361,7 @@ class TypeBuilder {
 					fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<String>) : (macro : String) });
 					fields.push({
 						name: f.identifier+"_bytes",
+						desc: "Contains the full `haxe.io.Bytes` of corresponding file, as available at compilation time.",
 						ct: f.canBeNull ? (macro : Null<haxe.io.Bytes>) : (macro : haxe.io.Bytes),
 						customTypeFieldKind: FProp("get", "never", macro : Null<haxe.io.Bytes>)
 					});
@@ -384,8 +385,16 @@ class TypeBuilder {
 					fields.push({ name: f.identifier, ct: macro : Bool });
 
 				case "Color":
-					fields.push({ name: f.identifier+"_int", ct: f.canBeNull ? (macro : Null<Int>) : (macro : Int) });
-					fields.push({ name: f.identifier+"_hex", ct: f.canBeNull ? (macro : Null<String>) : (macro : String) });
+					fields.push({
+						name: f.identifier+"_int",
+						desc: "Color code as Integer (`0xrrggbb` format)",
+						ct: f.canBeNull ? (macro : Null<Int>) : (macro : Int)
+					});
+					fields.push({
+						name: f.identifier+"_hex",
+						desc: "Color code as String (`\"#rrggbb\"` format)",
+						ct: f.canBeNull ? (macro : Null<String>) : (macro : String)
+					});
 
 				case "Point":
 					fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<ldtk.Point>) : (macro : ldtk.Point) });
@@ -393,6 +402,7 @@ class TypeBuilder {
 				case "EntityRef":
 					fields.push({
 						name: f.identifier,
+						desc: "Entity reference informations",
 						ct: f.canBeNull ? (macro : Null<ldtk.Json.EntityReferenceInfos>) : (macro : ldtk.Json.EntityReferenceInfos),
 					});
 
