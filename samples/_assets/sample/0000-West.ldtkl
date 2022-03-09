@@ -5,7 +5,7 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "0.10.0",
+		"appVersion": "0.10.0-beta4",
 		"url": "https://ldtk.io"
 	},
 	"identifier": "West",
@@ -58,6 +58,7 @@
 					"__pivot": [0.5,1],
 					"__tags": [],
 					"__tile": null,
+					"__smartColor": "#00BFFF",
 					"iid": "60018d46-66b0-11ec-a36b-a9ab7da03bee",
 					"width": 8,
 					"height": 10,
@@ -70,66 +71,51 @@
 					"__grid": [20,29],
 					"__pivot": [0.5,1],
 					"__tags": [],
-					"__tile": { "tilesetUid": 31, "srcRect": [96,0,16,16] },
+					"__tile": { "tilesetUid": 31, "x": 96, "y": 0, "w": 16, "h": 16 },
+					"__smartColor": "#FFDD00",
 					"iid": "60018d47-66b0-11ec-a36b-1f92c653d135",
 					"width": 10,
 					"height": 10,
 					"defUid": 29,
 					"px": [164,240],
-					"fieldInstances": [{
-						"__identifier": "type",
-						"__value": "Potion",
-						"__type": "LocalEnum.Items",
-						"defUid": 32,
-						"realEditorValues": [{
-							"id": "V_String",
-							"params": ["Potion"]
-						}]
-					}]
+					"fieldInstances": [{ "__identifier": "type", "__value": "Potion", "__type": "LocalEnum.Items", "__tile": { "tilesetUid": 31, "x": 96, "y": 0, "w": 16, "h": 16 }, "defUid": 32, "realEditorValues": [{
+						"id": "V_String",
+						"params": ["Potion"]
+					}] }]
 				},
 				{
 					"__identifier": "Item",
 					"__grid": [30,12],
 					"__pivot": [0.5,1],
 					"__tags": [],
-					"__tile": { "tilesetUid": 31, "srcRect": [16,96,16,16] },
+					"__tile": { "tilesetUid": 31, "x": 16, "y": 96, "w": 16, "h": 16 },
+					"__smartColor": "#FFDD00",
 					"iid": "60018d48-66b0-11ec-a36b-7f7609ac6c0e",
 					"width": 10,
 					"height": 10,
 					"defUid": 29,
 					"px": [244,104],
-					"fieldInstances": [{
-						"__identifier": "type",
-						"__value": "Food",
-						"__type": "LocalEnum.Items",
-						"defUid": 32,
-						"realEditorValues": [{
-							"id": "V_String",
-							"params": ["Food"]
-						}]
-					}]
+					"fieldInstances": [{ "__identifier": "type", "__value": "Food", "__type": "LocalEnum.Items", "__tile": { "tilesetUid": 31, "x": 16, "y": 96, "w": 16, "h": 16 }, "defUid": 32, "realEditorValues": [{
+						"id": "V_String",
+						"params": ["Food"]
+					}] }]
 				},
 				{
 					"__identifier": "Item",
 					"__grid": [12,29],
 					"__pivot": [0.5,1],
 					"__tags": [],
-					"__tile": { "tilesetUid": 31, "srcRect": [0,0,16,16] },
+					"__tile": { "tilesetUid": 31, "x": 0, "y": 0, "w": 16, "h": 16 },
+					"__smartColor": "#FFDD00",
 					"iid": "60018d49-66b0-11ec-a36b-07b80604cf98",
 					"width": 10,
 					"height": 10,
 					"defUid": 29,
 					"px": [100,240],
-					"fieldInstances": [{
-						"__identifier": "type",
-						"__value": "Pickaxe",
-						"__type": "LocalEnum.Items",
-						"defUid": 32,
-						"realEditorValues": [{
-							"id": "V_String",
-							"params": ["Pickaxe"]
-						}]
-					}]
+					"fieldInstances": [{ "__identifier": "type", "__value": "Pickaxe", "__type": "LocalEnum.Items", "__tile": { "tilesetUid": 31, "x": 0, "y": 0, "w": 16, "h": 16 }, "defUid": 32, "realEditorValues": [{
+						"id": "V_String",
+						"params": ["Pickaxe"]
+					}] }]
 				}
 			]
 		},

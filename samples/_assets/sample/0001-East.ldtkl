@@ -5,7 +5,7 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "0.10.0",
+		"appVersion": "0.10.0-beta4",
 		"url": "https://ldtk.io"
 	},
 	"identifier": "East",
@@ -57,22 +57,17 @@
 					"__grid": [9,14],
 					"__pivot": [0.5,1],
 					"__tags": [],
-					"__tile": { "tilesetUid": 31, "srcRect": [96,0,16,16] },
+					"__tile": { "tilesetUid": 31, "x": 96, "y": 0, "w": 16, "h": 16 },
+					"__smartColor": "#FFDD00",
 					"iid": "60038916-66b0-11ec-a36b-953273b2a0be",
 					"width": 10,
 					"height": 10,
 					"defUid": 29,
 					"px": [76,120],
-					"fieldInstances": [{
-						"__identifier": "type",
-						"__value": "Potion",
-						"__type": "LocalEnum.Items",
-						"defUid": 32,
-						"realEditorValues": [{
-							"id": "V_String",
-							"params": ["Potion"]
-						}]
-					}]
+					"fieldInstances": [{ "__identifier": "type", "__value": "Potion", "__type": "LocalEnum.Items", "__tile": { "tilesetUid": 31, "x": 96, "y": 0, "w": 16, "h": 16 }, "defUid": 32, "realEditorValues": [{
+						"id": "V_String",
+						"params": ["Potion"]
+					}] }]
 				}
 			]
 		},
