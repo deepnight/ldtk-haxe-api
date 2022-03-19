@@ -19,6 +19,12 @@ class Tileset {
 	/** Tileset height in pixels **/
 	public var pxHei : Int;
 
+	/** Padding between the atlas border and the tiles in pixels **/
+	public var padding: Int;
+
+	/** Spacing between each tile in pixels */
+	public var spacing: Int;
+
 	var cWid(get,never) : Int; inline function get_cWid() return Math.ceil(pxWid/tileGridSize);
 
 	/** Untyped Enum based tags (stored as String). The "typed" getter method is created in macro. **/
@@ -32,6 +38,8 @@ class Tileset {
 		relPath = json.relPath;
 		pxWid = json.pxWid;
 		pxHei = json.pxHei;
+		padding = json.padding;
+		spacing = json.spacing;
 
 		// Init untyped enum tags
 		untypedTags = new Map();
