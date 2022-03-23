@@ -986,6 +986,14 @@ typedef EntityDefJson = {
 	@internal
 	var tileRenderMode: EntityTileRenderMode;
 
+	/**
+		Dimensions of the up/right/down/left borders (in this order) when using 9-slice mode for `tileRenderMode`.
+		See: https://en.wikipedia.org/wiki/9-slice_scaling
+	**/
+	@added("1.0.0")
+	@internal
+	var nineSliceBorders: Array<Int>;
+
 	/** Max instances count **/
 	@internal
 	@changed("0.8.0")
@@ -1437,6 +1445,7 @@ enum EntityTileRenderMode {
 	Stretch;
 	FullSizeCropped;
 	FullSizeUncropped;
+	NineSlice;
 }
 
 enum EntityLimitBehavior {
