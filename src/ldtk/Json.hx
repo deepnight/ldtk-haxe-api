@@ -982,16 +982,18 @@ typedef EntityDefJson = {
 	@added("1.0.0")
 	var tileRect: Null<TilesetRect>;
 
+	/**
+		An enum describing how the the Entity tile is rendered inside the Entity bounds.
+	**/
 	@changed("0.8.1")
-	@internal
 	var tileRenderMode: EntityTileRenderMode;
 
 	/**
-		Dimensions of the up/right/down/left borders (in this order) when using 9-slice mode for `tileRenderMode`.
+		An array of 4 dimensions for the up/right/down/left borders (in this order) when using 9-slice mode for `tileRenderMode`.
+		If the tileRenderMode is not NineSlice, then this array is empty.
 		See: https://en.wikipedia.org/wiki/9-slice_scaling
 	**/
 	@added("1.0.0")
-	@internal
 	var nineSliceBorders: Array<Int>;
 
 	/** Max instances count **/
