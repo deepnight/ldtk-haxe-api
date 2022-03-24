@@ -1496,6 +1496,7 @@ enum TextLanguageMode {
 }
 
 enum ProjectFlag {
+	DiscardPreCsvIntGrid; // backward compatibility
 	ExportPreCsvIntGridFormat;
 	IgnoreBackupSuggest;
 	PrependIndexToLevelFileNames;
