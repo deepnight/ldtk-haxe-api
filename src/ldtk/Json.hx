@@ -1042,7 +1042,8 @@ typedef FieldDefJson = {
 	**/
 	var __type: String;
 
-	/** Internal type enum **/
+	/** Internal enum representing the possible field types. Possible values: @enum{ldtk.FieldType} **/
+	@docType(String)
 	var type: FieldType;
 
 	/** TRUE if the value is an array of multiple values **/
