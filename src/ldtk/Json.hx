@@ -248,7 +248,6 @@ A `ldtkl` file is just a JSON file containing exactly what is described below.
 typedef LevelJson = {
 
 	/** Unique Int identifier **/
-	// @deprecation("1.0.0", "1.2.0", "iid")
 	var uid: Int;
 
 	/**
