@@ -3,6 +3,10 @@ package ldtk;
 class Tileset {
 	var untypedProject: ldtk.Project;
 
+	/** Original parsed JSON object **/
+	public var json(default,null) : ldtk.Json.TilesetDefJson;
+
+
 	/** Tileset unique identifier **/
 	public var identifier : String;
 
@@ -32,6 +36,7 @@ class Tileset {
 
 
 	public function new(p:ldtk.Project, json:ldtk.Json.TilesetDefJson) {
+		this.json = json;
 		untypedProject = p;
 		identifier = json.identifier;
 		tileGridSize = json.tileGridSize;
@@ -45,9 +50,9 @@ class Tileset {
 		untypedTags = new Map();
 		if( json.enumTags!=null ) {
 			for(t in json.enumTags) {
-				untypedTags.set(t.enumValueId, []);
+				untypedTags.set( p.capitalize(t.enumValueId), [] );
 				for(tid in t.tileIds)
-					untypedTags.get(t.enumValueId).set(tid,tid);
+					untypedTags.get( p.capitalize(t.enumValueId) ).set(tid,tid);
 			}
 		}
 	}

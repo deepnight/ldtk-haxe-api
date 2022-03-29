@@ -87,6 +87,48 @@ class TypeBuilder {
 	}
 
 
+	static function getEnumDefJson(id:String) : Null<EnumDefJson> {
+		for(ed in json.defs.enums)
+			if( ed.identifier==id )
+				return ed;
+
+		for(ed in json.defs.externalEnums)
+			if( ed.identifier==id )
+				return ed;
+
+		return null;
+	}
+
+
+	static function getTilesetDefJson(uid:Null<Int>) : Null<TilesetDefJson> {
+		if( uid==null || uid<0 )
+			return null;
+
+		for(d in json.defs.tilesets)
+			if( d.uid==uid )
+				return d;
+		return null;
+	}
+
+
+	static function sanitizeIdentifier(id:String, capitalize=true) {
+		if( id==null )
+			id = "_";
+
+		// Replace any invalid char with "_"
+		var reg = ~/([^a-z0-9_])+/gi;
+		id = reg.replace(id, "_");
+
+		// Capitalize
+		if( capitalize ) {
+			var reg = ~/^(_*)([a-z])([a-zA-Z0-9_]*)/g; // extract first letter, if it's lowercase
+			if( reg.match(id) )
+				id = reg.matched(1) + reg.matched(2).toUpperCase() + reg.matched(3);
+		}
+
+		return id;
+	}
+
 	/**
 		Load and parse the Json from disk
 	**/
@@ -132,7 +174,7 @@ class TypeBuilder {
 				pos: curPos,
 				fields: e.values.map( function(json) : Field {
 					return {
-						name: json.id,
+						name: sanitizeIdentifier(json.id),
 						pos: curPos,
 						kind: FVar(null, null),
 					}
@@ -157,7 +199,7 @@ class TypeBuilder {
 			pos: curPos,
 			fields: json.defs.entities.map( function(json) : Field {
 				return {
-					name: json.identifier,
+					name: sanitizeIdentifier(json.identifier),
 					pos: curPos,
 					kind: FVar(null, null),
 				}
@@ -250,7 +292,7 @@ class TypeBuilder {
 				override public function new(p, json) {
 					super(p, json);
 
-					entityType = Type.createEnum($entityEnumRef, json.__identifier);
+					entityType = Type.createEnum($entityEnumRef, p.capitalize(json.__identifier));
 				}
 
 				public inline function is(e:$entityEnumType) {
@@ -304,7 +346,7 @@ class TypeBuilder {
 			var isArray = arrayReg.match(f.__type);
 			var typeName = isArray ? arrayReg.matched(1) : f.__type;
 
-			var fields : Array<{ name:String, ct:ComplexType, ?customKind:FieldType }> = [];
+			var fields : Array<{ name:String, ?desc:String, ct:ComplexType, ?customTypeFieldKind:Dynamic }> = [];
 			switch typeName {
 				case "Int":
 					fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<Int>) : (macro : Int) });
@@ -319,8 +361,9 @@ class TypeBuilder {
 					fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<String>) : (macro : String) });
 					fields.push({
 						name: f.identifier+"_bytes",
+						desc: "Contains the full `haxe.io.Bytes` of corresponding file, as available at compilation time.",
 						ct: f.canBeNull ? (macro : Null<haxe.io.Bytes>) : (macro : haxe.io.Bytes),
-						customKind: FProp("get", "never", macro : Null<haxe.io.Bytes>)
+						customTypeFieldKind: FProp("get", "never", macro : Null<haxe.io.Bytes>)
 					});
 					// Build getter
 					var getterFunc : Function = {
@@ -342,21 +385,57 @@ class TypeBuilder {
 					fields.push({ name: f.identifier, ct: macro : Bool });
 
 				case "Color":
-					fields.push({ name: f.identifier+"_int", ct: f.canBeNull ? (macro : Null<Int>) : (macro : Int) });
-					fields.push({ name: f.identifier+"_hex", ct: f.canBeNull ? (macro : Null<String>) : (macro : String) });
+					fields.push({
+						name: f.identifier+"_int",
+						desc: "Color code as Integer (`0xrrggbb` format)",
+						ct: f.canBeNull ? (macro : Null<Int>) : (macro : Int)
+					});
+					fields.push({
+						name: f.identifier+"_hex",
+						desc: "Color code as String (`\"#rrggbb\"` format)",
+						ct: f.canBeNull ? (macro : Null<String>) : (macro : String)
+					});
 
 				case "Point":
 					fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<ldtk.Point>) : (macro : ldtk.Point) });
 
+				case "EntityRef":
+					fields.push({
+						name: f.identifier,
+						desc: "Entity reference informations",
+						ct: f.canBeNull ? (macro : Null<ldtk.Json.EntityReferenceInfos>) : (macro : ldtk.Json.EntityReferenceInfos),
+					});
+
 				case _.indexOf("LocalEnum.") => 0:
-					var type = typeName.substr( typeName.indexOf(".")+1 );
-					var enumType = Context.getType( "Enum_"+type ).toComplexType();
-					fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<$enumType>) : (macro : $enumType) });
+					var enumId = typeName.substr( typeName.indexOf(".")+1 );
+					var enumType = Context.getType( "Enum_"+enumId ).toComplexType();
+					fields.push({
+						name: f.identifier,
+						desc: "Enum value of "+enumId+". To retrieve the enum color or tile, use `project` methods (eg. `project.getEnumColor(myEnumValue)`)",
+						ct: f.canBeNull ? (macro : Null<$enumType>) : (macro : $enumType)
+					});
 
 				case _.indexOf("ExternEnum.") => 0:
-					var typeId = typeName.substr( typeName.indexOf(".")+1 );
-					var ct = externEnumTypes.get(typeId).ct;
-					fields.push({ name: f.identifier, ct: f.canBeNull ? (macro : Null<$ct>) : (macro : $ct) });
+					var enumId = typeName.substr( typeName.indexOf(".")+1 );
+					var ct = externEnumTypes.get(enumId).ct;
+					var ed = getEnumDefJson(enumId);
+					fields.push({
+						name: f.identifier,
+						desc: "Enum value of "+enumId+". To retrieve the enum color or tile, use `project` methods (eg. `project.getEnumColor(myEnumValue)`)" + (ed==null?"":"\nExtern source: "+ed.externalRelPath),
+						ct: f.canBeNull ? (macro : Null<$ct>) : (macro : $ct)
+					});
+
+				case "Tile":
+					#if heaps
+					fields.push({
+						name: f.identifier+"_getTile",
+						ct: f.canBeNull ? (macro : Void->Null<h2d.Tile>) : (macro : Void->h2d.Tile)
+					});
+					#end
+					fields.push({
+						name: f.identifier+"_infos",
+						ct: f.canBeNull ? (macro : Null<ldtk.Json.TilesetRect>) : (macro : ldtk.Json.TilesetRect)
+					});
 
 				case _:
 					error("Unsupported field type "+typeName); // TODO add some extra context
@@ -367,21 +446,22 @@ class TypeBuilder {
 				if( isArray ) {
 					// Turn field into Array<...>
 					switch fi.ct {
-					case TPath(p):
+					case TPath(_), TFunction(_):
 						fi.ct = TPath({
 							name: "Array",
 							pack: [],
 							params: [ TPType(fi.ct) ],
 						});
-					case _: error("Unexpected array subtype "+fi.ct.getName());
+
+					case _: error("Cannot turn custom field type "+fi.ct.getName()+" into an Array");
 					}
 				}
 
 				typeDef.fields.push({
 					name: "f_"+fi.name,
 					access: [ APublic ],
-					kind: fi.customKind==null ? FVar(fi.ct) : fi.customKind,
-					doc: "Custom field "+fi.name+" ("+f.__type+")",
+					kind: fi.customTypeFieldKind==null ? FVar(fi.ct) : fi.customTypeFieldKind,
+					doc: fi.desc!=null ? fi.desc : "Custom field "+fi.name+" ("+f.__type+")",
 					pos: curPos,
 				});
 			}
@@ -419,8 +499,8 @@ class TypeBuilder {
 				tilesetType.fields = tilesetType.fields.concat( (macro class {
 
 					/** Return TRUE if the specifiied tile ID was tagged with given enum `tag`. **/
-					public function hasTag(tileId:Int, tag:$enumComplexType) {
-						var allTileIds = untypedTags.get( tag.getName() );
+					public inline function hasTag(tileId:Int, tag:$enumComplexType) {
+						final allTileIds = untypedTags.get( tag.getName() );
 						return allTileIds==null ? false : allTileIds.exists(tileId);
 					}
 
@@ -469,7 +549,8 @@ class TypeBuilder {
 									super(p,json);
 
 									for(v in $v{l.intGridValues} ) {
-										valueInfos.push({
+										valueInfos.set( v.value, {
+											value: v.value,
 											identifier: v.identifier,
 											color: Std.parseInt( "0x"+v.color.substr(1) ),
 										});
@@ -500,7 +581,8 @@ class TypeBuilder {
 
 									// Store IntGrid values extra infos
 									for(v in $v{l.intGridValues} ) {
-										valueInfos.push({
+										valueInfos.set( v.value, {
+											value: v.value,
 											identifier: v.identifier,
 											color: Std.parseInt( "0x"+v.color.substr(1) ),
 										});
@@ -757,17 +839,6 @@ class TypeBuilder {
 			pos: curPos,
 			access: [ APublic ],
 		});
-
-		// projectFields.push({
-		// 	name: "all_tilesets",
-		// 	doc: "A convenient way to access all tilesets in a type-safe environment",
-		// 	kind: FFun({
-		// 		args: [],
-		// 		ret:
-		// 	}),
-		// 	pos: curPos,
-		// 	access: [],
-		// });
 	}
 
 

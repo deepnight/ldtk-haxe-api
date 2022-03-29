@@ -3,5 +3,6 @@
 		["tests/hl.hxml"],
 		["tests/js.hxml"],
 		["tests/neko.hxml"],
-	]
+	],
+	"haxe.enableServerView": true
 }

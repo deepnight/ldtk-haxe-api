@@ -5,13 +5,15 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "0.9.3",
+		"appVersion": "1.0.0",
 		"url": "https://ldtk.io"
 	},
 	"identifier": "Pit",
+	"iid": "60047370-66b0-11ec-a36b-2b89739d30ed",
 	"uid": 40,
 	"worldX": 272,
 	"worldY": 0,
+	"worldDepth": 0,
 	"pxWid": 224,
 	"pxHei": 128,
 	"__bgColor": "#121331",
@@ -21,6 +23,7 @@
 	"bgPos": "Cover",
 	"bgPivotX": 0.5,
 	"bgPivotY": 0.5,
+	"__smartColor": "#7D7D8E",
 	"__bgPos": { "topLeftPx": [0,0], "scale": [0.5714285714285714,0.5714285714285714], "cropRect": [124,0,392,224] },
 	"externalRelPath": null,
 	"fieldInstances": [],
@@ -36,6 +39,7 @@
 			"__pxTotalOffsetY": 0,
 			"__tilesetDefUid": null,
 			"__tilesetRelPath": null,
+			"iid": "60047375-66b0-11ec-a36b-97a4049d0c6d",
 			"levelId": 40,
 			"layerDefUid": 28,
 			"pxOffsetX": 0,
@@ -60,6 +64,7 @@
 			"__pxTotalOffsetY": 0,
 			"__tilesetDefUid": 1,
 			"__tilesetRelPath": "Cavernas_by_Adam_Saltsman-Extended.png",
+			"iid": "60047376-66b0-11ec-a36b-d14448b874f3",
 			"levelId": 40,
 			"layerDefUid": 34,
 			"pxOffsetX": 0,
@@ -84,6 +89,7 @@
 			"__pxTotalOffsetY": 0,
 			"__tilesetDefUid": 58,
 			"__tilesetRelPath": "Cavernas_by_Adam_Saltsman-Extended_hued.png",
+			"iid": "60047377-66b0-11ec-a36b-cbf19f3f6479",
 			"levelId": 40,
 			"layerDefUid": 2,
 			"pxOffsetX": 0,
@@ -459,6 +465,7 @@
 			"__pxTotalOffsetY": 0,
 			"__tilesetDefUid": 58,
 			"__tilesetRelPath": "Cavernas_by_Adam_Saltsman-Extended_hued.png",
+			"iid": "60049a80-66b0-11ec-a36b-e3d83669ba9e",
 			"levelId": 40,
 			"layerDefUid": 48,
 			"pxOffsetX": 0,
@@ -611,5 +618,5 @@
 			"entityInstances": []
 		}
 	],
-	"__neighbours": [ { "levelUid": 0, "dir": "w" }, { "levelUid": 39, "dir": "s" } ]
+	"__neighbours": [ { "levelIid": "60018d40-66b0-11ec-a36b-3b0761cf900c", "levelUid": 0, "dir": "w" }, { "levelIid": "60038910-66b0-11ec-a36b-1ff7a8a0ffd4", "levelUid": 39, "dir": "s" } ]
 }

@@ -5,8 +5,14 @@ import ldtk.Json;
 class Layer {
 	var untypedProject: ldtk.Project;
 
+	/** Original parsed JSON object **/
+	public var json(default,null) : LayerInstanceJson;
+
 	public var identifier : String;
 	public var type : LayerType;
+
+	/** Unique instance identifier **/
+	public var iid : String;
 
 	/** Layer instance visibility **/
 	public var visible : Bool;
@@ -35,11 +41,13 @@ class Layer {
 
 
 	public function new(p:ldtk.Project, json:ldtk.Json.LayerInstanceJson) {
+		this.json = json;
 		untypedProject = p;
 		identifier = json.__identifier;
 		type =
 			try LayerType.createByName(json.__type)
 			catch(e:Dynamic) throw 'Unknown layer type ${json.__type} in $identifier';
+		iid = json.iid;
 		gridSize = json.__gridSize;
 		cWid = json.__cWid;
 		cHei = json.__cHei;

@@ -3,7 +3,13 @@ package ldtk;
 class Entity {
 	var untypedProject : ldtk.Project;
 
+	/** Original parsed JSON object **/
+	public var json(default,null) : Json.EntityInstanceJson;
+
 	public var identifier : String;
+
+	/** Unique instance identifier **/
+	public var iid : String;
 
 	/** Grid-based X coordinate **/
 	public var cx : Int;
@@ -30,14 +36,16 @@ class Entity {
 	public var height : Int;
 
 	/** Tile infos if the entity has one (it could have be overridden by a Field value, such as Enums) **/
-	public var defaultTileInfos : Null<{ tilesetUid:Int, x:Int, y:Int, w:Int, h:Int }>;
+	public var tileInfos : Null<ldtk.Json.TilesetRect>;
 
 	var _fields : Map<String, Dynamic> = new Map();
 
 
 	public function new(p:ldtk.Project, json:ldtk.Json.EntityInstanceJson) {
 		untypedProject = p;
+		this.json = json;
 		identifier = json.__identifier;
+		iid = json.iid;
 		cx = json.__grid[0];
 		cy = json.__grid[1];
 		pixelX = json.px[0];
@@ -47,15 +55,23 @@ class Entity {
 		width = json.width;
 		height = json.height;
 
-		defaultTileInfos = json.__tile==null ? null : {
-			tilesetUid: json.__tile.tilesetUid,
-			x: json.__tile.srcRect[0],
-			y: json.__tile.srcRect[1],
-			w: json.__tile.srcRect[2],
-			h: json.__tile.srcRect[3],
-		}
+		tileInfos = json.__tile;
 
 		p._assignFieldInstanceValues(this, json.fieldInstances);
 	}
+
+
+	#if heaps
+	public function getTile() : Null<h2d.Tile> {
+		if( tileInfos==null )
+			return null;
+
+		var tileset = untypedProject._untypedTilesets.get(tileInfos.tilesetUid);
+		if( tileset==null )
+			return null;
+
+		return tileset.getFreeTile(tileInfos.x, tileInfos.y, tileInfos.w, tileInfos.h);
+	}
+	#end
 
 }
