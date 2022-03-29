@@ -1,0 +1,12 @@
+-cp src
+-main Boot
+-dce full
+-debug
+
+-lib heaps
+-lib hldx
+-lib deepnightLibs
+-lib ldtk-haxe-api
+
+-D windowSize=1024x768
+-hl bin/client.hl

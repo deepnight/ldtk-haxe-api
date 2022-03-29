@@ -5,13 +5,15 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "0.9.3",
+		"appVersion": "1.0.0",
 		"url": "https://ldtk.io"
 	},
 	"identifier": "East",
+	"iid": "60038910-66b0-11ec-a36b-1ff7a8a0ffd4",
 	"uid": 39,
 	"worldX": 272,
 	"worldY": 128,
+	"worldDepth": 0,
 	"pxWid": 272,
 	"pxHei": 160,
 	"__bgColor": "#121331",
@@ -21,6 +23,7 @@
 	"bgPos": "Cover",
 	"bgPivotX": 0.5,
 	"bgPivotY": 0.5,
+	"__smartColor": "#7D7D8E",
 	"__bgPos": { "topLeftPx": [0,0], "scale": [0.7142857142857143,0.7142857142857143], "cropRect": [129.6,0,380.8,224] },
 	"externalRelPath": null,
 	"fieldInstances": [],
@@ -36,6 +39,7 @@
 			"__pxTotalOffsetY": 0,
 			"__tilesetDefUid": null,
 			"__tilesetRelPath": null,
+			"iid": "60038915-66b0-11ec-a36b-93106e07d24e",
 			"levelId": 39,
 			"layerDefUid": 28,
 			"pxOffsetX": 0,
@@ -52,21 +56,18 @@
 					"__identifier": "Item",
 					"__grid": [9,14],
 					"__pivot": [0.5,1],
-					"__tile": { "tilesetUid": 31, "srcRect": [96,0,16,16] },
+					"__tags": [],
+					"__tile": { "tilesetUid": 31, "x": 96, "y": 0, "w": 16, "h": 16 },
+					"__smartColor": "#FFDD00",
+					"iid": "60038916-66b0-11ec-a36b-953273b2a0be",
 					"width": 10,
 					"height": 10,
 					"defUid": 29,
 					"px": [76,120],
-					"fieldInstances": [{
-						"__identifier": "type",
-						"__value": "Potion",
-						"__type": "LocalEnum.Items",
-						"defUid": 32,
-						"realEditorValues": [{
-							"id": "V_String",
-							"params": ["Potion"]
-						}]
-					}]
+					"fieldInstances": [{ "__identifier": "type", "__value": "Potion", "__type": "LocalEnum.Items", "__tile": { "tilesetUid": 31, "x": 96, "y": 0, "w": 16, "h": 16 }, "defUid": 32, "realEditorValues": [{
+						"id": "V_String",
+						"params": ["Potion"]
+					}] }]
 				}
 			]
 		},
@@ -81,6 +82,7 @@
 			"__pxTotalOffsetY": 0,
 			"__tilesetDefUid": 1,
 			"__tilesetRelPath": "Cavernas_by_Adam_Saltsman-Extended.png",
+			"iid": "60038917-66b0-11ec-a36b-cf220245c9f0",
 			"levelId": 39,
 			"layerDefUid": 34,
 			"pxOffsetX": 0,
@@ -105,6 +107,7 @@
 			"__pxTotalOffsetY": 0,
 			"__tilesetDefUid": 1,
 			"__tilesetRelPath": "Cavernas_by_Adam_Saltsman-Extended.png",
+			"iid": "60038918-66b0-11ec-a36b-4d4370702f98",
 			"levelId": 39,
 			"layerDefUid": 2,
 			"pxOffsetX": 0,
@@ -643,6 +646,7 @@
 			"__pxTotalOffsetY": 0,
 			"__tilesetDefUid": 1,
 			"__tilesetRelPath": "Cavernas_by_Adam_Saltsman-Extended.png",
+			"iid": "60042550-66b0-11ec-a36b-ef6fd7e13c7c",
 			"levelId": 39,
 			"layerDefUid": 48,
 			"pxOffsetX": 0,
@@ -793,5 +797,9 @@
 			"entityInstances": []
 		}
 	],
-	"__neighbours": [ { "levelUid": 0, "dir": "w" }, { "levelUid": 40, "dir": "n" }, { "levelUid": 41, "dir": "e" } ]
+	"__neighbours": [
+		{ "levelIid": "60018d40-66b0-11ec-a36b-3b0761cf900c", "levelUid": 0, "dir": "w" },
+		{ "levelIid": "60047370-66b0-11ec-a36b-2b89739d30ed", "levelUid": 40, "dir": "n" },
+		{ "levelIid": "6004c190-66b0-11ec-a36b-37ad7b095a6c", "levelUid": 41, "dir": "e" }
+	]
 }

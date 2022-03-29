@@ -69,7 +69,7 @@ class Project {
 	public var worldLayout : WorldLayout;
 
 	/** A map containing all untyped Tilesets, indexed using their JSON  `uid` (integer unique ID). The typed tilesets will be added in a field called `all_tilesets` by macros. **/
-	@:allow(ldtk.Layer_Tiles, ldtk.Layer_AutoLayer, ldtk.Layer_IntGrid_AutoLayer)
+	@:allow(ldtk.Layer_Tiles, ldtk.Layer_AutoLayer, ldtk.Layer_IntGrid_AutoLayer, ldtk.Entity)
 	var _untypedTilesets : Map<Int, ldtk.Tileset>;
 
 	/** Internal asset cache to avoid reloading of previously loaded data. **/
@@ -109,6 +109,20 @@ class Project {
 		// Init misc fields
 		worldLayout = WorldLayout.createByName( Std.string(json.worldLayout) );
 		defs = json.defs;
+	}
+
+
+	/** Transform an identifier string by capitalizing its first letter **/
+	@:noCompletion
+	public function capitalize(id:String) {
+		if( id==null )
+			id = "";
+
+		var reg = ~/^(_*)([a-z])([a-zA-Z0-9_]*)/g; // extract first letter, if it's lowercase
+		if( reg.match(id) )
+			id = reg.matched(1) + reg.matched(2).toUpperCase() + reg.matched(3);
+
+		return id;
 	}
 
 
@@ -153,14 +167,17 @@ class Project {
 						Reflect.setField(target, "f_"+f.__identifier, arr.map( (pt)->new ldtk.Point(pt.cx, pt.cy) ) );
 					}
 
+				case "EntityRef":
+					Reflect.setField(target, "f_"+f.__identifier, f.__value);
+
 				case _.indexOf("LocalEnum.") => 0:
 					var type = _enumTypePrefix + typeName.substr( typeName.indexOf(".")+1 );
 					var e = Type.resolveEnum( type );
 					if( !isArray )
-						Reflect.setField(target, "f_"+f.__identifier, Type.createEnum(e, f.__value) );
+						Reflect.setField(target, "f_"+f.__identifier, Type.createEnum(e, capitalize(f.__value)) );
 					else {
 						var arr : Array<String> = f.__value;
-						Reflect.setField(target, "f_"+f.__identifier, arr.map( (k)->Type.createEnum(e,k) ) );
+						Reflect.setField(target, "f_"+f.__identifier, arr.map( (k)->Type.createEnum(e,capitalize(k)) ) );
 					}
 
 
@@ -176,8 +193,41 @@ class Project {
 						Reflect.setField(target, "f_"+f.__identifier, arr.map( (k)->Type.createEnum(e,k) ) );
 					}
 
+				case "Tile":
+					function _checkTile(tileRect : TilesetRect) {
+						if( tileRect==null || !dn.M.isValidNumber(tileRect.x) )
+							return null; // old format
+						else
+							return tileRect;
+					}
+					#if heaps
+					function _heapsTileGetter(tileRect:TilesetRect) {
+						if( tileRect==null || !dn.M.isValidNumber(tileRect.x) || !_untypedTilesets.exists(tileRect.tilesetUid))
+							return null;
+
+						var tileset = _untypedTilesets.get(tileRect.tilesetUid);
+						var tile = tileset.getFreeTile( tileRect.x, tileRect.y, tileRect.w, tileRect.h );
+						return tile;
+					}
+					#end
+
+					if( isArray ) {
+						var arr : Array<TilesetRect> = f.__value;
+						Reflect.setField(target, "f_"+f.__identifier+"_infos", arr.map( tr->_checkTile(tr) ) );
+						#if heaps
+						Reflect.setField(target, "f_"+f.__identifier+"_getTile", arr.map( tr->_heapsTileGetter.bind(tr) ) );
+						#end
+
+					}
+					else {
+						Reflect.setField(target, "f_"+f.__identifier+"_infos", _checkTile(f.__value));
+						#if heaps
+						Reflect.setField(target, "f_"+f.__identifier+"_getTile", _heapsTileGetter.bind(f.__value));
+						#end
+					}
+
 				case _ :
-					Project.error('Unknown field type $typeName'); // TODO add some helpful context here
+					Project.error('Unknown field type $typeName at runtime'); // TODO add some helpful context here
 			}
 		}
 	}

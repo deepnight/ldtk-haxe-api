@@ -15,32 +15,75 @@ typedef ProjectJson = {
 	var jsonVersion: String;
 
 	/**
+		LDtk application build identifier.
+		This is only used to identify the LDtk version that generated this particular project file, which can be useful for specific bug fixing. Note that the build identifier is just the date of the release, so it's not unique to each user (one single global ID per LDtk public release), and as a result, completely anonymous.
+	**/
+	@internal
+	@added("1.0.0")
+	var appBuildId : Float;
+
+
+	/**
+		**WARNING**: this field will move to the `worlds` array after the "multi-worlds" update. It will then be `null`. You can enable the Multi-worlds advanced project option to enable the change immediately.
+
 		An enum that describes how levels are organized in this project (ie. linearly or in a 2D space).
 	**/
-	@added("0.6.0")
-	var worldLayout: WorldLayout;
+	@changed("1.0.0")
+	var worldLayout: Null<WorldLayout>;
 
-	/** Width of the world grid in pixels. **/
-	@only("'GridVania' layouts")
-	@added("0.6.0")
-	var worldGridWidth: Int;
 
-	/** Height of the world grid in pixels. **/
+	/**
+		**WARNING**: this field will move to the `worlds` array after the "multi-worlds" update. It will then be `null`. You can enable the Multi-worlds advanced project option to enable the change immediately.
+
+		Width of the world grid in pixels.
+	**/
 	@only("'GridVania' layouts")
-	@added("0.6.0")
-	var worldGridHeight: Int;
+	@changed("1.0.0")
+	var worldGridWidth: Null<Int>;
+
+
+	/**
+		**WARNING**: this field will move to the `worlds` array after the "multi-worlds" update. It will then be `null`. You can enable the Multi-worlds advanced project option to enable the change immediately.
+
+		Height of the world grid in pixels.
+	**/
+	@only("'GridVania' layouts")
+	@changed("1.0.0")
+	var worldGridHeight: Null<Int>;
+
 
 	/** Next Unique integer ID available **/
 	@internal
 	var nextUid: Int;
 
+	/** Naming convention for Identifiers (first-letter uppercase, full uppercase etc.) **/
+	@internal
+	@added("1.0.0")
+	var identifierStyle : IdentifierStyle;
+
 	/** A structure containing all the definitions of this project **/
 	var defs: DefinitionsJson;
 
 	/**
-		All levels. The order of this array is only relevant in `LinearHorizontal` and `linearVertical` world layouts (see `worldLayout` value). Otherwise, you should refer to the `worldX`,`worldY` coordinates of each Level.
+		All levels. The order of this array is only relevant in `LinearHorizontal` and `linearVertical` world layouts (see `worldLayout` value).
+		Otherwise, you should refer to the `worldX`,`worldY` coordinates of each Level.
 	**/
 	var levels: Array<LevelJson>;
+
+	/**
+This array is not used yet in current LDtk version (so, for now, it's always empty).
+
+In a later update, it will be possible to have multiple Worlds in a single project, each containing multiple Levels.
+
+What will change when "Multiple worlds" support will be added to LDtk:
+
+ - in current version, a LDtk project file can only contain a single world with multiple levels in it. In this case, levels and world layout related settings are stored in the root of the JSON.
+ - after the "Multiple worlds" update, there will be a `worlds` array in root, each world containing levels and layout settings. Basically, it's pretty much only about moving the `levels` array to the `worlds` array, along with world layout related values (eg. `worldGridWidth` etc).
+
+If you want to start supporting this future update easily, please refer to this documentation: https://github.com/deepnight/ldtk/issues/231
+	**/
+	@added("1.0.0")
+	var worlds: Array<WorldJson>;
 
 	/** Default X pivot (0 to 1) for new entities **/
 	@internal
@@ -50,13 +93,26 @@ typedef ProjectJson = {
 	@internal
 	var defaultPivotY: Float;
 
-	/** Default new level width **/
-	@internal
-	var defaultLevelWidth: Int;
 
-	/** Default new level height **/
+	/**
+		**WARNING**: this field will move to the `worlds` array after the "multi-worlds" update. It will then be `null`. You can enable the Multi-worlds advanced project option to enable the change immediately.
+
+		Default new level width
+	**/
+	@changed("1.0.0")
 	@internal
-	var defaultLevelHeight: Int;
+	var defaultLevelWidth: Null<Int>;
+
+
+	/**
+		**WARNING**: this field will move to the `worlds` array after the "multi-worlds" update. It will then be `null`. You can enable the Multi-worlds advanced project option to enable the change immediately.
+
+		Default new level height
+	**/
+	@changed("1.0.0")
+	@internal
+	var defaultLevelHeight: Null<Int>;
+
 
 	/** Default grid size for new layers **/
 	@internal
@@ -118,7 +174,66 @@ typedef ProjectJson = {
 	@internal
 	@added("0.9.0")
 	var levelNamePattern: String;
+
+	/**
+		This optional description is used by LDtk Samples to show up some informations and instructions.
+	**/
+	@internal
+	@added("1.0.0")
+	var tutorialDesc: Null<String>;
 }
+
+
+/**
+**IMPORTANT**: this type is not used *yet* in current LDtk version. It's only presented here as a preview of a planned feature.
+
+A World contains multiple levels, and it has its own layout settings.
+**/
+@added("1.0.0")
+@section("1.1")
+@display("World")
+typedef WorldJson = {
+	/** Unique instance identifer **/
+	@added("1.0.0")
+	var iid: String;
+
+	/** User defined unique identifier **/
+	@added("1.0.0")
+	var identifier: String;
+
+	/**
+		All levels from this world. The order of this array is only relevant in `LinearHorizontal` and `linearVertical` world layouts (see `worldLayout` value). Otherwise, you should refer to the `worldX`,`worldY` coordinates of each Level.
+	**/
+	@added("1.0.0")
+	var levels: Array<LevelJson>;
+
+	/** Default new level width **/
+	@internal
+	@added("1.0.0")
+	var defaultLevelWidth: Int;
+
+	/** Default new level height **/
+	@internal
+	@added("1.0.0")
+	var defaultLevelHeight: Int;
+
+	/**
+		An enum that describes how levels are organized in this project (ie. linearly or in a 2D space).
+	**/
+	@added("1.0.0")
+	var worldLayout: WorldLayout;
+
+	/** Width of the world grid in pixels. **/
+	@only("'GridVania' layouts")
+	@added("1.0.0")
+	var worldGridWidth: Int;
+
+	/** Height of the world grid in pixels. **/
+	@only("'GridVania' layouts")
+	@added("1.0.0")
+	var worldGridHeight: Int;
+}
+
 
 /**
 This section contains all the level data. It can be found in 2 distinct forms, depending on Project current settings:
@@ -135,7 +250,13 @@ typedef LevelJson = {
 	/** Unique Int identifier **/
 	var uid: Int;
 
-	/** Unique String identifier **/
+	/**
+		Unique instance identifier
+	**/
+	@added("1.0.0")
+	var iid: String;
+
+	/** User defined unique identifier **/
 	var identifier: String;
 
 	/** If TRUE, the level identifier will always automatically use the naming pattern as defined in `Project.levelNamePattern`. Becomes FALSE if the identifier is manually modified by user. **/
@@ -143,13 +264,28 @@ typedef LevelJson = {
 	@added("0.9.0")
 	var useAutoIdentifier: Bool;
 
-	/** World X coordinate in pixels **/
+	/**
+		World X coordinate in pixels.
+		Only relevant for world layouts where level spatial positioning is manual (ie. GridVania, Free). For Horizontal and Vertical layouts, the value is always -1 here.
+	**/
 	@added("0.6.0")
+	@changed("1.0.0")
 	var worldX: Int;
 
-	/** World Y coordinate in pixels **/
+	/**
+		World Y coordinate in pixels.
+		Only relevant for world layouts where level spatial positioning is manual (ie. GridVania, Free). For Horizontal and Vertical layouts, the value is always -1 here.
+	**/
 	@added("0.6.0")
+	@changed("1.0.0")
 	var worldY: Int;
+
+	/**
+		Index that represents the "depth" of the level in the world. Default is 0, greater means "above", lower means "below".
+		This value is mostly used for display only and is intended to make stacking of levels easier to manage.
+	**/
+	@added("1.0.0")
+	var worldDepth: Int;
 
 	/** Width of the level in pixels **/
 	var pxWid: Int;
@@ -186,9 +322,11 @@ typedef LevelJson = {
 	var externalRelPath: Null<String>;
 
 	/**
-		An array listing all other levels touching this one on the world map. In "linear" world layouts, this array is populated with previous/next levels in array, and `dir` depends on the linear horizontal/vertical layout.
+		An array listing all other levels touching this one on the world map.
+		Only relevant for world layouts where level spatial positioning is manual (ie. GridVania, Free). For Horizontal and Vertical layouts, this array is always empty.
 	**/
 	@added("0.6.0")
+	@changed("1.0.0")
 	var __neighbours: Array<NeighbourLevel>;
 
 	/**
@@ -224,6 +362,15 @@ typedef LevelJson = {
 	@only("If background image exists")
 	@added("0.7.0")
 	var __bgPos: Null<LevelBgPosInfos>;
+
+
+	/**
+		The "guessed" color for this level in the editor, decided using either the background color or an existing custom field.
+	**/
+	@internal
+	@added("1.0.0")
+	@color
+	var __smartColor: String;
 }
 
 
@@ -268,6 +415,9 @@ typedef LayerInstanceJson = {
 	@added("0.6.0")
 	var __tilesetRelPath: Null<String>;
 
+	/** Unique layer instance identifier **/
+	var iid : String;
+
 	/** Reference to the UID of the level containing this layer instance **/
 	var levelId: Int;
 
@@ -294,13 +444,17 @@ typedef LayerInstanceJson = {
 	/**
 		The list of IntGrid values, stored using coordinate ID system (refer to online documentation for more info about "Coordinate IDs")
 	**/
-	@changed("0.8.0")
-	@deprecation("0.8.0", "0.10.0", "intGridCsv")
+	@deprecation("0.8.0", "1.0.0", "intGridCsv")
 	@only("IntGrid layers")
-	var intGrid: Array<IntGridValueInstance>;
+	var ?intGrid: Array<IntGridValueInstance>;
 
 
-	/** A list of all values in the IntGrid layer, stored from left to right, and top to bottom (ie. first row from left to right, followed by second row, etc). `0` means "empty cell" and IntGrid values start at 1. This array size is `__cWid` x `__cHei` cells. **/
+	/**
+		A list of all values in the IntGrid layer, stored in CSV format (Comma Separated Values).
+		Order is from left to right, and top to bottom (ie. first row from left to right, followed by second row, etc).
+		`0` means "empty cell" and IntGrid values start at 1.
+		The array size is `__cWid` x `__cHei` cells.
+	**/
 	@only("IntGrid layers")
 	@added("0.8.0")
 	var intGridCsv: Array<Int>;
@@ -336,7 +490,7 @@ typedef LayerInstanceJson = {
 /**
 	This structure represents a single tile from a given Tileset.
 **/
-@section("2.1.1")
+@section("2.2")
 @added("0.4.0")
 @display("Tile instance")
 typedef Tile = {
@@ -372,8 +526,36 @@ typedef Tile = {
 }
 
 
+/**
+	This object represents a custom sub rectangle in a Tileset image.
+**/
+@display("Tileset rectangle")
+@section("3.2.2")
+@added("1.0.0")
+typedef TilesetRect = {
+	/** UID of the tileset **/
+	@added("1.0.0")
+	var tilesetUid : Int;
 
-@section("2.1.2")
+	/** X pixels coordinate of the top-left corner in the Tileset image **/
+	@added("1.0.0")
+	var x : Int;
+
+	/** Y pixels coordinate of the top-left corner in the Tileset image **/
+	@added("1.0.0")
+	var y : Int;
+
+	/** Width in pixels **/
+	@added("1.0.0")
+	var w : Int;
+
+	/** Height in pixels **/
+	@added("1.0.0")
+	var h : Int;
+}
+
+
+@section("2.3")
 @display("Entity instance")
 typedef EntityInstanceJson = {
 	/** Entity definition identifier **/
@@ -387,6 +569,10 @@ typedef EntityInstanceJson = {
 	@added("0.7.0")
 	var __pivot: Array<Float>;
 
+	/** Array of tags defined in this Entity definition **/
+	@added("1.0.0")
+	var __tags: Array<String>;
+
 	/** Entity width in pixels. For non-resizable entities, it will be the same as Entity definition. **/
 	@added("0.8.0")
 	var width: Int;
@@ -396,10 +582,23 @@ typedef EntityInstanceJson = {
 	var height: Int;
 
 	/**
-		Optional Tile used to display this entity (it could either be the default Entity tile, or some tile provided by a field value, like an Enum).
+		Optional TilesetRect used to display this entity (it could either be the default Entity tile, or some tile provided by a field value, like an Enum).
 	**/
 	@added("0.4.0")
-	var __tile: Null<EntityInstanceTile>;
+	@changed("1.0.0")
+	var __tile: Null<TilesetRect>;
+
+	/**
+		The entity "smart" color, guessed from either Entity definition, or one its field instances.
+	**/
+	@added("1.0.0")
+	var __smartColor : String;
+
+	/**
+		Unique instance identifier
+	**/
+	@added("1.0.0")
+	var iid : String;
 
 	/** Reference of the **Entity definition** UID **/
 	var defUid: Int;
@@ -414,20 +613,37 @@ typedef EntityInstanceJson = {
 
 
 
-@section("2.1.3")
+@section("2.4")
 @display("Field instance")
 typedef FieldInstanceJson = {
 	/** Field definition identifier **/
 	var __identifier: String;
 
 	/**
-		Actual value of the field instance. The value type may vary, depending on `__type` (Integer, Boolean, String etc.)
-		It can also be an `Array` of those same types.
+		Actual value of the field instance. The value type varies, depending on `__type`:
+		 - For **classic types** (ie. Integer, Float, Boolean, String, Text and FilePath), you just get the actual value with the expected type.
+		 - For **Color**, the value is an hexadecimal string using "#rrggbb" format.
+		 - For **Enum**, the value is a String representing the selected enum value.
+		 - For **Point**, the value is a [GridPoint](#ldtk-GridPoint) object.
+		 - For **Tile**, the value is a [TilesetRect](#ldtk-TilesetRect) object.
+		 - For **EntityRef**, the value is an [EntityReferenceInfos](#ldtk-EntityReferenceInfos) object.
+
+		If the field is an array, then this `__value` will also be a JSON array.
 	**/
+	@types(Int, Float, Bool, String, ldtk.GridPoint, ldtk.TilesetRect, ldtk.EntityReferenceInfos)
 	var __value: Dynamic;
 
-	/** Type of the field, such as `Int`, `Float`, `Enum(my_enum_name)`, `Bool`, etc. **/
+	/**
+		Type of the field, such as `Int`, `Float`, `String`, `Enum(my_enum_name)`, `Bool`, etc.
+		NOTE: if you enable the advanced option **Use Multilines type**, you will have "*Multilines*" instead of "*String*" when relevant.
+	**/
 	var __type: String;
+
+	/**
+		Optional TilesetRect used to display this field (this can be the field own Tile, or some other Tile guessed from the value, like an Enum).
+	**/
+	@added("1.0.0")
+	var __tile: Null<TilesetRect>;
 
 	/**
 		Reference of the **Field definition** UID
@@ -476,7 +692,7 @@ typedef DefinitionsJson = {
 @section("3.1")
 @display("Layer definition")
 typedef LayerDefJson = {
-	/** Unique String identifier **/
+	/** User defined unique identifier **/
 	var identifier: String;
 
 	/** Type of the layer (*IntGrid, Entities, Tiles or AutoLayer*) **/
@@ -492,6 +708,16 @@ typedef LayerDefJson = {
 	/** Width and height of the grid in pixels **/
 	var gridSize: Int;
 
+	/** Width of the optional "guide" grid in pixels **/
+	@internal
+	@added("1.0.0")
+	var guideGridWid: Int;
+
+	/** Height of the optional "guide" grid in pixels **/
+	@internal
+	@added("1.0.0")
+	var guideGridHei: Int;
+
 	/** X offset of the layer, in pixels (IMPORTANT: this should be added to the `LayerInstance` optional offset) **/
 	@added("0.5.0")
 	var pxOffsetX: Int;
@@ -500,14 +726,53 @@ typedef LayerDefJson = {
 	@added("0.5.0")
 	var pxOffsetY: Int;
 
+	/**
+		Parallax horizontal factor (from -1 to 1, defaults to 0) which affects the scrolling speed of this layer, creating a fake 3D (parallax) effect.
+	**/
+	@added("1.0.0")
+	var parallaxFactorX: Float;
+
+	/**
+		Parallax vertical factor (from -1 to 1, defaults to 0) which affects the scrolling speed of this layer, creating a fake 3D (parallax) effect.
+	**/
+	@added("1.0.0")
+	var parallaxFactorY: Float;
+
+	/**
+		If true (default), a layer with a parallax factor will also be scaled up/down accordingly.
+	**/
+	@added("1.0.0")
+	var parallaxScaling: Bool;
+
 	/** Opacity of the layer (0 to 1.0) **/
 	var displayOpacity: Float;
 
-	/** An array that defines extra optional info for each IntGrid value. The array is sorted using value (ascending). **/
+	/** Alpha of this layer when it is not the active one. **/
+	@internal
+	@added("1.0.0")
+	var inactiveOpacity: Float;
+
+	/** Hide the layer from the list on the side of the editor view. **/
+	@internal
+	@added("1.0.0")
+	var hideInList: Bool;
+
+	@internal
+	@added("1.0.0")
+	var hideFieldsWhenInactive: Bool;
+
+	/**
+		An array that defines extra optional info for each IntGrid value.
+		WARNING: the array order is not related to actual IntGrid values! As user can re-order IntGrid values freely, you may value "2" before value "1" in this array.
+	**/
+	@changed("1.0.0")
 	@only("IntGrid layer")
 	var intGridValues: Array<IntGridValueDef>;
 
-	/** Reference to the Tileset UID being used by this auto-layer rules. WARNING: some layer *instances* might use a different tileset. So most of the time, you should probably use the `__tilesetDefUid` value from layer instances. **/
+	/**
+		Reference to the Tileset UID being used by this auto-layer rules. WARNING: some layer *instances* might use a different tileset. So most of the time, you should probably use the `__tilesetDefUid` value from layer instances.
+	**/
+	@deprecation("1.0.0", "1.2.0", "tilesetDefUid")
 	@only("Auto-layers")
 	var autoTilesetDefUid: Null<Int>;
 
@@ -530,8 +795,13 @@ typedef LayerDefJson = {
 	@only("Entity layer")
 	var excludedTags: Array<String>;
 
-	/** Reference to the Tileset UID being used by this Tile layer. WARNING: some layer *instances* might use a different tileset. So most of the time, you should probably use the `__tilesetDefUid` value from layer instances. **/
-	@only("Tile layers")
+	/**
+		Reference to the default Tileset UID being used by this layer definition.
+		**WARNING**: some layer *instances* might use a different tileset. So most of the time, you should probably use the `__tilesetDefUid` value found in layer instances.
+		Note: since version 1.0.0, the old `autoTilesetDefUid` was removed and merged into this value.
+	**/
+	@changed("1.0.0")
+	@only("Tile layers, Auto-layers")
 	var tilesetDefUid: Null<Int>;
 
 	/** If the tiles are smaller or larger than the layer grid, the pivot value will be used to position the tile relatively its grid cell. **/
@@ -551,10 +821,12 @@ typedef AutoLayerRuleGroupJson = {
 	var uid: Int;
 	var name: String;
 	var active: Bool;
-	var collapsed: Bool;
 	var rules: Array<AutoRuleDef>;
 	@added("0.9.0")
 	var isOptional: Bool;
+
+	@removed("1.0.0")
+	var ?collapsed: Bool;
 }
 
 /**
@@ -615,6 +887,12 @@ typedef AutoRuleDef = {
 	/** Y cell coord modulo **/
 	var yModulo: Int;
 
+	/** X cell start offset **/
+	var xOffset: Int;
+
+	/** Y cell start offset **/
+	var yOffset: Int;
+
 	/** If TRUE, enable Perlin filtering to only apply rule on specific random area **/
 	var perlinActive: Bool;
 
@@ -630,7 +908,7 @@ typedef AutoRuleDef = {
 @section("3.2")
 @display("Entity definition")
 typedef EntityDefJson = {
-	/** Unique String identifier **/
+	/** User defined unique identifier **/
 	var identifier: String;
 
 	/** Unique Int identifier **/
@@ -670,6 +948,10 @@ typedef EntityDefJson = {
 	var renderMode: EntityRenderMode;
 
 	@internal
+	@added("1.0.0")
+	var tileOpacity: Float;
+
+	@internal
 	@added("0.8.0")
 	var fillOpacity: Float;
 
@@ -690,11 +972,28 @@ typedef EntityDefJson = {
 	var tilesetId: Null<Int>;
 
 	/** Tile ID used for optional tile display **/
+	@deprecation("1.0.0", "1.2.0", "tileRect")
 	var tileId: Null<Int>;
 
+	/**
+		An object representing a rectangle from an existing Tileset
+	**/
+	@added("1.0.0")
+	var tileRect: Null<TilesetRect>;
+
+	/**
+		An enum describing how the the Entity tile is rendered inside the Entity bounds.
+	**/
 	@changed("0.8.1")
-	@internal
 	var tileRenderMode: EntityTileRenderMode;
+
+	/**
+		An array of 4 dimensions for the up/right/down/left borders (in this order) when using 9-slice mode for `tileRenderMode`.
+		If the tileRenderMode is not NineSlice, then this array is empty.
+		See: https://en.wikipedia.org/wiki/9-slice_scaling
+	**/
+	@added("1.0.0")
+	var nineSliceBorders: Array<Int>;
 
 	/** Max instances count **/
 	@internal
@@ -729,17 +1028,22 @@ typedef EntityDefJson = {
 @section("3.2.1")
 @display("Field definition")
 typedef FieldDefJson = {
-	/** Unique String identifier **/
+	/** User defined unique identifier **//** User defined unique identifier **/
 	var identifier: String;
 
 	/** Unique Int identifier **/
 	var uid: Int;
 
-	/** Human readable value type (eg. `Int`, `Float`, `Point`, etc.). If the field is an array, this field will look like `Array<...>` (eg. `Array<Int>`, `Array<Point>` etc.) **/
+	/**
+		Human readable value type. Possible values: `Int, Float, String, Bool, Color, ExternEnum.XXX, LocalEnum.XXX, Point, FilePath`.
+		If the field is an array, this field will look like `Array<...>` (eg. `Array<Int>`, `Array<Point>` etc.)
+		NOTE: if you enable the advanced option **Use Multilines type**, you will have "*Multilines*" instead of "*String*" when relevant.
+	**/
 	var __type: String;
 
-	/** Internal type enum **/
-	var type: Dynamic;
+	/** Internal enum representing the possible field types. Possible values: @enum{ldtk.FieldType} **/
+	@docType(String)
+	var type: FieldType;
 
 	/** TRUE if the value is an array of multiple values **/
 	var isArray: Bool;
@@ -775,6 +1079,7 @@ typedef FieldDefJson = {
 	/** Default value if selected value is null or invalid. **/
 	var defaultOverride: Null< Enum<Dynamic> >;
 
+	@changed("1.0.0")
 	@internal
 	var editorDisplayMode: FieldDisplayMode;
 
@@ -784,6 +1089,14 @@ typedef FieldDefJson = {
 	@internal
 	var editorAlwaysShow: Bool;
 
+	@internal
+	@added("1.0.0")
+	var editorTextPrefix: Null<String>;
+
+	@internal
+	@added("1.0.0")
+	var editorTextSuffix: Null<String>;
+
 	@added("0.8.0")
 	@internal
 	var editorCutLongValues: Bool;
@@ -791,6 +1104,40 @@ typedef FieldDefJson = {
 	@internal
 	@changed("0.9.3")
 	var textLanguageMode: Null<TextLanguageMode>;
+
+	@internal
+	@added("1.0.0")
+	var symmetricalRef: Bool;
+
+	@internal
+	@added("1.0.0")
+	var autoChainRef: Bool;
+
+	@internal
+	@added("1.0.0")
+	var allowOutOfLevelRef: Bool;
+
+	@internal
+	@added("1.0.0")
+	var allowedRefs: EntityReferenceTarget;
+
+	@internal
+	@added("1.0.0")
+	var allowedRefTags: Array<String>;
+
+	/**
+		UID of the tileset used for a Tile
+	**/
+	@only("Tile")
+	@internal
+	@added("1.0.0")
+	var tilesetUid: Null<Int>;
+
+
+	/** If TRUE, the color associated with this field will override the Entity or Level default color in the editor UI. For Enum fields, this would be the color associated to their values. **/
+	@internal
+	@added("1.0.0")
+	var useForSmartColor: Bool;
 }
 
 
@@ -808,11 +1155,17 @@ typedef TilesetDefJson = {
 	@added("0.9.0")
 	var __cHei : Int;
 
-	/** Unique String identifier **/
+	/** User defined unique identifier **/
 	var identifier: String;
 
 	/** Unique Intidentifier **/
 	var uid: Int;
+
+	/**
+		If this value is set, then it means that this atlas uses an internal LDtk atlas image instead of a loaded one.
+	**/
+	@added("1.0.0")
+	var embedAtlas : Null<EmbedAtlas>;
 
 	/** Path to the source file, relative to the current project JSON file **/
 	var relPath: String;
@@ -841,14 +1194,11 @@ typedef TilesetDefJson = {
 
 	/** Tileset tags using Enum values specified by `tagsSourceEnumId`. This array contains 1 element per Enum value, which contains an array of all Tile IDs that are tagged with it. **/
 	@added("0.9.0")
-	var enumTags: Array<{
-		enumValueId: String,
-		tileIds: Array<Int>,
-	}>;
+	var enumTags: Array<EnumTagValue>;
 
 	/** An array of custom tile metadata **/
 	@added("0.9.0")
-	var customData : Array<{ tileId:Int, data:String }>;
+	var customData : Array<TileCustomMetadata>;
 
 	/** The following data is used internally for various optimizations. It's always synced with source image changes. **/
 	@internal
@@ -862,6 +1212,10 @@ typedef TilesetDefJson = {
 		@added("0.6.0")
 		var averageColors: Null<String>;
 	}>;
+
+	/** An array of user-defined tags to organize the Tilesets **/
+	@added("1.0.0")
+	var tags: Array<String>;
 }
 
 
@@ -872,7 +1226,7 @@ typedef EnumDefJson = {
 	/** Unique Int identifier **/
 	var uid: Int;
 
-	/** Unique String identifier **/
+	/** User defined unique identifier **/
 	var identifier: String;
 
 	/** All possible enum values, with their optional Tile infos. **/
@@ -886,6 +1240,10 @@ typedef EnumDefJson = {
 
 	@internal
 	var externalFileChecksum: Null<String>;
+
+	/** An array of user-defined tags to organize the Enums **/
+	@added("1.0.0")
+	var tags: Array<String>;
 };
 
 @section("3.4.1")
@@ -910,21 +1268,15 @@ typedef EnumDefValues = {
 
 /* INLINED TYPES *****************************************************************************/
 
-/** Tile data in an Entity instance **/
-@inline
-@display("Entity instance tile")
-typedef EntityInstanceTile = {
-	/** Tileset ID **/
-	var tilesetUid: Int;
-
-	/** An array of 4 Int values that refers to the tile in the tileset image: `[ x, y, width, height ]` **/
-	var srcRect: Array<Int>;
-}
-
 /** Nearby level info **/
 @inline
 @display("Neighbour level")
 typedef NeighbourLevel = {
+	/** Neighbour Instance Identifier **/
+	@added("1.0.0")
+	var levelIid : String;
+
+	@deprecation("1.0.0", "1.2.0", "levelIid")
 	var levelUid: Int;
 
 	/** A single lowercase character tipping on the level location (`n`orth, `s`outh, `w`est, `e`ast). **/
@@ -960,18 +1312,74 @@ typedef IntGridValueInstance = {
 @inline
 @display("IntGrid value definition")
 typedef IntGridValueDef = {
-	/** The IntGrid value itself **/
+	/**
+		The IntGrid value itself
+	**/
 	@added("0.8.0")
 	var value: Int;
 
-	/** Unique String identifier **/
+	/** User defined unique identifier **/
 	var identifier:Null<String>;
 
 	@color
 	var color:String ;
 }
 
+/** In a tileset definition, enum based tag infos **/
+@inline
+@added("1.0.0")
+@display("Enum tag value")
+typedef EnumTagValue = {
+	var enumValueId: String;
+	var tileIds: Array<Int>;
+}
 
+/** In a tileset definition, user defined meta-data of a tile. **/
+@inline
+@added("1.0.0")
+@display("Tile custom metadata")
+typedef TileCustomMetadata = {
+	var tileId:Int;
+	var data:String;
+}
+
+/** This object is used in Field Instances to describe an EntityRef value. **/
+@section("2.4.2")
+@added("1.0.0")
+@display("Field instance entity reference")
+typedef EntityReferenceInfos = {
+	/** IID of the refered EntityInstance **/
+	@added("1.0.0")
+	var entityIid : String;
+
+	/** IID of the LayerInstance containing the refered EntityInstance **/
+	@added("1.0.0")
+	var layerIid : String;
+
+	/** IID of the Level containing the refered EntityInstance **/
+	@added("1.0.0")
+	var levelIid : String;
+
+	/** IID of the World containing the refered EntityInstance **/
+	@added("1.0.0")
+	var worldIid : String;
+}
+
+/**
+	This object is just a grid-based coordinate used in Field values.
+**/
+@section("2.4.3")
+@added("1.0.0")
+@display("Field instance grid point")
+typedef GridPoint = {
+	/** X grid-based coordinate **/
+	@added("1.0.0")
+	var cx: Int;
+
+	/** Y grid-based coordinate **/
+	@added("1.0.0")
+	var cy: Int;
+}
 
 /* MISC ENUMS *****************************************************************************/
 
@@ -1006,6 +1414,25 @@ enum FieldDisplayPosition {
 	Beneath;
 }
 
+enum FieldType {
+	F_Int;
+	F_Float;
+	F_String;
+	F_Text;
+	F_Bool;
+	F_Color;
+	F_Enum(enumDefUid:Int);
+	F_Point;
+	F_Path;
+
+	@added("1.0.0")
+	F_EntityRef;
+
+	@added("1.0.0")
+	F_Tile;
+}
+
+
 enum EntityRenderMode {
 	Rectangle;
 	Ellipse;
@@ -1018,6 +1445,9 @@ enum EntityTileRenderMode {
 	FitInside;
 	Repeat;
 	Stretch;
+	FullSizeCropped;
+	FullSizeUncropped;
+	NineSlice;
 }
 
 enum EntityLimitBehavior {
@@ -1037,6 +1467,10 @@ enum FieldDisplayMode {
 	PointPathLoop;
 	RadiusPx;
 	RadiusGrid;
+	ArrayCountWithLabel;
+	ArrayCountNoLabel;
+	RefLinkBetweenPivots;
+	RefLinkBetweenCenters;
 }
 
 enum BgImagePos {
@@ -1057,11 +1491,17 @@ enum TextLanguageMode {
 	LangMarkdown;
 	LangJson;
 	LangXml;
+
+	LangLog;
 }
 
 enum ProjectFlag {
-	DiscardPreCsvIntGrid;
+	DiscardPreCsvIntGrid; // backward compatibility
+	ExportPreCsvIntGridFormat;
 	IgnoreBackupSuggest;
+	PrependIndexToLevelFileNames;
+	MultiWorlds;
+	UseMultilinesType;
 }
 
 enum EntityLimitScope {
@@ -1075,3 +1515,23 @@ enum ImageExportMode {
 	OneImagePerLayer;
 	OneImagePerLevel;
 }
+
+@added("1.0.0")
+enum EntityReferenceTarget {
+	Any;
+	OnlySame;
+	OnlyTags;
+}
+
+@added("1.0.0")
+enum IdentifierStyle {
+	Capitalize;
+	Uppercase;
+	Lowercase;
+	Free;
+}
+
+enum EmbedAtlas {
+	LdtkIcons;
+}
+
