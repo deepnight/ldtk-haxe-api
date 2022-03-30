@@ -84,6 +84,8 @@ class Main {
 			CiAssert.isNotNull( project.levels[0].l_IntGridTest );
 			CiAssert.equals( project.levels[1].worldX, 512 );
 			CiAssert.equals( project.levels[1].worldY, 256 );
+			CiAssert.equals( project.levels[0].bgColor_hex, "#271E27" );
+			CiAssert.equals( project.levels[0].bgColor_int, 0x271E27 );
 			CiAssert.equals( project.levels[0].bgColor, 0x271E27 );
 			CiAssert.equals( project.levels[0].neighbours.length, 2 );
 			CiAssert.equals( project.levels[0].neighbours[0].dir, ldtk.Level.NeighbourDir.East );
