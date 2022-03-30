@@ -9,6 +9,6 @@
   "releasenote": "API updated for 1.0.0",
   "contributors": ["sbenard"],
   "dependencies": {
-    "deepnightLibs": "1.0.59"
+    "deepnightLibs": ""
   }
 }
