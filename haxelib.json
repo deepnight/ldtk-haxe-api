@@ -8,5 +8,7 @@
   "classPath": "src/",
   "releasenote": "API updated for 1.0.0",
   "contributors": ["sbenard"],
-  "dependencies": {}
+  "dependencies": {
+    "deepnightLibs": "1.0.59"
+  }
 }

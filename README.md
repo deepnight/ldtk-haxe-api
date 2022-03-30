@@ -42,12 +42,14 @@ Samples are built to **WebGL** (Javascript) and **Hashlink** targets, but you ca
 
 ### Requirements
 
-You need a standard **Haxe** install, and both *heaps* and *deepnightLibs* libraries installed:
+You need a standard **Haxe** install, and the following libraries installed: *heaps* (from source), *deepnightLibs* (from source), *hlsdl*:
 
 ```
 haxelib git heaps https://github.com/HeapsIO/heaps.git
 
 haxelib git deepnightLibs https://github.com/deepnight/deepnightLibs.git
+
+haxelib install hlsdl
 ```
 
 ### Building samples
