@@ -140,6 +140,11 @@ If you want to start supporting this future update easily, please refer to this 
 	@internal
 	var exportTiled: Bool;
 
+	/** If TRUE, a very simplified will be generated on saving, for quicker & easier engine integration. **/
+	@added("1.1.0")
+	@internal
+	var simplifiedExport: Bool;
+
 	/** TRUE is equivalent to OneImagePerLayer, FALSE is None. **/
 	@internal
 	@deprecation("0.9.3", "0.9.3", "imageExportMode")
@@ -1510,10 +1515,12 @@ enum EntityLimitScope {
 	PerWorld;
 }
 
+@changed("1.1.0")
 enum ImageExportMode {
 	None;
 	OneImagePerLayer;
 	OneImagePerLevel;
+	LayersAndLevels;
 }
 
 @added("1.0.0")

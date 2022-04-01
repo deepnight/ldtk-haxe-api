@@ -52,7 +52,8 @@ class Level {
 	public var bgColor_int: UInt;
 
 	@:deprecated("Use bgColor_int instead") @:noCompletion
-	public var bgColor : UInt;
+	public var bgColor(get,never) : UInt;
+		@:noCompletion inline function get_bgColor() return bgColor_int;
 
 	public var allUntypedLayers(default,null) : Array<Layer>;
 	public var neighbours : Array<{ levelIid:String, dir: NeighbourDir }>;
@@ -93,7 +94,6 @@ class Level {
 		worldY = json.worldY;
 		bgColor_hex = json.__bgColor;
 		bgColor_int = Project.hexToInt(json.__bgColor);
-		bgColor = bgColor_int;
 
 		bgImageInfos = json.bgRelPath==null || json.__bgPos==null ? null : {
 			relFilePath: json.bgRelPath,
