@@ -1518,6 +1518,7 @@ enum ImageExportMode {
 	None;
 	OneImagePerLayer;
 	OneImagePerLevel;
+	LayersAndLevels;
 }
 
 @added("1.0.0")
