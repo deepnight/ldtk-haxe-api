@@ -5,7 +5,7 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "1.1.1",
+		"appVersion": "1.1.2",
 		"url": "https://ldtk.io"
 	},
 	"identifier": "Target_level_ref",
@@ -157,7 +157,7 @@
 						"entityIid": "bcf852b0-66b0-11ec-88f3-f1c676c28598",
 						"layerIid": "27359dc1-66b0-11ec-8446-ff4b9136ca03",
 						"levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e",
-						"worldIid": "c28204e0-8dc0-11ec-806e-a14c2ef4f4d6"
+						"worldIid": "82896a80-b4d0-11ec-b8af-a98523c1322f"
 					}, "__type": "EntityRef", "__tile": null, "defUid": 108, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["bcf852b0-66b0-11ec-88f3-f1c676c28598"]
