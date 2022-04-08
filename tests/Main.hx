@@ -1,5 +1,6 @@
 import dn.CiAssert;
 import ExternEnumTest;
+import ExternCastleDbTest;
 import ProjectNoPackage;
 
 class Main {
@@ -11,6 +12,8 @@ class Main {
 			hxd.Res.initEmbed();
 		#end
 
+		// Load castle DB
+		ExternCastleDbTest.load( hxd.Res.sample_cdb.entry.getText() );
 
 		// Check args
 		CiAssert.VERBOSE = false;
@@ -152,6 +155,21 @@ class Main {
 			CiAssert.equals( allFieldsTest.f_entityRefs.length, 2 );
 			CiAssert.equals( allFieldsTest.f_entityRefs[0].entityIid, "57c51ab0-66b0-11ec-8446-f3a61ee63449" );
 			CiAssert.equals( allFieldsTest.f_entityRefs[1].entityIid, "58f66ec0-66b0-11ec-8446-9b40d7be219b" );
+
+			// Extern enums
+			var extEnt = project.all_levels.Main_tests.l_EntityTest.all_ExternEnums[0];
+			CiAssert.isNotNull(extEnt);
+			CiAssert.isNotNull(extEnt.f_cdb);
+			CiAssert.isNotNull(extEnt.f_haxe);
+			CiAssert.equals(extEnt.f_cdb, CdbA);
+			CiAssert.equals(extEnt.f_haxe, SomeEnum.Pouet);
+			CiAssert.isTrue(
+				switch extEnt.f_cdb {
+					case CdbA: true;
+					case CdbB: false;
+					case CdbC: false;
+				}
+			);
 
 			// Entity tiles
 			var eTiles = project.all_levels.Main_tests.l_EntityTest.all_EntityTiles;

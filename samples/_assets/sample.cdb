@@ -1,0 +1,28 @@
+{
+	"sheets": [
+		{
+			"name": "CdbEnumTest",
+			"columns": [
+				{
+					"typeStr": "0",
+					"name": "id"
+				}
+			],
+			"lines": [
+				{
+					"id": "CdbA"
+				},
+				{
+					"id": "CdbB"
+				},
+				{
+					"id": "CdbC"
+				}
+			],
+			"separators": [],
+			"props": {}
+		}
+	],
+	"customTypes": [],
+	"compress": false
+}

@@ -2,6 +2,9 @@
 -cp samples/_srcCommon
 -cp src
 
+-lib castle
+-D ldtkCastle=ExternCastleDbTest
+
 -lib deepnightLibs
 -lib heaps
 -D resourcesPath=samples/_assets

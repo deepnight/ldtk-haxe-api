@@ -128,7 +128,7 @@ class Project {
 
 	var _enumTypePrefix : String;
 
-	function _resolveExternalEnum<T>(name:String) : Enum<T> {
+	function _resolveExternalEnumValue<T>(name:String, enumValueId:String) : T {
 		return null;
 	}
 
@@ -183,14 +183,11 @@ class Project {
 
 				case _.indexOf("ExternEnum.") => 0:
 					var type = typeName.substr( typeName.indexOf(".")+1 );
-					var e = _resolveExternalEnum(type);
-					if( e==null )
-						Project.error("Couldn't create an instance of enum "+type+"! Please check if the PROJECT enum still matches the EXTERNAL FILE declaring it.");
 					if( !isArray )
-						Reflect.setField(target, "f_"+f.__identifier, Type.createEnum(e, f.__value) );
+						Reflect.setField(target, "f_"+f.__identifier, _resolveExternalEnumValue(type, f.__value) );
 					else {
 						var arr : Array<String> = f.__value;
-						Reflect.setField(target, "f_"+f.__identifier, arr.map( (k)->Type.createEnum(e,k) ) );
+						Reflect.setField(target, "f_"+f.__identifier, arr.map( (k)->_resolveExternalEnumValue(type, k) ) );
 					}
 
 				case "Tile":
