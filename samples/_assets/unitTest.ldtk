@@ -5,12 +5,12 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "1.1.1",
+		"appVersion": "1.1.2",
 		"url": "https://ldtk.io"
 	},
-	"jsonVersion": "1.1.1",
-	"appBuildId": 458076,
-	"nextUid": 112,
+	"jsonVersion": "1.1.2",
+	"appBuildId": 458319,
+	"nextUid": 118,
 	"identifierStyle": "Free",
 	"worldLayout": "GridVania",
 	"worldGridWidth": 256,
@@ -1335,6 +1335,93 @@
 					"tilesetUid": 14
 				}
 			]
+		},
+		{
+			"identifier": "ExternEnums",
+			"uid": 113,
+			"tags": [],
+			"width": 32,
+			"height": 32,
+			"resizableX": false,
+			"resizableY": false,
+			"keepAspectRatio": false,
+			"tileOpacity": 1,
+			"fillOpacity": 1,
+			"lineOpacity": 1,
+			"hollow": false,
+			"color": "#00C8FF",
+			"renderMode": "Ellipse",
+			"showName": true,
+			"tilesetId": null,
+			"tileId": null,
+			"tileRenderMode": "FitInside",
+			"tileRect": null,
+			"nineSliceBorders": [],
+			"maxCount": 0,
+			"limitScope": "PerLevel",
+			"limitBehavior": "MoveLastOne",
+			"pivotX": 0.5,
+			"pivotY": 0.5,
+			"fieldDefs": [
+				{
+					"identifier": "haxe",
+					"__type": "ExternEnum.SomeEnum",
+					"uid": 115,
+					"type": "F_Enum(31)",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "NameAndValue",
+					"editorDisplayPos": "Center",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefTags": [],
+					"tilesetUid": null
+				},
+				{
+					"identifier": "cdb",
+					"__type": "ExternEnum.CdbEnumTest",
+					"uid": 117,
+					"type": "F_Enum(112)",
+					"isArray": false,
+					"canBeNull": false,
+					"arrayMinLength": null,
+					"arrayMaxLength": null,
+					"editorDisplayMode": "NameAndValue",
+					"editorDisplayPos": "Center",
+					"editorAlwaysShow": false,
+					"editorCutLongValues": true,
+					"editorTextSuffix": null,
+					"editorTextPrefix": null,
+					"useForSmartColor": false,
+					"min": null,
+					"max": null,
+					"regex": null,
+					"acceptFileTypes": null,
+					"defaultOverride": null,
+					"textLanguageMode": null,
+					"symmetricalRef": false,
+					"autoChainRef": true,
+					"allowOutOfLevelRef": true,
+					"allowedRefs": "OnlySame",
+					"allowedRefTags": [],
+					"tilesetUid": null
+				}
+			]
 		}
 	], "tilesets": [
 		{
@@ -1416,7 +1503,12 @@
 			{ "id": "Bar", "tileId": null, "color": 0, "__tileSrcRect": null },
 			{ "id": "Foo", "tileId": null, "color": 0, "__tileSrcRect": null },
 			{ "id": "Pouet", "tileId": null, "color": 0, "__tileSrcRect": null }
-		], "iconTilesetUid": null, "externalRelPath": "../_srcCommon/ExternEnumTest.hx", "externalFileChecksum": "411417ba762ae881749b425b1c129b19", "tags": [] }
+		], "iconTilesetUid": null, "externalRelPath": "../_srcCommon/ExternEnumTest.hx", "externalFileChecksum": "411417ba762ae881749b425b1c129b19", "tags": [] },
+		{ "identifier": "CdbEnumTest", "uid": 112, "values": [
+			{ "id": "CdbA", "tileId": null, "color": 0, "__tileSrcRect": null },
+			{ "id": "CdbB", "tileId": null, "color": 0, "__tileSrcRect": null },
+			{ "id": "CdbC", "tileId": null, "color": 0, "__tileSrcRect": null }
+		], "iconTilesetUid": null, "externalRelPath": "sample.cdb", "externalFileChecksum": "136dc9cfefa9927499ee2a3f98def6e2", "tags": [] }
 	], "levelFields": [
 		{
 			"identifier": "level_int",

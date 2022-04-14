@@ -1172,8 +1172,11 @@ typedef TilesetDefJson = {
 	@added("1.0.0")
 	var embedAtlas : Null<EmbedAtlas>;
 
-	/** Path to the source file, relative to the current project JSON file **/
-	var relPath: String;
+	/**
+		Path to the source file, relative to the current project JSON file
+		It can be null if no image was provided, or when using an embed atlas.
+	**/
+	var relPath: Null<String>;
 
 	/** Image width in pixels **/
 	var pxWid: Int;

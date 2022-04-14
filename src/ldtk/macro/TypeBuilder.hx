@@ -32,7 +32,7 @@ class TypeBuilder {
 	// Types
 	static var projectFields : Array<Field> = [];
 	static var externEnumTypes : Map<String,{ path:String, ct:ComplexType}> = new Map();
-	static var externEnumSwitchExpr : Expr;
+	static var externEnumResolverSwitch : Expr;
 	static var entityIdsEnum : TypeDefinition;
 	static var baseEntityType : TypeDefinition;
 	static var levelType : TypeDefinition;
@@ -216,35 +216,89 @@ class TypeBuilder {
 		timer("externEnumParsing");
 		var hxPackageReg = ~/package[ \t]+([\w.]+)[ \t]*;/gim;
 		externEnumTypes = new Map();
+		var resolverCases : Array<Case> = [];
+
 		for(e in json.defs.externalEnums){
 			var p = new haxe.io.Path(e.externalRelPath);
 			var fileName = p.file+"."+p.ext;
 			switch p.ext {
 				case null: // (should not happen, as the file extension is enforced in editor)
 
+				// HX files
 				case _.toLowerCase()=>"hx":
-					// HX files
-					var path = locateFile(fileName);
+					// Check file
+					var path = locateHxFile(fileName);
 					if( path==null ) {
 						error("External Enum file \""+fileName+"\" is used in LDtk Project but it can't be found in the current classPaths.");
 						continue;
 					}
 
+					// Read HX file to find its package
 					var fi = sys.io.File.read(path, false);
 					var fileContent = fi.readAll().toString();
 					fi.close();
 					var enumPack = hxPackageReg.match(fileContent) ? hxPackageReg.matched(1)+"." : "";
 					var enumMod = enumPack + p.file;
 
+					// Create resolver expr
+					resolverCases.push({
+						values: [ macro $v{e.identifier} ],
+						expr: macro {
+							var e =
+								try Type.resolveEnum($v{enumPack + e.identifier})
+								catch(_) null;
+							if( e!=null )
+								Type.createEnum(e, enumValueId);
+							else
+								null;
+						},
+					});
+
+					// Register complex type
 					var ct =
 						try Context.getType(enumMod+"."+e.identifier).toComplexType()
-						catch(e:Dynamic) {
-							error("Cannot resolve the external HX Enum "+e.ide+" from "+enumMod+", maybe the package is wrong?");
-						}
-
+						catch(e:Dynamic) error("Cannot resolve the external HX Enum "+e.ide+" from "+enumMod+", maybe the package is wrong?");
 					externEnumTypes.set(e.identifier, {
 						path: enumPack+e.identifier,
 						ct: ct
+					});
+
+
+				// CastleDB
+				case _.toLowerCase()=>"cdb":
+					// Lookup file
+					var dir = dn.FilePath.extractDirectoryWithoutSlash(projectFilePath, true);
+					var path = dn.FilePath.cleanUp(dir+"/"+fileName, true);
+					if( !sys.FileSystem.exists(path) ) {
+						error("External Enum file \""+fileName+"\" is used in LDtk Project but it can't be found at: "+path);
+						continue;
+					}
+
+					// Need classpath to Castle DB instance to resolve its enums (use -D ldtkCastle=...)
+					var cdbClass = Context.definedValue("ldtkCastle");
+					if( cdbClass==null )
+						Context.fatalError('Missing "-D ldtkCastle=full.package.of.CastleDbClass"', Context.currentPos());
+
+					// Rebuild type path as string (eg. MyCastleDb.MyEnumKind)
+					var tpath = cdbClass+"."+e.identifier+"Kind";
+					var ct =
+						try Context.getType(tpath).toComplexType()
+						catch(_) Context.fatalError("Could not resolve CastleDb type: "+tpath, Context.currentPos());
+
+					// Create resolver expr
+					resolverCases.push({
+						values: [ macro $v{e.identifier} ],
+						expr: macro {
+							var byId : Map<String,Dynamic> = (cast ExternCastleDbTest).CdbEnumTest.byId;
+							var out = byId.get(enumValueId).id;
+							out;
+						},
+					});
+
+					// Register complex type
+					externEnumTypes.set(e.identifier, {
+						path: e.identifier,
+						ct: ct,
 					});
 
 				case _:
@@ -252,19 +306,11 @@ class TypeBuilder {
 			}
 		}
 
-		// Prepare a switch to resolve extern enum ID to runtime type identifier. It will be called in Project constructor.
-		timer("entityClass");
-		var cases : Array<Case> = [];
-		for(e in externEnumTypes.keyValueIterator()) {
-			cases.push({
-				values: [ macro $v{e.key} ],
-				expr: macro $v{e.value.path},
-			});
-		}
-		externEnumSwitchExpr = {
-			expr: ESwitch( macro name, cases, macro { ldtk.Project.error("Unknown external enum name"); null; } ),
+		externEnumResolverSwitch = {
+			expr: ESwitch( macro name, resolverCases, macro { ldtk.Project.error("Unknown external enum name: "+name); null; } ),
 			pos: curPos,
 		}
+
 	}
 
 
@@ -417,6 +463,8 @@ class TypeBuilder {
 
 				case _.indexOf("ExternEnum.") => 0:
 					var enumId = typeName.substr( typeName.indexOf(".")+1 );
+					if( !externEnumTypes.exists(enumId) )
+						Context.fatalError("Unknown external enum "+enumId, Context.currentPos());
 					var ct = externEnumTypes.get(enumId).ct;
 					var ed = getEnumDefJson(enumId);
 					fields.push({
@@ -894,8 +942,8 @@ class TypeBuilder {
 					return new $levelTypePath(project, arrayIndex, json);
 				}
 
-				override function _resolveExternalEnum<T>(name:String) : Enum<T> {
-					return cast Type.resolveEnum($externEnumSwitchExpr);
+				override function _resolveExternalEnumValue<T>(name:String, enumValueId:String) : T {
+					return $externEnumResolverSwitch;
 				}
 
 				/** Get a level from its UID (int) or Identifier (string) **/
@@ -935,7 +983,7 @@ class TypeBuilder {
 	/**
 		Search a file in all classPaths + sub folders
 	**/
-	static function locateFile(searchFileName:String) : Null<String> {
+	static function locateHxFile(searchFileName:String) : Null<String> {
 		if( locateCache.exists(searchFileName) )
 			return locateCache.get(searchFileName);
 
