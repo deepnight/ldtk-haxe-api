@@ -1174,7 +1174,7 @@ typedef TilesetDefJson = {
 
 	/**
 		Path to the source file, relative to the current project JSON file
-		It can be
+		It can be null if no image was provided, or when using an embed atlas.
 	**/
 	var relPath: Null<String>;
 
