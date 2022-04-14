@@ -170,6 +170,7 @@ class Main {
 					case CdbC: false;
 				}
 			);
+			CiAssert.isTrue(extEnt.f_cdb==ExternCastleDbTest.CdbEnumTestKind.CdbA);
 
 			// Entity tiles
 			var eTiles = project.all_levels.Main_tests.l_EntityTest.all_EntityTiles;
