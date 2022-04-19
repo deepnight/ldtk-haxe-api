@@ -268,30 +268,35 @@ class TypeBuilder {
 				case _.toLowerCase()=>"cdb":
 					// Lookup file
 					var dir = dn.FilePath.extractDirectoryWithoutSlash(projectFilePath, true);
-					var path = dn.FilePath.cleanUp(dir+"/"+fileName, true);
+					var path = dn.FilePath.cleanUp(dir+"/"+e.externalRelPath, true);
 					if( !sys.FileSystem.exists(path) ) {
 						error("External Enum file \""+fileName+"\" is used in LDtk Project but it can't be found at: "+path);
 						continue;
 					}
 
 					// Need classpath to Castle DB instance to resolve its enums (use -D ldtkCastle=...)
-					var cdbClass = Context.definedValue("ldtkCastle");
-					if( cdbClass==null )
+					var cdbFull = Context.definedValue("ldtkCastle");
+					if( cdbFull==null )
 						Context.fatalError('Missing "-D ldtkCastle=full.package.of.CastleDbClass"', Context.currentPos());
 
-					// Rebuild type path as string (eg. MyCastleDb.MyEnumKind)
-					var tpath = cdbClass+"."+e.identifier+"Kind";
-					var ct =
-						try Context.getType(tpath).toComplexType()
-						catch(_) Context.fatalError("Could not resolve CastleDb type: "+tpath, Context.currentPos());
+					var cdbPack = cdbFull.split(".");
+					var cdbClassName = cdbPack.pop();
+
+					// This is where dark magic happens: we *hope* that the CDB class will exist at the end of the compilation time
+					var ct : ComplexType = TPath({ name:cdbClassName, pack:cdbPack, sub:e.identifier+"Kind" });
 
 					// Create resolver expr
+					var cdbExpr : Expr = {
+						expr: EConst( CIdent(cdbClassName) ),
+						pos: Context.currentPos(),
+					}
 					resolverCases.push({
 						values: [ macro $v{e.identifier} ],
 						expr: macro {
-							var byId : Map<String,Dynamic> = (cast ExternCastleDbTest).CdbEnumTest.byId;
-							var out = byId.get(enumValueId).id;
-							out;
+							var cdb : Dynamic = cast $cdbExpr; // CastleDB class
+							var cdbEnum : Dynamic = Reflect.field(cdb, $v{e.identifier}); // Sheet object
+							var byId : Map<String,Dynamic> = cdbEnum.byId; // ID resolver in sheet
+							return byId.get(enumValueId).id;
 						},
 					});
 
