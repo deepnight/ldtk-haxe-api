@@ -25,9 +25,13 @@ class Layer {
 
 	/** Grid-based layer width **/
 	public var cWid : Int;
-
 	/** Grid-based layer height **/
 	public var cHei : Int;
+
+	/** Pixel-based layer width **/
+	public var pxWid : Int;
+	/** Pixel-based layer height **/
+	public var pxHei : Int;
 
 	/**
 		Pixel-based layer X offset (includes both instance and definition offsets)
@@ -55,6 +59,8 @@ class Layer {
 		gridSize = json.__gridSize;
 		cWid = json.__cWid;
 		cHei = json.__cHei;
+		pxWid = cWid * json.__gridSize;
+		pxHei = cHei * json.__gridSize;
 		pxTotalOffsetX = json.__pxTotalOffsetX;
 		pxTotalOffsetY = json.__pxTotalOffsetY;
 		opacity = json.__opacity;
