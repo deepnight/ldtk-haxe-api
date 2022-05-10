@@ -679,6 +679,9 @@ class TypeBuilder {
 					// Typed Entity arrays
 					var entityArrayFields : Array<Field> = [];
 					for(e in json.defs.entities) {
+						if( !matchesTags(e.tags, l.requiredTags, l.excludedTags) )
+							continue;
+
 						var entityComplexType = Context.getType("Entity_"+e.identifier).toComplexType();
 						entityArrayFields.push({
 							name: "all_"+e.identifier,
@@ -751,6 +754,23 @@ class TypeBuilder {
 					error("Unknown layer type "+l.type);
 			}
 		}
+	}
+
+
+	static function matchesTags(elementTags:Array<String>, requireds:Array<String>, excludeds:Array<String>) : Bool {
+		var tmap = new Map();
+		for(t in elementTags)
+			tmap.set(t,t);
+
+		for(t in requireds)
+			if( !tmap.exists(t) )
+				return false;
+
+		for(t in excludeds)
+			if( tmap.exists(t) )
+				return false;
+
+		return true;
 	}
 
 
