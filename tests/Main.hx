@@ -146,6 +146,13 @@ class Main {
 			CiAssert.equals( project.all_levels.Main_tests.l_EntityTest.all_Unused.length, 0 );
 			CiAssert.isNotNull( project.all_levels.Main_tests.l_EntityTest.all_Mob[0].tileInfos );
 
+			// Entity layer tags
+			var level = project.all_levels.Main_tests;
+			CiAssert.isNotNull( level.l_EntityWithTag );
+			CiAssert.isNotNull( level.l_EntityWithTag.all_Tagged );
+			CiAssert.equals( level.l_EntityWithTag.all_Tagged.length, 3 );
+			CiAssert.equals( level.l_EntityWithTag.getAllUntyped().length, 3 );
+
 			// Entities
 			var hero = project.all_levels.Main_tests.l_EntityTest.all_Hero[0];
 			var mob = project.all_levels.Main_tests.l_EntityTest.all_Mob[0];

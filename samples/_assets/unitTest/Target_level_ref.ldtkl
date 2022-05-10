@@ -5,7 +5,7 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "1.1.3",
+		"appVersion": "1.1.4",
 		"url": "https://ldtk.io"
 	},
 	"identifier": "Target_level_ref",
@@ -118,6 +118,31 @@
 			"entityInstances": []
 		},
 		{
+			"__identifier": "EntityWithTag",
+			"__type": "Entities",
+			"__cWid": 16,
+			"__cHei": 16,
+			"__gridSize": 16,
+			"__opacity": 1,
+			"__pxTotalOffsetX": 0,
+			"__pxTotalOffsetY": 0,
+			"__tilesetDefUid": null,
+			"__tilesetRelPath": null,
+			"iid": "b4ef5f70-b4d0-11ec-a74c-d36276c61819",
+			"levelId": 109,
+			"layerDefUid": 118,
+			"pxOffsetX": 0,
+			"pxOffsetY": 0,
+			"visible": true,
+			"optionalRules": [],
+			"intGridCsv": [],
+			"autoLayerTiles": [],
+			"seed": 7874079,
+			"overrideTilesetUid": null,
+			"gridTiles": [],
+			"entityInstances": []
+		},
+		{
 			"__identifier": "EntityTest",
 			"__type": "Entities",
 			"__cWid": 16,
@@ -157,7 +182,7 @@
 						"entityIid": "bcf852b0-66b0-11ec-88f3-f1c676c28598",
 						"layerIid": "27359dc1-66b0-11ec-8446-ff4b9136ca03",
 						"levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e",
-						"worldIid": "dc356ae0-b4d0-11ec-8148-971690fb3d13"
+						"worldIid": "b15fd010-b4d0-11ec-a74c-f38611c7b246"
 					}, "__type": "EntityRef", "__tile": null, "defUid": 108, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["bcf852b0-66b0-11ec-88f3-f1c676c28598"]
