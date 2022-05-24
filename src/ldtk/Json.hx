@@ -766,6 +766,11 @@ typedef LayerDefJson = {
 	@added("1.0.0")
 	var hideFieldsWhenInactive: Bool;
 
+	/** Allow editor selections when the layer is not currently active. **/
+	@internal
+	@added("1.1.4")
+	var canSelectWhenInactive: Bool;
+
 	/**
 		An array that defines extra optional info for each IntGrid value.
 		WARNING: the array order is not related to actual IntGrid values! As user can re-order IntGrid values freely, you may value "2" before value "1" in this array.
