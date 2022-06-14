@@ -41,7 +41,11 @@ class Layer_IntGrid extends ldtk.Layer {
 		Optional parameter "val" allows to check for a specific integer value.
 	**/
 	public inline function hasValue(cx:Int, cy:Int, val=0) {
-		return !isCoordValid(cx,cy) || !intGrid.exists( getCoordId(cx,cy) ) ? false : val==0 ? true : intGrid.get( getCoordId(cx,cy) )==val;
+		return !isCoordValid(cx,cy)
+			? false
+			: val==0
+				? intGrid.get( getCoordId(cx,cy) )>0
+				: intGrid.get( getCoordId(cx,cy) )==val;
 	}
 
 
