@@ -31,7 +31,8 @@ class Layer_IntGrid extends ldtk.Layer {
 		Return -1 if none.
 	**/
 	public inline function getInt(cx:Int, cy:Int) {
-		return !isCoordValid(cx,cy) || !intGrid.exists( getCoordId(cx,cy) ) ? 0 : intGrid.get( getCoordId(cx,cy) );
+		return isCoordValid(cx,cy) ? intGrid.get( getCoordId(cx,cy) ) : 0;
+		// return !isCoordValid(cx,cy) || !intGrid.exists( getCoordId(cx,cy) ) ? 0 : intGrid.get( getCoordId(cx,cy) );
 	}
 
 	/**
@@ -39,8 +40,8 @@ class Layer_IntGrid extends ldtk.Layer {
 
 		Optional parameter "val" allows to check for a specific integer value.
 	**/
-	public inline function hasValue(cx:Int, cy:Int, ?val:Int) {
-		return val==null && getInt(cx,cy)!=0 || val!=null && getInt(cx,cy)==val;
+	public inline function hasValue(cx:Int, cy:Int, val=0) {
+		return !isCoordValid(cx,cy) || !intGrid.exists( getCoordId(cx,cy) ) ? false : val==0 ? true : intGrid.get( getCoordId(cx,cy) )==val;
 	}
 
 
