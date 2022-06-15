@@ -29,7 +29,7 @@ class Tileset {
 	/** Spacing between each tile in pixels */
 	public var spacing: Int;
 
-	var cWid(get,never) : Int; inline function get_cWid() return Math.ceil(pxWid-padding*2)/(tileGridSize + spacing));
+	var cWid(get,never) : Int; inline function get_cWid() return Math.ceil((pxWid-padding*2)/(tileGridSize + spacing));
 
 	/** Untyped Enum based tags (stored as String). The "typed" getter method is created in macro. **/
 	var untypedTags : Map< String, Map<Int,Int> >;
