@@ -762,9 +762,16 @@ class TypeBuilder {
 		for(t in elementTags)
 			tmap.set(t,t);
 
-		for(t in requireds)
-			if( !tmap.exists(t) )
+		if( requireds.length>0 ) {
+			var hasOne = false;
+			for(t in requireds)
+				if( tmap.exists(t) ) {
+					hasOne = true;
+					break;
+				}
+			if( !hasOne )
 				return false;
+		}
 
 		for(t in excludeds)
 			if( tmap.exists(t) )
