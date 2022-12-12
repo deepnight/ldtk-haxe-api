@@ -1495,6 +1495,7 @@ enum FieldLinkStyle {
 	ZigZag;
 	StraightArrow;
 	CurvedArrow;
+	ArrowsLine;
 }
 
 enum BgImagePos {
