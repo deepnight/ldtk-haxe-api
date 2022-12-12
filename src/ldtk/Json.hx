@@ -1093,6 +1093,10 @@ typedef FieldDefJson = {
 	@internal
 	var editorDisplayMode: FieldDisplayMode;
 
+	@added("1.1.4")
+	@internal
+	var editorLinkStyle: FieldLinkStyle;
+
 	@internal
 	var editorDisplayPos: FieldDisplayPosition;
 
@@ -1484,6 +1488,13 @@ enum FieldDisplayMode {
 	ArrayCountNoLabel;
 	RefLinkBetweenPivots;
 	RefLinkBetweenCenters;
+}
+
+@:added("1.1.4")
+enum FieldLinkStyle {
+	ZigZag;
+	StraightArrow;
+	CurvedArrow;
 }
 
 enum BgImagePos {
