@@ -1101,6 +1101,10 @@ typedef FieldDefJson = {
 	var editorDisplayPos: FieldDisplayPosition;
 
 	@internal
+	@added("1.1.4")
+	var editorShowInWorld: Bool;
+
+	@internal
 	var editorAlwaysShow: Bool;
 
 	@internal
