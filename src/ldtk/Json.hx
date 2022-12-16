@@ -837,6 +837,9 @@ typedef AutoLayerRuleGroupJson = {
 
 	@removed("1.0.0")
 	var ?collapsed: Bool;
+
+	@added("1.1.4")
+	var usesWizard: Bool;
 }
 
 /**
