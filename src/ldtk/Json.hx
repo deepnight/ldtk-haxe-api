@@ -1301,7 +1301,7 @@ typedef NeighbourLevel = {
 	var levelIid : String;
 
 	@deprecation("1.0.0", "1.2.0", "levelIid")
-	var levelUid: Int;
+	var ?levelUid: Int;
 
 	/** A single lowercase character tipping on the level location (`n`orth, `s`outh, `w`est, `e`ast). **/
 	var dir: String;
