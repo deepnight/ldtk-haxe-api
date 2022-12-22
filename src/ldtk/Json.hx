@@ -986,7 +986,7 @@ typedef EntityDefJson = {
 
 	/** Tile ID used for optional tile display **/
 	@deprecation("1.0.0", "1.2.0", "tileRect")
-	var tileId: Null<Int>;
+	var ?tileId: Null<Int>;
 
 	/**
 		An object representing a rectangle from an existing Tileset
