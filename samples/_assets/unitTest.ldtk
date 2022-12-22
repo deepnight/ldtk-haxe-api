@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "1.2.0",
-	"appBuildId": 464367,
+	"appBuildId": 464368,
 	"nextUid": 120,
 	"identifierStyle": "Free",
 	"worldLayout": "GridVania",
@@ -55,7 +55,6 @@
 			"requiredTags": [],
 			"excludedTags": [],
 			"intGridValues": [{ "value": 1, "identifier": "walls", "color": "#8696BB" }],
-			"autoTilesetDefUid": 46,
 			"autoRuleGroups": [
 				{ "uid": 79, "name": "Stamps", "active": true, "isOptional": false, "rules": [
 					{
@@ -306,7 +305,6 @@
 			"requiredTags": [],
 			"excludedTags": [],
 			"intGridValues": [],
-			"autoTilesetDefUid": 46,
 			"autoRuleGroups": [{ "uid": 83, "name": "Details", "active": true, "isOptional": false, "rules": [
 				{
 					"uid": 84,
@@ -383,7 +381,6 @@
 			"requiredTags": ["Special"],
 			"excludedTags": [],
 			"intGridValues": [],
-			"autoTilesetDefUid": null,
 			"autoRuleGroups": [],
 			"autoSourceLayerDefUid": null,
 			"tilesetDefUid": null,
@@ -411,7 +408,6 @@
 			"requiredTags": [],
 			"excludedTags": ["Special"],
 			"intGridValues": [],
-			"autoTilesetDefUid": null,
 			"autoRuleGroups": [],
 			"autoSourceLayerDefUid": null,
 			"tilesetDefUid": null,
@@ -439,7 +435,6 @@
 			"requiredTags": [],
 			"excludedTags": [],
 			"intGridValues": [],
-			"autoTilesetDefUid": 14,
 			"autoRuleGroups": [],
 			"autoSourceLayerDefUid": null,
 			"tilesetDefUid": 14,
@@ -472,7 +467,6 @@
 				{ "value": 4, "identifier": "d_sorted", "color": "#0045FF" },
 				{ "value": 3, "identifier": "c", "color": "#00FF1E" }
 			],
-			"autoTilesetDefUid": null,
 			"autoRuleGroups": [],
 			"autoSourceLayerDefUid": null,
 			"tilesetDefUid": null,
@@ -500,7 +494,6 @@
 			"requiredTags": [],
 			"excludedTags": [],
 			"intGridValues": [{ "value": 1, "identifier": null, "color": "#00F9EC" }],
-			"autoTilesetDefUid": null,
 			"autoRuleGroups": [],
 			"autoSourceLayerDefUid": null,
 			"tilesetDefUid": null,

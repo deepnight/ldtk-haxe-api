@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "1.2.0",
-	"appBuildId": 464367,
+	"appBuildId": 464368,
 	"nextUid": 59,
 	"identifierStyle": "Capitalize",
 	"worldLayout": "Free",
@@ -55,7 +55,6 @@
 			"requiredTags": [],
 			"excludedTags": [],
 			"intGridValues": [],
-			"autoTilesetDefUid": null,
 			"autoRuleGroups": [],
 			"autoSourceLayerDefUid": null,
 			"tilesetDefUid": null,
@@ -83,7 +82,6 @@
 			"requiredTags": [],
 			"excludedTags": [],
 			"intGridValues": [],
-			"autoTilesetDefUid": 1,
 			"autoRuleGroups": [],
 			"autoSourceLayerDefUid": null,
 			"tilesetDefUid": 1,
@@ -115,7 +113,6 @@
 				{ "value": 2, "identifier": "ladders", "color": "#A36433" },
 				{ "value": 3, "identifier": "lava", "color": "#FF0000" }
 			],
-			"autoTilesetDefUid": 1,
 			"autoRuleGroups": [
 				{ "uid": 42, "name": "Lava", "active": true, "isOptional": false, "rules": [
 					{
@@ -512,7 +509,6 @@
 			"requiredTags": [],
 			"excludedTags": [],
 			"intGridValues": [{ "value": 1, "identifier": "bg_walls", "color": "#6A6A6A" }],
-			"autoTilesetDefUid": 1,
 			"autoRuleGroups": [{ "uid": 49, "name": "walls", "active": true, "isOptional": false, "rules": [
 				{
 					"uid": 56,
