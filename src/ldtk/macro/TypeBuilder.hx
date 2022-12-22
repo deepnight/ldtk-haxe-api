@@ -588,7 +588,7 @@ class TypeBuilder {
 			switch type {
 				case IntGrid:
 
-					if( l.autoTilesetDefUid==null ) {
+					if( l.tilesetDefUid==null ) {
 						// IntGrid
 						var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_IntGrid" }
 						var layerType : TypeDefinition = {
@@ -617,7 +617,7 @@ class TypeBuilder {
 					else {
 						// Auto-layer IntGrid
 						var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_IntGrid_AutoLayer" }
-						var tilesetCT = Context.getType( tilesets.get(l.autoTilesetDefUid).typeName ).toComplexType();
+						var tilesetCT = Context.getType( tilesets.get(l.tilesetDefUid).typeName ).toComplexType();
 
 						var layerType : TypeDefinition = {
 							pos : curPos,
@@ -651,7 +651,7 @@ class TypeBuilder {
 				case AutoLayer:
 					// Pure Auto-layer
 					var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_AutoLayer" }
-					var tilesetCT = Context.getType( tilesets.get(l.autoTilesetDefUid).typeName ).toComplexType();
+					var tilesetCT = Context.getType( tilesets.get(l.tilesetDefUid).typeName ).toComplexType();
 
 					var layerType : TypeDefinition = {
 						pos : curPos,

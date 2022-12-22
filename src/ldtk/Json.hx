@@ -784,7 +784,7 @@ typedef LayerDefJson = {
 	**/
 	@deprecation("1.0.0", "1.2.0", "tilesetDefUid")
 	@only("Auto-layers")
-	var autoTilesetDefUid: Null<Int>;
+	var ?autoTilesetDefUid: Null<Int>;
 
 	/** Contains all the auto-layer rule definitions. **/
 	@only("Auto-layers")
