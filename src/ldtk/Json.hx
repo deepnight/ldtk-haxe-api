@@ -159,6 +159,11 @@ If you want to start supporting this future update easily, please refer to this 
 	@added("0.9.3")
 	var imageExportMode: ImageExportMode;
 
+	/** If TRUE, the exported PNGs will include the level background (color or image). **/
+	@internal
+	@added("1.2.0")
+	var exportLevelBg: Bool;
+
 	/** File naming pattern for exported PNGs **/
 	@internal
 	@added("0.7.2")
