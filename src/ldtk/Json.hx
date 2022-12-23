@@ -186,6 +186,10 @@ If you want to start supporting this future update easily, please refer to this 
 	@internal
 	@added("1.0.0")
 	var tutorialDesc: Null<String>;
+
+	/** An array of command lines that can be ran manually by the user **/
+	@added("1.2.0")
+	var customCommands: Array<CustomCommand>;
 }
 
 
@@ -1405,6 +1409,13 @@ typedef GridPoint = {
 	var cy: Int;
 }
 
+
+@added("1.2.0")
+typedef CustomCommand = {
+	var command: String;
+	var when: CustomCommandTrigger;
+}
+
 /* MISC ENUMS *****************************************************************************/
 
 enum WorldLayout {
@@ -1570,3 +1581,10 @@ enum EmbedAtlas {
 	LdtkIcons;
 }
 
+@added("1.2.0")
+enum CustomCommandTrigger {
+	Manual;
+	AfterLoad;
+	BeforeSave;
+	AfterSave;
+}
