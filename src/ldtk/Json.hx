@@ -14,6 +14,10 @@ typedef ProjectJson = {
 	/** File format version **/
 	var jsonVersion: String;
 
+	/** Unique project identifier **/
+	@added("1.2.0")
+	var iid: String;
+
 	/**
 		LDtk application build identifier.
 		This is only used to identify the LDtk version that generated this particular project file, which can be useful for specific bug fixing. Note that the build identifier is just the date of the release, so it's not unique to each user (one single global ID per LDtk public release), and as a result, completely anonymous.
