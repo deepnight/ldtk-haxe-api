@@ -8,8 +8,9 @@
 		"appVersion": "1.2.0",
 		"url": "https://ldtk.io"
 	},
+	"iid": "a8ea85a0-7820-11ed-b6fd-4507f1bd5fbf",
 	"jsonVersion": "1.2.0",
-	"appBuildId": 464368,
+	"appBuildId": 464389,
 	"nextUid": 59,
 	"identifierStyle": "Capitalize",
 	"worldLayout": "Free",
@@ -32,6 +33,7 @@
 	"backupLimit": 10,
 	"levelNamePattern": "%world_Level_%idx",
 	"tutorialDesc": null,
+	"customCommands": [],
 	"flags": ["PrependIndexToLevelFileNames"],
 	"defs": { "layers": [
 		{
