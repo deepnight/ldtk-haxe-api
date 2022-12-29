@@ -1057,7 +1057,7 @@ typedef FieldDefJson = {
 	/** User defined unique identifier **//** User defined unique identifier **/
 	var identifier: String;
 
-	/** User defined documentation for this field, to provide some help/tips about accepted values. **/
+	/** User defined documentation for this field to provide help/tips to level designers about accepted values. **/
 	@added("1.2.0")
 	var doc: Null<String>;
 
