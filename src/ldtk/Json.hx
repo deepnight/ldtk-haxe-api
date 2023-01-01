@@ -612,6 +612,10 @@ typedef EntityInstanceJson = {
 	@changed("0.4.0")
 	var px: Array<Int>;
 
+	/**  **/
+	@added("help")
+	var f: Int;
+
 	/** An array of all custom fields and their values. **/
 	var fieldInstances: Array<FieldInstanceJson>;
 }
