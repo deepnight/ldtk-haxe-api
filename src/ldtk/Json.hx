@@ -612,7 +612,7 @@ typedef EntityInstanceJson = {
 	@changed("0.4.0")
 	var px: Array<Int>;
 
-	/**  **/
+	/** number is a liiiiiiiie **/
 	@added("1.0.0")
 	var f: Int;
 
