@@ -5,7 +5,7 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "1.1.3",
+		"appVersion": "1.2.0",
 		"url": "https://ldtk.io"
 	},
 	"identifier": "Main_tests",
@@ -432,6 +432,74 @@
 			"entityInstances": []
 		},
 		{
+			"__identifier": "EntityWithTag",
+			"__type": "Entities",
+			"__cWid": 32,
+			"__cHei": 32,
+			"__gridSize": 16,
+			"__opacity": 1,
+			"__pxTotalOffsetX": 0,
+			"__pxTotalOffsetY": 0,
+			"__tilesetDefUid": null,
+			"__tilesetRelPath": null,
+			"iid": "b4ec0410-b4d0-11ec-a74c-bf6f34240670",
+			"levelId": 0,
+			"layerDefUid": 118,
+			"pxOffsetX": 0,
+			"pxOffsetY": 0,
+			"visible": true,
+			"optionalRules": [],
+			"intGridCsv": [],
+			"autoLayerTiles": [],
+			"seed": 1736265,
+			"overrideTilesetUid": null,
+			"gridTiles": [],
+			"entityInstances": [
+				{
+					"__identifier": "Tagged",
+					"__grid": [14,26],
+					"__pivot": [0.5,0.5],
+					"__tags": ["Special"],
+					"__tile": null,
+					"__smartColor": "#4A6ACF",
+					"iid": "e45af5d0-b4d0-11ec-a74c-c7db3db00928",
+					"width": 32,
+					"height": 32,
+					"defUid": 119,
+					"px": [232,424],
+					"fieldInstances": []
+				},
+				{
+					"__identifier": "Tagged",
+					"__grid": [17,26],
+					"__pivot": [0.5,0.5],
+					"__tags": ["Special"],
+					"__tile": null,
+					"__smartColor": "#4A6ACF",
+					"iid": "e7746ad0-b4d0-11ec-a74c-7714e78d15a9",
+					"width": 32,
+					"height": 32,
+					"defUid": 119,
+					"px": [280,424],
+					"fieldInstances": []
+				},
+				{
+					"__identifier": "Tagged",
+					"__grid": [20,26],
+					"__pivot": [0.5,0.5],
+					"__tags": ["Special"],
+					"__tile": null,
+					"__smartColor": "#4A6ACF",
+					"iid": "e82bd3f0-b4d0-11ec-a74c-e966085ec8d2",
+					"width": 32,
+					"height": 32,
+					"defUid": 119,
+					"px": [328,424],
+					"fieldInstances": []
+				}
+			]
+		},
+		{
 			"__identifier": "EntityTest",
 			"__type": "Entities",
 			"__cWid": 32,
@@ -582,12 +650,12 @@
 							"entityIid": "57c51ab0-66b0-11ec-8446-f3a61ee63449",
 							"layerIid": "27359dc1-66b0-11ec-8446-ff4b9136ca03",
 							"levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e",
-							"worldIid": "dc356ae0-b4d0-11ec-8148-971690fb3d13"
+							"worldIid": "96133e70-7820-11ed-bb0c-ef535848f54d"
 						}, {
 							"entityIid": "58f66ec0-66b0-11ec-8446-9b40d7be219b",
 							"layerIid": "27359dc1-66b0-11ec-8446-ff4b9136ca03",
 							"levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e",
-							"worldIid": "dc356ae0-b4d0-11ec-8148-971690fb3d13"
+							"worldIid": "96133e70-7820-11ed-bb0c-ef535848f54d"
 						} ], "__type": "Array<EntityRef>", "__tile": null, "defUid": 101, "realEditorValues": [ {
 							"id": "V_String",
 							"params": ["57c51ab0-66b0-11ec-8446-f3a61ee63449"]
@@ -682,7 +750,7 @@
 						"entityIid": "be92c8d0-66b0-11ec-88f3-df87634ca4af",
 						"layerIid": "bdabeb43-66b0-11ec-88f3-f17ff25d77e6",
 						"levelIid": "bdabeb40-66b0-11ec-88f3-5d5bfa64cc93",
-						"worldIid": "dc356ae0-b4d0-11ec-8148-971690fb3d13"
+						"worldIid": "96133e70-7820-11ed-bb0c-ef535848f54d"
 					}, "__type": "EntityRef", "__tile": null, "defUid": 108, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["be92c8d0-66b0-11ec-88f3-df87634ca4af"]
@@ -704,7 +772,7 @@
 						"entityIid": "8ffab9a0-66b0-11ec-88f3-b1b84aed41ee",
 						"layerIid": "27359dc1-66b0-11ec-8446-ff4b9136ca03",
 						"levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e",
-						"worldIid": "dc356ae0-b4d0-11ec-8148-971690fb3d13"
+						"worldIid": "96133e70-7820-11ed-bb0c-ef535848f54d"
 					}, "__type": "EntityRef", "__tile": null, "defUid": 108, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["8ffab9a0-66b0-11ec-88f3-b1b84aed41ee"]
@@ -726,7 +794,7 @@
 						"entityIid": "8f9e1ab0-66b0-11ec-88f3-2308bdb94ce2",
 						"layerIid": "27359dc1-66b0-11ec-8446-ff4b9136ca03",
 						"levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e",
-						"worldIid": "dc356ae0-b4d0-11ec-8148-971690fb3d13"
+						"worldIid": "96133e70-7820-11ed-bb0c-ef535848f54d"
 					}, "__type": "EntityRef", "__tile": null, "defUid": 108, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["8f9e1ab0-66b0-11ec-88f3-2308bdb94ce2"]

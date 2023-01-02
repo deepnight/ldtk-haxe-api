@@ -5,8 +5,11 @@ import ldtk.Json;
 class Layer {
 	var untypedProject: ldtk.Project;
 
-	/** Original parsed JSON object **/
+	/** Original JSON object **/
 	public var json(default,null) : LayerInstanceJson;
+
+	/** Original layer definition JSON object **/
+	public var defJson(default,null) : LayerDefJson;
 
 	public var identifier : String;
 	public var type : LayerType;
@@ -22,9 +25,13 @@ class Layer {
 
 	/** Grid-based layer width **/
 	public var cWid : Int;
-
 	/** Grid-based layer height **/
 	public var cHei : Int;
+
+	/** Pixel-based layer width **/
+	public var pxWid : Int;
+	/** Pixel-based layer height **/
+	public var pxHei : Int;
 
 	/**
 		Pixel-based layer X offset (includes both instance and definition offsets)
@@ -42,6 +49,7 @@ class Layer {
 
 	public function new(p:ldtk.Project, json:ldtk.Json.LayerInstanceJson) {
 		this.json = json;
+		this.defJson = p.getLayerDefJson(json.layerDefUid);
 		untypedProject = p;
 		identifier = json.__identifier;
 		type =
@@ -51,6 +59,8 @@ class Layer {
 		gridSize = json.__gridSize;
 		cWid = json.__cWid;
 		cHei = json.__cHei;
+		pxWid = cWid * json.__gridSize;
+		pxHei = cHei * json.__gridSize;
 		pxTotalOffsetX = json.__pxTotalOffsetX;
 		pxTotalOffsetY = json.__pxTotalOffsetY;
 		opacity = json.__opacity;

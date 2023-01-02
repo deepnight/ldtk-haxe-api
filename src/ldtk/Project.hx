@@ -90,8 +90,12 @@ class Project {
 
 		// Parse json
 		var json : Dynamic = haxe.Json.parse(jsonString);
+
+		// Init misc fields
+		defs = json.defs;
 		bgColor_hex = json.bgColor;
 		bgColor_int = ldtk.Project.hexToInt(json.bgColor);
+		worldLayout = WorldLayout.createByName( Std.string(json.worldLayout) );
 
 		// Populate levels
 		_untypedLevels = [];
@@ -105,10 +109,6 @@ class Project {
 			_untypedTilesets.set( tsJson.uid, _instanciateTileset(this, tsJson) );
 			Reflect.setField( Reflect.field(this,"all_tilesets"), tsJson.identifier, _instanciateTileset(this, tsJson));
 		}
-
-		// Init misc fields
-		worldLayout = WorldLayout.createByName( Std.string(json.worldLayout) );
-		defs = json.defs;
 	}
 
 
@@ -396,7 +396,7 @@ class Project {
 	/**
 		Get a Layer definition using either its uid (Int) or identifier (String)
 	**/
-	public inline function getLayerDefJson(?uid:Int, ?identifier:String) : Null<ldtk.Json.LayerDefJson> {
+	public function getLayerDefJson(?uid:Int, ?identifier:String) : Null<ldtk.Json.LayerDefJson> {
 		return searchDef( defs.layers, uid, identifier );
 	}
 	@:noCompletion @:deprecated("Method was renamed to: getLayerDefJson")

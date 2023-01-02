@@ -97,6 +97,15 @@ class Main {
 			// Layer misc
 			CiAssert.equals( project.all_levels.Main_tests.l_IntGridTest.visible, true );
 
+			// Layer JSONs
+			var layer = project.all_levels.Main_tests.l_EntityTest;
+			CiAssert.isNotNull(layer.json);
+			CiAssert.isNotNull(layer.json.entityInstances);
+			CiAssert.isNotNull(layer.defJson);
+			CiAssert.equals(layer.json.layerDefUid, layer.defJson.uid);
+			CiAssert.equals(layer.defJson.identifier, "EntityTest");
+
+
 			// Layer offsets
 			CiAssert.equals( project.all_levels.Offset_tests.l_IntGrid8.pxTotalOffsetX, 4 );
 			CiAssert.equals( project.all_levels.Offset_tests.l_IntGrid8.pxTotalOffsetY, 4 );
@@ -137,6 +146,13 @@ class Main {
 			CiAssert.equals( project.all_levels.Main_tests.l_EntityTest.all_Unused.length, 0 );
 			CiAssert.isNotNull( project.all_levels.Main_tests.l_EntityTest.all_Mob[0].tileInfos );
 
+			// Entity layer tags
+			var level = project.all_levels.Main_tests;
+			CiAssert.isNotNull( level.l_EntityWithTag );
+			CiAssert.isNotNull( level.l_EntityWithTag.all_Tagged );
+			CiAssert.equals( level.l_EntityWithTag.all_Tagged.length, 3 );
+			CiAssert.equals( level.l_EntityWithTag.getAllUntyped().length, 3 );
+
 			// Entities
 			var hero = project.all_levels.Main_tests.l_EntityTest.all_Hero[0];
 			var mob = project.all_levels.Main_tests.l_EntityTest.all_Mob[0];
@@ -155,6 +171,14 @@ class Main {
 			CiAssert.equals( allFieldsTest.f_entityRefs.length, 2 );
 			CiAssert.equals( allFieldsTest.f_entityRefs[0].entityIid, "57c51ab0-66b0-11ec-8446-f3a61ee63449" );
 			CiAssert.equals( allFieldsTest.f_entityRefs[1].entityIid, "58f66ec0-66b0-11ec-8446-9b40d7be219b" );
+
+			// Entity JSONs
+			CiAssert.isNotNull(hero.json);
+			CiAssert.isNotNull(hero.json.fieldInstances);
+			CiAssert.isNotNull(hero.defJson);
+			CiAssert.isNotNull(hero.defJson.fieldDefs);
+			CiAssert.equals(hero.json.defUid, hero.defJson.uid);
+			CiAssert.equals(hero.defJson.identifier, "Hero");
 
 			// Extern enums
 			var extEnt = project.all_levels.Main_tests.l_EntityTest.all_ExternEnums[0];

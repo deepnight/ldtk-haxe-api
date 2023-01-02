@@ -14,6 +14,10 @@ typedef ProjectJson = {
 	/** File format version **/
 	var jsonVersion: String;
 
+	/** Unique project identifier **/
+	@added("1.2.0")
+	var iid: String;
+
 	/**
 		LDtk application build identifier.
 		This is only used to identify the LDtk version that generated this particular project file, which can be useful for specific bug fixing. Note that the build identifier is just the date of the release, so it's not unique to each user (one single global ID per LDtk public release), and as a result, completely anonymous.
@@ -155,6 +159,11 @@ If you want to start supporting this future update easily, please refer to this 
 	@added("0.9.3")
 	var imageExportMode: ImageExportMode;
 
+	/** If TRUE, the exported PNGs will include the level background (color or image). **/
+	@internal
+	@added("1.2.0")
+	var exportLevelBg: Bool;
+
 	/** File naming pattern for exported PNGs **/
 	@internal
 	@added("0.7.2")
@@ -186,6 +195,10 @@ If you want to start supporting this future update easily, please refer to this 
 	@internal
 	@added("1.0.0")
 	var tutorialDesc: Null<String>;
+
+	/** An array of command lines that can be ran manually by the user **/
+	@added("1.2.0")
+	var customCommands: Array<CustomCommand>;
 }
 
 
@@ -766,6 +779,11 @@ typedef LayerDefJson = {
 	@added("1.0.0")
 	var hideFieldsWhenInactive: Bool;
 
+	/** Allow editor selections when the layer is not currently active. **/
+	@internal
+	@added("1.1.4")
+	var canSelectWhenInactive: Bool;
+
 	/**
 		An array that defines extra optional info for each IntGrid value.
 		WARNING: the array order is not related to actual IntGrid values! As user can re-order IntGrid values freely, you may value "2" before value "1" in this array.
@@ -779,7 +797,7 @@ typedef LayerDefJson = {
 	**/
 	@deprecation("1.0.0", "1.2.0", "tilesetDefUid")
 	@only("Auto-layers")
-	var autoTilesetDefUid: Null<Int>;
+	var ?autoTilesetDefUid: Null<Int>;
 
 	/** Contains all the auto-layer rule definitions. **/
 	@only("Auto-layers")
@@ -832,6 +850,9 @@ typedef AutoLayerRuleGroupJson = {
 
 	@removed("1.0.0")
 	var ?collapsed: Bool;
+
+	@added("1.1.4")
+	var usesWizard: Bool;
 }
 
 /**
@@ -978,7 +999,7 @@ typedef EntityDefJson = {
 
 	/** Tile ID used for optional tile display **/
 	@deprecation("1.0.0", "1.2.0", "tileRect")
-	var tileId: Null<Int>;
+	var ?tileId: Null<Int>;
 
 	/**
 		An object representing a rectangle from an existing Tileset
@@ -1036,6 +1057,10 @@ typedef FieldDefJson = {
 	/** User defined unique identifier **//** User defined unique identifier **/
 	var identifier: String;
 
+	/** User defined documentation for this field to provide help/tips to level designers about accepted values. **/
+	@added("1.2.0")
+	var doc: Null<String>;
+
 	/** Unique Int identifier **/
 	var uid: Int;
 
@@ -1088,8 +1113,16 @@ typedef FieldDefJson = {
 	@internal
 	var editorDisplayMode: FieldDisplayMode;
 
+	@added("1.1.4")
+	@internal
+	var editorLinkStyle: FieldLinkStyle;
+
 	@internal
 	var editorDisplayPos: FieldDisplayPosition;
+
+	@internal
+	@added("1.1.4")
+	var editorShowInWorld: Bool;
 
 	@internal
 	var editorAlwaysShow: Bool;
@@ -1285,7 +1318,7 @@ typedef NeighbourLevel = {
 	var levelIid : String;
 
 	@deprecation("1.0.0", "1.2.0", "levelIid")
-	var levelUid: Int;
+	var ?levelUid: Int;
 
 	/** A single lowercase character tipping on the level location (`n`orth, `s`outh, `w`est, `e`ast). **/
 	var dir: String;
@@ -1389,6 +1422,13 @@ typedef GridPoint = {
 	var cy: Int;
 }
 
+
+@added("1.2.0")
+typedef CustomCommand = {
+	var command: String;
+	var when: CustomCommandTrigger;
+}
+
 /* MISC ENUMS *****************************************************************************/
 
 enum WorldLayout {
@@ -1481,6 +1521,15 @@ enum FieldDisplayMode {
 	RefLinkBetweenCenters;
 }
 
+@:added("1.1.4")
+enum FieldLinkStyle {
+	ZigZag;
+	StraightArrow;
+	CurvedArrow;
+	ArrowsLine;
+	DashedLine;
+}
+
 enum BgImagePos {
 	Unscaled;
 	Contain;
@@ -1545,3 +1594,10 @@ enum EmbedAtlas {
 	LdtkIcons;
 }
 
+@added("1.2.0")
+enum CustomCommandTrigger {
+	Manual;
+	AfterLoad;
+	BeforeSave;
+	AfterSave;
+}
