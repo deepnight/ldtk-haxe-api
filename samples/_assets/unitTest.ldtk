@@ -10,7 +10,7 @@
 	},
 	"iid": "a6731d00-7820-11ed-b6fd-8d5e0e3d5314",
 	"jsonVersion": "1.2.0",
-	"appBuildId": 464392,
+	"appBuildId": 464630,
 	"nextUid": 120,
 	"identifierStyle": "Free",
 	"worldLayout": "GridVania",
@@ -532,6 +532,7 @@
 			"fieldDefs": [
 				{
 					"identifier": "startWeapon",
+					"doc": null,
 					"__type": "LocalEnum.Weapons",
 					"uid": 39,
 					"type": "F_Enum(10)",
@@ -591,6 +592,7 @@
 			"fieldDefs": [
 				{
 					"identifier": "type",
+					"doc": null,
 					"__type": "LocalEnum.Mobs",
 					"uid": 3,
 					"type": "F_Enum(1)",
@@ -622,6 +624,7 @@
 				},
 				{
 					"identifier": "lootDrops",
+					"doc": null,
 					"__type": "Array<ExternEnum.DroppedItemType>",
 					"uid": 38,
 					"type": "F_Enum(29)",
@@ -653,6 +656,7 @@
 				},
 				{
 					"identifier": "scale",
+					"doc": null,
 					"__type": "Float",
 					"uid": 7,
 					"type": "F_Float",
@@ -684,6 +688,7 @@
 				},
 				{
 					"identifier": "path",
+					"doc": null,
 					"__type": "Array<Point>",
 					"uid": 64,
 					"type": "F_Point",
@@ -743,6 +748,7 @@
 			"fieldDefs": [
 				{
 					"identifier": "point",
+					"doc": null,
 					"__type": "Point",
 					"uid": 71,
 					"type": "F_Point",
@@ -774,6 +780,7 @@
 				},
 				{
 					"identifier": "ints",
+					"doc": null,
 					"__type": "Array<Int>",
 					"uid": 67,
 					"type": "F_Int",
@@ -805,6 +812,7 @@
 				},
 				{
 					"identifier": "strings",
+					"doc": null,
 					"__type": "Array<String>",
 					"uid": 69,
 					"type": "F_String",
@@ -836,6 +844,7 @@
 				},
 				{
 					"identifier": "floats",
+					"doc": null,
 					"__type": "Array<Float>",
 					"uid": 72,
 					"type": "F_Float",
@@ -867,6 +876,7 @@
 				},
 				{
 					"identifier": "bools",
+					"doc": null,
 					"__type": "Array<Bool>",
 					"uid": 73,
 					"type": "F_Bool",
@@ -898,6 +908,7 @@
 				},
 				{
 					"identifier": "colors",
+					"doc": null,
 					"__type": "Array<Color>",
 					"uid": 74,
 					"type": "F_Color",
@@ -929,6 +940,7 @@
 				},
 				{
 					"identifier": "localEnums",
+					"doc": null,
 					"__type": "Array<LocalEnum.Weapons>",
 					"uid": 76,
 					"type": "F_Enum(10)",
@@ -960,6 +972,7 @@
 				},
 				{
 					"identifier": "externEnums",
+					"doc": null,
 					"__type": "Array<ExternEnum.DroppedItemType>",
 					"uid": 77,
 					"type": "F_Enum(29)",
@@ -991,6 +1004,7 @@
 				},
 				{
 					"identifier": "entityRefs",
+					"doc": null,
 					"__type": "Array<EntityRef>",
 					"uid": 101,
 					"type": "F_EntityRef",
@@ -1022,6 +1036,7 @@
 				},
 				{
 					"identifier": "lowercaseEnum",
+					"doc": null,
 					"__type": "Array<LocalEnum.lowercase_enum>",
 					"uid": 104,
 					"type": "F_Enum(103)",
@@ -1135,6 +1150,7 @@
 			"fieldDefs": [
 				{
 					"identifier": "filePath",
+					"doc": null,
 					"__type": "FilePath",
 					"uid": 92,
 					"type": "F_Path",
@@ -1194,6 +1210,7 @@
 			"fieldDefs": [
 				{
 					"identifier": "flag",
+					"doc": null,
 					"__type": "Bool",
 					"uid": 99,
 					"type": "F_Bool",
@@ -1280,6 +1297,7 @@
 			"fieldDefs": [
 				{
 					"identifier": "ref",
+					"doc": null,
 					"__type": "EntityRef",
 					"uid": 108,
 					"type": "F_EntityRef",
@@ -1339,6 +1357,7 @@
 			"fieldDefs": [
 				{
 					"identifier": "altTile",
+					"doc": null,
 					"__type": "Tile",
 					"uid": 111,
 					"type": "F_Tile",
@@ -1398,6 +1417,7 @@
 			"fieldDefs": [
 				{
 					"identifier": "haxe",
+					"doc": null,
 					"__type": "ExternEnum.SomeEnum",
 					"uid": 115,
 					"type": "F_Enum(31)",
@@ -1429,6 +1449,7 @@
 				},
 				{
 					"identifier": "cdb",
+					"doc": null,
 					"__type": "ExternEnum.CdbEnumTest",
 					"uid": 117,
 					"type": "F_Enum(112)",
@@ -1576,6 +1597,7 @@
 	], "levelFields": [
 		{
 			"identifier": "level_int",
+			"doc": null,
 			"__type": "Int",
 			"uid": 93,
 			"type": "F_Int",
@@ -1607,6 +1629,7 @@
 		},
 		{
 			"identifier": "level_string",
+			"doc": null,
 			"__type": "String",
 			"uid": 94,
 			"type": "F_String",
@@ -1638,6 +1661,7 @@
 		},
 		{
 			"identifier": "level_reward",
+			"doc": null,
 			"__type": "ExternEnum.DroppedItemType",
 			"uid": 95,
 			"type": "F_Enum(29)",
@@ -1669,6 +1693,7 @@
 		},
 		{
 			"identifier": "lowercase_enum",
+			"doc": null,
 			"__type": "Array<LocalEnum.lowercase_enum>",
 			"uid": 106,
 			"type": "F_Enum(103)",

@@ -10,7 +10,7 @@
 	},
 	"iid": "a8ea85a0-7820-11ed-b6fd-4507f1bd5fbf",
 	"jsonVersion": "1.2.0",
-	"appBuildId": 464392,
+	"appBuildId": 464630,
 	"nextUid": 59,
 	"identifierStyle": "Capitalize",
 	"worldLayout": "Free",
@@ -719,6 +719,7 @@
 			"fieldDefs": [
 				{
 					"identifier": "type",
+					"doc": null,
 					"__type": "LocalEnum.Items",
 					"uid": 32,
 					"type": "F_Enum(30)",
