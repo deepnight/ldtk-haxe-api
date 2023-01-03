@@ -5,12 +5,12 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "1.2.0",
+		"appVersion": "1.2.1",
 		"url": "https://ldtk.io"
 	},
 	"iid": "a6731d00-7820-11ed-b6fd-8d5e0e3d5314",
-	"jsonVersion": "1.2.0",
-	"appBuildId": 464630,
+	"jsonVersion": "1.2.1",
+	"appBuildId": 464652,
 	"nextUid": 120,
 	"identifierStyle": "Free",
 	"worldLayout": "GridVania",
@@ -1763,7 +1763,7 @@
 				} ] }
 			],
 			"layerInstances": null,
-			"__neighbours": [ { "levelIid": "f2f66840-66b0-11ec-91ab-e506cb005a35", "levelUid": 88, "dir": "e" }, { "levelIid": "bdabeb40-66b0-11ec-88f3-5d5bfa64cc93", "levelUid": 109, "dir": "e" } ]
+			"__neighbours": [ { "levelIid": "f2f66840-66b0-11ec-91ab-e506cb005a35", "dir": "e" }, { "levelIid": "bdabeb40-66b0-11ec-88f3-5d5bfa64cc93", "dir": "e" } ]
 		},
 		{
 			"identifier": "Offset_tests",
@@ -1797,7 +1797,7 @@
 				{ "__identifier": "lowercase_enum", "__value": [], "__type": "Array<LocalEnum.lowercase_enum>", "__tile": null, "defUid": 106, "realEditorValues": [] }
 			],
 			"layerInstances": null,
-			"__neighbours": [ { "levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e", "levelUid": 0, "dir": "w" }, { "levelIid": "bdabeb40-66b0-11ec-88f3-5d5bfa64cc93", "levelUid": 109, "dir": "n" } ]
+			"__neighbours": [ { "levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e", "dir": "w" }, { "levelIid": "bdabeb40-66b0-11ec-88f3-5d5bfa64cc93", "dir": "n" } ]
 		},
 		{
 			"identifier": "Target_level_ref",
@@ -1828,7 +1828,7 @@
 				{ "__identifier": "lowercase_enum", "__value": [], "__type": "Array<LocalEnum.lowercase_enum>", "__tile": null, "defUid": 106, "realEditorValues": [] }
 			],
 			"layerInstances": null,
-			"__neighbours": [ { "levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e", "levelUid": 0, "dir": "w" }, { "levelIid": "f2f66840-66b0-11ec-91ab-e506cb005a35", "levelUid": 88, "dir": "s" } ]
+			"__neighbours": [ { "levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e", "dir": "w" }, { "levelIid": "f2f66840-66b0-11ec-91ab-e506cb005a35", "dir": "s" } ]
 		}
 	],
 	"worlds": []
