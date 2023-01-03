@@ -5,7 +5,7 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "1.2.0",
+		"appVersion": "1.2.1",
 		"url": "https://ldtk.io"
 	},
 	"identifier": "Target_level_ref",
@@ -182,7 +182,7 @@
 						"entityIid": "bcf852b0-66b0-11ec-88f3-f1c676c28598",
 						"layerIid": "27359dc1-66b0-11ec-8446-ff4b9136ca03",
 						"levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e",
-						"worldIid": "96133e70-7820-11ed-bb0c-ef535848f54d"
+						"worldIid": "b10165d0-7820-11ed-9be3-dd0007d82285"
 					}, "__type": "EntityRef", "__tile": null, "defUid": 108, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["bcf852b0-66b0-11ec-88f3-f1c676c28598"]
@@ -306,5 +306,5 @@
 			"entityInstances": []
 		}
 	],
-	"__neighbours": [ { "levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e", "levelUid": 0, "dir": "w" }, { "levelIid": "f2f66840-66b0-11ec-91ab-e506cb005a35", "levelUid": 88, "dir": "s" } ]
+	"__neighbours": [ { "levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e", "dir": "w" }, { "levelIid": "f2f66840-66b0-11ec-91ab-e506cb005a35", "dir": "s" } ]
 }
