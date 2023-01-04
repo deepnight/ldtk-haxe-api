@@ -447,11 +447,11 @@ typedef LayerInstanceJson = {
 	@added("0.8.0")
 	var visible: Bool;
 
-	/** X offset in pixels to render this layer, usually 0 (IMPORTANT: this should be added to the `LayerDef` optional offset, see `__pxTotalOffsetX`) **/
+	/** X offset in pixels to render this layer, usually 0 (IMPORTANT: this should be added to the `LayerDef` optional offset, so you should probably prefer using `__pxTotalOffsetX` which contains the total offset value) **/
 	@changed("0.5.0")
 	var pxOffsetX: Int;
 
-	/** Y offset in pixels to render this layer, usually 0 (IMPORTANT: this should be added to the `LayerDef` optional offset, see `__pxTotalOffsetY`)**/
+	/** Y offset in pixels to render this layer, usually 0 (IMPORTANT: this should be added to the `LayerDef` optional offset, so you should probably prefer using `__pxTotalOffsetX` which contains the total offset value) **/
 	@changed("0.5.0")
 	var pxOffsetY: Int;
 
