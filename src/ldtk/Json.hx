@@ -1424,6 +1424,7 @@ typedef GridPoint = {
 
 
 @added("1.2.0")
+@inline
 typedef CustomCommand = {
 	var command: String;
 	var when: CustomCommandTrigger;
