@@ -197,6 +197,7 @@ If you want to start supporting this future update easily, please refer to this 
 	var tutorialDesc: Null<String>;
 
 	/** An array of command lines that can be ran manually by the user **/
+	@internal
 	@added("1.2.0")
 	var customCommands: Array<CustomCommand>;
 }
