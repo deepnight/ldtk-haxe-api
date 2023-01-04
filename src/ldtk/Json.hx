@@ -549,7 +549,7 @@ typedef Tile = {
 	This object represents a custom sub rectangle in a Tileset image.
 **/
 @display("Tileset rectangle")
-@section("3.2.2")
+@section("3.3.1")
 @added("1.0.0")
 typedef TilesetRect = {
 	/** UID of the tileset **/
