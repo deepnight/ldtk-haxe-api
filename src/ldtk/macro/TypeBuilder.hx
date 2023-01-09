@@ -616,6 +616,9 @@ class TypeBuilder {
 					}
 					else {
 						// Auto-layer IntGrid
+						if( l.tilesetDefUid==null || !tilesets.exists(l.tilesetDefUid) )
+							error('Missing tileset in layer "${l.identifier}"');
+
 						var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_IntGrid_AutoLayer" }
 						var tilesetCT = Context.getType( tilesets.get(l.tilesetDefUid).typeName ).toComplexType();
 
@@ -650,6 +653,9 @@ class TypeBuilder {
 
 				case AutoLayer:
 					// Pure Auto-layer
+					if( l.tilesetDefUid==null || !tilesets.exists(l.tilesetDefUid) )
+						error('Missing tileset in layer "${l.identifier}"');
+
 					var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_AutoLayer" }
 					var tilesetCT = Context.getType( tilesets.get(l.tilesetDefUid).typeName ).toComplexType();
 
@@ -729,6 +735,9 @@ class TypeBuilder {
 
 
 				case Tiles:
+					if( l.tilesetDefUid==null || !tilesets.exists(l.tilesetDefUid) )
+						error('Missing default tileset in layer "${l.identifier}"');
+
 					var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_Tiles" }
 					var tilesetCT = Context.getType( tilesets.get(l.tilesetDefUid).typeName ).toComplexType();
 					var layerType : TypeDefinition = {
