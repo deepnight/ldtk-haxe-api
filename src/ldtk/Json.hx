@@ -1445,15 +1445,9 @@ typedef CustomCommand = {
 @inline
 typedef TableOfContentEntry = {
 	var identifier: String;
-	var instances: Array<TableOfContentInstance>;
+	var instances: Array<EntityReferenceInfos>;
 }
 
-@added("1.2.4")
-@inline
-typedef TableOfContentInstance = {
-	var worldIid: String;
-	var levelIid: String;
-}
 
 
 
