@@ -1,5 +1,6 @@
 package ldtk;
 
+// TODO: Version numbers for newly added fields in this branch are lies as I don't know what the final version will be. Fix them before PR!
 
 /**
 	This is the root of any Project JSON file. It contains:
@@ -963,6 +964,16 @@ typedef EntityDefJson = {
 
 	/** If TRUE, the entity instances will be resizable vertically **/
 	@added("0.8.0")
+	@internal
+	var resizableY: Bool;
+
+	/** If TRUE, the entity instances will be flippable horizontally **/
+	@added("1.0.0")
+	@internal
+	var resizableX: Bool;
+
+	/** If TRUE, the entity instances will be flippable vertically **/
+	@added("1.0.0")
 	@internal
 	var resizableY: Bool;
 
