@@ -1421,7 +1421,7 @@ typedef EntityReferenceInfos = {
 **/
 @section("2.4.3")
 @added("1.0.0")
-@display("Field instance grid point")
+@display("Grid point")
 typedef GridPoint = {
 	/** X grid-based coordinate **/
 	@added("1.0.0")
