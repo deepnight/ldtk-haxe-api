@@ -3,7 +3,7 @@ import ExternEnumTest;
 import ExternCastleDbTest;
 import ProjectNoPackage;
 
-class Main {
+class Tests {
 	static function main() {
 		// Init
 		#if hl
