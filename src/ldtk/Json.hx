@@ -200,6 +200,10 @@ If you want to start supporting this future update easily, please refer to this 
 	@internal
 	@added("1.2.0")
 	var customCommands: Array<CustomCommand>;
+
+	/** All the instances of entities that have their `exportToToc` flag enabled are listed this array. **/
+	@added("1.2.4")
+	var toc: Array<TableOfContentEntry>;
 }
 
 
@@ -941,6 +945,11 @@ typedef EntityDefJson = {
 	/** Unique Int identifier **/
 	var uid: Int;
 
+	/** If enabled, all instances of this entity will be listed in the project "Table of content" object. **/
+	@internal
+	@added("1.2.4")
+	var exportToToc: Bool;
+
 	/** An array of strings that classifies this entity **/
 	@added("0.8.0")
 	@internal
@@ -1430,6 +1439,23 @@ typedef CustomCommand = {
 	var command: String;
 	var when: CustomCommandTrigger;
 }
+
+
+@added("1.2.4")
+@inline
+typedef TableOfContentEntry = {
+	var identifier: String;
+	var instances: Array<TableOfContentInstance>;
+}
+
+@added("1.2.4")
+@inline
+typedef TableOfContentInstance = {
+	var worldIid: String;
+	var levelIid: String;
+}
+
+
 
 /* MISC ENUMS *****************************************************************************/
 
