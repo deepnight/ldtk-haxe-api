@@ -10,9 +10,18 @@
 	},
 	"iid": "a8ea85a0-7820-11ed-b6fd-4507f1bd5fbf",
 	"jsonVersion": "1.2.4",
-	"appBuildId": 464798,
+	"appBuildId": 464822,
 	"nextUid": 59,
 	"identifierStyle": "Capitalize",
+	"toc": [{
+		"identifier": "Player",
+		"instances": [{
+			"worldIid": "cd475020-7820-11ed-b18d-d13698c405cd",
+			"levelIid": "60018d40-66b0-11ec-a36b-3b0761cf900c",
+			"layerIid": "60018d45-66b0-11ec-a36b-2fc9526ec805",
+			"entityIid": "60018d46-66b0-11ec-a36b-a9ab7da03bee"
+		}]
+	}],
 	"worldLayout": "Free",
 	"worldGridWidth": 256,
 	"worldGridHeight": 256,
@@ -668,6 +677,7 @@
 			"identifier": "Player",
 			"uid": 27,
 			"tags": [],
+			"exportToToc": true,
 			"width": 8,
 			"height": 10,
 			"resizableX": false,
@@ -695,6 +705,7 @@
 			"identifier": "Item",
 			"uid": 29,
 			"tags": [],
+			"exportToToc": false,
 			"width": 10,
 			"height": 10,
 			"resizableX": false,
