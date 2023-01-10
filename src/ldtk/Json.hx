@@ -201,7 +201,7 @@ If you want to start supporting this future update easily, please refer to this 
 	@added("1.2.0")
 	var customCommands: Array<CustomCommand>;
 
-	/** All the instances of entities that have their `exportToToc` flag enabled are listed this array. **/
+	/** All instances of entities that have their `exportToToc` flag enabled are listed in this array. **/
 	@added("1.2.4")
 	var toc: Array<TableOfContentEntry>;
 }
