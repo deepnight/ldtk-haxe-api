@@ -1394,7 +1394,7 @@ typedef TileCustomMetadata = {
 	var data:String;
 }
 
-/** This object is used in Field Instances to describe an EntityRef value. **/
+/** This object describes the "location" of an Entity instance in the project worlds. **/
 @section("2.4.2")
 @added("1.0.0")
 @display("Reference to an Entity instance")
