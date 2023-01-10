@@ -3,7 +3,34 @@ import ExternEnumTest;
 import ExternCastleDbTest;
 import ProjectNoPackage;
 
-class Main {
+class Tests {
+
+	static function exit(code=0) {
+		#if hxnodejs
+			js.node.Require.require("process").exit(code);
+		#elseif js
+			// unsupported
+		#else
+			Sys.exit(code);
+		#end
+	}
+
+	static inline function section(v:String) {
+		if( CiAssert.VERBOSE ) {
+			print("");
+			print(v);
+		}
+	}
+
+	static function print(v:Dynamic) {
+		#if js
+			js.html.Console.log( Std.string(v) );
+		#else
+			Sys.println( Std.string(v) );
+		#end
+	}
+
+
 	static function main() {
 		// Init
 		#if hl
@@ -397,6 +424,15 @@ class Main {
 			CiAssert.isNotNull( project.all_levels.Main_tests.l_EntityTest.all_Mob[0].f_lootDrops );
 			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.all_Hero[0].f_startWeapon == packageTest.ProjectPackage.Enum_Weapons.LongBow );
 
+			// Table of content
+			CiAssert.isNotNull( project.toc );
+			CiAssert.isTrue( Lambda.count(project.toc)>0 );
+			CiAssert.isTrue( project.toc.exists("Hero") );
+			CiAssert.isTrue( project.toc.get("Hero").length>0 );
+			CiAssert.equals( project.toc.get("Hero")[0].entityIid, "f2f3d032-66b0-11ec-91ab-159ce9d99f47" );
+			CiAssert.equals( project.toc.get("Hero")[0].levelIid, "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e" );
+			CiAssert.isTrue( project.toc.exists("Mob") );
+			CiAssert.isTrue( project.toc.get("Mob").length>0 );
 		}
 		catch( e:Dynamic ) {
 			// Unknown errors
@@ -410,32 +446,6 @@ class Main {
 			print("");
 		print("Success.");
 		exit(0);
-	}
-
-
-	static function exit(code=0) {
-		#if hxnodejs
-			js.node.Require.require("process").exit(code);
-		#elseif js
-			// unsupported
-		#else
-			Sys.exit(code);
-		#end
-	}
-
-	static inline function section(v:String) {
-		if( CiAssert.VERBOSE ) {
-			print("");
-			print(v);
-		}
-	}
-
-	static function print(v:Dynamic) {
-		#if js
-			js.html.Console.log( Std.string(v) );
-		#else
-			Sys.println( Std.string(v) );
-		#end
 	}
 }
 
