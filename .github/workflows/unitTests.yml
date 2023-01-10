@@ -31,7 +31,7 @@ jobs:
       # Install libs
       - run: haxelib install tests/js.hxml --always
       - run: haxelib git deepnightLibs https://github.com/deepnight/deepnightLibs.git
-      - run: haxelib git heaps https://github.com/HeapsIO/heaps.git
+      - run: haxelib git heaps https://github.com/deepnight/heaps.git
       - run: haxelib install hlsdl
       - run: haxelib list
 

@@ -5,7 +5,7 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "1.1.3",
+		"appVersion": "1.2.4",
 		"url": "https://ldtk.io"
 	},
 	"identifier": "East",
@@ -797,9 +797,5 @@
 			"entityInstances": []
 		}
 	],
-	"__neighbours": [
-		{ "levelIid": "60018d40-66b0-11ec-a36b-3b0761cf900c", "levelUid": 0, "dir": "w" },
-		{ "levelIid": "60047370-66b0-11ec-a36b-2b89739d30ed", "levelUid": 40, "dir": "n" },
-		{ "levelIid": "6004c190-66b0-11ec-a36b-37ad7b095a6c", "levelUid": 41, "dir": "e" }
-	]
+	"__neighbours": [ { "levelIid": "60018d40-66b0-11ec-a36b-3b0761cf900c", "dir": "w" }, { "levelIid": "60047370-66b0-11ec-a36b-2b89739d30ed", "dir": "n" }, { "levelIid": "6004c190-66b0-11ec-a36b-37ad7b095a6c", "dir": "e" } ]
 }

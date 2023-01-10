@@ -2,11 +2,11 @@
   "name": "ldtk-haxe-api",
   "url" : "https://github.com/deepnight/ldtk-haxe-api",
   "license": "Apache",
-  "tags": ["Haxe","Heaps","Hashlink","LDtk","Led","L-Ed","api"],
+  "tags": ["Haxe","Heaps","Hashlink","LDtk","Led","L-Ed","api","level","editor","deepnight"],
   "description": "The haxe API for LDtk JSON files - https://deepnight.net/tools/led-2d-level-editor/",
-  "version": "1.1.2-rc.1",
+  "version": "1.2.3-rc.1",
   "classPath": "src/",
-  "releasenote": "API updated for 1.1.2, added support for CastleDB as external enums source",
+  "releasenote": "API updated for 1.2.3",
   "contributors": ["sbenard"],
   "dependencies": {
     "deepnightLibs": ""

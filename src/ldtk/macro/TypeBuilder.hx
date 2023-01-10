@@ -588,7 +588,7 @@ class TypeBuilder {
 			switch type {
 				case IntGrid:
 
-					if( l.autoTilesetDefUid==null ) {
+					if( l.tilesetDefUid==null ) {
 						// IntGrid
 						var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_IntGrid" }
 						var layerType : TypeDefinition = {
@@ -616,8 +616,11 @@ class TypeBuilder {
 					}
 					else {
 						// Auto-layer IntGrid
+						if( l.tilesetDefUid==null || !tilesets.exists(l.tilesetDefUid) )
+							error('Missing tileset in layer "${l.identifier}"');
+
 						var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_IntGrid_AutoLayer" }
-						var tilesetCT = Context.getType( tilesets.get(l.autoTilesetDefUid).typeName ).toComplexType();
+						var tilesetCT = Context.getType( tilesets.get(l.tilesetDefUid).typeName ).toComplexType();
 
 						var layerType : TypeDefinition = {
 							pos : curPos,
@@ -650,8 +653,11 @@ class TypeBuilder {
 
 				case AutoLayer:
 					// Pure Auto-layer
+					if( l.tilesetDefUid==null || !tilesets.exists(l.tilesetDefUid) )
+						error('Missing tileset in layer "${l.identifier}"');
+
 					var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_AutoLayer" }
-					var tilesetCT = Context.getType( tilesets.get(l.autoTilesetDefUid).typeName ).toComplexType();
+					var tilesetCT = Context.getType( tilesets.get(l.tilesetDefUid).typeName ).toComplexType();
 
 					var layerType : TypeDefinition = {
 						pos : curPos,
@@ -679,6 +685,9 @@ class TypeBuilder {
 					// Typed Entity arrays
 					var entityArrayFields : Array<Field> = [];
 					for(e in json.defs.entities) {
+						if( !matchesTags(e.tags, l.requiredTags, l.excludedTags) )
+							continue;
+
 						var entityComplexType = Context.getType("Entity_"+e.identifier).toComplexType();
 						entityArrayFields.push({
 							name: "all_"+e.identifier,
@@ -726,6 +735,9 @@ class TypeBuilder {
 
 
 				case Tiles:
+					if( l.tilesetDefUid==null || !tilesets.exists(l.tilesetDefUid) )
+						error('Missing default tileset in layer "${l.identifier}"');
+
 					var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_Tiles" }
 					var tilesetCT = Context.getType( tilesets.get(l.tilesetDefUid).typeName ).toComplexType();
 					var layerType : TypeDefinition = {
@@ -751,6 +763,30 @@ class TypeBuilder {
 					error("Unknown layer type "+l.type);
 			}
 		}
+	}
+
+
+	static function matchesTags(elementTags:Array<String>, requireds:Array<String>, excludeds:Array<String>) : Bool {
+		var tmap = new Map();
+		for(t in elementTags)
+			tmap.set(t,t);
+
+		if( requireds.length>0 ) {
+			var hasOne = false;
+			for(t in requireds)
+				if( tmap.exists(t) ) {
+					hasOne = true;
+					break;
+				}
+			if( !hasOne )
+				return false;
+		}
+
+		for(t in excludeds)
+			if( tmap.exists(t) )
+				return false;
+
+		return true;
 	}
 
 

@@ -77,6 +77,13 @@ class Tileset {
 		return Std.int( tileId / cWid ) * tileGridSize;
 	}
 
+	/**
+		Resolve an atlas coordinate to a tile ID. The result is only relevant if the coordinates are over a tile (ie. in atlas bounds, not in margins etc.).
+		WARNING: tile spacing is not supported yet!
+	**/
+	public inline function getTileIdFromCoords(pixelX:Int, pixelY:Int) {
+		return Std.int( (pixelX-padding) / tileGridSize )  +  cWid * Std.int( pixelY / tileGridSize );
+	}
 
 
 	/***************************************************************************

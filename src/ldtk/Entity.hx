@@ -3,8 +3,11 @@ package ldtk;
 class Entity {
 	var untypedProject : ldtk.Project;
 
-	/** Original parsed JSON object **/
-	public var json(default,null) : Json.EntityInstanceJson;
+	/** Original JSON object **/
+	public var json(default,null) : ldtk.Json.EntityInstanceJson;
+
+	/** Original entity definition JSON object **/
+	public var defJson(default,null) : ldtk.Json.EntityDefJson;
 
 	public var identifier : String;
 
@@ -44,6 +47,7 @@ class Entity {
 	public function new(p:ldtk.Project, json:ldtk.Json.EntityInstanceJson) {
 		untypedProject = p;
 		this.json = json;
+		this.defJson = p.getEntityDefJson(json.defUid);
 		identifier = json.__identifier;
 		iid = json.iid;
 		cx = json.__grid[0];
