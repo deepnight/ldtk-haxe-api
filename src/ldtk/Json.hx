@@ -200,6 +200,12 @@ If you want to start supporting this future update easily, please refer to this 
 	@internal
 	@added("1.2.0")
 	var customCommands: Array<CustomCommand>;
+
+	/** If TRUE, saving will also build a binary (BSON) copy of the project. **/
+	@internal
+	@added("1.2.4")
+	var exportBson: Bool;
+
 }
 
 
