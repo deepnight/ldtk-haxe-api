@@ -970,12 +970,12 @@ typedef EntityDefJson = {
 	/** If TRUE, the entity instances will be flippable horizontally **/
 	@added("1.0.0")
 	@internal
-	var resizableX: Bool;
+	var flippableX: Bool;
 
 	/** If TRUE, the entity instances will be flippable vertically **/
 	@added("1.0.0")
 	@internal
-	var resizableY: Bool;
+	var flippableY: Bool;
 
 	/** Only applies to entities resizable on both X/Y. If TRUE, the entity instance width/height will keep the same aspect ratio as the definition. **/
 	@added("0.8.0")
