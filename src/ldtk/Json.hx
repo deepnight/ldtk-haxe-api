@@ -1397,7 +1397,7 @@ typedef TileCustomMetadata = {
 /** This object is used in Field Instances to describe an EntityRef value. **/
 @section("2.4.2")
 @added("1.0.0")
-@display("Field instance entity reference")
+@display("Reference to an Entity instance")
 typedef EntityReferenceInfos = {
 	/** IID of the refered EntityInstance **/
 	@added("1.0.0")
