@@ -79,6 +79,7 @@ class TypeBuilder {
 		createLevelClass();
 		createLevelAccess();
 		createTilesetAccess();
+		createProjectToc();
 		createProjectClass();
 
 		haxe.macro.Compiler.keep( Context.getLocalModule() );
@@ -930,6 +931,32 @@ class TypeBuilder {
 		});
 	}
 
+
+	/** Create and populate the `toc` field in Project main class **/
+	static function createProjectToc() {
+		timer("projectToc");
+		var accessFields: Array<ObjectField> = json.toc.map( function(tocJson) {
+			return {
+				field: tocJson.identifier,
+				expr: macro $v{tocJson.instances},
+				quotes: null,
+			}
+		});
+		var accessType : ComplexType = TAnonymous(json.toc.map( function(tocJson) : Field {
+			return {
+				name: tocJson.identifier,
+				kind: FVar(macro : Array<ldtk.Json.EntityReferenceInfos>),
+				pos: curPos,
+			}
+		}));
+		projectFields.push({
+			name: "toc",
+			doc: "This table of content contains the list of all elements whose 'Add to table of content' option is enabled.",
+			kind: FVar(accessType, { expr:EObjectDecl(accessFields), pos:curPos }),
+			pos: curPos,
+			access: [ APublic ],
+		});
+	}
 
 
 	/**

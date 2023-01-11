@@ -426,13 +426,11 @@ class Tests {
 
 			// Table of content
 			CiAssert.isNotNull( project.toc );
-			CiAssert.isTrue( Lambda.count(project.toc)>0 );
-			CiAssert.isTrue( project.toc.exists("Hero") );
-			CiAssert.isTrue( project.toc.get("Hero").length>0 );
-			CiAssert.equals( project.toc.get("Hero")[0].entityIid, "f2f3d032-66b0-11ec-91ab-159ce9d99f47" );
-			CiAssert.equals( project.toc.get("Hero")[0].levelIid, "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e" );
-			CiAssert.isTrue( project.toc.exists("Mob") );
-			CiAssert.isTrue( project.toc.get("Mob").length>0 );
+			CiAssert.isNotNull( project.toc.Hero );
+			CiAssert.isTrue( project.toc.Hero.length>0 );
+			CiAssert.equals( project.toc.Hero[0].entityIid, "f2f3d032-66b0-11ec-91ab-159ce9d99f47" );
+			CiAssert.isNotNull( project.toc.Mob );
+			CiAssert.isTrue( project.toc.Mob.length>0 );
 		}
 		catch( e:Dynamic ) {
 			// Unknown errors
