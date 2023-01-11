@@ -1015,12 +1015,12 @@ class TypeBuilder {
 				}
 
 				/** Get a level from its UID (int) or Identifier (string) **/
-				public function getLevel(?uid:Int, ?id:String) : Null<$levelComplexType> {
-					if( uid==null && id==null )
+				public function getLevel(?uid:Int, ?idOrIid:String) : Null<$levelComplexType> {
+					if( uid==null && idOrIid==null )
 						return null;
 
 					for(l in _untypedLevels)
-						if( id!=null && l.identifier==id || uid!=null && l.uid==uid )
+						if( idOrIid!=null && ( l.identifier==idOrIid || l.iid==idOrIid ) || uid!=null && l.uid==uid )
 							return cast l;
 					return null;
 				}
