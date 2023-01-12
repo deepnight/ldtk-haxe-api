@@ -728,6 +728,10 @@ typedef LayerDefJson = {
 	/** Unique Int identifier **/
 	var uid: Int;
 
+	/** User defined documentation for this element to provide help/tips to level designers. **/
+	@added("1.2.5")
+	var doc: Null<String>;
+
 	/** Width and height of the grid in pixels **/
 	var gridSize: Int;
 
@@ -944,6 +948,10 @@ typedef EntityDefJson = {
 
 	/** Unique Int identifier **/
 	var uid: Int;
+
+	/** User defined documentation for this element to provide help/tips to level designers. **/
+	@added("1.2.5")
+	var doc: Null<String>;
 
 	/** If enabled, all instances of this entity will be listed in the project "Table of content" object. **/
 	@internal
