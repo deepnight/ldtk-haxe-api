@@ -935,14 +935,15 @@ class TypeBuilder {
 	/** Create and populate the `toc` field in Project main class **/
 	static function createProjectToc() {
 		timer("projectToc");
-		var accessFields: Array<ObjectField> = json.toc.map( function(tocJson) {
+		var jsonToc = json.toc==null ? []  : json.toc;
+		var accessFields: Array<ObjectField> = jsonToc.map( function(tocJson) {
 			return {
 				field: tocJson.identifier,
 				expr: macro $v{tocJson.instances},
 				quotes: null,
 			}
 		});
-		var accessType : ComplexType = TAnonymous(json.toc.map( function(tocJson) : Field {
+		var accessType : ComplexType = TAnonymous(jsonToc.map( function(tocJson) : Field {
 			return {
 				name: tocJson.identifier,
 				kind: FVar(macro : Array<ldtk.Json.EntityReferenceInfos>),
