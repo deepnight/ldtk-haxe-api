@@ -113,11 +113,17 @@ class Project {
 			Reflect.setField( Reflect.field(this,"all_tilesets"), tsJson.identifier, _instanciateTileset(this, tsJson));
 		}
 
+		// Empty toc
+		var classToc : Dynamic = Reflect.field(this,"toc");
+		for( k in Reflect.fields(classToc) )
+			Reflect.setField(classToc, k, []);
+
 		// Populate toc
 		if( json.toc!=null ) {
 			var jsonToc : Array<ldtk.Json.TableOfContentEntry> = json.toc;
 			for(te in jsonToc)
-				_untypedToc.set(te.identifier, te.instances.copy());
+				if( Reflect.hasField(classToc, te.identifier) )
+					Reflect.setField(classToc, te.identifier, te.instances.copy());
 		}
 	}
 

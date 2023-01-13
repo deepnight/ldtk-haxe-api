@@ -932,24 +932,27 @@ class TypeBuilder {
 	}
 
 
-	/** Create and populate the `toc` field in Project main class **/
+	/**
+		Create the `toc` anonymous structure in Project main class.
+		It is populated in Project.parseJson()
+	**/
 	static function createProjectToc() {
 		timer("projectToc");
 		var jsonToc = json.toc==null ? []  : json.toc;
-		var accessFields: Array<ObjectField> = jsonToc.map( function(tocJson) {
+		var accessType : ComplexType = TAnonymous(json.defs.entities.map( function(ed) : Field {
 			return {
-				field: tocJson.identifier,
-				expr: macro $v{tocJson.instances},
-				quotes: null,
-			}
-		});
-		var accessType : ComplexType = TAnonymous(jsonToc.map( function(tocJson) : Field {
-			return {
-				name: tocJson.identifier,
+				name: ed.identifier,
 				kind: FVar(macro : Array<ldtk.Json.EntityReferenceInfos>),
 				pos: curPos,
 			}
 		}));
+		var accessFields: Array<ObjectField> = json.defs.entities.map( function(ed) {
+			return {
+				field: ed.identifier,
+				expr: macro [],
+				quotes: null,
+			}
+		});
 		projectFields.push({
 			name: "toc",
 			doc: "This table of content contains the list of all elements whose 'Add to table of content' option is enabled.",
