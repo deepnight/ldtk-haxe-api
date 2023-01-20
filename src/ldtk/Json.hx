@@ -89,6 +89,13 @@ If you want to start supporting this future update easily, please refer to this 
 	@added("1.0.0")
 	var worlds: Array<WorldJson>;
 
+	/**
+		IID of the default dummy World created internally, if the project isn't in MultiWorlds mode.
+	**/
+	@internal
+	@added("1.2.6")
+	var dummyWorldIid: String;
+
 	/** Default X pivot (0 to 1) for new entities **/
 	@internal
 	var defaultPivotX: Float;
