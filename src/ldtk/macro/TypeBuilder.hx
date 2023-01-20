@@ -278,7 +278,7 @@ class TypeBuilder {
 					// Need classpath to Castle DB instance to resolve its enums (use -D ldtkCastle=...)
 					var cdbFull = Context.definedValue("ldtkCastle");
 					if( cdbFull==null )
-						Context.fatalError('Missing "-D ldtkCastle=full.package.of.CastleDbClass"', Context.currentPos());
+						Context.fatalError('Missing "-D ldtkCastle=full.package.of.CastleDbClass". This is necessary because the LDtk project uses a CastleDB file.', Context.currentPos());
 
 					var cdbPack = cdbFull.split(".");
 					var cdbClassName = cdbPack.pop();
