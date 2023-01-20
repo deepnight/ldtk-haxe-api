@@ -90,7 +90,7 @@ If you want to start supporting this future update easily, please refer to this 
 	var worlds: Array<WorldJson>;
 
 	/**
-		IID of the default dummy World created internally, if the project isn't in MultiWorlds mode.
+		If the project isn't in MultiWorlds mode, this is the IID of the internal "dummy" World.
 	**/
 	@internal
 	@added("1.2.6")
