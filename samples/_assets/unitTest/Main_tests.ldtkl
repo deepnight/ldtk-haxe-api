@@ -5,7 +5,7 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "1.2.4",
+		"appVersion": "1.2.5",
 		"url": "https://ldtk.io"
 	},
 	"identifier": "Main_tests",
@@ -650,12 +650,12 @@
 							"entityIid": "57c51ab0-66b0-11ec-8446-f3a61ee63449",
 							"layerIid": "27359dc1-66b0-11ec-8446-ff4b9136ca03",
 							"levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e",
-							"worldIid": "17276820-7820-11ed-872c-9bbacee4b3cc"
+							"worldIid": "a405f870-7820-11ed-bcdb-432a9b5aa350"
 						}, {
 							"entityIid": "58f66ec0-66b0-11ec-8446-9b40d7be219b",
 							"layerIid": "27359dc1-66b0-11ec-8446-ff4b9136ca03",
 							"levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e",
-							"worldIid": "17276820-7820-11ed-872c-9bbacee4b3cc"
+							"worldIid": "a405f870-7820-11ed-bcdb-432a9b5aa350"
 						} ], "__type": "Array<EntityRef>", "__tile": null, "defUid": 101, "realEditorValues": [ {
 							"id": "V_String",
 							"params": ["57c51ab0-66b0-11ec-8446-f3a61ee63449"]
@@ -750,7 +750,7 @@
 						"entityIid": "be92c8d0-66b0-11ec-88f3-df87634ca4af",
 						"layerIid": "bdabeb43-66b0-11ec-88f3-f17ff25d77e6",
 						"levelIid": "bdabeb40-66b0-11ec-88f3-5d5bfa64cc93",
-						"worldIid": "17276820-7820-11ed-872c-9bbacee4b3cc"
+						"worldIid": "a405f870-7820-11ed-bcdb-432a9b5aa350"
 					}, "__type": "EntityRef", "__tile": null, "defUid": 108, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["be92c8d0-66b0-11ec-88f3-df87634ca4af"]
@@ -772,7 +772,7 @@
 						"entityIid": "8ffab9a0-66b0-11ec-88f3-b1b84aed41ee",
 						"layerIid": "27359dc1-66b0-11ec-8446-ff4b9136ca03",
 						"levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e",
-						"worldIid": "17276820-7820-11ed-872c-9bbacee4b3cc"
+						"worldIid": "a405f870-7820-11ed-bcdb-432a9b5aa350"
 					}, "__type": "EntityRef", "__tile": null, "defUid": 108, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["8ffab9a0-66b0-11ec-88f3-b1b84aed41ee"]
@@ -794,7 +794,7 @@
 						"entityIid": "8f9e1ab0-66b0-11ec-88f3-2308bdb94ce2",
 						"layerIid": "27359dc1-66b0-11ec-8446-ff4b9136ca03",
 						"levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e",
-						"worldIid": "17276820-7820-11ed-872c-9bbacee4b3cc"
+						"worldIid": "a405f870-7820-11ed-bcdb-432a9b5aa350"
 					}, "__type": "EntityRef", "__tile": null, "defUid": 108, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["8f9e1ab0-66b0-11ec-88f3-2308bdb94ce2"]

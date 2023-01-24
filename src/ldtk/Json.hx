@@ -201,6 +201,10 @@ If you want to start supporting this future update easily, please refer to this 
 	@internal
 	@added("1.2.0")
 	var customCommands: Array<CustomCommand>;
+
+	/** All instances of entities that have their `exportToToc` flag enabled are listed in this array. **/
+	@added("1.2.4")
+	var toc: Array<TableOfContentEntry>;
 }
 
 
@@ -729,6 +733,11 @@ typedef LayerDefJson = {
 	/** Unique Int identifier **/
 	var uid: Int;
 
+	/** User defined documentation for this element to provide help/tips to level designers. **/
+	@added("1.2.5")
+	@internal
+	var doc: Null<String>;
+
 	/** Width and height of the grid in pixels **/
 	var gridSize: Int;
 
@@ -945,6 +954,16 @@ typedef EntityDefJson = {
 
 	/** Unique Int identifier **/
 	var uid: Int;
+
+	/** User defined documentation for this element to provide help/tips to level designers. **/
+	@added("1.2.5")
+	@internal
+	var doc: Null<String>;
+
+	/** If enabled, all instances of this entity will be listed in the project "Table of content" object. **/
+	@internal
+	@added("1.2.4")
+	var exportToToc: Bool;
 
 	/** An array of strings that classifies this entity **/
 	@added("0.8.0")
@@ -1400,10 +1419,10 @@ typedef TileCustomMetadata = {
 	var data:String;
 }
 
-/** This object is used in Field Instances to describe an EntityRef value. **/
+/** This object describes the "location" of an Entity instance in the project worlds. **/
 @section("2.4.2")
 @added("1.0.0")
-@display("Field instance entity reference")
+@display("Reference to an Entity instance")
 typedef EntityReferenceInfos = {
 	/** IID of the refered EntityInstance **/
 	@added("1.0.0")
@@ -1427,7 +1446,7 @@ typedef EntityReferenceInfos = {
 **/
 @section("2.4.3")
 @added("1.0.0")
-@display("Field instance grid point")
+@display("Grid point")
 typedef GridPoint = {
 	/** X grid-based coordinate **/
 	@added("1.0.0")
@@ -1445,6 +1464,17 @@ typedef CustomCommand = {
 	var command: String;
 	var when: CustomCommandTrigger;
 }
+
+
+@added("1.2.4")
+@inline
+typedef TableOfContentEntry = {
+	var identifier: String;
+	var instances: Array<EntityReferenceInfos>;
+}
+
+
+
 
 /* MISC ENUMS *****************************************************************************/
 

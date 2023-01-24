@@ -14,4 +14,4 @@
 --dce full
 -debug
 
--main Main
+-main Tests
