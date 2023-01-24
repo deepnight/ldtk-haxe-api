@@ -1,7 +1,5 @@
 package ldtk;
 
-// TODO: Version numbers for newly added fields in this branch are lies as I don't know what the final version will be. Fix them before PR!
-
 /**
 	This is the root of any Project JSON file. It contains:
 
@@ -631,8 +629,8 @@ typedef EntityInstanceJson = {
 	@changed("0.4.0")
 	var px: Array<Int>;
 
-	/** number is a liiiiiiiie **/
-	@added("1.0.0")
+	/** Two-bit integer. First bit determines whether or not this EntityInstance is flipped horizontally, the second bit vertically. **/
+	@added("1.2.6")
 	var f: Int;
 
 	/** An array of all custom fields and their values. **/
@@ -987,12 +985,12 @@ typedef EntityDefJson = {
 	var resizableY: Bool;
 
 	/** If TRUE, the entity instances will be flippable horizontally **/
-	@added("1.0.0")
+	@added("1.2.6")
 	@internal
 	var flippableX: Bool;
 
 	/** If TRUE, the entity instances will be flippable vertically **/
-	@added("1.0.0")
+	@added("1.2.6")
 	@internal
 	var flippableY: Bool;
 
