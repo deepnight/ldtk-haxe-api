@@ -997,7 +997,6 @@ typedef EntityDefJson = {
 
 	/** Defines whether entities flip within bounds (FALSE) or around their pivot point (TRUE). **/
 	@added("1.2.6")
-	@internal
 	var flipAroundPivot: Bool;
 
 	/** Only applies to entities resizable on both X/Y. If TRUE, the entity instance width/height will keep the same aspect ratio as the definition. **/
