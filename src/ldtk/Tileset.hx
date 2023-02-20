@@ -29,7 +29,8 @@ class Tileset {
 	/** Spacing between each tile in pixels */
 	public var spacing: Int;
 
-	var cWid(get,never) : Int; inline function get_cWid() return Math.ceil(pxWid/tileGridSize);
+	var cWid(get,never) : Int; inline function get_cWid() return
+        Math.ceil(pxWid/(tileGridSize + spacing));
 
 	/** Untyped Enum based tags (stored as String). The "typed" getter method is created in macro. **/
 	var untypedTags : Map< String, Map<Int,Int> >;
@@ -67,14 +68,15 @@ class Tileset {
 		Get X pixel coordinate (in atlas image) from a specified tile ID
 	**/
 	public inline function getAtlasX(tileId:Int) {
-		return ( tileId - Std.int( tileId / cWid ) * cWid ) * tileGridSize;
+        return ( tileId - Std.int( tileId / cWid ) * cWid ) * (tileGridSize +
+                spacing);
 	}
 
 	/**
 		Get Y pixel coordinate (in atlas image) from a specified tile ID
 	**/
 	public inline function getAtlasY(tileId:Int) {
-		return Std.int( tileId / cWid ) * tileGridSize;
+		return Std.int( tileId / cWid ) * (tileGridSize + spacing);
 	}
 
 	/**
@@ -82,7 +84,8 @@ class Tileset {
 		WARNING: tile spacing is not supported yet!
 	**/
 	public inline function getTileIdFromCoords(pixelX:Int, pixelY:Int) {
-		return Std.int( (pixelX-padding) / tileGridSize )  +  cWid * Std.int( pixelY / tileGridSize );
+		return Std.int( (pixelX-padding) / (tileGridSize + spacing) )  +  cWid
+            * Std.int( pixelY / (tileGridSize + spacing) );
 	}
 
 
