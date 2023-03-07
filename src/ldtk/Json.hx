@@ -1574,6 +1574,7 @@ enum BgImagePos {
 	Contain;
 	Cover;
 	CoverDirty;
+	Tile;
 }
 
 enum TextLanguageMode {
