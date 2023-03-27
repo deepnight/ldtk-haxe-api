@@ -99,7 +99,7 @@ class Tests {
 			// Types
 			section("Types...");
 			CiAssert.isNotNull( ProjectNoPackage.Enum_Mobs );
-			CiAssert.isNotNull( ProjectNoPackage.EntityEnum );
+			CiAssert.isNotNull( ProjectNoPackage.ProjectNoPackage_EntityEnum );
 			CiAssert.isNotNull( ProjectNoPackage.Tileset_Cavernas_by_Adam_Saltsman );
 
 			// Levels
@@ -413,7 +413,7 @@ class Tests {
 			var project = new packageTest.ProjectPackage();
 			CiAssert.isNotNull( project );
 			CiAssert.isNotNull( packageTest.ProjectPackage.Enum_Mobs );
-			CiAssert.isNotNull( packageTest.ProjectPackage.EntityEnum );
+			CiAssert.isNotNull( packageTest.ProjectPackage.ProjectPackage_EntityEnum );
 			CiAssert.isNotNull( packageTest.ProjectPackage.Enum_Weapons );
 			CiAssert.isNotNull( packageTest.ProjectPackage.Tileset_Cavernas_by_Adam_Saltsman );
 			CiAssert.isNotNull( project.all_levels );

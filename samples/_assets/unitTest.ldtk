@@ -5,23 +5,23 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "1.2.5",
+		"appVersion": "1.2.6",
 		"url": "https://ldtk.io"
 	},
 	"iid": "a6731d00-7820-11ed-b6fd-8d5e0e3d5314",
-	"jsonVersion": "1.2.5",
-	"appBuildId": 464869,
+	"jsonVersion": "1.2.6",
+	"appBuildId": 465061,
 	"nextUid": 121,
 	"identifierStyle": "Free",
 	"toc": [ {
 		"identifier": "Hero",
 		"instances": [ {
-			"worldIid": "a405f870-7820-11ed-bcdb-432a9b5aa350",
+			"worldIid": "9df6b3c0-c640-11ed-b633-f10db708ef70",
 			"levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e",
 			"layerIid": "27359dc1-66b0-11ec-8446-ff4b9136ca03",
 			"entityIid": "f2f3d032-66b0-11ec-91ab-159ce9d99f47"
 		}, {
-			"worldIid": "a405f870-7820-11ed-bcdb-432a9b5aa350",
+			"worldIid": "9df6b3c0-c640-11ed-b633-f10db708ef70",
 			"levelIid": "b1e31860-7820-11ed-b18d-6339f608f11d",
 			"layerIid": "b1e33f73-7820-11ed-b18d-c3f6df89dcec",
 			"entityIid": "bee74f40-7820-11ed-b18d-b5db23763aff"
@@ -29,7 +29,7 @@
 	}, {
 		"identifier": "Mob",
 		"instances": [{
-			"worldIid": "a405f870-7820-11ed-bcdb-432a9b5aa350",
+			"worldIid": "9df6b3c0-c640-11ed-b633-f10db708ef70",
 			"levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e",
 			"layerIid": "27359dc1-66b0-11ec-8446-ff4b9136ca03",
 			"entityIid": "f2f3d031-66b0-11ec-91ab-11efec00697b"
@@ -1912,5 +1912,6 @@
 			"__neighbours": []
 		}
 	],
-	"worlds": []
+	"worlds": [],
+	"dummyWorldIid": "9df6b3c0-c640-11ed-b633-f10db708ef70"
 }
