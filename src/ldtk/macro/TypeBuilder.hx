@@ -21,6 +21,7 @@ class TypeBuilder {
 	static var fileContent : String;
 	static var json : ProjectJson;
 	static var locateCache : Map<String,String>;
+	static var isSingleWorld = false;
 
 	// Module infos
 	static var rawMod : String = "";
@@ -61,6 +62,7 @@ class TypeBuilder {
 		projectFields = [];
 		externEnumTypes = new Map();
 		tilesets = new Map();
+		isSingleWorld = false;
 		#if ldtk_times
 		_curMod = modName;
 		#end
@@ -82,6 +84,8 @@ class TypeBuilder {
 		createTilesetAccess();
 		createWorldsAccessInProject();
 		createProjectToc();
+		// if( isSingleWorld )
+		// 	addSingleWorldFields();
 		createProjectClass();
 
 		haxe.macro.Compiler.keep( Context.getLocalModule() );
@@ -160,19 +164,8 @@ class TypeBuilder {
 
 		// Create dummy JSON world
 		if( json.worlds==null || json.worlds.length==0 ) {
-			// var worldJson : WorldJson = {
-			// 	iid: World.DUMMY_WORLD_ID+"_iid",
-			// 	identifier: World.DUMMY_WORLD_ID,
-
-			// 	worldLayout: json.worldLayout,
-			// 	worldGridWidth: json.worldGridWidth,
-			// 	worldGridHeight: json.worldGridHeight,
-
-			// 	defaultLevelWidth: json.defaultLevelWidth,
-			// 	defaultLevelHeight: json.defaultLevelHeight,
-			// 	levels: json.levels,
-			// }
 			json.worlds = [ World.createDummyJson(json) ];
+			isSingleWorld = true;
 		}
 
 		if( dn.Version.lower(json.jsonVersion, MIN_JSON_VERSION, true) )
@@ -834,6 +827,39 @@ class TypeBuilder {
 		}));
 
 
+		// Add single-world convenience shortcuts to project class
+		if( isSingleWorld ) {
+			var levelComplexType = Context.getType(levelType.name).toComplexType();
+
+			var shortcutFields = (macro class {
+				@:deprecated('DEPRECATED! Use "myProject.all_worlds.Default.all_levels"') @:noCompletion
+				public var all_levels(get,never) : $accessType;
+					function get_all_levels() return this.all_worlds.Default.all_levels;
+
+				@:deprecated('DEPRECATED! Use "myProject.all_worlds.Default.levels"') @:noCompletion
+				public var levels(get,never) : Array<$levelComplexType>;
+					function get_levels() return this.all_worlds.Default.levels;
+
+				@:deprecated('DEPRECATED! Use "myProject.all_worlds.Default.layout"') @:noCompletion
+				public var worldLayout(get,never) : ldtk.Json.WorldLayout;
+					function get_worldLayout() return this.all_worlds.Default.layout;
+
+				@:deprecated('DEPRECATED! Use "myProject.all_worlds.Default.getLevel"') @:noCompletion
+				public function getLevel(?uid:Int, ?idOrIid:String) : Null<$levelComplexType> {
+					return this.all_worlds.Default.getLevel(uid,idOrIid);
+				}
+
+				@:deprecated('DEPRECATED! Use "myProject.all_worlds.Default.getLevelAt"') @:noCompletion
+				public function getLevelAt(x:Int, y:Int) : Null<$levelComplexType> {
+					return this.all_worlds.Default.getLevelAt(x,y);
+				}
+			}).fields;
+
+			for(f in shortcutFields)
+				projectFields.push(f);
+		}
+
+
 		// World class
 		var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"World" }
 		var levelTypePath : TypePath = { pack:modPack, name:levelType.name }
@@ -862,7 +888,6 @@ class TypeBuilder {
 					all_levels = cast {}
 					for(l in _untypedLevels)
 						Reflect.setField(all_levels, l.identifier, l);
-					trace(all_levels);
 				}
 
 				override function _instanciateLevel(project, arrayIndex:Int, json) {
@@ -1067,6 +1092,29 @@ class TypeBuilder {
 			access: [ APublic ],
 		});
 	}
+
+
+	// static function addSingleWorldFields() {
+		// var fieldName = "all_levels";
+		// var getter : Function = {
+		// 	expr: macro return all_worlds.Default.all_levels,
+		// 	args: [],
+		// 	ret: (macro : Dynamic),
+		// }
+
+		// projectFields.push({
+		// 	name: fieldName,
+		// 	pos: curPos,
+		// 	kind: FProp("get","never", getter.ret),
+		// 	access: [APublic],
+		// });
+
+		// projectFields.push({
+		// 	name: "get_"+fieldName,
+		// 	pos: curPos,
+		// 	kind: FFun(getter),
+		// });
+	// }
 
 
 	/**

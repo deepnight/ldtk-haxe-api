@@ -74,17 +74,6 @@ class Project {
 
 	var _untypedToc : Map<String, Array<ldtk.Json.EntityReferenceInfos>>;
 
-	@:noCompletion @:deprecated('Use "project.all_worlds.Default.levels" here')
-	public var levels: Array<Dynamic> = [];
-
-	@:noCompletion @:deprecated('Use "project.all_worlds.Default.all_levels" here')
-	public var all_levels: Dynamic = {};
-
-	@:noCompletion @:deprecated('Use "project.all_worlds.Default.layout" here')
-	public var worldLayout(get,never): WorldLayout;
-		inline function get_worldLayout() return _untypedWorlds[0].layout;
-
-
 	function new() {}
 
 	/**
@@ -532,12 +521,6 @@ class Project {
 		while( h.length<leadingZeros )
 			h="0"+h;
 		return "#"+h;
-	}
-
-
-	@:noCompletion @:deprecated('Use "project.all_worlds.Default.getLevel()" here')
-	public inline function getLevel(iid:String) {
-		return @:privateAccess _untypedWorlds[0]._untypedLevels;
 	}
 }
 
