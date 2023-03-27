@@ -36,7 +36,6 @@ class TypeBuilder {
 	static var entityIdsEnum : TypeDefinition;
 	static var baseEntityType : TypeDefinition;
 	static var levelType : TypeDefinition;
-	static var worldType : TypeDefinition;
 	static var tilesets : Map<Int,{ typeName:String, json:TilesetDefJson }> = new Map();
 	static var localEnums : Map<Int, TypeDefinition> = new Map();
 
@@ -78,9 +77,10 @@ class TypeBuilder {
 		createTilesetsClasses();
 		createLayersClasses();
 		createLevelClass();
-		createWorldClass();
+		for(worldJson in json.worlds)
+			createWorldClass(worldJson);
 		createTilesetAccess();
-		createWorldAccess();
+		createWorldsAccessInProject();
 		createProjectToc();
 		createProjectClass();
 
@@ -813,18 +813,41 @@ class TypeBuilder {
 	/**
 		Create main Project class
 	**/
-	static function createWorldClass() {
+	static function createWorldClass(worldJson:WorldJson) {
 		timer("worldClass");
+
+		// Level access in world class
+		var accessFields : Array<ObjectField> = worldJson.levels.map( function(j) {
+			return {
+				field: j.identifier,
+				expr: macro null,
+				quotes: null,
+			}
+		});
+		var complexType = Context.getType(rawMod+"_Level").toComplexType();
+		var accessType : ComplexType = TAnonymous(worldJson.levels.map( function(j) : Field {
+			return {
+				name: j.identifier,
+				kind: FVar(macro : $complexType),
+				pos: curPos,
+			}
+		}));
+
+
+		// World class
 		var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"World" }
 		var levelTypePath : TypePath = { pack:modPack, name:levelType.name }
 		var levelComplexType = Context.getType(levelType.name).toComplexType();
-		worldType = {
+		var worldType = {
 			pos : curPos,
-			name : modName+"_World",
+			name : modName+"_World_"+worldJson.identifier,
 			pack : modPack,
 			kind : TDClass(parentTypePath),
 			fields : (macro class {
 				public var levels : Array<$levelComplexType> = [];
+
+				/** A convenient way to access all worlds in a type-safe environment **/
+				public var all_levels : $accessType;
 
 				override public function new(project, arrayIdx, json) {
 					super(project, arrayIdx, json);
@@ -835,9 +858,11 @@ class TypeBuilder {
 
 					levels = cast _untypedLevels.copy();
 
-					// // Init levels quick access
-					// for(l in _untypedLevels)
-					// 	Reflect.setField(all_levels, l.identifier, l);
+					// Init levels quick access
+					all_levels = cast {}
+					for(l in _untypedLevels)
+						Reflect.setField(all_levels, l.identifier, l);
+					trace(all_levels);
 				}
 
 				override function _instanciateLevel(project, arrayIndex:Int, json) {
@@ -955,7 +980,7 @@ class TypeBuilder {
 	/**
 		Build quick levels access using their identifier
 	**/
-	static function createWorldAccess() {
+	static function createWorldsAccessInProject() {
 		var accessFields : Array<ObjectField> = json.worlds.map( function(worldJson) {
 			return {
 				field: worldJson.identifier,
@@ -963,8 +988,8 @@ class TypeBuilder {
 				quotes: null,
 			}
 		});
-		var complexType = Context.getType(rawMod+"_World").toComplexType();
 		var accessType : ComplexType = TAnonymous(json.worlds.map( function(worldJson) : Field {
+			var complexType = Context.getType(rawMod+"_World_"+worldJson.identifier).toComplexType();
 			return {
 				name: worldJson.identifier,
 				kind: FVar(macro : $complexType),
@@ -1052,8 +1077,7 @@ class TypeBuilder {
 		var projectDir = StringTools.replace(projectFilePath, "\\", "/");
 		projectDir = projectDir.indexOf("/")<0 ? null : projectDir.substring(0, projectDir.lastIndexOf("/"));
 		var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Project" }
-		var worldTypePath : TypePath = { pack:modPack, name:worldType.name }
-		var worldComplexType = Context.getType(worldType.name).toComplexType();
+		// var worldTypePath : TypePath = { pack:modPack, name:worldType.name }
 		var projectClass : TypeDefinition = {
 			pos : curPos,
 			name : modName,
@@ -1088,8 +1112,16 @@ class TypeBuilder {
 						return cast Type.createInstance(c, [project, json]);
 				}
 
-				override function _instanciateWorld(project, arrayIndex:Int, json) {
-					return new $worldTypePath(project, arrayIndex, json);
+				override function _instanciateWorld(untypedProject, arrayIndex:Int, json) {
+					var classId = $v{modPack.concat([modName+"_World_"]).join(".")} + json.identifier;
+					var c = Type.resolveClass(classId);
+					if( c==null ) {
+						ldtk.Project.error("Couldn't instanciate World class "+classId);
+						return null;
+					}
+					else
+						return cast Type.createInstance(c, [untypedProject, arrayIndex, json]);
+					// return new $worldTypePath(project, arrayIndex, json);
 				}
 
 				override function _resolveExternalEnumValue<T>(name:String, enumValueId:String) : T {
