@@ -47,6 +47,7 @@ class Project {
 import ldtk.Json;
 
 class Project {
+	public var isMultiWorlds(default,null) = false;
 
 	/** Contains the full path to the project JSON, as provided to the macro (using slashes) **/
 	public var projectFilePath : String;
@@ -60,13 +61,14 @@ class Project {
 	/** Project background color (as Hex "#rrggbb") **/
 	public var bgColor_hex: String;
 
+	var _untypedWorlds : Array<ldtk.World>;
 	var _untypedLevels : Array<ldtk.Level>;
 
 	/** Full access to the JSON project definitions **/
 	public var defs : ldtk.Json.DefinitionsJson;
 
-	/** World layout enum **/
-	public var worldLayout : WorldLayout;
+	/** World layout enum. This value will be `null` if the project is using multi-worlds (see `isMultiWorlds` flag in this class) **/
+	public var worldLayout : Null<WorldLayout>;
 
 	/** A map containing all untyped Tilesets, indexed using their JSON  `uid` (integer unique ID). The typed tilesets will be added in a field called `all_tilesets` by macros. **/
 	@:allow(ldtk.Layer_Tiles, ldtk.Layer_AutoLayer, ldtk.Layer_IntGrid_AutoLayer, ldtk.Entity)
@@ -93,12 +95,21 @@ class Project {
 
 		// Parse json
 		var json : Dynamic = haxe.Json.parse(jsonString);
+		isMultiWorlds = json.worlds!=null && json.worlds.length>0;
 
 		// Init misc fields
 		defs = json.defs;
 		bgColor_hex = json.bgColor;
 		bgColor_int = ldtk.Project.hexToInt(json.bgColor);
-		worldLayout = WorldLayout.createByName( Std.string(json.worldLayout) );
+		worldLayout = isMultiWorlds ? null : WorldLayout.createByName( Std.string(json.worldLayout) );
+
+		// Populate worlds
+		_untypedWorlds = [];
+		if( isMultiWorlds ) {
+			var idx = 0;
+			for(json in (cast json.worlds : Array<Dynamic>))
+				_untypedWorlds.push( new World(this, idx++, json) );
+		}
 
 		// Populate levels
 		_untypedLevels = [];

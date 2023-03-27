@@ -21,6 +21,7 @@ class TypeBuilder {
 	static var fileContent : String;
 	static var json : ProjectJson;
 	static var locateCache : Map<String,String>;
+	static var isMultiWorlds : Bool;
 
 	// Module infos
 	static var rawMod : String = "";
@@ -61,6 +62,7 @@ class TypeBuilder {
 		projectFields = [];
 		externEnumTypes = new Map();
 		tilesets = new Map();
+		isMultiWorlds = false;
 		#if ldtk_times
 		_curMod = modName;
 		#end
@@ -79,6 +81,7 @@ class TypeBuilder {
 		createLevelClass();
 		createLevelAccess();
 		createTilesetAccess();
+		createWorldClass();
 		createProjectToc();
 		createProjectClass();
 
@@ -155,6 +158,7 @@ class TypeBuilder {
 				Context.info("Couldn't parse JSON "+projectFilePath, jsonPos);
 				error("Failed to parse project JSON");
 			}
+		isMultiWorlds = json.worlds!=null && json.worlds.length>0;
 
 		if( dn.Version.lower(json.jsonVersion, MIN_JSON_VERSION, true) )
 			error('JSON version: "${json.jsonVersion}", required at least: "$MIN_JSON_VERSION"');
@@ -789,6 +793,73 @@ class TypeBuilder {
 
 		return true;
 	}
+
+
+	/**
+		Create main Project class
+	**/
+	static function createWorldClass() {
+		timer("worldClass");
+		// var projectDir = StringTools.replace(projectFilePath, "\\", "/");
+		// projectDir = projectDir.indexOf("/")<0 ? null : projectDir.substring(0, projectDir.lastIndexOf("/"));
+		var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"World" }
+		var levelTypePath : TypePath = { pack:modPack, name:levelType.name }
+		var levelComplexType = Context.getType(levelType.name).toComplexType();
+		var worldClass : TypeDefinition = {
+			pos : curPos,
+			name : modName+"_World",
+			pack : modPack,
+			kind : TDClass(parentTypePath),
+			fields : (macro class {
+				// public var levels : Array<$levelComplexType> = [];
+
+				/**
+					If "overrideEmbedJson is provided, the embedded JSON from compilation-time will be ignored, and this JSON will be used instead.
+				**/
+				override public function new(project, arrayIdx, json) {
+					super(project, arrayIdx, json);
+					trace("I'm a specialist!");
+				}
+
+				// override function parseJson(json) {
+				// 	super.parseJson(json);
+
+					// levels = cast _untypedLevels.copy();
+
+					// // Init levels quick access
+					// for(l in _untypedLevels)
+					// 	Reflect.setField(all_levels, l.identifier, l);
+				// }
+
+				// override function _instanciateLevel(project, arrayIndex:Int, json) {
+				// 	return new $levelTypePath(project, arrayIndex, json);
+				// }
+
+				/** Get a level from its UID (int) or Identifier (string) **/
+				// public function getLevel(?uid:Int, ?idOrIid:String) : Null<$levelComplexType> {
+				// 	if( uid==null && idOrIid==null )
+				// 		return null;
+
+				// 	for(l in _untypedLevels)
+				// 		if( idOrIid!=null && ( l.identifier==idOrIid || l.iid==idOrIid ) || uid!=null && l.uid==uid )
+				// 			return cast l;
+				// 	return null;
+				// }
+
+				// /**
+				// 	Get a level using a world pixel coord
+				// **/
+				// public function getLevelAt(worldX:Int, worldY:Int) : Null<$levelComplexType> {
+				// 	for(l in _untypedLevels)
+				// 		if( worldX>=l.worldX && worldX<l.worldX+l.pxWid && worldY>=l.worldY && worldY<l.worldY+l.pxHei )
+				// 			return cast l;
+				// 	return null;
+				// }
+			}).fields,
+		}
+		registerTypeDefinitionModule(worldClass, projectFilePath);
+	}
+
 
 
 	/**
