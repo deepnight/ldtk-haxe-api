@@ -33,6 +33,7 @@ class Project {
 		#if !macro
 			error("Should only be used in macros");
 		#else
+
 			return ldtk.macro.TypeBuilder.buildTypes(projectFilePath);
 		#end
 	}
@@ -47,8 +48,6 @@ class Project {
 import ldtk.Json;
 
 class Project {
-	public var isMultiWorlds(default,null) = false;
-
 	/** Contains the full path to the project JSON, as provided to the macro (using slashes) **/
 	public var projectFilePath : String;
 
@@ -62,13 +61,9 @@ class Project {
 	public var bgColor_hex: String;
 
 	var _untypedWorlds : Array<ldtk.World>;
-	var _untypedLevels : Array<ldtk.Level>;
 
 	/** Full access to the JSON project definitions **/
 	public var defs : ldtk.Json.DefinitionsJson;
-
-	/** World layout enum. This value will be `null` if the project is using multi-worlds (see `isMultiWorlds` flag in this class) **/
-	public var worldLayout : Null<WorldLayout>;
 
 	/** A map containing all untyped Tilesets, indexed using their JSON  `uid` (integer unique ID). The typed tilesets will be added in a field called `all_tilesets` by macros. **/
 	@:allow(ldtk.Layer_Tiles, ldtk.Layer_AutoLayer, ldtk.Layer_IntGrid_AutoLayer, ldtk.Entity)
@@ -78,6 +73,16 @@ class Project {
 	var assetCache : Map<String, haxe.io.Bytes>; // TODO support hot reloading
 
 	var _untypedToc : Map<String, Array<ldtk.Json.EntityReferenceInfos>>;
+
+	@:noCompletion @:deprecated('Use "project.all_worlds.Default.levels" here')
+	public var levels: Array<Dynamic> = [];
+
+	@:noCompletion @:deprecated('Use "project.all_worlds.Default.all_levels" here')
+	public var all_levels: Dynamic = {};
+
+	@:noCompletion @:deprecated('Use "project.all_worlds.Default.layout" here')
+	public var worldLayout(get,never): WorldLayout;
+		inline function get_worldLayout() return _untypedWorlds[0].layout;
 
 
 	function new() {}
@@ -94,32 +99,28 @@ class Project {
 		assetCache = new Map();
 
 		// Parse json
-		var json : Dynamic = haxe.Json.parse(jsonString);
-		isMultiWorlds = json.worlds!=null && json.worlds.length>0;
+		var untypedJson : Dynamic = haxe.Json.parse(jsonString);
+		var json : ProjectJson = untypedJson;
 
 		// Init misc fields
 		defs = json.defs;
 		bgColor_hex = json.bgColor;
 		bgColor_int = ldtk.Project.hexToInt(json.bgColor);
-		worldLayout = isMultiWorlds ? null : WorldLayout.createByName( Std.string(json.worldLayout) );
+
+		// Add dummy JSON world
+		if( json.worlds==null || json.worlds.length==0 )
+			json.worlds = [ World.createDummyJson(json) ];
 
 		// Populate worlds
 		_untypedWorlds = [];
-		if( isMultiWorlds ) {
-			var idx = 0;
-			for(json in (cast json.worlds : Array<Dynamic>))
-				_untypedWorlds.push( new World(this, idx++, json) );
-		}
-
-		// Populate levels
-		_untypedLevels = [];
 		var idx = 0;
-		for(json in (cast json.levels : Array<Dynamic>))
-			_untypedLevels.push( _instanciateLevel(this, idx++, json) );
+		for(json in json.worlds)
+			_untypedWorlds.push( _instanciateWorld(this, idx++, json) );
+
 
 		// Populate tilesets
 		Reflect.setField(this, "all_tilesets", {});
-		for(tsJson in (cast json.defs.tilesets : Array<Dynamic>)) {
+		for(tsJson in json.defs.tilesets) {
 			_untypedTilesets.set( tsJson.uid, _instanciateTileset(this, tsJson) );
 			Reflect.setField( Reflect.field(this,"all_tilesets"), tsJson.identifier, _instanciateTileset(this, tsJson));
 		}
@@ -258,7 +259,7 @@ class Project {
 
 
 	@:keep public function toString() {
-		return 'ldtk.Project[${_untypedLevels.length} levels]';
+		return 'ldtk.Project[${_untypedWorlds.length} worlds]';
 	}
 
 
@@ -399,7 +400,7 @@ class Project {
 	}
 
 
-	function _instanciateLevel(project:ldtk.Project, arrayIndex:Int, json:ldtk.Json.LevelJson) {
+	function _instanciateWorld(project:ldtk.Project, arrayIndex:Int, json:ldtk.Json.WorldJson) {
 		return null; // overriden by Macros.hx
 	}
 
@@ -531,6 +532,12 @@ class Project {
 		while( h.length<leadingZeros )
 			h="0"+h;
 		return "#"+h;
+	}
+
+
+	@:noCompletion @:deprecated('Use "project.all_worlds.Default.getLevel()" here')
+	public inline function getLevel(iid:String) {
+		return @:privateAccess _untypedWorlds[0]._untypedLevels;
 	}
 }
 
