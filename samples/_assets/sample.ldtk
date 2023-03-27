@@ -5,18 +5,18 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "1.2.5",
+		"appVersion": "1.2.6",
 		"url": "https://ldtk.io"
 	},
 	"iid": "a8ea85a0-7820-11ed-b6fd-4507f1bd5fbf",
-	"jsonVersion": "1.2.5",
-	"appBuildId": 464869,
+	"jsonVersion": "1.2.6",
+	"appBuildId": 465061,
 	"nextUid": 59,
 	"identifierStyle": "Capitalize",
 	"toc": [{
 		"identifier": "Player",
 		"instances": [{
-			"worldIid": "a65873f0-7820-11ed-bcdb-bb7f76cdb673",
+			"worldIid": "6d9adae0-c640-11ed-b633-01b6d7e2af59",
 			"levelIid": "60018d40-66b0-11ec-a36b-3b0761cf900c",
 			"layerIid": "60018d45-66b0-11ec-a36b-2fc9526ec805",
 			"entityIid": "60018d46-66b0-11ec-a36b-a9ab7da03bee"
@@ -951,5 +951,6 @@
 			"__neighbours": [{ "levelIid": "60038910-66b0-11ec-a36b-1ff7a8a0ffd4", "dir": "w" }]
 		}
 	],
-	"worlds": []
+	"worlds": [],
+	"dummyWorldIid": "6d9adae0-c640-11ed-b633-01b6d7e2af59"
 }
