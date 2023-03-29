@@ -1548,6 +1548,7 @@ enum FieldDisplayMode {
 	ValueOnly;
 	NameAndValue;
 	EntityTile;
+	LevelTile;
 	Points;
 	PointStar;
 	PointPath;
