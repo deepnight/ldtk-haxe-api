@@ -1320,7 +1320,12 @@ typedef EnumDefValues = {
 	/** Enum value **/
 	var id:String;
 
+	/** Optional tileset rectangle to represents this value **/
+	@added("1.2.6")
+	var tileRect: Null<TilesetRect>;
+
 	/** The optional ID of the tile **/
+	@deprecation("1.2.6", "1.4.0", "tileRect")
 	var tileId:Null<Int>;
 
 	/** Optional color **/
@@ -1328,6 +1333,7 @@ typedef EnumDefValues = {
 	var color:Int;
 
 	/** An array of 4 Int values that refers to the tile in the tileset image: `[ x, y, width, height ]` **/
+	@deprecation("1.2.6", "1.4.0", "tileRect")
 	@added("0.4.0")
 	var __tileSrcRect:Null< Array<Int> >; // TODO use a Tile instance here?
 }
