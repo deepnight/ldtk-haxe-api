@@ -936,6 +936,14 @@ typedef AutoRuleDef = {
 	/** Y cell start offset **/
 	var yOffset: Int;
 
+	/** Tile X offset **/
+	@added("1.2.6")
+	var tileXOffset : Int;
+
+	/** Tile Y offset **/
+	@added("1.2.6")
+	var tileYOffset : Int;
+
 	/** Min random offset for X tile pos **/
 	@added("1.2.6")
 	var tileRandomXMin : Int;
