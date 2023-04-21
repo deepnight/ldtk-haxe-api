@@ -938,11 +938,11 @@ typedef AutoRuleDef = {
 
 	/** Optional random X offset **/
 	@added("1.2.6")
-	var randomXOffset : Int;
+	var tileRandomXOffset : Int;
 
 	/** Optional random Y offset **/
 	@added("1.2.6")
-	var randomYOffset : Int;
+	var tileRandomYOffset : Int;
 
 	/** If TRUE, enable Perlin filtering to only apply rule on specific random area **/
 	var perlinActive: Bool;
