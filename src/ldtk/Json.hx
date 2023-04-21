@@ -936,13 +936,21 @@ typedef AutoRuleDef = {
 	/** Y cell start offset **/
 	var yOffset: Int;
 
-	/** Optional random X offset **/
+	/** Min random offset for X tile pos **/
 	@added("1.2.6")
-	var tileRandomXOffset : Int;
+	var tileRandomXMin : Int;
 
-	/** Optional random Y offset **/
+	/** Max random offset for X tile pos **/
 	@added("1.2.6")
-	var tileRandomYOffset : Int;
+	var tileRandomXMax : Int;
+
+	/** Min random offset for Y tile pos **/
+	@added("1.2.6")
+	var tileRandomYMin : Int;
+
+	/** Max random offset for Y tile pos **/
+	@added("1.2.6")
+	var tileRandomYMax : Int;
 
 	/** If TRUE, enable Perlin filtering to only apply rule on specific random area **/
 	var perlinActive: Bool;
