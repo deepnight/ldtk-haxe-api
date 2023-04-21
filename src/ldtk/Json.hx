@@ -1187,6 +1187,10 @@ typedef FieldDefJson = {
 	var allowedRefs: EntityReferenceTarget;
 
 	@internal
+	@added("1.2.6")
+	var allowedRefsEntityUid: Null<Int>;
+
+	@internal
 	@added("1.0.0")
 	var allowedRefTags: Array<String>;
 
@@ -1626,6 +1630,7 @@ enum EntityReferenceTarget {
 	Any;
 	OnlySame;
 	OnlyTags;
+	OnlySpecificEntity;
 }
 
 @added("1.0.0")
