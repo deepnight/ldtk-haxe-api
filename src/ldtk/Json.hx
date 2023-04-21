@@ -186,6 +186,11 @@ If you want to start supporting this future update easily, please refer to this 
 	@added("0.7.0")
 	var backupLimit: Int;
 
+	/** Target relative path to store backup files **/
+	@internal
+	@added("1.2.6")
+	var backupRelPath: Null<String>;
+
 	/** An array containing various advanced flags (ie. options or other states). **/
 	@internal
 	@added("0.8.0")
