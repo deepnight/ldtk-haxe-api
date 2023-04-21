@@ -936,6 +936,14 @@ typedef AutoRuleDef = {
 	/** Y cell start offset **/
 	var yOffset: Int;
 
+	/** Optional random X offset **/
+	@added("1.2.6")
+	var randomXOffset : Int;
+
+	/** Optional random Y offset **/
+	@added("1.2.6")
+	var randomYOffset : Int;
+
 	/** If TRUE, enable Perlin filtering to only apply rule on specific random area **/
 	var perlinActive: Bool;
 
