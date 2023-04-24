@@ -89,7 +89,7 @@ If you want to start supporting this future update easily, please refer to this 
 		If the project isn't in MultiWorlds mode, this is the IID of the internal "dummy" World.
 	**/
 	@internal
-	@added("1.2.6")
+	@added("1.3.0")
 	var dummyWorldIid: String;
 
 	/** Default X pivot (0 to 1) for new entities **/
@@ -184,7 +184,7 @@ If you want to start supporting this future update easily, please refer to this 
 
 	/** Target relative path to store backup files **/
 	@internal
-	@added("1.2.6")
+	@added("1.3.0")
 	var backupRelPath: Null<String>;
 
 	/** An array containing various advanced flags (ie. options or other states). **/
@@ -938,27 +938,27 @@ typedef AutoRuleDef = {
 	var yOffset: Int;
 
 	/** Tile X offset **/
-	@added("1.2.6")
+	@added("1.3.0")
 	var tileXOffset : Int;
 
 	/** Tile Y offset **/
-	@added("1.2.6")
+	@added("1.3.0")
 	var tileYOffset : Int;
 
 	/** Min random offset for X tile pos **/
-	@added("1.2.6")
+	@added("1.3.0")
 	var tileRandomXMin : Int;
 
 	/** Max random offset for X tile pos **/
-	@added("1.2.6")
+	@added("1.3.0")
 	var tileRandomXMax : Int;
 
 	/** Min random offset for Y tile pos **/
-	@added("1.2.6")
+	@added("1.3.0")
 	var tileRandomYMin : Int;
 
 	/** Max random offset for Y tile pos **/
-	@added("1.2.6")
+	@added("1.3.0")
 	var tileRandomYMax : Int;
 
 	/** If TRUE, enable Perlin filtering to only apply rule on specific random area **/
@@ -1165,7 +1165,7 @@ typedef FieldDefJson = {
 	@internal
 	var editorDisplayMode: FieldDisplayMode;
 
-	@changed("1.2.6")
+	@changed("1.3.0")
 	@internal
 	var editorDisplayScale: Float;
 
@@ -1216,7 +1216,7 @@ typedef FieldDefJson = {
 	var allowedRefs: EntityReferenceTarget;
 
 	@internal
-	@added("1.2.6")
+	@added("1.3.0")
 	var allowedRefsEntityUid: Null<Int>;
 
 	@internal
@@ -1354,11 +1354,11 @@ typedef EnumDefValues = {
 	var id:String;
 
 	/** Optional tileset rectangle to represents this value **/
-	@added("1.2.6")
+	@added("1.3.0")
 	var tileRect: Null<TilesetRect>;
 
 	/** The optional ID of the tile **/
-	@deprecation("1.2.6", "1.4.0", "tileRect")
+	@deprecation("1.3.0", "1.4.0", "tileRect")
 	var tileId:Null<Int>;
 
 	/** Optional color **/
@@ -1366,7 +1366,7 @@ typedef EnumDefValues = {
 	var color:Int;
 
 	/** An array of 4 Int values that refers to the tile in the tileset image: `[ x, y, width, height ]` **/
-	@deprecation("1.2.6", "1.4.0", "tileRect")
+	@deprecation("1.3.0", "1.4.0", "tileRect")
 	@added("0.4.0")
 	var __tileSrcRect:Null< Array<Int> >; // TODO use a Tile instance here?
 }
