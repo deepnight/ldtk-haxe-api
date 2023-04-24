@@ -1165,6 +1165,10 @@ typedef FieldDefJson = {
 	@internal
 	var editorDisplayMode: FieldDisplayMode;
 
+	@changed("1.2.6")
+	@internal
+	var editorDisplayScale: Float;
+
 	@added("1.1.4")
 	@internal
 	var editorLinkStyle: FieldLinkStyle;
