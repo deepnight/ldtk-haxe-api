@@ -62,6 +62,10 @@ class Project {
 
 	var _untypedWorlds : Array<ldtk.World>;
 
+	/** An iterator over all project Worlds.
+		IMPORTANT: the returned World classes will use the generic `ldtk.World`, and not the specialized ones (through `all_worlds.SomeWorld`). This means that worlds from this iterator won't have unique fields like `all_levels`. **/
+	public var untypedWorlds(get,never) : Iterator<ldtk.World>;
+
 	/** Full access to the JSON project definitions **/
 	public var defs : ldtk.Json.DefinitionsJson;
 
@@ -128,6 +132,7 @@ class Project {
 		}
 	}
 
+	inline function get_untypedWorlds() return _untypedWorlds.iterator();
 
 	/** Transform an identifier string by capitalizing its first letter **/
 	@:noCompletion
@@ -148,6 +153,16 @@ class Project {
 	function _resolveExternalEnumValue<T>(name:String, enumValueId:String) : T {
 		return null;
 	}
+
+
+	/** Return a world instance from its IID **/
+	public function getWorld(iid:String) : Null<ldtk.World> {
+		for(w in _untypedWorlds)
+			if( w.iid==iid )
+				return w;
+		return null;
+	}
+
 
 	/** Used to populated field instances with actual values **/
 	@:allow(ldtk.Entity, ldtk.Level)
