@@ -306,10 +306,15 @@ class Tests {
 			CiAssert.isTrue( mob.f_path.length>0 );
 			CiAssert.isTrue( mob.f_path[0].cy == mob.cy );
 
-			// Multi-worlds
-			// var world2 = project.all_worlds.World2;
-			// for(w in project.untypedWorlds) {
-			// }
+			// Worlds untyped access
+			for(w in project.worlds)
+				CiAssert.isTrue( Reflect.hasField(project.all_worlds, w.identifier) );
+			CiAssert.isNotNull( project.getWorld(project.all_worlds.World1.iid) );
+			CiAssert.isNotNull( project.getWorld(project.all_worlds.World2.iid) );
+			CiAssert.equals( project.getWorld(project.all_worlds.World1.iid), project.all_worlds.World1 );
+			CiAssert.equals( project.getWorld(project.all_worlds.World2.iid), project.all_worlds.World2 );
+			CiAssert.equals( project.worlds[0].layout, ldtk.Json.WorldLayout.GridVania );
+			CiAssert.equals( project.worlds[1].layout, ldtk.Json.WorldLayout.Free );
 
 			// Enum switch check
 			section("Switch...");

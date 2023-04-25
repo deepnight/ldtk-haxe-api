@@ -79,8 +79,9 @@ class TypeBuilder {
 		createTilesetsClasses();
 		createLayersClasses();
 		createLevelClass();
+		createProjectWorldClass();
 		for(worldJson in json.worlds)
-			createWorldClass(worldJson);
+			createSpecializedWorldClass(worldJson);
 		createTilesetAccess();
 		createWorldsAccessInProject();
 		createProjectToc();
@@ -804,10 +805,69 @@ class TypeBuilder {
 
 
 	/**
-		Create main Project class
+		Create specialized world class with quick level access
 	**/
-	static function createWorldClass(worldJson:WorldJson) {
-		timer("worldClass");
+	static function createProjectWorldClass() {
+		timer("projectWorldClass");
+
+		// World class
+		var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"World" }
+		var levelTypePath : TypePath = { pack:modPack, name:levelType.name }
+		var levelComplexType = Context.getType(levelType.name).toComplexType();
+		var worldType = {
+			pos : curPos,
+			name : modName+"_World",
+			pack : modPack,
+			kind : TDClass(parentTypePath),
+			fields : (macro class {
+				public var levels : Array<$levelComplexType> = [];
+
+				override public function new(project, arrayIndex, json) {
+					super(project, arrayIndex, json);
+				}
+
+				override function fromJson(json:Dynamic) {
+					super.fromJson(json);
+
+					levels = cast _untypedLevels.copy();
+				}
+
+				override function _instanciateLevel(project, arrayIndex:Int, json) {
+					return new $levelTypePath(project, arrayIndex, json);
+				}
+
+				/** Get a level from its UID (int) or Identifier (string) **/
+				public function getLevel(?uid:Int, ?idOrIid:String) : Null<$levelComplexType> {
+					if( uid==null && idOrIid==null )
+						return null;
+
+					for(l in _untypedLevels)
+						if( idOrIid!=null && ( l.identifier==idOrIid || l.iid==idOrIid ) || uid!=null && l.uid==uid )
+							return cast l;
+					return null;
+				}
+
+				/**
+					Get a level using a world pixel coord
+				**/
+				public function getLevelAt(worldX:Int, worldY:Int) : Null<$levelComplexType> {
+					for(l in _untypedLevels)
+						if( worldX>=l.worldX && worldX<l.worldX+l.pxWid && worldY>=l.worldY && worldY<l.worldY+l.pxHei )
+							return cast l;
+					return null;
+				}
+			}).fields,
+		}
+
+		registerTypeDefinitionModule(worldType, projectFilePath);
+	}
+
+
+	/**
+		Create specialized world class with quick level access
+	**/
+	static function createSpecializedWorldClass(worldJson:WorldJson) {
+		timer("specWorldClass");
 
 		// Level access in world class
 		var accessFields : Array<ObjectField> = worldJson.levels.map( function(j) {
@@ -860,8 +920,9 @@ class TypeBuilder {
 		}
 
 
+
 		// World class
-		var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"World" }
+		var parentTypePath : TypePath = { pack:modPack, name:modName+"_World" }
 		var levelTypePath : TypePath = { pack:modPack, name:levelType.name }
 		var levelComplexType = Context.getType(levelType.name).toComplexType();
 		var worldType = {
@@ -870,49 +931,20 @@ class TypeBuilder {
 			pack : modPack,
 			kind : TDClass(parentTypePath),
 			fields : (macro class {
-				public var levels : Array<$levelComplexType> = [];
-
 				/** A convenient way to access all worlds in a type-safe environment **/
 				public var all_levels : $accessType;
 
-				override public function new(project, arrayIdx, json) {
-					super(project, arrayIdx, json);
+				override public function new(project, arrayIndex, json) {
+					super(project, arrayIndex, json);
 				}
 
 				override function fromJson(json:Dynamic) {
 					super.fromJson(json);
 
-					levels = cast _untypedLevels.copy();
-
 					// Init levels quick access
 					all_levels = cast {}
 					for(l in _untypedLevels)
 						Reflect.setField(all_levels, l.identifier, l);
-				}
-
-				override function _instanciateLevel(project, arrayIndex:Int, json) {
-					return new $levelTypePath(project, arrayIndex, json);
-				}
-
-				/** Get a level from its UID (int) or Identifier (string) **/
-				public function getLevel(?uid:Int, ?idOrIid:String) : Null<$levelComplexType> {
-					if( uid==null && idOrIid==null )
-						return null;
-
-					for(l in _untypedLevels)
-						if( idOrIid!=null && ( l.identifier==idOrIid || l.iid==idOrIid ) || uid!=null && l.uid==uid )
-							return cast l;
-					return null;
-				}
-
-				/**
-					Get a level using a world pixel coord
-				**/
-				public function getLevelAt(worldX:Int, worldY:Int) : Null<$levelComplexType> {
-					for(l in _untypedLevels)
-						if( worldX>=l.worldX && worldX<l.worldX+l.pxWid && worldY>=l.worldY && worldY<l.worldY+l.pxHei )
-							return cast l;
-					return null;
 				}
 			}).fields,
 		}
@@ -1125,13 +1157,19 @@ class TypeBuilder {
 		var projectDir = StringTools.replace(projectFilePath, "\\", "/");
 		projectDir = projectDir.indexOf("/")<0 ? null : projectDir.substring(0, projectDir.lastIndexOf("/"));
 		var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Project" }
-		// var worldTypePath : TypePath = { pack:modPack, name:worldType.name }
+		// var worldTypePath : TypePath = { pack:modPack, name:modName+"_World" }
+		var worldCT = Context.getType(modName+"_World").toComplexType();
 		var projectClass : TypeDefinition = {
 			pos : curPos,
 			name : modName,
 			pack : modPack,
 			kind : TDClass(parentTypePath),
 			fields : (macro class {
+
+				/** An array access to all Worlds.
+					IMPORTANT: the returned World classes will use the generic world class, and not the specialized classes (the ones available through `all_worlds.SomeWorld`). This means that worlds from this iterator won't have unique fields like `all_levels`. **/
+				public var worlds(get,never) : Array<$worldCT>;
+					inline function get_worlds() return cast _untypedWorlds;
 
 				/**
 					If "overrideEmbedJson is provided, the embedded JSON from compilation-time will be ignored, and this JSON will be used instead.
@@ -1151,6 +1189,16 @@ class TypeBuilder {
 					for(w in _untypedWorlds)
 						Reflect.setField(all_worlds, w.identifier, w);
 				}
+
+
+				/** Return a world instance from its IID **/
+				public function getWorld(iid:String) : Null<$worldCT> {
+					for(w in worlds)
+						if( w.iid==iid )
+							return w;
+					return null;
+				}
+
 
 				override function _instanciateTileset(project, json) {
 					var c = Type.resolveClass( $v{modPack.concat(["Tileset_"]).join(".")}+json.identifier );
