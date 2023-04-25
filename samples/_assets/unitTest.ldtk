@@ -1752,9 +1752,9 @@
 			{ "id": "Pouet", "tileRect": null, "tileId": -1, "color": 0, "__tileSrcRect": null }
 		], "iconTilesetUid": null, "externalRelPath": "../_srcCommon/ExternEnumTest.hx", "externalFileChecksum": "411417ba762ae881749b425b1c129b19", "tags": [] },
 		{ "identifier": "CdbEnumTest", "uid": 112, "values": [
-			{ "id": "CdbA", "tileRect": null, "tileId": -1, "color": 0, "__tileSrcRect": null },
-			{ "id": "CdbB", "tileRect": null, "tileId": -1, "color": 0, "__tileSrcRect": null },
-			{ "id": "CdbC", "tileRect": null, "tileId": -1, "color": 0, "__tileSrcRect": null }
+			{ "id": "CdbA", "tileRect": null, "tileId": -1, "color": null, "__tileSrcRect": null },
+			{ "id": "CdbB", "tileRect": null, "tileId": -1, "color": null, "__tileSrcRect": null },
+			{ "id": "CdbC", "tileRect": null, "tileId": -1, "color": null, "__tileSrcRect": null }
 		], "iconTilesetUid": null, "externalRelPath": "sample.cdb", "externalFileChecksum": "efa2e67dcb44f84083ce78ff2be09341", "tags": [] }
 	], "levelFields": [
 		{
@@ -2003,7 +2003,7 @@
 				"__neighbours": [ { "levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e", "dir": "w" }, { "levelIid": "f2f66840-66b0-11ec-91ab-e506cb005a35", "dir": "s" } ]
 			},
 			{
-				"identifier": "World_Level_3",
+				"identifier": "World1_Level_3",
 				"iid": "b1e31860-7820-11ed-b18d-6339f608f11d",
 				"uid": 120,
 				"worldX": 0,
@@ -2020,7 +2020,7 @@
 				"bgPivotY": 0.5,
 				"__smartColor": "#B9B9C4",
 				"__bgPos": null,
-				"externalRelPath": "unitTest/World_Level_3.ldtkl",
+				"externalRelPath": "unitTest/World1_Level_3.ldtkl",
 				"fieldInstances": [
 					{ "__identifier": "level_int", "__value": 0, "__type": "Int", "__tile": null, "defUid": 93, "realEditorValues": [] },
 					{ "__identifier": "level_string", "__value": "", "__type": "String", "__tile": null, "defUid": 94, "realEditorValues": [] },
