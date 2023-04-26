@@ -64,7 +64,7 @@
 					"height": 10,
 					"defUid": 29,
 					"px": [84,80],
-					"fieldInstances": [{ "__identifier": "type", "__value": "Pickaxe", "__type": "LocalEnum.Items", "__tile": { "tilesetUid": 31, "x": 0, "y": 0, "w": 16, "h": 16 }, "defUid": 32, "realEditorValues": [{
+					"fieldInstances": [{ "__identifier": "type", "__type": "LocalEnum.Items", "__value": "Pickaxe", "__tile": { "tilesetUid": 31, "x": 0, "y": 0, "w": 16, "h": 16 }, "defUid": 32, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["Pickaxe"]
 					}] }]

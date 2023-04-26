@@ -10,7 +10,7 @@
 	},
 	"iid": "a6731d00-7820-11ed-b6fd-8d5e0e3d5314",
 	"jsonVersion": "1.3.0",
-	"appBuildId": 467337,
+	"appBuildId": 467367,
 	"nextUid": 122,
 	"identifierStyle": "Free",
 	"toc": [ {
@@ -1752,9 +1752,9 @@
 			{ "id": "Pouet", "tileRect": null, "tileId": -1, "color": 0, "__tileSrcRect": null }
 		], "iconTilesetUid": null, "externalRelPath": "../_srcCommon/ExternEnumTest.hx", "externalFileChecksum": "411417ba762ae881749b425b1c129b19", "tags": [] },
 		{ "identifier": "CdbEnumTest", "uid": 112, "values": [
-			{ "id": "CdbA", "tileRect": null, "tileId": -1, "color": null, "__tileSrcRect": null },
-			{ "id": "CdbB", "tileRect": null, "tileId": -1, "color": null, "__tileSrcRect": null },
-			{ "id": "CdbC", "tileRect": null, "tileId": -1, "color": null, "__tileSrcRect": null }
+			{ "id": "CdbA", "tileRect": null, "tileId": -1, "color": -1, "__tileSrcRect": null },
+			{ "id": "CdbB", "tileRect": null, "tileId": -1, "color": -1, "__tileSrcRect": null },
+			{ "id": "CdbC", "tileRect": null, "tileId": -1, "color": -1, "__tileSrcRect": null }
 		], "iconTilesetUid": null, "externalRelPath": "sample.cdb", "externalFileChecksum": "efa2e67dcb44f84083ce78ff2be09341", "tags": [] }
 	], "levelFields": [
 		{
@@ -1917,16 +1917,16 @@
 				"__bgPos": { "topLeftPx": [0,0], "scale": [2.2857142857142856,2.2857142857142856], "cropRect": [0,0,224,224] },
 				"externalRelPath": "unitTest/Main_tests.ldtkl",
 				"fieldInstances": [
-					{ "__identifier": "level_int", "__value": 1, "__type": "Int", "__tile": null, "defUid": 93, "realEditorValues": [{ "id": "V_Int", "params": [1] }] },
-					{ "__identifier": "level_string", "__value": "my string value", "__type": "String", "__tile": null, "defUid": 94, "realEditorValues": [{
+					{ "__identifier": "level_int", "__type": "Int", "__value": 1, "__tile": null, "defUid": 93, "realEditorValues": [{ "id": "V_Int", "params": [1] }] },
+					{ "__identifier": "level_string", "__type": "String", "__value": "my string value", "__tile": null, "defUid": 94, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["my string value"]
 					}] },
-					{ "__identifier": "level_reward", "__value": "Ammo", "__type": "ExternEnum.DroppedItemType", "__tile": null, "defUid": 95, "realEditorValues": [{
+					{ "__identifier": "level_reward", "__type": "ExternEnum.DroppedItemType", "__value": "Ammo", "__tile": null, "defUid": 95, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["Ammo"]
 					}] },
-					{ "__identifier": "lowercase_enum", "__value": [ "lc_a", "lc_b" ], "__type": "Array<LocalEnum.lowercase_enum>", "__tile": null, "defUid": 106, "realEditorValues": [ {
+					{ "__identifier": "lowercase_enum", "__type": "Array<LocalEnum.lowercase_enum>", "__value": [ "lc_a", "lc_b" ], "__tile": null, "defUid": 106, "realEditorValues": [ {
 						"id": "V_String",
 						"params": ["lc_a"]
 					}, {
@@ -1957,16 +1957,16 @@
 				"__bgPos": null,
 				"externalRelPath": "unitTest/Offset_tests.ldtkl",
 				"fieldInstances": [
-					{ "__identifier": "level_int", "__value": 2, "__type": "Int", "__tile": null, "defUid": 93, "realEditorValues": [{ "id": "V_Int", "params": [2] }] },
-					{ "__identifier": "level_string", "__value": "other", "__type": "String", "__tile": null, "defUid": 94, "realEditorValues": [{
+					{ "__identifier": "level_int", "__type": "Int", "__value": 2, "__tile": null, "defUid": 93, "realEditorValues": [{ "id": "V_Int", "params": [2] }] },
+					{ "__identifier": "level_string", "__type": "String", "__value": "other", "__tile": null, "defUid": 94, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["other"]
 					}] },
-					{ "__identifier": "level_reward", "__value": "Key", "__type": "ExternEnum.DroppedItemType", "__tile": null, "defUid": 95, "realEditorValues": [{
+					{ "__identifier": "level_reward", "__type": "ExternEnum.DroppedItemType", "__value": "Key", "__tile": null, "defUid": 95, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["Key"]
 					}] },
-					{ "__identifier": "lowercase_enum", "__value": [], "__type": "Array<LocalEnum.lowercase_enum>", "__tile": null, "defUid": 106, "realEditorValues": [] }
+					{ "__identifier": "lowercase_enum", "__type": "Array<LocalEnum.lowercase_enum>", "__value": [], "__tile": null, "defUid": 106, "realEditorValues": [] }
 				],
 				"layerInstances": null,
 				"__neighbours": [ { "levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e", "dir": "w" }, { "levelIid": "bdabeb40-66b0-11ec-88f3-5d5bfa64cc93", "dir": "n" } ]
@@ -1991,13 +1991,13 @@
 				"__bgPos": null,
 				"externalRelPath": "unitTest/Target_level_ref.ldtkl",
 				"fieldInstances": [
-					{ "__identifier": "level_int", "__value": 0, "__type": "Int", "__tile": null, "defUid": 93, "realEditorValues": [] },
-					{ "__identifier": "level_string", "__value": "", "__type": "String", "__tile": null, "defUid": 94, "realEditorValues": [] },
-					{ "__identifier": "level_reward", "__value": "Ammo", "__type": "ExternEnum.DroppedItemType", "__tile": null, "defUid": 95, "realEditorValues": [{
+					{ "__identifier": "level_int", "__type": "Int", "__value": 0, "__tile": null, "defUid": 93, "realEditorValues": [] },
+					{ "__identifier": "level_string", "__type": "String", "__value": "", "__tile": null, "defUid": 94, "realEditorValues": [] },
+					{ "__identifier": "level_reward", "__type": "ExternEnum.DroppedItemType", "__value": "Ammo", "__tile": null, "defUid": 95, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["Ammo"]
 					}] },
-					{ "__identifier": "lowercase_enum", "__value": [], "__type": "Array<LocalEnum.lowercase_enum>", "__tile": null, "defUid": 106, "realEditorValues": [] }
+					{ "__identifier": "lowercase_enum", "__type": "Array<LocalEnum.lowercase_enum>", "__value": [], "__tile": null, "defUid": 106, "realEditorValues": [] }
 				],
 				"layerInstances": null,
 				"__neighbours": [ { "levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e", "dir": "w" }, { "levelIid": "f2f66840-66b0-11ec-91ab-e506cb005a35", "dir": "s" } ]
@@ -2022,10 +2022,10 @@
 				"__bgPos": null,
 				"externalRelPath": "unitTest/World1_Level_3.ldtkl",
 				"fieldInstances": [
-					{ "__identifier": "level_int", "__value": 0, "__type": "Int", "__tile": null, "defUid": 93, "realEditorValues": [] },
-					{ "__identifier": "level_string", "__value": "", "__type": "String", "__tile": null, "defUid": 94, "realEditorValues": [] },
-					{ "__identifier": "level_reward", "__value": null, "__type": "ExternEnum.DroppedItemType", "__tile": null, "defUid": 95, "realEditorValues": [] },
-					{ "__identifier": "lowercase_enum", "__value": [], "__type": "Array<LocalEnum.lowercase_enum>", "__tile": null, "defUid": 106, "realEditorValues": [] }
+					{ "__identifier": "level_int", "__type": "Int", "__value": 0, "__tile": null, "defUid": 93, "realEditorValues": [] },
+					{ "__identifier": "level_string", "__type": "String", "__value": "", "__tile": null, "defUid": 94, "realEditorValues": [] },
+					{ "__identifier": "level_reward", "__type": "ExternEnum.DroppedItemType", "__value": null, "__tile": null, "defUid": 95, "realEditorValues": [] },
+					{ "__identifier": "lowercase_enum", "__type": "Array<LocalEnum.lowercase_enum>", "__value": [], "__tile": null, "defUid": 106, "realEditorValues": [] }
 				],
 				"layerInstances": null,
 				"__neighbours": []
@@ -2052,10 +2052,10 @@
 				"__bgPos": null,
 				"externalRelPath": "unitTest/World2_Level_0.ldtkl",
 				"fieldInstances": [
-					{ "__identifier": "level_int", "__value": 0, "__type": "Int", "__tile": null, "defUid": 93, "realEditorValues": [] },
-					{ "__identifier": "level_string", "__value": "", "__type": "String", "__tile": null, "defUid": 94, "realEditorValues": [] },
-					{ "__identifier": "level_reward", "__value": null, "__type": "ExternEnum.DroppedItemType", "__tile": null, "defUid": 95, "realEditorValues": [] },
-					{ "__identifier": "lowercase_enum", "__value": [], "__type": "Array<LocalEnum.lowercase_enum>", "__tile": null, "defUid": 106, "realEditorValues": [] }
+					{ "__identifier": "level_int", "__type": "Int", "__value": 0, "__tile": null, "defUid": 93, "realEditorValues": [] },
+					{ "__identifier": "level_string", "__type": "String", "__value": "", "__tile": null, "defUid": 94, "realEditorValues": [] },
+					{ "__identifier": "level_reward", "__type": "ExternEnum.DroppedItemType", "__value": null, "__tile": null, "defUid": 95, "realEditorValues": [] },
+					{ "__identifier": "lowercase_enum", "__type": "Array<LocalEnum.lowercase_enum>", "__value": [], "__tile": null, "defUid": 106, "realEditorValues": [] }
 				],
 				"layerInstances": null,
 				"__neighbours": []

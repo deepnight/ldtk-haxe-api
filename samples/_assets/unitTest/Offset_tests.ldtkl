@@ -27,16 +27,16 @@
 	"__bgPos": null,
 	"externalRelPath": null,
 	"fieldInstances": [
-		{ "__identifier": "level_int", "__value": 2, "__type": "Int", "__tile": null, "defUid": 93, "realEditorValues": [{ "id": "V_Int", "params": [2] }] },
-		{ "__identifier": "level_string", "__value": "other", "__type": "String", "__tile": null, "defUid": 94, "realEditorValues": [{
+		{ "__identifier": "level_int", "__type": "Int", "__value": 2, "__tile": null, "defUid": 93, "realEditorValues": [{ "id": "V_Int", "params": [2] }] },
+		{ "__identifier": "level_string", "__type": "String", "__value": "other", "__tile": null, "defUid": 94, "realEditorValues": [{
 			"id": "V_String",
 			"params": ["other"]
 		}] },
-		{ "__identifier": "level_reward", "__value": "Key", "__type": "ExternEnum.DroppedItemType", "__tile": null, "defUid": 95, "realEditorValues": [{
+		{ "__identifier": "level_reward", "__type": "ExternEnum.DroppedItemType", "__value": "Key", "__tile": null, "defUid": 95, "realEditorValues": [{
 			"id": "V_String",
 			"params": ["Key"]
 		}] },
-		{ "__identifier": "lowercase_enum", "__value": [], "__type": "Array<LocalEnum.lowercase_enum>", "__tile": null, "defUid": 106, "realEditorValues": [] }
+		{ "__identifier": "lowercase_enum", "__type": "Array<LocalEnum.lowercase_enum>", "__value": [], "__tile": null, "defUid": 106, "realEditorValues": [] }
 	],
 	"layerInstances": [
 		{

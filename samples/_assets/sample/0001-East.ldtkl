@@ -64,7 +64,7 @@
 					"height": 10,
 					"defUid": 29,
 					"px": [76,120],
-					"fieldInstances": [{ "__identifier": "type", "__value": "Potion", "__type": "LocalEnum.Items", "__tile": { "tilesetUid": 31, "x": 96, "y": 0, "w": 16, "h": 16 }, "defUid": 32, "realEditorValues": [{
+					"fieldInstances": [{ "__identifier": "type", "__type": "LocalEnum.Items", "__value": "Potion", "__tile": { "tilesetUid": 31, "x": 96, "y": 0, "w": 16, "h": 16 }, "defUid": 32, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["Potion"]
 					}] }]
