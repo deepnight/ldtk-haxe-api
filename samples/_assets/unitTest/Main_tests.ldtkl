@@ -5,7 +5,7 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "1.2.5",
+		"appVersion": "1.3.0",
 		"url": "https://ldtk.io"
 	},
 	"identifier": "Main_tests",
@@ -27,16 +27,16 @@
 	"__bgPos": { "topLeftPx": [0,0], "scale": [2.2857142857142856,2.2857142857142856], "cropRect": [0,0,224,224] },
 	"externalRelPath": null,
 	"fieldInstances": [
-		{ "__identifier": "level_int", "__value": 1, "__type": "Int", "__tile": null, "defUid": 93, "realEditorValues": [{ "id": "V_Int", "params": [1] }] },
-		{ "__identifier": "level_string", "__value": "my string value", "__type": "String", "__tile": null, "defUid": 94, "realEditorValues": [{
+		{ "__identifier": "level_int", "__type": "Int", "__value": 1, "__tile": null, "defUid": 93, "realEditorValues": [{ "id": "V_Int", "params": [1] }] },
+		{ "__identifier": "level_string", "__type": "String", "__value": "my string value", "__tile": null, "defUid": 94, "realEditorValues": [{
 			"id": "V_String",
 			"params": ["my string value"]
 		}] },
-		{ "__identifier": "level_reward", "__value": "Ammo", "__type": "ExternEnum.DroppedItemType", "__tile": null, "defUid": 95, "realEditorValues": [{
+		{ "__identifier": "level_reward", "__type": "ExternEnum.DroppedItemType", "__value": "Ammo", "__tile": null, "defUid": 95, "realEditorValues": [{
 			"id": "V_String",
 			"params": ["Ammo"]
 		}] },
-		{ "__identifier": "lowercase_enum", "__value": [ "lc_a", "lc_b" ], "__type": "Array<LocalEnum.lowercase_enum>", "__tile": null, "defUid": 106, "realEditorValues": [ {
+		{ "__identifier": "lowercase_enum", "__type": "Array<LocalEnum.lowercase_enum>", "__value": [ "lc_a", "lc_b" ], "__tile": null, "defUid": 106, "realEditorValues": [ {
 			"id": "V_String",
 			"params": ["lc_a"]
 		}, {
@@ -536,11 +536,11 @@
 					"defUid": 2,
 					"px": [216,160],
 					"fieldInstances": [
-						{ "__identifier": "type", "__value": "Trash", "__type": "LocalEnum.Mobs", "__tile": { "tilesetUid": 14, "x": 32, "y": 32, "w": 32, "h": 32 }, "defUid": 3, "realEditorValues": [{
+						{ "__identifier": "type", "__type": "LocalEnum.Mobs", "__value": "Trash", "__tile": { "tilesetUid": 14, "x": 32, "y": 32, "w": 32, "h": 32 }, "defUid": 3, "realEditorValues": [{
 							"id": "V_String",
 							"params": ["Trash"]
 						}] },
-						{ "__identifier": "lootDrops", "__value": [ "Ammo", "Food", "Gold", "Key" ], "__type": "Array<ExternEnum.DroppedItemType>", "__tile": null, "defUid": 38, "realEditorValues": [ {
+						{ "__identifier": "lootDrops", "__type": "Array<ExternEnum.DroppedItemType>", "__value": [ "Ammo", "Food", "Gold", "Key" ], "__tile": null, "defUid": 38, "realEditorValues": [ {
 							"id": "V_String",
 							"params": ["Ammo"]
 						}, {
@@ -553,14 +553,14 @@
 							"id": "V_String",
 							"params": ["Key"]
 						} ] },
-						{ "__identifier": "scale", "__value": 0.5, "__type": "Float", "__tile": null, "defUid": 7, "realEditorValues": [{ "id": "V_Float", "params": [0.5] }] },
-						{ "__identifier": "path", "__value": [
+						{ "__identifier": "scale", "__type": "Float", "__value": 0.5, "__tile": null, "defUid": 7, "realEditorValues": [{ "id": "V_Float", "params": [0.5] }] },
+						{ "__identifier": "path", "__type": "Array<Point>", "__value": [
 							{ "cx": 11, "cy": 9 },
 							{ "cx": 11, "cy": 11 },
 							{ "cx": 9, "cy": 11 },
 							{ "cx": 9, "cy": 15 },
 							{ "cx": 7, "cy": 15 }
-						], "__type": "Array<Point>", "__tile": null, "defUid": 64, "realEditorValues": [
+						], "__tile": null, "defUid": 64, "realEditorValues": [
 							{
 								"id": "V_String",
 								"params": ["11,9"]
@@ -596,7 +596,7 @@
 					"height": 24,
 					"defUid": 23,
 					"px": [24,256],
-					"fieldInstances": [{ "__identifier": "startWeapon", "__value": "LongBow", "__type": "LocalEnum.Weapons", "__tile": null, "defUid": 39, "realEditorValues": [{
+					"fieldInstances": [{ "__identifier": "startWeapon", "__type": "LocalEnum.Weapons", "__value": "LongBow", "__tile": null, "defUid": 39, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["LongBow"]
 					}] }]
@@ -614,12 +614,12 @@
 					"defUid": 66,
 					"px": [408,192],
 					"fieldInstances": [
-						{ "__identifier": "point", "__value": { "cx": 19, "cy": 0 }, "__type": "Point", "__tile": null, "defUid": 71, "realEditorValues": [{
+						{ "__identifier": "point", "__type": "Point", "__value": { "cx": 19, "cy": 0 }, "__tile": null, "defUid": 71, "realEditorValues": [{
 							"id": "V_String",
 							"params": ["19,0"]
 						}] },
-						{ "__identifier": "ints", "__value": [0,1,2], "__type": "Array<Int>", "__tile": null, "defUid": 67, "realEditorValues": [ null, { "id": "V_Int", "params": [1] }, { "id": "V_Int", "params": [2] } ] },
-						{ "__identifier": "strings", "__value": [ "a", "b", "c" ], "__type": "Array<String>", "__tile": null, "defUid": 69, "realEditorValues": [ {
+						{ "__identifier": "ints", "__type": "Array<Int>", "__value": [0,1,2], "__tile": null, "defUid": 67, "realEditorValues": [ null, { "id": "V_Int", "params": [1] }, { "id": "V_Int", "params": [2] } ] },
+						{ "__identifier": "strings", "__type": "Array<String>", "__value": [ "a", "b", "c" ], "__tile": null, "defUid": 69, "realEditorValues": [ {
 							"id": "V_String",
 							"params": ["a"]
 						}, {
@@ -629,41 +629,41 @@
 							"id": "V_String",
 							"params": ["c"]
 						} ] },
-						{ "__identifier": "floats", "__value": [0,0.5,1], "__type": "Array<Float>", "__tile": null, "defUid": 72, "realEditorValues": [ { "id": "V_Float", "params": [0] }, null, { "id": "V_Float", "params": [1] } ] },
-						{ "__identifier": "bools", "__value": [ false, false, true ], "__type": "Array<Bool>", "__tile": null, "defUid": 73, "realEditorValues": [ null, {
+						{ "__identifier": "floats", "__type": "Array<Float>", "__value": [0,0.5,1], "__tile": null, "defUid": 72, "realEditorValues": [ { "id": "V_Float", "params": [0] }, null, { "id": "V_Float", "params": [1] } ] },
+						{ "__identifier": "bools", "__type": "Array<Bool>", "__value": [ false, false, true ], "__tile": null, "defUid": 73, "realEditorValues": [ null, {
 							"id": "V_Bool",
 							"params": [ false ]
 						}, {
 							"id": "V_Bool",
 							"params": [ true ]
 						} ] },
-						{ "__identifier": "colors", "__value": [ "#FF0000", "#00FF00", "#0000FF" ], "__type": "Array<Color>", "__tile": null, "defUid": 74, "realEditorValues": [ { "id": "V_Int", "params": [16711680] }, { "id": "V_Int", "params": [65280] }, { "id": "V_Int", "params": [255] } ] },
-						{ "__identifier": "localEnums", "__value": ["FireBall"], "__type": "Array<LocalEnum.Weapons>", "__tile": null, "defUid": 76, "realEditorValues": [{
+						{ "__identifier": "colors", "__type": "Array<Color>", "__value": [ "#FF0000", "#00FF00", "#0000FF" ], "__tile": null, "defUid": 74, "realEditorValues": [ { "id": "V_Int", "params": [16711680] }, { "id": "V_Int", "params": [65280] }, { "id": "V_Int", "params": [255] } ] },
+						{ "__identifier": "localEnums", "__type": "Array<LocalEnum.Weapons>", "__value": ["FireBall"], "__tile": null, "defUid": 76, "realEditorValues": [{
 							"id": "V_String",
 							"params": ["FireBall"]
 						}] },
-						{ "__identifier": "externEnums", "__value": ["Gold"], "__type": "Array<ExternEnum.DroppedItemType>", "__tile": null, "defUid": 77, "realEditorValues": [{
+						{ "__identifier": "externEnums", "__type": "Array<ExternEnum.DroppedItemType>", "__value": ["Gold"], "__tile": null, "defUid": 77, "realEditorValues": [{
 							"id": "V_String",
 							"params": ["Gold"]
 						}] },
-						{ "__identifier": "entityRefs", "__value": [ {
+						{ "__identifier": "entityRefs", "__type": "Array<EntityRef>", "__value": [ {
 							"entityIid": "57c51ab0-66b0-11ec-8446-f3a61ee63449",
 							"layerIid": "27359dc1-66b0-11ec-8446-ff4b9136ca03",
 							"levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e",
-							"worldIid": "a405f870-7820-11ed-bcdb-432a9b5aa350"
+							"worldIid": "9df6b3c0-c640-11ed-b633-f10db708ef70"
 						}, {
 							"entityIid": "58f66ec0-66b0-11ec-8446-9b40d7be219b",
 							"layerIid": "27359dc1-66b0-11ec-8446-ff4b9136ca03",
 							"levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e",
-							"worldIid": "a405f870-7820-11ed-bcdb-432a9b5aa350"
-						} ], "__type": "Array<EntityRef>", "__tile": null, "defUid": 101, "realEditorValues": [ {
+							"worldIid": "9df6b3c0-c640-11ed-b633-f10db708ef70"
+						} ], "__tile": null, "defUid": 101, "realEditorValues": [ {
 							"id": "V_String",
 							"params": ["57c51ab0-66b0-11ec-8446-f3a61ee63449"]
 						}, {
 							"id": "V_String",
 							"params": ["58f66ec0-66b0-11ec-8446-9b40d7be219b"]
 						} ] },
-						{ "__identifier": "lowercaseEnum", "__value": [ "lc_a", "lc_b" ], "__type": "Array<LocalEnum.lowercase_enum>", "__tile": null, "defUid": 104, "realEditorValues": [ {
+						{ "__identifier": "lowercaseEnum", "__type": "Array<LocalEnum.lowercase_enum>", "__value": [ "lc_a", "lc_b" ], "__tile": null, "defUid": 104, "realEditorValues": [ {
 							"id": "V_String",
 							"params": ["lc_a"]
 						}, {
@@ -684,7 +684,7 @@
 					"height": 16,
 					"defUid": 91,
 					"px": [264,296],
-					"fieldInstances": [{ "__identifier": "filePath", "__value": "Minecraft_texture_pack.gif", "__type": "FilePath", "__tile": null, "defUid": 92, "realEditorValues": [{
+					"fieldInstances": [{ "__identifier": "filePath", "__type": "FilePath", "__value": "Minecraft_texture_pack.gif", "__tile": null, "defUid": 92, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["Minecraft_texture_pack.gif"]
 					}] }]
@@ -701,7 +701,7 @@
 					"height": 48,
 					"defUid": 96,
 					"px": [80,320],
-					"fieldInstances": [{ "__identifier": "flag", "__value": true, "__type": "Bool", "__tile": null, "defUid": 99, "realEditorValues": [{
+					"fieldInstances": [{ "__identifier": "flag", "__type": "Bool", "__value": true, "__tile": null, "defUid": 99, "realEditorValues": [{
 						"id": "V_Bool",
 						"params": [ true ]
 					}] }]
@@ -746,12 +746,12 @@
 					"height": 16,
 					"defUid": 107,
 					"px": [432,64],
-					"fieldInstances": [{ "__identifier": "ref", "__value": {
+					"fieldInstances": [{ "__identifier": "ref", "__type": "EntityRef", "__value": {
 						"entityIid": "be92c8d0-66b0-11ec-88f3-df87634ca4af",
 						"layerIid": "bdabeb43-66b0-11ec-88f3-f17ff25d77e6",
 						"levelIid": "bdabeb40-66b0-11ec-88f3-5d5bfa64cc93",
-						"worldIid": "a405f870-7820-11ed-bcdb-432a9b5aa350"
-					}, "__type": "EntityRef", "__tile": null, "defUid": 108, "realEditorValues": [{
+						"worldIid": "9df6b3c0-c640-11ed-b633-f10db708ef70"
+					}, "__tile": null, "defUid": 108, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["be92c8d0-66b0-11ec-88f3-df87634ca4af"]
 					}] }]
@@ -768,12 +768,12 @@
 					"height": 16,
 					"defUid": 107,
 					"px": [384,304],
-					"fieldInstances": [{ "__identifier": "ref", "__value": {
+					"fieldInstances": [{ "__identifier": "ref", "__type": "EntityRef", "__value": {
 						"entityIid": "8ffab9a0-66b0-11ec-88f3-b1b84aed41ee",
 						"layerIid": "27359dc1-66b0-11ec-8446-ff4b9136ca03",
 						"levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e",
-						"worldIid": "a405f870-7820-11ed-bcdb-432a9b5aa350"
-					}, "__type": "EntityRef", "__tile": null, "defUid": 108, "realEditorValues": [{
+						"worldIid": "9df6b3c0-c640-11ed-b633-f10db708ef70"
+					}, "__tile": null, "defUid": 108, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["8ffab9a0-66b0-11ec-88f3-b1b84aed41ee"]
 					}] }]
@@ -790,12 +790,12 @@
 					"height": 16,
 					"defUid": 107,
 					"px": [464,304],
-					"fieldInstances": [{ "__identifier": "ref", "__value": {
+					"fieldInstances": [{ "__identifier": "ref", "__type": "EntityRef", "__value": {
 						"entityIid": "8f9e1ab0-66b0-11ec-88f3-2308bdb94ce2",
 						"layerIid": "27359dc1-66b0-11ec-8446-ff4b9136ca03",
 						"levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e",
-						"worldIid": "a405f870-7820-11ed-bcdb-432a9b5aa350"
-					}, "__type": "EntityRef", "__tile": null, "defUid": 108, "realEditorValues": [{
+						"worldIid": "9df6b3c0-c640-11ed-b633-f10db708ef70"
+					}, "__tile": null, "defUid": 108, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["8f9e1ab0-66b0-11ec-88f3-2308bdb94ce2"]
 					}] }]
@@ -812,7 +812,7 @@
 					"height": 32,
 					"defUid": 110,
 					"px": [224,32],
-					"fieldInstances": [{ "__identifier": "altTile", "__value": null, "__type": "Tile", "__tile": null, "defUid": 111, "realEditorValues": [] }]
+					"fieldInstances": [{ "__identifier": "altTile", "__type": "Tile", "__value": null, "__tile": null, "defUid": 111, "realEditorValues": [] }]
 				},
 				{
 					"__identifier": "EntityTiles",
@@ -826,7 +826,7 @@
 					"height": 32,
 					"defUid": 110,
 					"px": [272,32],
-					"fieldInstances": [{ "__identifier": "altTile", "__value": { "tilesetUid": 14, "x": 64, "y": 0, "w": 32, "h": 32 }, "__type": "Tile", "__tile": { "tilesetUid": 14, "x": 64, "y": 0, "w": 32, "h": 32 }, "defUid": 111, "realEditorValues": [{
+					"fieldInstances": [{ "__identifier": "altTile", "__type": "Tile", "__value": { "tilesetUid": 14, "x": 64, "y": 0, "w": 32, "h": 32 }, "__tile": { "tilesetUid": 14, "x": 64, "y": 0, "w": 32, "h": 32 }, "defUid": 111, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["64,0,32,32"]
 					}] }]
@@ -844,11 +844,11 @@
 					"defUid": 113,
 					"px": [376,40],
 					"fieldInstances": [
-						{ "__identifier": "haxe", "__value": "Pouet", "__type": "ExternEnum.SomeEnum", "__tile": null, "defUid": 115, "realEditorValues": [{
+						{ "__identifier": "haxe", "__type": "ExternEnum.SomeEnum", "__value": "Pouet", "__tile": null, "defUid": 115, "realEditorValues": [{
 							"id": "V_String",
 							"params": ["Pouet"]
 						}] },
-						{ "__identifier": "cdb", "__value": "CdbA", "__type": "ExternEnum.CdbEnumTest", "__tile": null, "defUid": 117, "realEditorValues": [{
+						{ "__identifier": "cdb", "__type": "ExternEnum.CdbEnumTest", "__value": "CdbA", "__tile": null, "defUid": 117, "realEditorValues": [{
 							"id": "V_String",
 							"params": ["CdbA"]
 						}] }

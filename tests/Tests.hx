@@ -70,7 +70,8 @@ class Tests {
 			CiAssert.isNotNull( project.defs.layers );
 			CiAssert.isNotNull( project.defs.tilesets );
 
-			CiAssert.equals( project.worldLayout, ldtk.Json.WorldLayout.GridVania );
+			var defaultWorld  = project.all_worlds.World1;
+			CiAssert.equals( defaultWorld.layout, ldtk.Json.WorldLayout.GridVania );
 			CiAssert.isTrue( project.defs.entities.length>0 );
 			CiAssert.isTrue( project.defs.enums.length>0 );
 			CiAssert.isTrue( project.defs.externalEnums.length>0 );
@@ -91,41 +92,41 @@ class Tests {
 			CiAssert.equals( project.getEnumDefFromValue(null), null );
 
 			// Original JSON fields
-			CiAssert.isNotNull( project.all_levels.Main_tests.json );
-			CiAssert.isNotNull( project.all_levels.Main_tests.l_IntGrid8.json );
-			CiAssert.isNotNull( project.all_levels.Main_tests.l_EntityTest.all_Mob[0].json );
+			CiAssert.isNotNull( defaultWorld.all_levels.Main_tests.json );
+			CiAssert.isNotNull( defaultWorld.all_levels.Main_tests.l_IntGrid8.json );
+			CiAssert.isNotNull( defaultWorld.all_levels.Main_tests.l_EntityTest.all_Mob[0].json );
 			CiAssert.isNotNull( project.all_tilesets.Cavernas_by_Adam_Saltsman.json );
 
 			// Types
 			section("Types...");
 			CiAssert.isNotNull( ProjectNoPackage.Enum_Mobs );
-			CiAssert.isNotNull( ProjectNoPackage.EntityEnum );
+			CiAssert.isNotNull( ProjectNoPackage.ProjectNoPackage_EntityEnum );
 			CiAssert.isNotNull( ProjectNoPackage.Tileset_Cavernas_by_Adam_Saltsman );
 
 			// Levels
 			section("Levels...");
-			CiAssert.isNotNull( project.all_levels );
-			CiAssert.isNotNull( project.all_levels.Main_tests );
-			CiAssert.isNotNull( project.all_levels.Offset_tests );
-			CiAssert.isNotNull( project.getLevel("Main_tests") );
-			CiAssert.equals( project.getLevel("Main_tests"), project.all_levels.Main_tests );
-			CiAssert.equals( project.getLevel(0), project.all_levels.Main_tests );
-			CiAssert.isTrue( project.levels.length>0 );
-			CiAssert.isNotNull( project.levels[0].l_IntGridTest );
-			CiAssert.equals( project.levels[1].worldX, 512 );
-			CiAssert.equals( project.levels[1].worldY, 256 );
-			CiAssert.equals( project.levels[0].bgColor_hex, "#271E27" );
-			CiAssert.equals( project.levels[0].bgColor_int, 0x271E27 );
-			CiAssert.equals( project.levels[0].neighbours.length, 2 );
-			CiAssert.equals( project.levels[0].neighbours[0].dir, ldtk.Level.NeighbourDir.East );
-			CiAssert.equals( project.getLevelAt(10,10), project.all_levels.Main_tests );
-			CiAssert.equals( project.getLevelAt(600,400), project.all_levels.Offset_tests );
+			CiAssert.isNotNull( defaultWorld.all_levels );
+			CiAssert.isNotNull( defaultWorld.all_levels.Main_tests );
+			CiAssert.isNotNull( defaultWorld.all_levels.Offset_tests );
+			CiAssert.isNotNull( defaultWorld.getLevel("Main_tests") );
+			CiAssert.equals( defaultWorld.getLevel("Main_tests"), defaultWorld.all_levels.Main_tests );
+			CiAssert.equals( defaultWorld.getLevel(0), defaultWorld.all_levels.Main_tests );
+			CiAssert.isTrue( defaultWorld.levels.length>0 );
+			CiAssert.isNotNull( defaultWorld.levels[0].l_IntGridTest );
+			CiAssert.equals( defaultWorld.levels[1].worldX, 512 );
+			CiAssert.equals( defaultWorld.levels[1].worldY, 256 );
+			CiAssert.equals( defaultWorld.levels[0].bgColor_hex, "#271E27" );
+			CiAssert.equals( defaultWorld.levels[0].bgColor_int, 0x271E27 );
+			CiAssert.equals( defaultWorld.levels[0].neighbours.length, 2 );
+			CiAssert.equals( defaultWorld.levels[0].neighbours[0].dir, ldtk.Level.NeighbourDir.East );
+			CiAssert.equals( defaultWorld.getLevelAt(10,10), defaultWorld.all_levels.Main_tests );
+			CiAssert.equals( defaultWorld.getLevelAt(600,400), defaultWorld.all_levels.Offset_tests );
 
 			// Layer misc
-			CiAssert.equals( project.all_levels.Main_tests.l_IntGridTest.visible, true );
+			CiAssert.equals( defaultWorld.all_levels.Main_tests.l_IntGridTest.visible, true );
 
 			// Layer JSONs
-			var layer = project.all_levels.Main_tests.l_EntityTest;
+			var layer = defaultWorld.all_levels.Main_tests.l_EntityTest;
 			CiAssert.isNotNull(layer.json);
 			CiAssert.isNotNull(layer.json.entityInstances);
 			CiAssert.isNotNull(layer.defJson);
@@ -134,57 +135,57 @@ class Tests {
 
 
 			// Layer offsets
-			CiAssert.equals( project.all_levels.Offset_tests.l_IntGrid8.pxTotalOffsetX, 4 );
-			CiAssert.equals( project.all_levels.Offset_tests.l_IntGrid8.pxTotalOffsetY, 4 );
-			CiAssert.equals( project.all_levels.Offset_tests.l_IntGridTest.pxTotalOffsetX, 8 );
-			CiAssert.equals( project.all_levels.Offset_tests.l_IntGridTest.pxTotalOffsetY, 8 );
-			CiAssert.equals( project.all_levels.Offset_tests.l_EntityTest.all_OffsetTest[0].pixelX, 0 );
-			CiAssert.equals( project.all_levels.Offset_tests.l_EntityTest.all_OffsetTest[0].pixelY, 0 );
+			CiAssert.equals( defaultWorld.all_levels.Offset_tests.l_IntGrid8.pxTotalOffsetX, 4 );
+			CiAssert.equals( defaultWorld.all_levels.Offset_tests.l_IntGrid8.pxTotalOffsetY, 4 );
+			CiAssert.equals( defaultWorld.all_levels.Offset_tests.l_IntGridTest.pxTotalOffsetX, 8 );
+			CiAssert.equals( defaultWorld.all_levels.Offset_tests.l_IntGridTest.pxTotalOffsetY, 8 );
+			CiAssert.equals( defaultWorld.all_levels.Offset_tests.l_EntityTest.all_OffsetTest[0].pixelX, 0 );
+			CiAssert.equals( defaultWorld.all_levels.Offset_tests.l_EntityTest.all_OffsetTest[0].pixelY, 0 );
 
 
 			// IntGrid layer
 			section("IntGrid...");
-			CiAssert.isNotNull( project.all_levels.Main_tests.l_IntGridTest );
-			CiAssert.equals( project.all_levels.Main_tests.l_IntGridTest.type, ldtk.Json.LayerType.IntGrid );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGridTest.type==IntGrid );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGridTest.getInt(0,0)==1 );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGridTest.hasValue(0,0) );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGridTest.getName(0,0)=="a" );
+			CiAssert.isNotNull( defaultWorld.all_levels.Main_tests.l_IntGridTest );
+			CiAssert.equals( defaultWorld.all_levels.Main_tests.l_IntGridTest.type, ldtk.Json.LayerType.IntGrid );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_IntGridTest.type==IntGrid );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_IntGridTest.getInt(0,0)==1 );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_IntGridTest.hasValue(0,0) );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_IntGridTest.getName(0,0)=="a" );
 
-			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGridTest.getInt(1,0)==2 );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGridTest.getInt(2,0)==3 );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGridTest.getInt(3,0)==4 );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_IntGridTest.getInt(1,0)==2 );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_IntGridTest.getInt(2,0)==3 );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_IntGridTest.getInt(3,0)==4 );
 
-			CiAssert.equals( project.all_levels.Main_tests.l_IntGridTest.hasValue(0,1), false );
-			CiAssert.equals( project.all_levels.Main_tests.l_IntGridTest.hasValue(3,0, 4), true );
+			CiAssert.equals( defaultWorld.all_levels.Main_tests.l_IntGridTest.hasValue(0,1), false );
+			CiAssert.equals( defaultWorld.all_levels.Main_tests.l_IntGridTest.hasValue(3,0, 4), true );
 
-			CiAssert.equals( project.all_levels.Main_tests.l_IntGridTest.isCoordValid(0,0), true );
-			CiAssert.equals( project.all_levels.Main_tests.l_IntGridTest.isCoordValid(-1,0), false );
-			CiAssert.equals( project.all_levels.Main_tests.l_IntGridTest.isCoordValid(999,0), false );
+			CiAssert.equals( defaultWorld.all_levels.Main_tests.l_IntGridTest.isCoordValid(0,0), true );
+			CiAssert.equals( defaultWorld.all_levels.Main_tests.l_IntGridTest.isCoordValid(-1,0), false );
+			CiAssert.equals( defaultWorld.all_levels.Main_tests.l_IntGridTest.isCoordValid(999,0), false );
 
 			// Entity layer
 			section("Entity...");
-			CiAssert.isNotNull( project.all_levels.Main_tests.l_EntityTest);
-			CiAssert.equals( project.all_levels.Main_tests.l_EntityTest.type, ldtk.Json.LayerType.Entities );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.type==Entities );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.all_Hero.length!=0 );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.all_Mob.length!=0 );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.all_AllFields.length!=0 );
-			CiAssert.equals( project.all_levels.Main_tests.l_EntityTest.all_Unused.length, 0 );
-			CiAssert.isNotNull( project.all_levels.Main_tests.l_EntityTest.all_Mob[0].tileInfos );
+			CiAssert.isNotNull( defaultWorld.all_levels.Main_tests.l_EntityTest);
+			CiAssert.equals( defaultWorld.all_levels.Main_tests.l_EntityTest.type, ldtk.Json.LayerType.Entities );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_EntityTest.type==Entities );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_EntityTest.all_Hero.length!=0 );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_EntityTest.all_Mob.length!=0 );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_EntityTest.all_AllFields.length!=0 );
+			CiAssert.equals( defaultWorld.all_levels.Main_tests.l_EntityTest.all_Unused.length, 0 );
+			CiAssert.isNotNull( defaultWorld.all_levels.Main_tests.l_EntityTest.all_Mob[0].tileInfos );
 
 			// Entity layer tags
-			var level = project.all_levels.Main_tests;
+			var level = defaultWorld.all_levels.Main_tests;
 			CiAssert.isNotNull( level.l_EntityWithTag );
 			CiAssert.isNotNull( level.l_EntityWithTag.all_Tagged );
 			CiAssert.equals( level.l_EntityWithTag.all_Tagged.length, 3 );
 			CiAssert.equals( level.l_EntityWithTag.getAllUntyped().length, 3 );
 
 			// Entities
-			var hero = project.all_levels.Main_tests.l_EntityTest.all_Hero[0];
-			var mob = project.all_levels.Main_tests.l_EntityTest.all_Mob[0];
-			var allFieldsTest = project.all_levels.Main_tests.l_EntityTest.all_AllFields[0];
-			var fileEnt = project.all_levels.Main_tests.l_EntityTest.all_File[0];
+			var hero = defaultWorld.all_levels.Main_tests.l_EntityTest.all_Hero[0];
+			var mob = defaultWorld.all_levels.Main_tests.l_EntityTest.all_Mob[0];
+			var allFieldsTest = defaultWorld.all_levels.Main_tests.l_EntityTest.all_AllFields[0];
+			var fileEnt = defaultWorld.all_levels.Main_tests.l_EntityTest.all_File[0];
 			CiAssert.isNotNull( hero );
 			CiAssert.isNotNull( mob );
 			CiAssert.isNotNull( allFieldsTest );
@@ -208,7 +209,7 @@ class Tests {
 			CiAssert.equals(hero.defJson.identifier, "Hero");
 
 			// Extern enums
-			var extEnt = project.all_levels.Main_tests.l_EntityTest.all_ExternEnums[0];
+			var extEnt = defaultWorld.all_levels.Main_tests.l_EntityTest.all_ExternEnums[0];
 			CiAssert.isNotNull(extEnt);
 			CiAssert.isNotNull(extEnt.f_cdb);
 			CiAssert.isNotNull(extEnt.f_haxe);
@@ -224,7 +225,7 @@ class Tests {
 			CiAssert.isTrue(extEnt.f_cdb==ExternCastleDbTest.CdbEnumTestKind.CdbA);
 
 			// Entity tiles
-			var eTiles = project.all_levels.Main_tests.l_EntityTest.all_EntityTiles;
+			var eTiles = defaultWorld.all_levels.Main_tests.l_EntityTest.all_EntityTiles;
 			CiAssert.isNotNull( eTiles );
 			CiAssert.isTrue( eTiles.length>=2 );
 			CiAssert.isNotNull( eTiles[0].tileInfos );
@@ -235,23 +236,23 @@ class Tests {
 			CiAssert.equals( eTiles[1].tileInfos.y, 0 );
 
 			// Sym ref 1
-			var fromSymRef = project.all_levels.Main_tests.l_EntityTest.all_SymRef[0];
-			var toSymRef = project.all_levels.Target_level_ref.l_EntityTest.all_SymRef[0];
+			var fromSymRef = defaultWorld.all_levels.Main_tests.l_EntityTest.all_SymRef[0];
+			var toSymRef = defaultWorld.all_levels.Target_level_ref.l_EntityTest.all_SymRef[0];
 			CiAssert.equals( fromSymRef.f_ref.entityIid, toSymRef.iid );
-			CiAssert.equals( fromSymRef.f_ref.levelIid, project.all_levels.Target_level_ref.iid );
+			CiAssert.equals( fromSymRef.f_ref.levelIid, defaultWorld.all_levels.Target_level_ref.iid );
 			CiAssert.equals( toSymRef.f_ref.entityIid, fromSymRef.iid );
-			CiAssert.equals( toSymRef.f_ref.levelIid, project.all_levels.Main_tests.iid );
+			CiAssert.equals( toSymRef.f_ref.levelIid, defaultWorld.all_levels.Main_tests.iid );
 
 			// Sym ref 2
-			var fromSymRef = project.all_levels.Main_tests.l_EntityTest.all_SymRef[1];
-			var toSymRef = project.all_levels.Main_tests.l_EntityTest.all_SymRef[2];
+			var fromSymRef = defaultWorld.all_levels.Main_tests.l_EntityTest.all_SymRef[1];
+			var toSymRef = defaultWorld.all_levels.Main_tests.l_EntityTest.all_SymRef[2];
 			CiAssert.equals( fromSymRef.f_ref.entityIid, toSymRef.iid );
-			CiAssert.equals( fromSymRef.f_ref.levelIid, project.all_levels.Main_tests.iid );
+			CiAssert.equals( fromSymRef.f_ref.levelIid, defaultWorld.all_levels.Main_tests.iid );
 			CiAssert.equals( toSymRef.f_ref.entityIid, fromSymRef.iid );
-			CiAssert.equals( toSymRef.f_ref.levelIid, project.all_levels.Main_tests.iid );
+			CiAssert.equals( toSymRef.f_ref.levelIid, defaultWorld.all_levels.Main_tests.iid );
 
 			// Regions
-			var r = project.all_levels.Main_tests.l_EntityTest.all_Region[0];
+			var r = defaultWorld.all_levels.Main_tests.l_EntityTest.all_Region[0];
 			CiAssert.isNotNull(r);
 			CiAssert.equals(r.width, 64);
 			CiAssert.equals(r.height, 48);
@@ -305,66 +306,76 @@ class Tests {
 			CiAssert.isTrue( mob.f_path.length>0 );
 			CiAssert.isTrue( mob.f_path[0].cy == mob.cy );
 
+			// Worlds untyped access
+			for(w in project.worlds)
+				CiAssert.isTrue( Reflect.hasField(project.all_worlds, w.identifier) );
+			CiAssert.isNotNull( project.getWorld(project.all_worlds.World1.iid) );
+			CiAssert.isNotNull( project.getWorld(project.all_worlds.World2.iid) );
+			CiAssert.equals( project.getWorld(project.all_worlds.World1.iid), project.all_worlds.World1 );
+			CiAssert.equals( project.getWorld(project.all_worlds.World2.iid), project.all_worlds.World2 );
+			CiAssert.equals( project.worlds[0].layout, ldtk.Json.WorldLayout.GridVania );
+			CiAssert.equals( project.worlds[1].layout, ldtk.Json.WorldLayout.Free );
+
 			// Enum switch check
 			section("Switch...");
-			CiAssert.isTrue( switch project.all_levels.Main_tests.l_EntityTest.all_Mob[0].f_lootDrops[0] {
+			CiAssert.isTrue( switch defaultWorld.all_levels.Main_tests.l_EntityTest.all_Mob[0].f_lootDrops[0] {
 				case null: false;
 				case Ammo: true;
 				case Food: false;
 				case Gold: false;
 				case Key: false;
 			});
-			switch project.all_levels.Main_tests.l_EntityTest.all_Mob[0].f_type {
+			switch defaultWorld.all_levels.Main_tests.l_EntityTest.all_Mob[0].f_type {
 				case Trash:
 				case Shooter:
 				case Shielder:
 			}
 
 			// Level custom fields
-			CiAssert.equals( project.all_levels.Main_tests.f_level_int, 1 );
-			CiAssert.equals( project.all_levels.Main_tests.f_level_string, "my string value" );
-			CiAssert.equals( project.all_levels.Main_tests.f_level_reward, Ammo );
-			CiAssert.equals( project.all_levels.Offset_tests.f_level_int, 2 );
-			CiAssert.equals( project.all_levels.Offset_tests.f_level_reward, Key );
-			CiAssert.equals( project.all_levels.Main_tests.f_lowercase_enum[0], Lc_a );
-			CiAssert.equals( project.all_levels.Main_tests.f_lowercase_enum[1], Lc_b );
-			CiAssert.equals( project.all_levels.Main_tests.f_lowercase_enum.length, 2 );
-			CiAssert.equals( project.all_levels.Main_tests.f_lowercase_enum[2], null );
+			CiAssert.equals( defaultWorld.all_levels.Main_tests.f_level_int, 1 );
+			CiAssert.equals( defaultWorld.all_levels.Main_tests.f_level_string, "my string value" );
+			CiAssert.equals( defaultWorld.all_levels.Main_tests.f_level_reward, Ammo );
+			CiAssert.equals( defaultWorld.all_levels.Offset_tests.f_level_int, 2 );
+			CiAssert.equals( defaultWorld.all_levels.Offset_tests.f_level_reward, Key );
+			CiAssert.equals( defaultWorld.all_levels.Main_tests.f_lowercase_enum[0], Lc_a );
+			CiAssert.equals( defaultWorld.all_levels.Main_tests.f_lowercase_enum[1], Lc_b );
+			CiAssert.equals( defaultWorld.all_levels.Main_tests.f_lowercase_enum.length, 2 );
+			CiAssert.equals( defaultWorld.all_levels.Main_tests.f_lowercase_enum[2], null );
 
 			// Tile layer
 			section("Tile layer...");
-			CiAssert.isNotNull( project.all_levels.Main_tests.l_TileTest );
-			CiAssert.equals( project.all_levels.Main_tests.l_TileTest.type, ldtk.Json.LayerType.Tiles );
-			CiAssert.isNotNull( project.all_levels.Main_tests.resolveLayer("TileTest") );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.identifier=="TileTest" );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.type==Tiles );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.hasAnyTileAt(4,0) );
-			CiAssert.equals( project.all_levels.Main_tests.l_TileTest.getTileStackAt(4,0)[0].tileId, 0 );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.hasAnyTileAt(5,0) );
-			CiAssert.equals( project.all_levels.Main_tests.l_TileTest.getTileStackAt(5,0)[0].tileId, 1 );
+			CiAssert.isNotNull( defaultWorld.all_levels.Main_tests.l_TileTest );
+			CiAssert.equals( defaultWorld.all_levels.Main_tests.l_TileTest.type, ldtk.Json.LayerType.Tiles );
+			CiAssert.isNotNull( defaultWorld.all_levels.Main_tests.resolveLayer("TileTest") );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_TileTest.identifier=="TileTest" );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_TileTest.type==Tiles );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_TileTest.hasAnyTileAt(4,0) );
+			CiAssert.equals( defaultWorld.all_levels.Main_tests.l_TileTest.getTileStackAt(4,0)[0].tileId, 0 );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_TileTest.hasAnyTileAt(5,0) );
+			CiAssert.equals( defaultWorld.all_levels.Main_tests.l_TileTest.getTileStackAt(5,0)[0].tileId, 1 );
 
 
 			// Tilesets
 			section("Tilesets...");
-			CiAssert.isNotNull( project.all_levels.Main_tests.l_TileTest.tileset );
-			// CiAssert.isNotNull( project.all_levels.Main_tests.l_TileTest.tileset.atlasBytes );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.getTileStackAt(1,4)[0].tileId>=0 );
-			var gridSize = project.all_levels.Main_tests.l_TileTest.tileset.tileGridSize;
-			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.tileset.getAtlasX(1)==gridSize );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.tileset.getAtlasY(1)==0 );
+			CiAssert.isNotNull( defaultWorld.all_levels.Main_tests.l_TileTest.tileset );
+			// CiAssert.isNotNull( defaultWorld.all_levels.Main_tests.l_TileTest.tileset.atlasBytes );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_TileTest.getTileStackAt(1,4)[0].tileId>=0 );
+			var gridSize = defaultWorld.all_levels.Main_tests.l_TileTest.tileset.tileGridSize;
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_TileTest.tileset.getAtlasX(1)==gridSize );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_TileTest.tileset.getAtlasY(1)==0 );
 
 			// Tilesets enum tags
 			CiAssert.isNotNull( project.all_tilesets.Minecraft_texture_pack );
 			CiAssert.isNotNull( project.all_tilesets.Minecraft_texture_pack.hasTag );
-			CiAssert.isNotNull( project.all_levels.Main_tests.l_TileTest.tileset );
-			CiAssert.isNotNull( project.all_levels.Main_tests.l_TileTest.tileset.hasTag );
+			CiAssert.isNotNull( defaultWorld.all_levels.Main_tests.l_TileTest.tileset );
+			CiAssert.isNotNull( defaultWorld.all_levels.Main_tests.l_TileTest.tileset.hasTag );
 			CiAssert.isTrue( project.all_tilesets.Minecraft_texture_pack.hasTag(0,Grass) );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.tileset.hasTag(0,Grass) );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.tileset.hasTag(1,Stone) );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.tileset.hasTag(3,Grass) );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_TileTest.tileset.hasTag(3,Dirt) );
-			CiAssert.isFalse( project.all_levels.Main_tests.l_TileTest.tileset.hasTag(1,Grass) );
-			CiAssert.isFalse( project.all_levels.Main_tests.l_TileTest.tileset.hasTag(4,Grass) );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_TileTest.tileset.hasTag(0,Grass) );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_TileTest.tileset.hasTag(1,Stone) );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_TileTest.tileset.hasTag(3,Grass) );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_TileTest.tileset.hasTag(3,Dirt) );
+			CiAssert.isFalse( defaultWorld.all_levels.Main_tests.l_TileTest.tileset.hasTag(1,Grass) );
+			CiAssert.isFalse( defaultWorld.all_levels.Main_tests.l_TileTest.tileset.hasTag(4,Grass) );
 
 			CiAssert.isNotNull( project.all_tilesets.Cavernas_by_Adam_Saltsman );
 			CiAssert.isNotNull( project.all_tilesets.Cavernas_by_Adam_Saltsman.hasTag );
@@ -378,33 +389,33 @@ class Tests {
 
 			// Auto-layer (IntGrid)
 			section("Auto-Layer (IntGrid)...");
-			CiAssert.isNotNull( project.all_levels.Main_tests.l_IntGrid_AutoLayer );
-			CiAssert.isNotNull( project.all_levels.Main_tests.l_IntGrid_AutoLayer.tileset );
-			// CiAssert.isNotNull( project.all_levels.Main_tests.l_IntGrid_AutoLayer.tileset.atlasBytes );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGrid_AutoLayer.autoTiles.length>100 );
-			CiAssert.isNotNull( project.all_levels.Main_tests.l_IntGrid_AutoLayer.autoTiles[0] );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_IntGrid_AutoLayer.autoTiles[0].renderX!=0 );
+			CiAssert.isNotNull( defaultWorld.all_levels.Main_tests.l_IntGrid_AutoLayer );
+			CiAssert.isNotNull( defaultWorld.all_levels.Main_tests.l_IntGrid_AutoLayer.tileset );
+			// CiAssert.isNotNull( defaultWorld.all_levels.Main_tests.l_IntGrid_AutoLayer.tileset.atlasBytes );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_IntGrid_AutoLayer.autoTiles.length>100 );
+			CiAssert.isNotNull( defaultWorld.all_levels.Main_tests.l_IntGrid_AutoLayer.autoTiles[0] );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_IntGrid_AutoLayer.autoTiles[0].renderX!=0 );
 
 			// Auto-layer (pure)
 			section("Auto-Layer (pure)...");
-			CiAssert.isNotNull( project.all_levels.Main_tests.l_Pure_AutoLayer);
-			// CiAssert.isNotNull( project.all_levels.Main_tests.l_Pure_AutoLayer.tileset.atlasBytes );
-			CiAssert.equals( project.all_levels.Main_tests.l_Pure_AutoLayer.type, ldtk.Json.LayerType.AutoLayer );
-			CiAssert.isNotNull( project.all_levels.Main_tests.l_Pure_AutoLayer.tileset );
+			CiAssert.isNotNull( defaultWorld.all_levels.Main_tests.l_Pure_AutoLayer);
+			// CiAssert.isNotNull( defaultWorld.all_levels.Main_tests.l_Pure_AutoLayer.tileset.atlasBytes );
+			CiAssert.equals( defaultWorld.all_levels.Main_tests.l_Pure_AutoLayer.type, ldtk.Json.LayerType.AutoLayer );
+			CiAssert.isNotNull( defaultWorld.all_levels.Main_tests.l_Pure_AutoLayer.tileset );
 
 			// Project references
 			section("Project refs...");
-			var level = project.all_levels.Main_tests;
+			var level = defaultWorld.all_levels.Main_tests;
 			@:privateAccess CiAssert.equals( level.untypedProject, project );
 			@:privateAccess CiAssert.equals( level.l_EntityTest.untypedProject, project );
 			@:privateAccess CiAssert.equals( level.l_IntGrid_AutoLayer.tileset.untypedProject, project );
 
 
 			// Level background image
-			CiAssert.isTrue( project.all_levels.Offset_tests.bgImageInfos==null );
-			CiAssert.isNotNull( project.all_levels.Main_tests.bgImageInfos );
-			CiAssert.equals( project.all_levels.Main_tests.bgImageInfos.topLeftX, 0 );
-			CiAssert.isNotNull( project.all_levels.Main_tests.bgImageInfos.cropRect );
+			CiAssert.isTrue( defaultWorld.all_levels.Offset_tests.bgImageInfos==null );
+			CiAssert.isNotNull( defaultWorld.all_levels.Main_tests.bgImageInfos );
+			CiAssert.equals( defaultWorld.all_levels.Main_tests.bgImageInfos.topLeftX, 0 );
+			CiAssert.isNotNull( defaultWorld.all_levels.Main_tests.bgImageInfos.cropRect );
 
 
 			// Project in a package
@@ -413,16 +424,16 @@ class Tests {
 			var project = new packageTest.ProjectPackage();
 			CiAssert.isNotNull( project );
 			CiAssert.isNotNull( packageTest.ProjectPackage.Enum_Mobs );
-			CiAssert.isNotNull( packageTest.ProjectPackage.EntityEnum );
+			CiAssert.isNotNull( packageTest.ProjectPackage.ProjectPackage_EntityEnum );
 			CiAssert.isNotNull( packageTest.ProjectPackage.Enum_Weapons );
 			CiAssert.isNotNull( packageTest.ProjectPackage.Tileset_Cavernas_by_Adam_Saltsman );
-			CiAssert.isNotNull( project.all_levels );
-			CiAssert.isTrue( project.all_levels.Main_tests.load() );
-			CiAssert.isTrue( project.all_levels.Offset_tests.load() );
-			CiAssert.isNotNull( project.all_levels.Main_tests );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.all_Mob.length>0 );
-			CiAssert.isNotNull( project.all_levels.Main_tests.l_EntityTest.all_Mob[0].f_lootDrops );
-			CiAssert.isTrue( project.all_levels.Main_tests.l_EntityTest.all_Hero[0].f_startWeapon == packageTest.ProjectPackage.Enum_Weapons.LongBow );
+			CiAssert.isNotNull( defaultWorld.all_levels );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.load() );
+			CiAssert.isTrue( defaultWorld.all_levels.Offset_tests.load() );
+			CiAssert.isNotNull( defaultWorld.all_levels.Main_tests );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_EntityTest.all_Mob.length>0 );
+			CiAssert.isNotNull( defaultWorld.all_levels.Main_tests.l_EntityTest.all_Mob[0].f_lootDrops );
+			CiAssert.isTrue( defaultWorld.all_levels.Main_tests.l_EntityTest.all_Hero[0].f_startWeapon == Enum_Weapons.LongBow );
 
 			// Table of content
 			CiAssert.isNotNull( project.toc );

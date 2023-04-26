@@ -21,6 +21,7 @@ class TypeBuilder {
 	static var fileContent : String;
 	static var json : ProjectJson;
 	static var locateCache : Map<String,String>;
+	static var isSingleWorld = false;
 
 	// Module infos
 	static var rawMod : String = "";
@@ -61,6 +62,7 @@ class TypeBuilder {
 		projectFields = [];
 		externEnumTypes = new Map();
 		tilesets = new Map();
+		isSingleWorld = false;
 		#if ldtk_times
 		_curMod = modName;
 		#end
@@ -77,9 +79,14 @@ class TypeBuilder {
 		createTilesetsClasses();
 		createLayersClasses();
 		createLevelClass();
-		createLevelAccess();
+		createProjectWorldClass();
+		for(worldJson in json.worlds)
+			createSpecializedWorldClass(worldJson);
 		createTilesetAccess();
+		createWorldsAccessInProject();
 		createProjectToc();
+		// if( isSingleWorld )
+		// 	addSingleWorldFields();
 		createProjectClass();
 
 		haxe.macro.Compiler.keep( Context.getLocalModule() );
@@ -156,6 +163,12 @@ class TypeBuilder {
 				error("Failed to parse project JSON");
 			}
 
+		// Create dummy JSON world
+		if( json.worlds==null || json.worlds.length==0 ) {
+			json.worlds = [ World.createDummyJson(json) ];
+			isSingleWorld = true;
+		}
+
 		if( dn.Version.lower(json.jsonVersion, MIN_JSON_VERSION, true) )
 			error('JSON version: "${json.jsonVersion}", required at least: "$MIN_JSON_VERSION"');
 	}
@@ -193,7 +206,7 @@ class TypeBuilder {
 	static function createEntityIdEnum() {
 		timer("entityIds");
 		entityIdsEnum = {
-			name: "EntityEnum",
+			name: modName+"_EntityEnum",
 			pack: modPack,
 			kind: TDEnum,
 			doc: "An enum representing all Entity IDs",
@@ -278,7 +291,7 @@ class TypeBuilder {
 					// Need classpath to Castle DB instance to resolve its enums (use -D ldtkCastle=...)
 					var cdbFull = Context.definedValue("ldtkCastle");
 					if( cdbFull==null )
-						Context.fatalError('Missing "-D ldtkCastle=full.package.of.CastleDbClass"', Context.currentPos());
+						Context.fatalError('Missing "-D ldtkCastle=full.package.of.CastleDbClass". This is necessary because the LDtk project uses a CastleDB file.', Context.currentPos());
 
 					var cdbPack = cdbFull.split(".");
 					var cdbClassName = cdbPack.pop();
@@ -792,6 +805,155 @@ class TypeBuilder {
 
 
 	/**
+		Create specialized world class with quick level access
+	**/
+	static function createProjectWorldClass() {
+		timer("projectWorldClass");
+
+		// World class
+		var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"World" }
+		var levelTypePath : TypePath = { pack:modPack, name:levelType.name }
+		var levelComplexType = Context.getType(levelType.name).toComplexType();
+		var worldType = {
+			pos : curPos,
+			name : modName+"_World",
+			pack : modPack,
+			kind : TDClass(parentTypePath),
+			fields : (macro class {
+				public var levels : Array<$levelComplexType> = [];
+
+				override public function new(project, arrayIndex, json) {
+					super(project, arrayIndex, json);
+				}
+
+				override function fromJson(json:Dynamic) {
+					super.fromJson(json);
+
+					levels = cast _untypedLevels.copy();
+				}
+
+				override function _instanciateLevel(project, arrayIndex:Int, json) {
+					return new $levelTypePath(project, arrayIndex, json);
+				}
+
+				/** Get a level from its UID (int) or Identifier (string) **/
+				public function getLevel(?uid:Int, ?idOrIid:String) : Null<$levelComplexType> {
+					if( uid==null && idOrIid==null )
+						return null;
+
+					for(l in _untypedLevels)
+						if( idOrIid!=null && ( l.identifier==idOrIid || l.iid==idOrIid ) || uid!=null && l.uid==uid )
+							return cast l;
+					return null;
+				}
+
+				/**
+					Get a level using a world pixel coord
+				**/
+				public function getLevelAt(worldX:Int, worldY:Int) : Null<$levelComplexType> {
+					for(l in _untypedLevels)
+						if( worldX>=l.worldX && worldX<l.worldX+l.pxWid && worldY>=l.worldY && worldY<l.worldY+l.pxHei )
+							return cast l;
+					return null;
+				}
+			}).fields,
+		}
+
+		registerTypeDefinitionModule(worldType, projectFilePath);
+	}
+
+
+	/**
+		Create specialized world class with quick level access
+	**/
+	static function createSpecializedWorldClass(worldJson:WorldJson) {
+		timer("specWorldClass");
+
+		// Level access in world class
+		var accessFields : Array<ObjectField> = worldJson.levels.map( function(j) {
+			return {
+				field: j.identifier,
+				expr: macro null,
+				quotes: null,
+			}
+		});
+		var complexType = Context.getType(rawMod+"_Level").toComplexType();
+		var accessType : ComplexType = TAnonymous(worldJson.levels.map( function(j) : Field {
+			return {
+				name: j.identifier,
+				kind: FVar(macro : $complexType),
+				pos: curPos,
+			}
+		}));
+
+
+		// Add single-world convenience shortcuts to project class
+		if( isSingleWorld ) {
+			var levelComplexType = Context.getType(levelType.name).toComplexType();
+
+			var shortcutFields = (macro class {
+				@:deprecated('DEPRECATED! Use "myProject.all_worlds.Default.all_levels"') @:noCompletion
+				public var all_levels(get,never) : $accessType;
+					function get_all_levels() return this.all_worlds.Default.all_levels;
+
+				@:deprecated('DEPRECATED! Use "myProject.all_worlds.Default.levels"') @:noCompletion
+				public var levels(get,never) : Array<$levelComplexType>;
+					function get_levels() return this.all_worlds.Default.levels;
+
+				@:deprecated('DEPRECATED! Use "myProject.all_worlds.Default.layout"') @:noCompletion
+				public var worldLayout(get,never) : ldtk.Json.WorldLayout;
+					function get_worldLayout() return this.all_worlds.Default.layout;
+
+				@:deprecated('DEPRECATED! Use "myProject.all_worlds.Default.getLevel"') @:noCompletion
+				public function getLevel(?uid:Int, ?idOrIid:String) : Null<$levelComplexType> {
+					return this.all_worlds.Default.getLevel(uid,idOrIid);
+				}
+
+				@:deprecated('DEPRECATED! Use "myProject.all_worlds.Default.getLevelAt"') @:noCompletion
+				public function getLevelAt(x:Int, y:Int) : Null<$levelComplexType> {
+					return this.all_worlds.Default.getLevelAt(x,y);
+				}
+			}).fields;
+
+			for(f in shortcutFields)
+				projectFields.push(f);
+		}
+
+
+
+		// World class
+		var parentTypePath : TypePath = { pack:modPack, name:modName+"_World" }
+		var levelTypePath : TypePath = { pack:modPack, name:levelType.name }
+		var levelComplexType = Context.getType(levelType.name).toComplexType();
+		var worldType = {
+			pos : curPos,
+			name : modName+"_World_"+worldJson.identifier,
+			pack : modPack,
+			kind : TDClass(parentTypePath),
+			fields : (macro class {
+				/** A convenient way to access all worlds in a type-safe environment **/
+				public var all_levels : $accessType;
+
+				override public function new(project, arrayIndex, json) {
+					super(project, arrayIndex, json);
+				}
+
+				override function fromJson(json:Dynamic) {
+					super.fromJson(json);
+
+					// Init levels quick access
+					all_levels = cast {}
+					for(l in _untypedLevels)
+						Reflect.setField(all_levels, l.identifier, l);
+				}
+			}).fields,
+		}
+		registerTypeDefinitionModule(worldType, projectFilePath);
+	}
+
+
+
+	/**
 		Create specialized Level class
 	**/
 	static function createLevelClass() {
@@ -827,7 +989,7 @@ class TypeBuilder {
 				}
 
 				/**
-					Get a layer using its identifier. WARNING: the class of this layer will be more generic than when using proper "f_layerName" fields.
+					Get a layer using its identifier. WARNING: the class of this layer will be more generic than when using proper `l_layerName` fields.
 				**/
 				public function resolveLayer(id:String) : Null<ldtk.Layer> {
 					load();
@@ -875,26 +1037,27 @@ class TypeBuilder {
 	/**
 		Build quick levels access using their identifier
 	**/
-	static function createLevelAccess() {
-		var levelAccessFields : Array<ObjectField> = json.levels.map( function(levelJson) {
+	static function createWorldsAccessInProject() {
+		var accessFields : Array<ObjectField> = json.worlds.map( function(worldJson) {
 			return {
-				field: levelJson.identifier,
+				field: worldJson.identifier,
 				expr: macro null,
 				quotes: null,
 			}
 		});
-		var levelComplexType = Context.getType(rawMod+"_Level").toComplexType();
-		var levelAccessType : ComplexType = TAnonymous(json.levels.map( function(levelJson) : Field {
+		var accessType : ComplexType = TAnonymous(json.worlds.map( function(worldJson) : Field {
+			var complexType = Context.getType(rawMod+"_World_"+worldJson.identifier).toComplexType();
 			return {
-				name: levelJson.identifier,
-				kind: FVar(macro : $levelComplexType),
+				name: worldJson.identifier,
+				kind: FVar(macro : $complexType),
 				pos: curPos,
 			}
 		}));
+
 		projectFields.push({
-			name: "all_levels",
-			doc: "A convenient way to access all levels in a type-safe environment",
-			kind: FVar(levelAccessType, { expr:EObjectDecl(levelAccessFields), pos:curPos }),
+			name: "all_worlds",
+			doc: "A convenient way to access all worlds in a type-safe environment",
+			kind: FVar(accessType, { expr:EObjectDecl(accessFields), pos:curPos }),
 			pos: curPos,
 			access: [ APublic ],
 		});
@@ -963,6 +1126,29 @@ class TypeBuilder {
 	}
 
 
+	// static function addSingleWorldFields() {
+		// var fieldName = "all_levels";
+		// var getter : Function = {
+		// 	expr: macro return all_worlds.Default.all_levels,
+		// 	args: [],
+		// 	ret: (macro : Dynamic),
+		// }
+
+		// projectFields.push({
+		// 	name: fieldName,
+		// 	pos: curPos,
+		// 	kind: FProp("get","never", getter.ret),
+		// 	access: [APublic],
+		// });
+
+		// projectFields.push({
+		// 	name: "get_"+fieldName,
+		// 	pos: curPos,
+		// 	kind: FFun(getter),
+		// });
+	// }
+
+
 	/**
 		Create main Project class
 	**/
@@ -971,15 +1157,19 @@ class TypeBuilder {
 		var projectDir = StringTools.replace(projectFilePath, "\\", "/");
 		projectDir = projectDir.indexOf("/")<0 ? null : projectDir.substring(0, projectDir.lastIndexOf("/"));
 		var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Project" }
-		var levelTypePath : TypePath = { pack:modPack, name:levelType.name }
-		var levelComplexType = Context.getType(levelType.name).toComplexType();
+		// var worldTypePath : TypePath = { pack:modPack, name:modName+"_World" }
+		var worldCT = Context.getType(modName+"_World").toComplexType();
 		var projectClass : TypeDefinition = {
 			pos : curPos,
 			name : modName,
 			pack : modPack,
 			kind : TDClass(parentTypePath),
 			fields : (macro class {
-				public var levels : Array<$levelComplexType> = [];
+
+				/** An array access to all Worlds.
+					IMPORTANT: the returned World classes will use the generic world class, and not the specialized classes (the ones available through `all_worlds.SomeWorld`). This means that worlds from this iterator won't have unique fields like `all_levels`. **/
+				public var worlds(get,never) : Array<$worldCT>;
+					inline function get_worlds() return cast _untypedWorlds;
 
 				/**
 					If "overrideEmbedJson is provided, the embedded JSON from compilation-time will be ignored, and this JSON will be used instead.
@@ -995,12 +1185,20 @@ class TypeBuilder {
 				override function parseJson(json) {
 					super.parseJson(json);
 
-					levels = cast _untypedLevels.copy();
-
-					// Init levels quick access
-					for(l in _untypedLevels)
-						Reflect.setField(all_levels, l.identifier, l);
+					// Init worlds quick access
+					for(w in _untypedWorlds)
+						Reflect.setField(all_worlds, w.identifier, w);
 				}
+
+
+				/** Return a world instance from its IID **/
+				public function getWorld(iid:String) : Null<$worldCT> {
+					for(w in worlds)
+						if( w.iid==iid )
+							return w;
+					return null;
+				}
+
 
 				override function _instanciateTileset(project, json) {
 					var c = Type.resolveClass( $v{modPack.concat(["Tileset_"]).join(".")}+json.identifier );
@@ -1010,39 +1208,20 @@ class TypeBuilder {
 						return cast Type.createInstance(c, [project, json]);
 				}
 
-				override function _instanciateLevel(project, arrayIndex:Int, json) {
-					return new $levelTypePath(project, arrayIndex, json);
+				override function _instanciateWorld(untypedProject, arrayIndex:Int, json) {
+					var classId = $v{modPack.concat([modName+"_World_"]).join(".")} + json.identifier;
+					var c = Type.resolveClass(classId);
+					if( c==null ) {
+						ldtk.Project.error("Couldn't instanciate World class "+classId);
+						return null;
+					}
+					else
+						return cast Type.createInstance(c, [untypedProject, arrayIndex, json]);
+					// return new $worldTypePath(project, arrayIndex, json);
 				}
 
 				override function _resolveExternalEnumValue<T>(name:String, enumValueId:String) : T {
 					return $externEnumResolverSwitch;
-				}
-
-				/** Get a level from its UID (int) or Identifier (string) **/
-				public function getLevel(?uid:Int, ?idOrIid:String) : Null<$levelComplexType> {
-					if( uid==null && idOrIid==null )
-						return null;
-
-					for(l in _untypedLevels)
-						if( idOrIid!=null && ( l.identifier==idOrIid || l.iid==idOrIid ) || uid!=null && l.uid==uid )
-							return cast l;
-					return null;
-				}
-
-				@:noCompletion @:deprecated("Use getLevel()")
-				public function getLevelIdentifier(id:String) return getLevel(id);
-
-				@:noCompletion @:deprecated("Use getLevel()")
-				public function getLevelUid(uid:Int) return getLevel(uid);
-
-				/**
-					Get a level using a world pixel coord
-				**/
-				public function getLevelAt(worldX:Int, worldY:Int) : Null<$levelComplexType> {
-					for(l in _untypedLevels)
-						if( worldX>=l.worldX && worldX<l.worldX+l.pxWid && worldY>=l.worldY && worldY<l.worldY+l.pxHei )
-							return cast l;
-					return null;
 				}
 			}).fields.concat( projectFields ),
 		}

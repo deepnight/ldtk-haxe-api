@@ -5,7 +5,7 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "1.2.5",
+		"appVersion": "1.3.0",
 		"url": "https://ldtk.io"
 	},
 	"identifier": "Target_level_ref",
@@ -27,13 +27,13 @@
 	"__bgPos": null,
 	"externalRelPath": null,
 	"fieldInstances": [
-		{ "__identifier": "level_int", "__value": 0, "__type": "Int", "__tile": null, "defUid": 93, "realEditorValues": [] },
-		{ "__identifier": "level_string", "__value": "", "__type": "String", "__tile": null, "defUid": 94, "realEditorValues": [] },
-		{ "__identifier": "level_reward", "__value": "Ammo", "__type": "ExternEnum.DroppedItemType", "__tile": null, "defUid": 95, "realEditorValues": [{
+		{ "__identifier": "level_int", "__type": "Int", "__value": 0, "__tile": null, "defUid": 93, "realEditorValues": [] },
+		{ "__identifier": "level_string", "__type": "String", "__value": "", "__tile": null, "defUid": 94, "realEditorValues": [] },
+		{ "__identifier": "level_reward", "__type": "ExternEnum.DroppedItemType", "__value": "Ammo", "__tile": null, "defUid": 95, "realEditorValues": [{
 			"id": "V_String",
 			"params": ["Ammo"]
 		}] },
-		{ "__identifier": "lowercase_enum", "__value": [], "__type": "Array<LocalEnum.lowercase_enum>", "__tile": null, "defUid": 106, "realEditorValues": [] }
+		{ "__identifier": "lowercase_enum", "__type": "Array<LocalEnum.lowercase_enum>", "__value": [], "__tile": null, "defUid": 106, "realEditorValues": [] }
 	],
 	"layerInstances": [
 		{
@@ -178,12 +178,12 @@
 					"height": 16,
 					"defUid": 107,
 					"px": [112,112],
-					"fieldInstances": [{ "__identifier": "ref", "__value": {
+					"fieldInstances": [{ "__identifier": "ref", "__type": "EntityRef", "__value": {
 						"entityIid": "bcf852b0-66b0-11ec-88f3-f1c676c28598",
 						"layerIid": "27359dc1-66b0-11ec-8446-ff4b9136ca03",
 						"levelIid": "f2f3d030-66b0-11ec-91ab-fd4b3030ab4e",
-						"worldIid": "a405f870-7820-11ed-bcdb-432a9b5aa350"
-					}, "__type": "EntityRef", "__tile": null, "defUid": 108, "realEditorValues": [{
+						"worldIid": "9df6b3c0-c640-11ed-b633-f10db708ef70"
+					}, "__tile": null, "defUid": 108, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["bcf852b0-66b0-11ec-88f3-f1c676c28598"]
 					}] }]

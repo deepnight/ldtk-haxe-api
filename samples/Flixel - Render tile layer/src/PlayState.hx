@@ -14,7 +14,7 @@ class PlayState extends FlxState
 
 
 		// Iterate all world levels
-		for( level in project.levels ) {
+		for( level in project.all_worlds.Default.levels ) {
 			// Create a FlxGroup for all level layers
 			var container = new flixel.group.FlxSpriteGroup();
 			add(container);

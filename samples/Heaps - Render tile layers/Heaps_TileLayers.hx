@@ -23,7 +23,7 @@ class Heaps_TileLayers extends hxd.App {
 		var project = new LdtkProject();
 
 		// Get level data
-		var level = project.all_levels.West;
+		var level = project.all_worlds.Default.all_levels.West;
 
 		// Level background image
 		s2d.addChild( level.getBgBitmap() );

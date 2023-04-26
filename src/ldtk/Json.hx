@@ -75,19 +75,22 @@ typedef ProjectJson = {
 	var levels: Array<LevelJson>;
 
 	/**
-This array is not used yet in current LDtk version (so, for now, it's always empty).
-
-In a later update, it will be possible to have multiple Worlds in a single project, each containing multiple Levels.
-
-What will change when "Multiple worlds" support will be added to LDtk:
+This array will be empty, unless you enable the Multi-Worlds in the project advanced settings.
 
  - in current version, a LDtk project file can only contain a single world with multiple levels in it. In this case, levels and world layout related settings are stored in the root of the JSON.
- - after the "Multiple worlds" update, there will be a `worlds` array in root, each world containing levels and layout settings. Basically, it's pretty much only about moving the `levels` array to the `worlds` array, along with world layout related values (eg. `worldGridWidth` etc).
+ - with "Multi-worlds" enabled, there will be a `worlds` array in root, each world containing levels and layout settings. Basically, it's pretty much only about moving the `levels` array to the `worlds` array, along with world layout related values (eg. `worldGridWidth` etc).
 
 If you want to start supporting this future update easily, please refer to this documentation: https://github.com/deepnight/ldtk/issues/231
 	**/
 	@added("1.0.0")
 	var worlds: Array<WorldJson>;
+
+	/**
+		If the project isn't in MultiWorlds mode, this is the IID of the internal "dummy" World.
+	**/
+	@internal
+	@added("1.3.0")
+	var dummyWorldIid: String;
 
 	/** Default X pivot (0 to 1) for new entities **/
 	@internal
@@ -179,6 +182,11 @@ If you want to start supporting this future update easily, please refer to this 
 	@added("0.7.0")
 	var backupLimit: Int;
 
+	/** Target relative path to store backup files **/
+	@internal
+	@added("1.3.0")
+	var backupRelPath: Null<String>;
+
 	/** An array containing various advanced flags (ie. options or other states). **/
 	@internal
 	@added("0.8.0")
@@ -208,7 +216,7 @@ If you want to start supporting this future update easily, please refer to this 
 
 
 /**
-**IMPORTANT**: this type is not used *yet* in current LDtk version. It's only presented here as a preview of a planned feature.
+**IMPORTANT**: this type is available as a preview. You can rely on it to update your importers, for when it will be officially available.
 
 A World contains multiple levels, and it has its own layout settings.
 **/
@@ -929,6 +937,30 @@ typedef AutoRuleDef = {
 	/** Y cell start offset **/
 	var yOffset: Int;
 
+	/** Tile X offset **/
+	@added("1.3.0")
+	var tileXOffset : Int;
+
+	/** Tile Y offset **/
+	@added("1.3.0")
+	var tileYOffset : Int;
+
+	/** Min random offset for X tile pos **/
+	@added("1.3.0")
+	var tileRandomXMin : Int;
+
+	/** Max random offset for X tile pos **/
+	@added("1.3.0")
+	var tileRandomXMax : Int;
+
+	/** Min random offset for Y tile pos **/
+	@added("1.3.0")
+	var tileRandomYMin : Int;
+
+	/** Max random offset for Y tile pos **/
+	@added("1.3.0")
+	var tileRandomYMax : Int;
+
 	/** If TRUE, enable Perlin filtering to only apply rule on specific random area **/
 	var perlinActive: Bool;
 
@@ -1133,6 +1165,10 @@ typedef FieldDefJson = {
 	@internal
 	var editorDisplayMode: FieldDisplayMode;
 
+	@changed("1.3.0")
+	@internal
+	var editorDisplayScale: Float;
+
 	@added("1.1.4")
 	@internal
 	var editorLinkStyle: FieldLinkStyle;
@@ -1178,6 +1214,10 @@ typedef FieldDefJson = {
 	@internal
 	@added("1.0.0")
 	var allowedRefs: EntityReferenceTarget;
+
+	@internal
+	@added("1.3.0")
+	var allowedRefsEntityUid: Null<Int>;
 
 	@internal
 	@added("1.0.0")
@@ -1313,7 +1353,12 @@ typedef EnumDefValues = {
 	/** Enum value **/
 	var id:String;
 
+	/** Optional tileset rectangle to represents this value **/
+	@added("1.3.0")
+	var tileRect: Null<TilesetRect>;
+
 	/** The optional ID of the tile **/
+	@deprecation("1.3.0", "1.4.0", "tileRect")
 	var tileId:Null<Int>;
 
 	/** Optional color **/
@@ -1321,6 +1366,7 @@ typedef EnumDefValues = {
 	var color:Int;
 
 	/** An array of 4 Int values that refers to the tile in the tileset image: `[ x, y, width, height ]` **/
+	@deprecation("1.3.0", "1.4.0", "tileRect")
 	@added("0.4.0")
 	var __tileSrcRect:Null< Array<Int> >; // TODO use a Tile instance here?
 }
@@ -1541,6 +1587,7 @@ enum FieldDisplayMode {
 	ValueOnly;
 	NameAndValue;
 	EntityTile;
+	LevelTile;
 	Points;
 	PointStar;
 	PointPath;
@@ -1567,6 +1614,7 @@ enum BgImagePos {
 	Contain;
 	Cover;
 	CoverDirty;
+	Repeat;
 }
 
 enum TextLanguageMode {
@@ -1612,6 +1660,7 @@ enum EntityReferenceTarget {
 	Any;
 	OnlySame;
 	OnlyTags;
+	OnlySpecificEntity;
 }
 
 @added("1.0.0")

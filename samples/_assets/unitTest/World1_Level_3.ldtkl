@@ -5,10 +5,10 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "1.2.5",
+		"appVersion": "1.3.0",
 		"url": "https://ldtk.io"
 	},
-	"identifier": "World_Level_3",
+	"identifier": "World1_Level_3",
 	"iid": "b1e31860-7820-11ed-b18d-6339f608f11d",
 	"uid": 120,
 	"worldX": 0,
@@ -27,10 +27,10 @@
 	"__bgPos": null,
 	"externalRelPath": null,
 	"fieldInstances": [
-		{ "__identifier": "level_int", "__value": 0, "__type": "Int", "__tile": null, "defUid": 93, "realEditorValues": [] },
-		{ "__identifier": "level_string", "__value": "", "__type": "String", "__tile": null, "defUid": 94, "realEditorValues": [] },
-		{ "__identifier": "level_reward", "__value": null, "__type": "ExternEnum.DroppedItemType", "__tile": null, "defUid": 95, "realEditorValues": [] },
-		{ "__identifier": "lowercase_enum", "__value": [], "__type": "Array<LocalEnum.lowercase_enum>", "__tile": null, "defUid": 106, "realEditorValues": [] }
+		{ "__identifier": "level_int", "__type": "Int", "__value": 0, "__tile": null, "defUid": 93, "realEditorValues": [] },
+		{ "__identifier": "level_string", "__type": "String", "__value": "", "__tile": null, "defUid": 94, "realEditorValues": [] },
+		{ "__identifier": "level_reward", "__type": "ExternEnum.DroppedItemType", "__value": null, "__tile": null, "defUid": 95, "realEditorValues": [] },
+		{ "__identifier": "lowercase_enum", "__type": "Array<LocalEnum.lowercase_enum>", "__value": [], "__tile": null, "defUid": 106, "realEditorValues": [] }
 	],
 	"layerInstances": [
 		{
@@ -175,7 +175,7 @@
 					"height": 24,
 					"defUid": 23,
 					"px": [24,48],
-					"fieldInstances": [{ "__identifier": "startWeapon", "__value": "Grenade", "__type": "LocalEnum.Weapons", "__tile": null, "defUid": 39, "realEditorValues": [{
+					"fieldInstances": [{ "__identifier": "startWeapon", "__type": "LocalEnum.Weapons", "__value": "Grenade", "__tile": null, "defUid": 39, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["Grenade"]
 					}] }]

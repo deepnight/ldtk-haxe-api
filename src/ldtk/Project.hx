@@ -33,6 +33,7 @@ class Project {
 		#if !macro
 			error("Should only be used in macros");
 		#else
+
 			return ldtk.macro.TypeBuilder.buildTypes(projectFilePath);
 		#end
 	}
@@ -47,7 +48,6 @@ class Project {
 import ldtk.Json;
 
 class Project {
-
 	/** Contains the full path to the project JSON, as provided to the macro (using slashes) **/
 	public var projectFilePath : String;
 
@@ -60,13 +60,10 @@ class Project {
 	/** Project background color (as Hex "#rrggbb") **/
 	public var bgColor_hex: String;
 
-	var _untypedLevels : Array<ldtk.Level>;
+	var _untypedWorlds : Array<ldtk.World>;
 
 	/** Full access to the JSON project definitions **/
 	public var defs : ldtk.Json.DefinitionsJson;
-
-	/** World layout enum **/
-	public var worldLayout : WorldLayout;
 
 	/** A map containing all untyped Tilesets, indexed using their JSON  `uid` (integer unique ID). The typed tilesets will be added in a field called `all_tilesets` by macros. **/
 	@:allow(ldtk.Layer_Tiles, ldtk.Layer_AutoLayer, ldtk.Layer_IntGrid_AutoLayer, ldtk.Entity)
@@ -76,7 +73,6 @@ class Project {
 	var assetCache : Map<String, haxe.io.Bytes>; // TODO support hot reloading
 
 	var _untypedToc : Map<String, Array<ldtk.Json.EntityReferenceInfos>>;
-
 
 	function new() {}
 
@@ -92,23 +88,28 @@ class Project {
 		assetCache = new Map();
 
 		// Parse json
-		var json : Dynamic = haxe.Json.parse(jsonString);
+		var untypedJson : Dynamic = haxe.Json.parse(jsonString);
+		var json : ProjectJson = untypedJson;
 
 		// Init misc fields
 		defs = json.defs;
 		bgColor_hex = json.bgColor;
 		bgColor_int = ldtk.Project.hexToInt(json.bgColor);
-		worldLayout = WorldLayout.createByName( Std.string(json.worldLayout) );
 
-		// Populate levels
-		_untypedLevels = [];
+		// Add dummy JSON world
+		if( json.worlds==null || json.worlds.length==0 )
+			json.worlds = [ World.createDummyJson(json) ];
+
+		// Populate worlds
+		_untypedWorlds = [];
 		var idx = 0;
-		for(json in (cast json.levels : Array<Dynamic>))
-			_untypedLevels.push( _instanciateLevel(this, idx++, json) );
+		for(json in json.worlds)
+			_untypedWorlds.push( _instanciateWorld(this, idx++, json) );
+
 
 		// Populate tilesets
 		Reflect.setField(this, "all_tilesets", {});
-		for(tsJson in (cast json.defs.tilesets : Array<Dynamic>)) {
+		for(tsJson in json.defs.tilesets) {
 			_untypedTilesets.set( tsJson.uid, _instanciateTileset(this, tsJson) );
 			Reflect.setField( Reflect.field(this,"all_tilesets"), tsJson.identifier, _instanciateTileset(this, tsJson));
 		}
@@ -126,7 +127,6 @@ class Project {
 					Reflect.setField(classToc, te.identifier, te.instances.copy());
 		}
 	}
-
 
 	/** Transform an identifier string by capitalizing its first letter **/
 	@:noCompletion
@@ -147,6 +147,7 @@ class Project {
 	function _resolveExternalEnumValue<T>(name:String, enumValueId:String) : T {
 		return null;
 	}
+
 
 	/** Used to populated field instances with actual values **/
 	@:allow(ldtk.Entity, ldtk.Level)
@@ -247,7 +248,7 @@ class Project {
 
 
 	@:keep public function toString() {
-		return 'ldtk.Project[${_untypedLevels.length} levels]';
+		return 'ldtk.Project[${_untypedWorlds.length} worlds]';
 	}
 
 
@@ -388,7 +389,7 @@ class Project {
 	}
 
 
-	function _instanciateLevel(project:ldtk.Project, arrayIndex:Int, json:ldtk.Json.LevelJson) {
+	function _instanciateWorld(project:ldtk.Project, arrayIndex:Int, json:ldtk.Json.WorldJson) {
 		return null; // overriden by Macros.hx
 	}
 
