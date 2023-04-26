@@ -4,9 +4,9 @@
   "license": "Apache",
   "tags": ["Haxe","Heaps","Hashlink","LDtk","Led","L-Ed","api","level","editor","deepnight"],
   "description": "The haxe API for LDtk JSON files - https://deepnight.net/tools/led-2d-level-editor/",
-  "version": "1.2.5-rc.3",
+  "version": "1.3.0-rc.1",
   "classPath": "src/",
-  "releasenote": "API updated for 1.2.5, fixed a crash with old project files, fixed ToC hot reloading",
+  "releasenote": "API updated for 1.3.0",
   "contributors": ["sbenard"],
   "dependencies": {
     "deepnightLibs": ""
