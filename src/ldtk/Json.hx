@@ -556,7 +556,7 @@ typedef Tile = {
 	var d: Array<Int>;
 
 
-	/** Alpha of the tile (0-1) **/
+	/** Alpha/opacity of the tile (0-1, defaults to 1) **/
 	@added("1.3.1")
 	var a: Float;
 }
