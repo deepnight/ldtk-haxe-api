@@ -554,6 +554,11 @@ typedef Tile = {
 	@internal
 	@changed("0.6.0")
 	var d: Array<Int>;
+
+
+	/** Alpha of the tile (0-1) **/
+	@added("1.3.1")
+	var a: Float;
 }
 
 
@@ -895,6 +900,8 @@ typedef AutoRuleDef = {
 
 	/** Array of all the tile IDs. They are used randomly or as stamps, based on `tileMode` value. **/
 	var tileIds: Array<Int>;
+
+	var alpha : Float;
 
 	/** If FALSE, the rule effect isn't applied, and no tiles are generated. **/
 	var active: Bool;
