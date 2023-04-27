@@ -746,6 +746,11 @@ typedef LayerDefJson = {
 	@internal
 	var doc: Null<String>;
 
+	/** User defined color for the UI **/
+	@added("1.3.1")
+	@internal
+	var uiColor: Null<String>;
+
 	/** Width and height of the grid in pixels **/
 	var gridSize: Int;
 
