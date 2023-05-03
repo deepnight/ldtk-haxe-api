@@ -812,6 +812,11 @@ typedef LayerDefJson = {
 	@added("1.1.4")
 	var canSelectWhenInactive: Bool;
 
+	/** If TRUE, the content of this layer will be used when rendering levels in a simplified way for the world view  **/
+	@internal
+	@added("1.3.1")
+	var renderInWorldView: Bool;
+
 	/**
 		An array that defines extra optional info for each IntGrid value.
 		WARNING: the array order is not related to actual IntGrid values! As user can re-order IntGrid values freely, you may value "2" before value "1" in this array.
