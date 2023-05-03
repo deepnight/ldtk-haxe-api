@@ -554,6 +554,11 @@ typedef Tile = {
 	@internal
 	@changed("0.6.0")
 	var d: Array<Int>;
+
+
+	/** Alpha/opacity of the tile (0-1, defaults to 1) **/
+	@added("1.3.1")
+	var a: Float;
 }
 
 
@@ -741,6 +746,11 @@ typedef LayerDefJson = {
 	@internal
 	var doc: Null<String>;
 
+	/** User defined color for the UI **/
+	@added("1.3.1")
+	@internal
+	var uiColor: Null<String>;
+
 	/** Width and height of the grid in pixels **/
 	var gridSize: Int;
 
@@ -801,6 +811,11 @@ typedef LayerDefJson = {
 	@internal
 	@added("1.1.4")
 	var canSelectWhenInactive: Bool;
+
+	/** If TRUE, the content of this layer will be used when rendering levels in a simplified way for the world view  **/
+	@internal
+	@added("1.3.1")
+	var renderInWorldView: Bool;
 
 	/**
 		An array that defines extra optional info for each IntGrid value.
@@ -895,6 +910,8 @@ typedef AutoRuleDef = {
 
 	/** Array of all the tile IDs. They are used randomly or as stamps, based on `tileMode` value. **/
 	var tileIds: Array<Int>;
+
+	var alpha : Float;
 
 	/** If FALSE, the rule effect isn't applied, and no tiles are generated. **/
 	var active: Bool;
