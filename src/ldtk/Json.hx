@@ -1447,6 +1447,9 @@ typedef IntGridValueDef = {
 
 	@color
 	var color:String ;
+
+	@added("1.3.3")
+	var tile : Null<ldtk.Json.TilesetRect>;
 }
 
 /** In a tileset definition, enum based tag infos **/
