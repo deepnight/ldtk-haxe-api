@@ -10,7 +10,7 @@
 	},
 	"iid": "a6731d00-7820-11ed-b6fd-8d5e0e3d5314",
 	"jsonVersion": "1.3.3",
-	"appBuildId": 467575,
+	"appBuildId": 467631,
 	"nextUid": 122,
 	"identifierStyle": "Free",
 	"toc": [ {
@@ -83,7 +83,7 @@
 			"parallaxScaling": true,
 			"requiredTags": [],
 			"excludedTags": [],
-			"intGridValues": [{ "value": 1, "identifier": "walls", "color": "#8696BB" }],
+			"intGridValues": [{ "value": 1, "identifier": "walls", "color": "#8696BB", "tile": null }],
 			"autoRuleGroups": [
 				{ "uid": 79, "name": "Stamps", "active": true, "isOptional": false, "rules": [
 					{
@@ -583,10 +583,10 @@
 			"requiredTags": [],
 			"excludedTags": [],
 			"intGridValues": [
-				{ "value": 1, "identifier": "a", "color": "#FFFFFF" },
-				{ "value": 2, "identifier": "b", "color": "#FF0000" },
-				{ "value": 4, "identifier": "d_sorted", "color": "#0045FF" },
-				{ "value": 3, "identifier": "c", "color": "#00FF1E" }
+				{ "value": 1, "identifier": "a", "color": "#FFFFFF", "tile": null },
+				{ "value": 2, "identifier": "b", "color": "#FF0000", "tile": null },
+				{ "value": 4, "identifier": "d_sorted", "color": "#0045FF", "tile": null },
+				{ "value": 3, "identifier": "c", "color": "#00FF1E", "tile": null }
 			],
 			"autoRuleGroups": [],
 			"autoSourceLayerDefUid": null,
@@ -617,7 +617,7 @@
 			"parallaxScaling": true,
 			"requiredTags": [],
 			"excludedTags": [],
-			"intGridValues": [{ "value": 1, "identifier": null, "color": "#00F9EC" }],
+			"intGridValues": [{ "value": 1, "identifier": null, "color": "#00F9EC", "tile": null }],
 			"autoRuleGroups": [],
 			"autoSourceLayerDefUid": null,
 			"tilesetDefUid": null,
