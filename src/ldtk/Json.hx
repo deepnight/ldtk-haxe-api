@@ -1030,6 +1030,28 @@ typedef EntityDefJson = {
 	@internal
 	var resizableY: Bool;
 
+	/** Min pixel width (only applies if the entity is resizable on X)**/
+	@added("1.3.3")
+	@internal
+	var minWidth: Null<Int>;
+
+	/** Max pixel width (only applies if the entity is resizable on X)**/
+	@added("1.3.3")
+	@internal
+	var maxWidth: Null<Int>;
+
+
+	/** Min pixel height (only applies if the entity is resizable on Y)**/
+	@added("1.3.3")
+	@internal
+	var minHeight: Null<Int>;
+
+	/** Max pixel height (only applies if the entity is resizable on Y)**/
+	@added("1.3.3")
+	@internal
+	var maxHeight: Null<Int>;
+
+
 	/** Only applies to entities resizable on both X/Y. If TRUE, the entity instance width/height will keep the same aspect ratio as the definition. **/
 	@added("0.8.0")
 	@internal
@@ -1447,6 +1469,9 @@ typedef IntGridValueDef = {
 
 	@color
 	var color:String ;
+
+	@added("1.3.3")
+	var tile : Null<ldtk.Json.TilesetRect>;
 }
 
 /** In a tileset definition, enum based tag infos **/
