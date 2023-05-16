@@ -125,6 +125,16 @@ If you want to start supporting this future update easily, please refer to this 
 	@internal
 	var defaultGridSize: Int;
 
+	/** Default width for new entities **/
+	@added("1.3.4")
+	@internal
+	var defaultEntityWidth: Int;
+
+	/** Default height for new entities **/
+	@added("1.3.4")
+	@internal
+	var defaultEntityHeight: Int;
+
 	/** Project background color **/
 	@color
 	var bgColor: String;
