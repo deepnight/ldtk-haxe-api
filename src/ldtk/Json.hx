@@ -1222,6 +1222,10 @@ typedef FieldDefJson = {
 	@internal
 	var editorLinkStyle: FieldLinkStyle;
 
+	@added("1.3.4")
+	@internal
+	var editorDisplayColor: Null<String>;
+
 	@internal
 	var editorDisplayPos: FieldDisplayPosition;
 
