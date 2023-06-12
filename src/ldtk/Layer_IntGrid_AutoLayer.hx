@@ -28,6 +28,7 @@ class Layer_IntGrid_AutoLayer extends ldtk.Layer_IntGrid {
 				alpha: jsonAutoTile.a,
 				renderX: jsonAutoTile.px[0],
 				renderY: jsonAutoTile.px[1],
+				ruleId: jsonAutoTile.d[0],
 			});
 	}
 
