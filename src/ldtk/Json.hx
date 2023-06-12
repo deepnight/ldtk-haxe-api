@@ -531,7 +531,7 @@ typedef LayerInstanceJson = {
 /**
 	This structure represents a single tile from a given Tileset.
 **/
-@section("2.2")
+@section("2.1.1")
 @added("0.4.0")
 @display("Tile instance")
 typedef Tile = {
@@ -601,7 +601,7 @@ typedef TilesetRect = {
 }
 
 
-@section("2.3")
+@section("2.2")
 @display("Entity instance")
 typedef EntityInstanceJson = {
 	/** Entity definition identifier **/
@@ -659,7 +659,7 @@ typedef EntityInstanceJson = {
 
 
 
-@section("2.4")
+@section("2.3")
 @display("Field instance")
 typedef FieldInstanceJson = {
 	/** Field definition identifier **/
@@ -1507,7 +1507,7 @@ typedef TileCustomMetadata = {
 }
 
 /** This object describes the "location" of an Entity instance in the project worlds. **/
-@section("2.4.2")
+@section("2.3.1")
 @added("1.0.0")
 @display("Reference to an Entity instance")
 typedef EntityReferenceInfos = {
@@ -1531,7 +1531,7 @@ typedef EntityReferenceInfos = {
 /**
 	This object is just a grid-based coordinate used in Field values.
 **/
-@section("2.4.3")
+@section("2.3.2")
 @added("1.0.0")
 @display("Grid point")
 typedef GridPoint = {
