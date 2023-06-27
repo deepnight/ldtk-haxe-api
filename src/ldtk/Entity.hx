@@ -32,6 +32,12 @@ class Entity {
 	/** Pivot Y coord (0-1) **/
 	public var pivotY : Float;
 
+	/** Pixel-based X world coordinate **/
+	public var worldPixelX : Int;
+
+	/** Pixel-based Y world coordinate **/
+	public var worldPixelY : Int;
+
 	/** Width in pixels **/
 	public var width : Int;
 
@@ -56,6 +62,8 @@ class Entity {
 		pixelY = json.px[1];
 		pivotX = json.__pivot==null ? 0 : json.__pivot[0];
 		pivotY = json.__pivot==null ? 0 : json.__pivot[1];
+		worldPixelX = json.__worldX;
+		worldPixelY = json.__worldY;
 		width = json.width;
 		height = json.height;
 
