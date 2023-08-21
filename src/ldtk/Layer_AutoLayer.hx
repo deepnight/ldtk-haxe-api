@@ -16,6 +16,12 @@ typedef AutoTile = {
 
 	/** Opacity (0-1)**/
 	var alpha: Float;
+
+	/** ID of the auto-rule that generated this tile **/
+	var ruleId: Int;
+
+	/** Coord ID of the auto-rule that generated this tile **/
+	var coordId: Int;
 }
 
 
@@ -47,6 +53,8 @@ class Layer_AutoLayer extends ldtk.Layer {
 				alpha: jsonAutoTile.a,
 				renderX: jsonAutoTile.px[0],
 				renderY: jsonAutoTile.px[1],
+				ruleId: jsonAutoTile.d[0],
+				coordId: jsonAutoTile.d[1],
 			});
 	}
 
