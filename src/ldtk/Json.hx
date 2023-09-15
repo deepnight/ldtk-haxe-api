@@ -1496,6 +1496,10 @@ typedef IntGridValueDef = {
 
 	@added("1.3.3")
 	var tile : Null<ldtk.Json.TilesetRect>;
+
+	/** Parent group identifier (0 if none)**/
+	@added("1.3.5")
+	var groupId: Int;
 }
 
 /** In a tileset definition, enum based tag infos **/
