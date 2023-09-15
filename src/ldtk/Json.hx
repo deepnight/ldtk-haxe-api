@@ -843,6 +843,11 @@ typedef LayerDefJson = {
 	@only("IntGrid layer")
 	var intGridValues: Array<IntGridValueDef>;
 
+	/** Group informations for IntGrid values **/
+	@changed("1.3.5")
+	@only("IntGrid layer")
+	var intGridValuesGroups: Array<IntGridValueGroupDef>;
+
 	/**
 		Reference to the Tileset UID being used by this auto-layer rules. WARNING: some layer *instances* might use a different tileset. So most of the time, you should probably use the `__tilesetDefUid` value from layer instances.
 	**/
@@ -1499,8 +1504,21 @@ typedef IntGridValueDef = {
 
 	/** Parent group identifier (0 if none)**/
 	@added("1.3.5")
-	var groupId: Int;
+	var groupUid: Int;
 }
+
+
+/** IntGrid value group definition **/
+@inline
+@display("IntGrid value group definition")
+typedef IntGridValueGroupDef = {
+	/** Group unique ID **/
+	var uid: Int;
+
+	/** User defined string identifier **/
+	var identifier: Null<String>;
+}
+
 
 /** In a tileset definition, enum based tag infos **/
 @inline
