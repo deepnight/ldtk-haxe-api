@@ -1511,12 +1511,16 @@ typedef IntGridValueDef = {
 /** IntGrid value group definition **/
 @inline
 @display("IntGrid value group definition")
+@added("1.3.5")
 typedef IntGridValueGroupDef = {
 	/** Group unique ID **/
 	var uid: Int;
 
 	/** User defined string identifier **/
 	var identifier: Null<String>;
+
+	/** User defined color **/
+	var color: Null<String>;
 }
 
 
