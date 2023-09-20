@@ -1124,6 +1124,12 @@ typedef EntityDefJson = {
 	var tileRect: Null<TilesetRect>;
 
 	/**
+		This tile overrides the one defined in `tileRect` in the UI
+	**/
+	@added("1.3.5")
+	var uiTileRect: Null<TilesetRect>;
+
+	/**
 		An enum describing how the the Entity tile is rendered inside the Entity bounds.
 	**/
 	@changed("0.8.1")
