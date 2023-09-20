@@ -363,11 +363,11 @@ typedef LevelJson = {
 	var externalRelPath: Null<String>;
 
 	/**
-		An array listing all other levels touching this one on the world map.
+		An array listing all other levels touching this one on the world map. Since 1.3.5, this includes levels that overlap in the same world layer, or in nearby world layers.
 		Only relevant for world layouts where level spatial positioning is manual (ie. GridVania, Free). For Horizontal and Vertical layouts, this array is always empty.
 	**/
 	@added("0.6.0")
-	@changed("1.0.0")
+	@changed("1.3.5")
 	var __neighbours: Array<NeighbourLevel>;
 
 	/**
@@ -1454,7 +1454,11 @@ typedef NeighbourLevel = {
 	@deprecation("1.0.0", "1.2.0", "levelIid")
 	var ?levelUid: Int;
 
-	/** A single lowercase character tipping on the level location (`n`orth, `s`outh, `w`est, `e`ast). **/
+	/**
+		A single lowercase character tipping on the level location (`n`orth, `s`outh, `w`est, `e`ast).
+		Since 1.3.5, this character value can also be `<` (neighbour depth is lower), `>` (neighbour depth is greater) or `o` (levels overlap and share the same world depth).
+	**/
+	@changed("1.3.5")
 	var dir: String;
 }
 
