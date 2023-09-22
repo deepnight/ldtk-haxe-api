@@ -899,10 +899,17 @@ typedef LayerDefJson = {
 typedef AutoLayerRuleGroupJson = {
 	var uid: Int;
 	var name: String;
+
 	@added("1.3.5")
 	var ?color: String;
+
+	@added("1.3.5")
+	var ?icon: Null<TilesetRect>;
+
 	var active: Bool;
+
 	var rules: Array<AutoRuleDef>;
+
 	@added("0.9.0")
 	var isOptional: Bool;
 
