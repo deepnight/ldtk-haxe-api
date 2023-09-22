@@ -1028,9 +1028,9 @@
 			}
 		}
 	], "enums": [{ "identifier": "Items", "uid": 30, "values": [
-		{ "id": "Pickaxe", "tileRect": { "tilesetUid": 31, "x": 0, "y": 0, "w": 16, "h": 16 }, "tileId": -1, "color": 6710903, "__tileSrcRect": [0,0,16,16] },
-		{ "id": "Potion", "tileRect": { "tilesetUid": 31, "x": 96, "y": 0, "w": 16, "h": 16 }, "tileId": -1, "color": 6710903, "__tileSrcRect": [96,0,16,16] },
-		{ "id": "Food", "tileRect": { "tilesetUid": 31, "x": 16, "y": 96, "w": 16, "h": 16 }, "tileId": -1, "color": 10048836, "__tileSrcRect": [16,96,16,16] }
+		{ "id": "Pickaxe", "tileRect": { "tilesetUid": 31, "x": 0, "y": 0, "w": 16, "h": 16 }, "color": 6710903 },
+		{ "id": "Potion", "tileRect": { "tilesetUid": 31, "x": 96, "y": 0, "w": 16, "h": 16 }, "color": 6710903 },
+		{ "id": "Food", "tileRect": { "tilesetUid": 31, "x": 16, "y": 96, "w": 16, "h": 16 }, "color": 10048836 }
 	], "iconTilesetUid": 31, "externalRelPath": null, "externalFileChecksum": null, "tags": [] }], "externalEnums": [], "levelFields": [] },
 	"levels": [
 		{

@@ -1841,44 +1841,44 @@
 		}
 	], "enums": [
 		{ "identifier": "Mobs", "uid": 1, "values": [
-			{ "id": "Trash", "tileRect": { "tilesetUid": 14, "x": 32, "y": 32, "w": 32, "h": 32 }, "tileId": -1, "color": 4473907, "__tileSrcRect": [32,32,32,32] },
-			{ "id": "Shooter", "tileRect": { "tilesetUid": 14, "x": 0, "y": 64, "w": 32, "h": 32 }, "tileId": -1, "color": 7824981, "__tileSrcRect": [0,64,32,32] },
-			{ "id": "Shielder", "tileRect": { "tilesetUid": 14, "x": 32, "y": 64, "w": 32, "h": 32 }, "tileId": -1, "color": 6706500, "__tileSrcRect": [32,64,32,32] }
+			{ "id": "Trash", "tileRect": { "tilesetUid": 14, "x": 32, "y": 32, "w": 32, "h": 32 }, "color": 4473907 },
+			{ "id": "Shooter", "tileRect": { "tilesetUid": 14, "x": 0, "y": 64, "w": 32, "h": 32 }, "color": 7824981 },
+			{ "id": "Shielder", "tileRect": { "tilesetUid": 14, "x": 32, "y": 64, "w": 32, "h": 32 }, "color": 6706500 }
 		], "iconTilesetUid": 14, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
 		{ "identifier": "Weapons", "uid": 10, "values": [
-			{ "id": "LongBow", "tileRect": null, "tileId": -1, "color": 0, "__tileSrcRect": null },
-			{ "id": "Torch", "tileRect": null, "tileId": -1, "color": 0, "__tileSrcRect": null },
-			{ "id": "Grenade", "tileRect": null, "tileId": -1, "color": 0, "__tileSrcRect": null },
-			{ "id": "FireBall", "tileRect": null, "tileId": -1, "color": 0, "__tileSrcRect": null }
+			{ "id": "LongBow", "tileRect": null, "color": 0 },
+			{ "id": "Torch", "tileRect": null, "color": 0 },
+			{ "id": "Grenade", "tileRect": null, "color": 0 },
+			{ "id": "FireBall", "tileRect": null, "color": 0 }
 		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
 		{ "identifier": "CollisionType", "uid": 100, "values": [
-			{ "id": "Dirt", "tileRect": null, "tileId": -1, "color": 12951109, "__tileSrcRect": null },
-			{ "id": "Stone", "tileRect": null, "tileId": -1, "color": 9475234, "__tileSrcRect": null },
-			{ "id": "Grass", "tileRect": null, "tileId": -1, "color": 4964962, "__tileSrcRect": null },
-			{ "id": "Wood", "tileRect": null, "tileId": -1, "color": 10312771, "__tileSrcRect": null }
+			{ "id": "Dirt", "tileRect": null, "color": 12951109 },
+			{ "id": "Stone", "tileRect": null, "color": 9475234 },
+			{ "id": "Grass", "tileRect": null, "color": 4964962 },
+			{ "id": "Wood", "tileRect": null, "color": 10312771 }
 		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] },
 		{ "identifier": "lowercase_enum", "uid": 103, "values": [
-			{ "id": "lc_a", "tileRect": null, "tileId": -1, "color": 16711680, "__tileSrcRect": null },
-			{ "id": "lc_b", "tileRect": null, "tileId": -1, "color": 65280, "__tileSrcRect": null },
-			{ "id": "lc_c", "tileRect": null, "tileId": -1, "color": 255, "__tileSrcRect": null },
-			{ "id": "lc_d", "tileRect": null, "tileId": -1, "color": 16711935, "__tileSrcRect": null }
+			{ "id": "lc_a", "tileRect": null, "color": 16711680 },
+			{ "id": "lc_b", "tileRect": null, "color": 65280 },
+			{ "id": "lc_c", "tileRect": null, "color": 255 },
+			{ "id": "lc_d", "tileRect": null, "color": 16711935 }
 		], "iconTilesetUid": null, "externalRelPath": null, "externalFileChecksum": null, "tags": [] }
 	], "externalEnums": [
 		{ "identifier": "DroppedItemType", "uid": 29, "values": [
-			{ "id": "Ammo", "tileRect": null, "tileId": -1, "color": 0, "__tileSrcRect": null },
-			{ "id": "Food", "tileRect": null, "tileId": -1, "color": 0, "__tileSrcRect": null },
-			{ "id": "Gold", "tileRect": null, "tileId": -1, "color": 0, "__tileSrcRect": null },
-			{ "id": "Key", "tileRect": null, "tileId": -1, "color": 0, "__tileSrcRect": null }
+			{ "id": "Ammo", "tileRect": null, "color": 0 },
+			{ "id": "Food", "tileRect": null, "color": 0 },
+			{ "id": "Gold", "tileRect": null, "color": 0 },
+			{ "id": "Key", "tileRect": null, "color": 0 }
 		], "iconTilesetUid": null, "externalRelPath": "../_srcCommon/ExternEnumTest.hx", "externalFileChecksum": "411417ba762ae881749b425b1c129b19", "tags": [] },
 		{ "identifier": "SomeEnum", "uid": 31, "values": [
-			{ "id": "Bar", "tileRect": null, "tileId": -1, "color": 0, "__tileSrcRect": null },
-			{ "id": "Foo", "tileRect": null, "tileId": -1, "color": 0, "__tileSrcRect": null },
-			{ "id": "Pouet", "tileRect": null, "tileId": -1, "color": 0, "__tileSrcRect": null }
+			{ "id": "Bar", "tileRect": null, "color": 0 },
+			{ "id": "Foo", "tileRect": null, "color": 0 },
+			{ "id": "Pouet", "tileRect": null, "color": 0 }
 		], "iconTilesetUid": null, "externalRelPath": "../_srcCommon/ExternEnumTest.hx", "externalFileChecksum": "411417ba762ae881749b425b1c129b19", "tags": [] },
 		{ "identifier": "CdbEnumTest", "uid": 112, "values": [
-			{ "id": "CdbA", "tileRect": null, "tileId": -1, "color": -1, "__tileSrcRect": null },
-			{ "id": "CdbB", "tileRect": null, "tileId": -1, "color": -1, "__tileSrcRect": null },
-			{ "id": "CdbC", "tileRect": null, "tileId": -1, "color": -1, "__tileSrcRect": null }
+			{ "id": "CdbA", "tileRect": null, "color": -1 },
+			{ "id": "CdbB", "tileRect": null, "color": -1 },
+			{ "id": "CdbC", "tileRect": null, "color": -1 }
 		], "iconTilesetUid": null, "externalRelPath": "sample.cdb", "externalFileChecksum": "efa2e67dcb44f84083ce78ff2be09341", "tags": [] }
 	], "levelFields": [
 		{
