@@ -442,6 +442,21 @@ class Tests {
 			CiAssert.equals( project.toc.Hero[0].entityIid, "f2f3d032-66b0-11ec-91ab-159ce9d99f47" );
 			CiAssert.isNotNull( project.toc.Mob );
 			CiAssert.isTrue( project.toc.Mob.length>0 );
+
+
+			var world = project.all_worlds.World1;
+
+			// 1.4.0
+			var l = world.all_levels.v1_4_0;
+			CiAssert.isNotNull(l);
+			var e = l.l_EntityTest.all_Hero[0];
+			CiAssert.isNotNull(e);
+			CiAssert.equals(e.pixelX, 40);
+			CiAssert.equals(e.pixelY, 96);
+			CiAssert.equals(e.worldPixelX, l.worldX+e.pixelX);
+			CiAssert.equals(e.worldPixelY, l.worldY+e.pixelY);
+			CiAssert.equals(l.neighbours.length, 1);
+			CiAssert.equals(l.neighbours[0].dir, ldtk.Level.NeighbourDir.DepthBelow);
 		}
 		catch( e:Dynamic ) {
 			// Unknown errors

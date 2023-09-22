@@ -5,7 +5,7 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "1.3.3",
+		"appVersion": "1.4.0",
 		"url": "https://ldtk.io"
 	},
 	"identifier": "World1_Level_3",
@@ -170,6 +170,8 @@
 					"__tags": [],
 					"__tile": null,
 					"__smartColor": "#BAF236",
+					"__worldX": 24,
+					"__worldY": 816,
 					"iid": "bee74f40-7820-11ed-b18d-b5db23763aff",
 					"width": 16,
 					"height": 24,

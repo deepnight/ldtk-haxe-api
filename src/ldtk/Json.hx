@@ -363,11 +363,11 @@ typedef LevelJson = {
 	var externalRelPath: Null<String>;
 
 	/**
-		An array listing all other levels touching this one on the world map.
+		An array listing all other levels touching this one on the world map. Since 1.4.0, this includes levels that overlap in the same world layer, or in nearby world layers.
 		Only relevant for world layouts where level spatial positioning is manual (ie. GridVania, Free). For Horizontal and Vertical layouts, this array is always empty.
 	**/
 	@added("0.6.0")
-	@changed("1.0.0")
+	@changed("1.4.0")
 	var __neighbours: Array<NeighbourLevel>;
 
 	/**
@@ -843,6 +843,11 @@ typedef LayerDefJson = {
 	@only("IntGrid layer")
 	var intGridValues: Array<IntGridValueDef>;
 
+	/** Group informations for IntGrid values **/
+	@changed("1.4.0")
+	@only("IntGrid layer")
+	var intGridValuesGroups: Array<IntGridValueGroupDef>;
+
 	/**
 		Reference to the Tileset UID being used by this auto-layer rules. WARNING: some layer *instances* might use a different tileset. So most of the time, you should probably use the `__tilesetDefUid` value from layer instances.
 	**/
@@ -894,8 +899,17 @@ typedef LayerDefJson = {
 typedef AutoLayerRuleGroupJson = {
 	var uid: Int;
 	var name: String;
+
+	@added("1.4.0")
+	var ?color: String;
+
+	@added("1.4.0")
+	var ?icon: Null<TilesetRect>;
+
 	var active: Bool;
+
 	var rules: Array<AutoRuleDef>;
+
 	@added("0.9.0")
 	var isOptional: Bool;
 
@@ -1115,6 +1129,12 @@ typedef EntityDefJson = {
 	**/
 	@added("1.0.0")
 	var tileRect: Null<TilesetRect>;
+
+	/**
+		This tile overrides the one defined in `tileRect` in the UI
+	**/
+	@added("1.4.0")
+	var uiTileRect: Null<TilesetRect>;
 
 	/**
 		An enum describing how the the Entity tile is rendered inside the Entity bounds.
@@ -1420,7 +1440,7 @@ typedef EnumDefValues = {
 
 	/** The optional ID of the tile **/
 	@deprecation("1.3.0", "1.4.0", "tileRect")
-	var tileId:Null<Int>;
+	var ?tileId:Null<Int>;
 
 	/** Optional color **/
 	@added("0.9.0")
@@ -1429,7 +1449,7 @@ typedef EnumDefValues = {
 	/** An array of 4 Int values that refers to the tile in the tileset image: `[ x, y, width, height ]` **/
 	@deprecation("1.3.0", "1.4.0", "tileRect")
 	@added("0.4.0")
-	var __tileSrcRect:Null< Array<Int> >; // TODO use a Tile instance here?
+	var ?__tileSrcRect:Null< Array<Int> >;
 }
 
 
@@ -1447,7 +1467,11 @@ typedef NeighbourLevel = {
 	@deprecation("1.0.0", "1.2.0", "levelIid")
 	var ?levelUid: Int;
 
-	/** A single lowercase character tipping on the level location (`n`orth, `s`outh, `w`est, `e`ast). **/
+	/**
+		A single lowercase character tipping on the level location (`n`orth, `s`outh, `w`est, `e`ast).
+		Since 1.4.0, this character value can also be `<` (neighbour depth is lower), `>` (neighbour depth is greater) or `o` (levels overlap and share the same world depth).
+	**/
+	@changed("1.4.0")
 	var dir: String;
 }
 
@@ -1494,7 +1518,28 @@ typedef IntGridValueDef = {
 
 	@added("1.3.3")
 	var tile : Null<ldtk.Json.TilesetRect>;
+
+	/** Parent group identifier (0 if none)**/
+	@added("1.4.0")
+	var groupUid: Int;
 }
+
+
+/** IntGrid value group definition **/
+@inline
+@display("IntGrid value group definition")
+@added("1.4.0")
+typedef IntGridValueGroupDef = {
+	/** Group unique ID **/
+	var uid: Int;
+
+	/** User defined string identifier **/
+	var identifier: Null<String>;
+
+	/** User defined color **/
+	var color: Null<String>;
+}
+
 
 /** In a tileset definition, enum based tag infos **/
 @inline

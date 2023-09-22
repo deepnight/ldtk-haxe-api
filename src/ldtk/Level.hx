@@ -5,6 +5,9 @@ enum NeighbourDir {
 	South;
 	West;
 	East;
+	SameDepthOverlap;
+	DepthBelow;
+	DepthAbove;
 }
 
 typedef LevelBgImage = {
@@ -124,6 +127,9 @@ class Level {
 						case "s": South;
 						case "w": West;
 						case "e": East;
+						case "<": DepthBelow;
+						case ">": DepthAbove;
+						case "o": SameDepthOverlap;
 						case _: trace("WARNING: unknown neighbour level dir: "+n.dir); North;
 					},
 				});
