@@ -363,11 +363,11 @@ typedef LevelJson = {
 	var externalRelPath: Null<String>;
 
 	/**
-		An array listing all other levels touching this one on the world map. Since 1.3.5, this includes levels that overlap in the same world layer, or in nearby world layers.
+		An array listing all other levels touching this one on the world map. Since 1.4.0, this includes levels that overlap in the same world layer, or in nearby world layers.
 		Only relevant for world layouts where level spatial positioning is manual (ie. GridVania, Free). For Horizontal and Vertical layouts, this array is always empty.
 	**/
 	@added("0.6.0")
-	@changed("1.3.5")
+	@changed("1.4.0")
 	var __neighbours: Array<NeighbourLevel>;
 
 	/**
@@ -844,7 +844,7 @@ typedef LayerDefJson = {
 	var intGridValues: Array<IntGridValueDef>;
 
 	/** Group informations for IntGrid values **/
-	@changed("1.3.5")
+	@changed("1.4.0")
 	@only("IntGrid layer")
 	var intGridValuesGroups: Array<IntGridValueGroupDef>;
 
@@ -900,10 +900,10 @@ typedef AutoLayerRuleGroupJson = {
 	var uid: Int;
 	var name: String;
 
-	@added("1.3.5")
+	@added("1.4.0")
 	var ?color: String;
 
-	@added("1.3.5")
+	@added("1.4.0")
 	var ?icon: Null<TilesetRect>;
 
 	var active: Bool;
@@ -1133,7 +1133,7 @@ typedef EntityDefJson = {
 	/**
 		This tile overrides the one defined in `tileRect` in the UI
 	**/
-	@added("1.3.5")
+	@added("1.4.0")
 	var uiTileRect: Null<TilesetRect>;
 
 	/**
@@ -1440,7 +1440,7 @@ typedef EnumDefValues = {
 
 	/** The optional ID of the tile **/
 	@deprecation("1.3.0", "1.4.0", "tileRect")
-	var tileId:Null<Int>;
+	var ?tileId:Null<Int>;
 
 	/** Optional color **/
 	@added("0.9.0")
@@ -1449,7 +1449,7 @@ typedef EnumDefValues = {
 	/** An array of 4 Int values that refers to the tile in the tileset image: `[ x, y, width, height ]` **/
 	@deprecation("1.3.0", "1.4.0", "tileRect")
 	@added("0.4.0")
-	var __tileSrcRect:Null< Array<Int> >; // TODO use a Tile instance here?
+	var ?__tileSrcRect:Null< Array<Int> >;
 }
 
 
@@ -1469,9 +1469,9 @@ typedef NeighbourLevel = {
 
 	/**
 		A single lowercase character tipping on the level location (`n`orth, `s`outh, `w`est, `e`ast).
-		Since 1.3.5, this character value can also be `<` (neighbour depth is lower), `>` (neighbour depth is greater) or `o` (levels overlap and share the same world depth).
+		Since 1.4.0, this character value can also be `<` (neighbour depth is lower), `>` (neighbour depth is greater) or `o` (levels overlap and share the same world depth).
 	**/
-	@changed("1.3.5")
+	@changed("1.4.0")
 	var dir: String;
 }
 
@@ -1520,7 +1520,7 @@ typedef IntGridValueDef = {
 	var tile : Null<ldtk.Json.TilesetRect>;
 
 	/** Parent group identifier (0 if none)**/
-	@added("1.3.5")
+	@added("1.4.0")
 	var groupUid: Int;
 }
 
@@ -1528,7 +1528,7 @@ typedef IntGridValueDef = {
 /** IntGrid value group definition **/
 @inline
 @display("IntGrid value group definition")
-@added("1.3.5")
+@added("1.4.0")
 typedef IntGridValueGroupDef = {
 	/** Group unique ID **/
 	var uid: Int;
