@@ -941,7 +941,11 @@ typedef AutoRuleDef = {
 	var outOfBoundsValue: Null<Int>;
 
 	/** Array of all the tile IDs. They are used randomly or as stamps, based on `tileMode` value. **/
-	var tileIds: Array<Int>;
+	@deprecation("1.4.2", "1.6.0", "tileRectsIds")
+	var ?tileIds: Array<Int>;
+
+	/** Array containing all the possible tile IDs rectangles (picked randomly). **/
+	var tileRectsIds: Array< Array<Int> >;
 
 	var alpha : Float;
 
