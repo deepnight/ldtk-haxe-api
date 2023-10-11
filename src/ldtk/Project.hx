@@ -72,7 +72,7 @@ class Project {
 	/** Internal asset cache to avoid reloading of previously loaded data. **/
 	var assetCache : Map<String, haxe.io.Bytes>; // TODO support hot reloading
 
-	var _untypedToc : Map<String, Array<ldtk.Json.EntityReferenceInfos>>;
+	var _untypedToc : Map<String, Array<ldtk.Json.TocInstanceData>>;
 
 	function new() {}
 
@@ -114,7 +114,7 @@ class Project {
 			Reflect.setField( Reflect.field(this,"all_tilesets"), tsJson.identifier, _instanciateTileset(this, tsJson));
 		}
 
-		// Empty toc
+		// Init toc
 		var classToc : Dynamic = Reflect.field(this,"toc");
 		for( k in Reflect.fields(classToc) )
 			Reflect.setField(classToc, k, []);
@@ -124,7 +124,7 @@ class Project {
 			var jsonToc : Array<ldtk.Json.TableOfContentEntry> = json.toc;
 			for(te in jsonToc)
 				if( Reflect.hasField(classToc, te.identifier) )
-					Reflect.setField(classToc, te.identifier, te.instances.copy());
+					Reflect.setField(classToc, te.identifier, te.instancesData.copy());
 		}
 	}
 

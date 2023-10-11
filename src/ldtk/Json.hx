@@ -1640,7 +1640,7 @@ typedef TocInstanceData = {
 	var heiPx : Int;
 
 	/** An object containing the values of all entity fields with the `exportToToc` option enabled. This object typing depends on actual field value types. **/
-	var fields: Array<Dynamic>;
+	var fields: Dynamic;
 }
 
 

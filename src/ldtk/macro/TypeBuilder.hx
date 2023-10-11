@@ -1101,11 +1101,10 @@ class TypeBuilder {
 	**/
 	static function createProjectToc() {
 		timer("projectToc");
-		var jsonToc = json.toc==null ? []  : json.toc;
 		var accessType : ComplexType = TAnonymous(json.defs.entities.map( function(ed) : Field {
 			return {
 				name: ed.identifier,
-				kind: FVar(macro : Array<ldtk.Json.EntityReferenceInfos>),
+				kind: FVar(macro : Array<ldtk.Json.TocInstanceData>),
 				pos: curPos,
 			}
 		}));
