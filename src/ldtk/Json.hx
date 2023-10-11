@@ -941,7 +941,7 @@ typedef AutoRuleDef = {
 	var outOfBoundsValue: Null<Int>;
 
 	/** Array of all the tile IDs. They are used randomly or as stamps, based on `tileMode` value. **/
-	@deprecation("1.4.2", "1.6.0", "tileRectsIds")
+	@deprecation("1.5.0", "1.5.0", "tileRectsIds")
 	var ?tileIds: Array<Int>;
 
 	/** Array containing all the possible tile IDs rectangles (picked randomly). **/
@@ -1321,6 +1321,11 @@ typedef FieldDefJson = {
 	@internal
 	@added("1.0.0")
 	var useForSmartColor: Bool;
+
+	/** If TRUE, the field value will be exported to the `toc` project JSON field. Only applies to Entity fields. **/
+	@added("1.5.0")
+	@internal
+	var exportToToc: Bool;
 }
 
 
@@ -1614,7 +1619,28 @@ typedef CustomCommand = {
 @inline
 typedef TableOfContentEntry = {
 	var identifier: String;
+
+	@deprecation("1.5.0", "1.7.0", "instancesData")
 	var instances: Array<EntityReferenceInfos>;
+
+	@added("1.5.0")
+	var instancesData: Array<TocInstanceData>;
+}
+
+
+@added("1.5.0")
+@inline
+typedef TocInstanceData = {
+	/** IID information of this instance **/
+	var iids: EntityReferenceInfos;
+
+	var worldX : Int;
+	var worldY : Int;
+	var widPx : Int;
+	var heiPx : Int;
+
+	/** An object containing the values of all entity fields with the `exportToToc` option enabled. This object typing depends on actual field value types. **/
+	var fields: Array<Dynamic>;
 }
 
 
@@ -1747,6 +1773,7 @@ enum TextLanguageMode {
 
 enum ProjectFlag {
 	DiscardPreCsvIntGrid; // backward compatibility
+	ExportOldTableOfContentData;
 	ExportPreCsvIntGridFormat;
 	IgnoreBackupSuggest;
 	PrependIndexToLevelFileNames;
