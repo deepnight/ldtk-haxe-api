@@ -918,6 +918,9 @@ typedef AutoLayerRuleGroupJson = {
 
 	@added("1.1.4")
 	var usesWizard: Bool;
+
+	@added("1.4.2")
+	var biomeFieldUid: Int;
 }
 
 /**
