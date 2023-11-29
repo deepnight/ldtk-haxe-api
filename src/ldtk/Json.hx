@@ -892,6 +892,10 @@ typedef LayerDefJson = {
 	@only("Tile layers")
 	@internal
 	var tilePivotY: Float;
+
+	@added("1.4.2")
+	@internal
+	var biomeFieldUid: Null<Int>;
 }
 
 @inline
@@ -920,7 +924,7 @@ typedef AutoLayerRuleGroupJson = {
 	var usesWizard: Bool;
 
 	@added("1.4.2")
-	var biomeFieldUid: Int;
+	var biomeEnumValues: Array<String>;
 }
 
 /**
