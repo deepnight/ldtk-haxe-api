@@ -925,6 +925,9 @@ typedef AutoLayerRuleGroupJson = {
 
 	@added("1.4.2")
 	var requiredBiomeValues: Array<String>;
+
+	@added("1.4.2")
+	var biomeRequirementMode: Int;
 }
 
 /**
