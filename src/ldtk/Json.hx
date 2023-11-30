@@ -896,6 +896,11 @@ typedef LayerDefJson = {
 	@added("1.4.2")
 	@internal
 	var biomeFieldUid: Null<Int>;
+
+	@only("Auto layers")
+	@internal
+	@added("1.4.2")
+	var autoTilesKilledByOtherLayerUid: Null<Int>;
 }
 
 @inline
