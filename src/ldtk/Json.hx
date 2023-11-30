@@ -924,7 +924,7 @@ typedef AutoLayerRuleGroupJson = {
 	var usesWizard: Bool;
 
 	@added("1.4.2")
-	var biomeEnumValue: Null<String>;
+	var requiredBiomeValues: Array<String>;
 }
 
 /**
