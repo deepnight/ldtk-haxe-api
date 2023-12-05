@@ -764,6 +764,11 @@ typedef LayerDefJson = {
 	@internal
 	var doc: Null<String>;
 
+	/** Display tags **/
+	@added("1.4.2")
+	@internal
+	var uiFilterTags: Array<String>;
+
 	/** User defined color for the UI **/
 	@added("1.3.1")
 	@internal
