@@ -475,13 +475,13 @@ class Project {
 			return null;
 
 		for(ev in ed.values)
-			if( ev.id==v.getName() && ev.__tileSrcRect!=null )
+			if( ev.id==v.getName() && ev.tileRect!=null )
 				return {
 					tilesetUid: ed.iconTilesetUid,
-					x: ev.__tileSrcRect[0],
-					y: ev.__tileSrcRect[1],
-					w: ev.__tileSrcRect[2],
-					h: ev.__tileSrcRect[3],
+					x: ev.tileRect.x,
+					y: ev.tileRect.y,
+					w: ev.tileRect.w,
+					h: ev.tileRect.h,
 				};
 
 		return null;
