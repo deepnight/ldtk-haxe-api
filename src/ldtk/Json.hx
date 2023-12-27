@@ -1346,6 +1346,11 @@ typedef FieldDefJson = {
 	@added("1.5.0")
 	@internal
 	var exportToToc: Bool;
+
+	/** If enabled, this field will be searchable through LDtk command palette **/
+	@internal
+	@added("1.5.0")
+	var searchable: Bool;
 }
 
 
