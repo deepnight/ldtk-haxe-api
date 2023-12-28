@@ -619,13 +619,15 @@ typedef EntityInstanceJson = {
 	@added("1.0.0")
 	var __tags: Array<String>;
 
-	/** X world coordinate in pixels **/
+	/** X world coordinate in pixels. Only available in GridVania or Free world layouts. **/
 	@added("1.3.4")
-	var __worldX: Int;
+	@changed("1.5.0")
+	var ?__worldX: Int;
 
-	/** Y world coordinate in pixels **/
+	/** Y world coordinate in pixels Only available in GridVania or Free world layouts. **/
 	@added("1.3.4")
-	var __worldY: Int;
+	@changed("1.5.0")
+	var ?__worldY: Int;
 
 	/** Entity width in pixels. For non-resizable entities, it will be the same as Entity definition. **/
 	@added("0.8.0")
