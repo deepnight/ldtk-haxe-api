@@ -1067,6 +1067,11 @@ typedef EntityDefJson = {
 	@added("1.2.4")
 	var exportToToc: Bool;
 
+	/** If enabled, this entity is allowed to stay outside of the current level bounds **/
+	@internal
+	@added("1.5.0")
+	var allowOutOfBounds: Bool;
+
 	/** An array of strings that classifies this entity **/
 	@added("0.8.0")
 	@internal
