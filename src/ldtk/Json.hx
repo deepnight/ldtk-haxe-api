@@ -767,7 +767,7 @@ typedef LayerDefJson = {
 	var doc: Null<String>;
 
 	/** Display tags **/
-	@added("1.4.2")
+	@added("1.5.0")
 	@internal
 	var uiFilterTags: Array<String>;
 
@@ -900,13 +900,13 @@ typedef LayerDefJson = {
 	@internal
 	var tilePivotY: Float;
 
-	@added("1.4.2")
+	@added("1.5.0")
 	@internal
 	var biomeFieldUid: Null<Int>;
 
 	@only("Auto layers")
 	@internal
-	@added("1.4.2")
+	@added("1.5.0")
 	var autoTilesKilledByOtherLayerUid: Null<Int>;
 }
 
@@ -935,10 +935,10 @@ typedef AutoLayerRuleGroupJson = {
 	@added("1.1.4")
 	var usesWizard: Bool;
 
-	@added("1.4.2")
+	@added("1.5.0")
 	var requiredBiomeValues: Array<String>;
 
-	@added("1.4.2")
+	@added("1.5.0")
 	var biomeRequirementMode: Int;
 }
 
