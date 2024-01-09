@@ -170,8 +170,6 @@
 					"__tags": [],
 					"__tile": null,
 					"__smartColor": "#BAF236",
-					"__worldX": 40,
-					"__worldY": 1376,
 					"iid": "0fa3ecf0-3b70-11ee-a4c1-b76253be54be",
 					"width": 16,
 					"height": 24,
@@ -180,7 +178,9 @@
 					"fieldInstances": [{ "__identifier": "startWeapon", "__type": "LocalEnum.Weapons", "__value": "LongBow", "__tile": null, "defUid": 39, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["LongBow"]
-					}] }]
+					}] }],
+					"__worldX": 40,
+					"__worldY": 1376
 				}
 			]
 		},

@@ -211,14 +211,14 @@
 					"__tags": [],
 					"__tile": null,
 					"__smartColor": "#FF00C8",
-					"__worldX": 512,
-					"__worldY": 256,
 					"iid": "f2f66841-66b0-11ec-91ab-554b0e889009",
 					"width": 16,
 					"height": 16,
 					"defUid": 89,
 					"px": [0,0],
-					"fieldInstances": []
+					"fieldInstances": [],
+					"__worldX": 512,
+					"__worldY": 256
 				}
 			]
 		},

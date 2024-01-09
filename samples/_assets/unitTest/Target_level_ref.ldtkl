@@ -173,8 +173,6 @@
 					"__tags": [],
 					"__tile": null,
 					"__smartColor": "#FF6700",
-					"__worldX": 624,
-					"__worldY": 112,
 					"iid": "be92c8d0-66b0-11ec-88f3-df87634ca4af",
 					"width": 16,
 					"height": 16,
@@ -188,7 +186,9 @@
 					}, "__tile": null, "defUid": 108, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["bcf852b0-66b0-11ec-88f3-f1c676c28598"]
-					}] }]
+					}] }],
+					"__worldX": 624,
+					"__worldY": 112
 				}
 			]
 		},

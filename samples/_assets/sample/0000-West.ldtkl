@@ -59,14 +59,14 @@
 					"__tags": [],
 					"__tile": null,
 					"__smartColor": "#00BFFF",
-					"__worldX": 84,
-					"__worldY": 232,
 					"iid": "60018d46-66b0-11ec-a36b-a9ab7da03bee",
 					"width": 8,
 					"height": 10,
 					"defUid": 27,
 					"px": [84,192],
-					"fieldInstances": []
+					"fieldInstances": [],
+					"__worldX": 84,
+					"__worldY": 232
 				},
 				{
 					"__identifier": "Item",
@@ -75,8 +75,6 @@
 					"__tags": [],
 					"__tile": { "tilesetUid": 31, "x": 96, "y": 0, "w": 16, "h": 16 },
 					"__smartColor": "#FFDD00",
-					"__worldX": 164,
-					"__worldY": 280,
 					"iid": "60018d47-66b0-11ec-a36b-1f92c653d135",
 					"width": 10,
 					"height": 10,
@@ -85,7 +83,9 @@
 					"fieldInstances": [{ "__identifier": "type", "__type": "LocalEnum.Items", "__value": "Potion", "__tile": { "tilesetUid": 31, "x": 96, "y": 0, "w": 16, "h": 16 }, "defUid": 32, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["Potion"]
-					}] }]
+					}] }],
+					"__worldX": 164,
+					"__worldY": 280
 				},
 				{
 					"__identifier": "Item",
@@ -94,8 +94,6 @@
 					"__tags": [],
 					"__tile": { "tilesetUid": 31, "x": 16, "y": 96, "w": 16, "h": 16 },
 					"__smartColor": "#FFDD00",
-					"__worldX": 244,
-					"__worldY": 144,
 					"iid": "60018d48-66b0-11ec-a36b-7f7609ac6c0e",
 					"width": 10,
 					"height": 10,
@@ -104,7 +102,9 @@
 					"fieldInstances": [{ "__identifier": "type", "__type": "LocalEnum.Items", "__value": "Food", "__tile": { "tilesetUid": 31, "x": 16, "y": 96, "w": 16, "h": 16 }, "defUid": 32, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["Food"]
-					}] }]
+					}] }],
+					"__worldX": 244,
+					"__worldY": 144
 				},
 				{
 					"__identifier": "Item",
@@ -113,8 +113,6 @@
 					"__tags": [],
 					"__tile": { "tilesetUid": 31, "x": 0, "y": 0, "w": 16, "h": 16 },
 					"__smartColor": "#FFDD00",
-					"__worldX": 100,
-					"__worldY": 280,
 					"iid": "60018d49-66b0-11ec-a36b-07b80604cf98",
 					"width": 10,
 					"height": 10,
@@ -123,7 +121,9 @@
 					"fieldInstances": [{ "__identifier": "type", "__type": "LocalEnum.Items", "__value": "Pickaxe", "__tile": { "tilesetUid": 31, "x": 0, "y": 0, "w": 16, "h": 16 }, "defUid": 32, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["Pickaxe"]
-					}] }]
+					}] }],
+					"__worldX": 100,
+					"__worldY": 280
 				}
 			]
 		},
