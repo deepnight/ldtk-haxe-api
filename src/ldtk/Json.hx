@@ -619,13 +619,15 @@ typedef EntityInstanceJson = {
 	@added("1.0.0")
 	var __tags: Array<String>;
 
-	/** X world coordinate in pixels **/
+	/** X world coordinate in pixels. Only available in GridVania or Free world layouts. **/
 	@added("1.3.4")
-	var __worldX: Int;
+	@changed("1.5.0")
+	var ?__worldX: Int;
 
-	/** Y world coordinate in pixels **/
+	/** Y world coordinate in pixels Only available in GridVania or Free world layouts. **/
 	@added("1.3.4")
-	var __worldY: Int;
+	@changed("1.5.0")
+	var ?__worldY: Int;
 
 	/** Entity width in pixels. For non-resizable entities, it will be the same as Entity definition. **/
 	@added("0.8.0")
@@ -764,6 +766,11 @@ typedef LayerDefJson = {
 	@internal
 	var doc: Null<String>;
 
+	/** Display tags **/
+	@added("1.5.0")
+	@internal
+	var uiFilterTags: Array<String>;
+
 	/** User defined color for the UI **/
 	@added("1.3.1")
 	@internal
@@ -892,6 +899,21 @@ typedef LayerDefJson = {
 	@only("Tile layers")
 	@internal
 	var tilePivotY: Float;
+
+	@added("1.5.0")
+	@internal
+	var biomeFieldUid: Null<Int>;
+
+	@only("Auto layers")
+	@internal
+	@added("1.5.0")
+	var autoTilesKilledByOtherLayerUid: Null<Int>;
+
+	/** Asynchronous rendering option for large/complex layers **/
+	@only("Tile layers, Auto-layers")
+	@internal
+	@added("1.5.0")
+	var useAsyncRender: Bool;
 }
 
 @inline
@@ -918,6 +940,12 @@ typedef AutoLayerRuleGroupJson = {
 
 	@added("1.1.4")
 	var usesWizard: Bool;
+
+	@added("1.5.0")
+	var requiredBiomeValues: Array<String>;
+
+	@added("1.5.0")
+	var biomeRequirementMode: Int;
 }
 
 /**
@@ -941,7 +969,11 @@ typedef AutoRuleDef = {
 	var outOfBoundsValue: Null<Int>;
 
 	/** Array of all the tile IDs. They are used randomly or as stamps, based on `tileMode` value. **/
-	var tileIds: Array<Int>;
+	@deprecation("1.5.0", "1.5.0", "tileRectsIds")
+	var ?tileIds: Array<Int>;
+
+	/** Array containing all the possible tile IDs rectangles (picked randomly). **/
+	var tileRectsIds: Array< Array<Int> >;
 
 	var alpha : Float;
 
@@ -1040,6 +1072,11 @@ typedef EntityDefJson = {
 	@internal
 	@added("1.2.4")
 	var exportToToc: Bool;
+
+	/** If enabled, this entity is allowed to stay outside of the current level bounds **/
+	@internal
+	@added("1.5.0")
+	var allowOutOfBounds: Bool;
 
 	/** An array of strings that classifies this entity **/
 	@added("0.8.0")
@@ -1317,6 +1354,16 @@ typedef FieldDefJson = {
 	@internal
 	@added("1.0.0")
 	var useForSmartColor: Bool;
+
+	/** If TRUE, the field value will be exported to the `toc` project JSON field. Only applies to Entity fields. **/
+	@added("1.5.0")
+	@internal
+	var exportToToc: Bool;
+
+	/** If enabled, this field will be searchable through LDtk command palette **/
+	@internal
+	@added("1.5.0")
+	var searchable: Bool;
 }
 
 
@@ -1610,7 +1657,28 @@ typedef CustomCommand = {
 @inline
 typedef TableOfContentEntry = {
 	var identifier: String;
+
+	@deprecation("1.5.0", "1.7.0", "instancesData")
 	var instances: Array<EntityReferenceInfos>;
+
+	@added("1.5.0")
+	var instancesData: Array<TocInstanceData>;
+}
+
+
+@added("1.5.0")
+@inline
+typedef TocInstanceData = {
+	/** IID information of this instance **/
+	var iids: EntityReferenceInfos;
+
+	var worldX : Int;
+	var worldY : Int;
+	var widPx : Int;
+	var heiPx : Int;
+
+	/** An object containing the values of all entity fields with the `exportToToc` option enabled. This object typing depends on actual field value types. **/
+	var fields: Dynamic;
 }
 
 
@@ -1743,6 +1811,7 @@ enum TextLanguageMode {
 
 enum ProjectFlag {
 	DiscardPreCsvIntGrid; // backward compatibility
+	ExportOldTableOfContentData;
 	ExportPreCsvIntGridFormat;
 	IgnoreBackupSuggest;
 	PrependIndexToLevelFileNames;

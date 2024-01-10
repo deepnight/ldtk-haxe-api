@@ -439,7 +439,10 @@ class Tests {
 			CiAssert.isNotNull( project.toc );
 			CiAssert.isNotNull( project.toc.Hero );
 			CiAssert.isTrue( project.toc.Hero.length>0 );
-			CiAssert.equals( project.toc.Hero[0].entityIid, "f2f3d032-66b0-11ec-91ab-159ce9d99f47" );
+			CiAssert.equals( project.toc.Hero[0].iids.entityIid, "f2f3d032-66b0-11ec-91ab-159ce9d99f47" );
+			CiAssert.isNotNull( project.toc.Hero[0].fields );
+			CiAssert.isNotNull( project.toc.Hero[0].fields.startWeapon );
+			CiAssert.equals( project.toc.Hero[0].fields.startWeapon, "LongBow" );
 			CiAssert.isNotNull( project.toc.Mob );
 			CiAssert.isTrue( project.toc.Mob.length>0 );
 

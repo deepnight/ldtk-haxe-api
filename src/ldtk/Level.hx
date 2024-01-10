@@ -40,19 +40,20 @@ class Level {
 	/** Original parsed JSON object **/
 	public var json(default,null) : ldtk.Json.LevelJson;
 
-	public var iid : String;
-	public var uid : Int;
-	public var identifier : String;
-	public var pxWid : Int;
-	public var pxHei : Int;
-	public var worldX : Int;
-	public var worldY : Int;
+	public var iid(default,null) : String;
+	public var uid(default,null) : Int;
+	public var identifier(default,null) : String;
+	public var pxWid(default,null) : Int;
+	public var pxHei(default,null) : Int;
+	public var worldX(default,null) : Int;
+	public var worldY(default,null) : Int;
+	public var worldDepth(default,null) : Int;
 
 	/** Level background color (as Hex "#rrggbb") **/
-	public var bgColor_hex: String;
+	public var bgColor_hex(default,null): String;
 
 	/** Level background color (as Int 0xrrggbb) **/
-	public var bgColor_int: UInt;
+	public var bgColor_int(default,null): UInt;
 
 	@:deprecated("Use bgColor_int instead") @:noCompletion
 	public var bgColor(get,never) : UInt;
@@ -60,13 +61,13 @@ class Level {
 
 	public var allUntypedLayers(default,null) : Array<Layer>;
 	public var neighbours : Array<{ levelIid:String, dir: NeighbourDir }>;
-	public var bgImageInfos : Null<LevelBgImage>;
+	public var bgImageInfos(default,null) : Null<LevelBgImage>;
 
 	/** Index in project `levels` array **/
 	public var arrayIndex(default,null) : Int;
 
 	/** Only exists if levels are stored in separate level files **/
-	var externalRelPath : Null<String>;
+	var externalRelPath(default,null) : Null<String>;
 
 
 	public function new(project:ldtk.Project, arrayIdx:Int, json:ldtk.Json.LevelJson) {
@@ -95,6 +96,7 @@ class Level {
 		pxHei = json.pxHei;
 		worldX = json.worldX;
 		worldY = json.worldY;
+		worldDepth = json.worldDepth;
 		bgColor_hex = json.__bgColor;
 		bgColor_int = Project.hexToInt(json.__bgColor);
 

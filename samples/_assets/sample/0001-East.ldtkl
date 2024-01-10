@@ -5,7 +5,7 @@
 		"doc": "https://ldtk.io/json",
 		"schema": "https://ldtk.io/files/JSON_SCHEMA.json",
 		"appAuthor": "Sebastien 'deepnight' Benard",
-		"appVersion": "1.4.1",
+		"appVersion": "1.5.0",
 		"url": "https://ldtk.io"
 	},
 	"identifier": "East",
@@ -59,8 +59,6 @@
 					"__tags": [],
 					"__tile": { "tilesetUid": 31, "x": 96, "y": 0, "w": 16, "h": 16 },
 					"__smartColor": "#FFDD00",
-					"__worldX": 348,
-					"__worldY": 248,
 					"iid": "60038916-66b0-11ec-a36b-953273b2a0be",
 					"width": 10,
 					"height": 10,
@@ -69,7 +67,9 @@
 					"fieldInstances": [{ "__identifier": "type", "__type": "LocalEnum.Items", "__value": "Potion", "__tile": { "tilesetUid": 31, "x": 96, "y": 0, "w": 16, "h": 16 }, "defUid": 32, "realEditorValues": [{
 						"id": "V_String",
 						"params": ["Potion"]
-					}] }]
+					}] }],
+					"__worldX": 348,
+					"__worldY": 248
 				}
 			]
 		},
