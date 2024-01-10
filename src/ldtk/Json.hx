@@ -909,6 +909,8 @@ typedef LayerDefJson = {
 	@added("1.5.0")
 	var autoTilesKilledByOtherLayerUid: Null<Int>;
 
+	/** Asynchronous rendering option for large/complex layers **/
+	@only("Tile layers, Auto-layers")
 	@internal
 	@added("1.5.0")
 	var useAsyncRender: Bool;
