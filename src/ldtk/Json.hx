@@ -908,6 +908,10 @@ typedef LayerDefJson = {
 	@internal
 	@added("1.5.0")
 	var autoTilesKilledByOtherLayerUid: Null<Int>;
+
+	@internal
+	@added("1.5.0")
+	var useAsyncRender: Bool;
 }
 
 @inline
