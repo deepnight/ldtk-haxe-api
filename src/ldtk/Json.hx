@@ -1050,6 +1050,10 @@ typedef AutoRuleDef = {
 	var perlinOctaves: Float;
 
 	var perlinSeed: Float;
+
+	/** If TRUE, then the rule should be re-evaluated by the editor at one point **/
+	@added("1.5.2")
+	var invalidated: Bool;
 };
 
 
