@@ -1,6 +1,10 @@
 package ldtk;
 
 enum NeighbourDir {
+	NorthEastCorner;
+	NorthWestCorner;
+	SouthEastCorner;
+	SouthWestCorner;
 	North;
 	South;
 	West;
@@ -125,13 +129,20 @@ class Level {
 				neighbours.push({
 					levelIid: n.levelIid,
 					dir: switch n.dir {
+						case "nw": NorthWestCorner;
+						case "ne": NorthEastCorner;
+						case "sw": SouthWestCorner;
+						case "se": SouthEastCorner;
+
 						case "n": North;
 						case "s": South;
 						case "w": West;
 						case "e": East;
+
 						case "<": DepthBelow;
 						case ">": DepthAbove;
 						case "o": SameDepthOverlap;
+
 						case _: trace("WARNING: unknown neighbour level dir: "+n.dir); North;
 					},
 				});
