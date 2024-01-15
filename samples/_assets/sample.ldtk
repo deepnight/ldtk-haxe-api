@@ -10,7 +10,7 @@
 	},
 	"iid": "a8ea85a0-7820-11ed-b6fd-4507f1bd5fbf",
 	"jsonVersion": "1.5.2",
-	"appBuildId": 473607,
+	"appBuildId": 473701,
 	"nextUid": 59,
 	"identifierStyle": "Capitalize",
 	"toc": [{
@@ -28,11 +28,11 @@
 			"entityIid": "60018d46-66b0-11ec-a36b-a9ab7da03bee"
 		}, "worldX": 84, "worldY": 232, "widPx": 8, "heiPx": 10, "fields" : {} }]
 	}],
-	"worldLayout": "Free",
-	"worldGridWidth": 256,
-	"worldGridHeight": 256,
-	"defaultLevelWidth": 256,
-	"defaultLevelHeight": 256,
+	"worldLayout": null,
+	"worldGridWidth": null,
+	"worldGridHeight": null,
+	"defaultLevelWidth": null,
+	"defaultLevelHeight": null,
 	"defaultPivotX": 0.5,
 	"defaultPivotY": 1,
 	"defaultGridSize": 8,
@@ -53,7 +53,7 @@
 	"levelNamePattern": "%world_Level_%idx",
 	"tutorialDesc": null,
 	"customCommands": [],
-	"flags": [ "ExportOldTableOfContentData", "PrependIndexToLevelFileNames" ],
+	"flags": [ "ExportOldTableOfContentData", "PrependIndexToLevelFileNames", "MultiWorlds" ],
 	"defs": { "layers": [
 		{
 			"__type": "Entities",
@@ -1152,7 +1152,8 @@
 		{ "id": "Potion", "tileRect": { "tilesetUid": 31, "x": 96, "y": 0, "w": 16, "h": 16 }, "color": 6710903 },
 		{ "id": "Food", "tileRect": { "tilesetUid": 31, "x": 16, "y": 96, "w": 16, "h": 16 }, "color": 10048836 }
 	], "iconTilesetUid": 31, "externalRelPath": null, "externalFileChecksum": null, "tags": [] }], "externalEnums": [], "levelFields": [] },
-	"levels": [
+	"levels": [],
+	"worlds": [{ "iid": "6d9adae0-c640-11ed-b633-01b6d7e2af59", "identifier": "SampleWorld", "defaultLevelWidth": 256, "defaultLevelHeight": 256, "worldGridWidth": 256, "worldGridHeight": 256, "worldLayout": "Free", "levels": [
 		{
 			"identifier": "West",
 			"iid": "60018d40-66b0-11ec-a36b-3b0761cf900c",
@@ -1245,7 +1246,6 @@
 			"layerInstances": null,
 			"__neighbours": [{ "levelIid": "60038910-66b0-11ec-a36b-1ff7a8a0ffd4", "dir": "w" }]
 		}
-	],
-	"worlds": [],
+	] }],
 	"dummyWorldIid": "6d9adae0-c640-11ed-b633-01b6d7e2af59"
 }
