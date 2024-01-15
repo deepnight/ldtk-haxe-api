@@ -22,7 +22,7 @@ class Heaps_FullWorld extends hxd.App {
 		var project = new LdtkProject();
 
 		// Render each level
-		for( level in project.all_worlds.Default.levels ) {
+		for( level in project.all_worlds.SampleWorld.levels ) {
 			// Create a wrapper to render all layers in it
 			var levelWrapper = new h2d.Object( s2d );
 

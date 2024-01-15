@@ -23,7 +23,7 @@ class Heaps_ObjectTiles extends hxd.App {
 		var project = new LdtkProject();
 
 		// Get level data
-		var level = project.all_worlds.Default.all_levels.West;
+		var level = project.all_worlds.SampleWorld.all_levels.West;
 
 		// Prepare a container for the level layers
 		var levelBg = new h2d.Object();

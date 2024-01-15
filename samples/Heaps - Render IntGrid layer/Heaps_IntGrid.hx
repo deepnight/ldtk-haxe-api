@@ -22,7 +22,7 @@ class Heaps_IntGrid extends hxd.App {
 		var project = new LdtkProject();
 
 		// Layer data
-		var layer = project.all_worlds.Default.all_levels.West.l_Collisions;
+		var layer = project.all_worlds.SampleWorld.all_levels.West.l_Collisions;
 
 		// Prepare a h2d.Graphics to render layer
 		var g = new h2d.Graphics(s2d);

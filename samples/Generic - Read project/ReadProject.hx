@@ -9,7 +9,7 @@ class ReadProject {
 		hxd.Res.initEmbed();
 		var project = new LdtkProject();
 
-		var myLevel = project.all_worlds.Default.all_levels.West;
+		var myLevel = project.all_worlds.SampleWorld.all_levels.West;
 
 		// IntGrid ASCII render
 		var layer = myLevel.l_Collisions;
