@@ -32,7 +32,7 @@ jobs:
       - run: haxelib install tests/js.hxml --always
       - run: haxelib git deepnightLibs https://github.com/deepnight/deepnightLibs.git
       - run: haxelib git heaps https://github.com/deepnight/heaps.git
-      - run: haxelib install hlsdl
+      - run: haxelib git hlsdl https://github.com/HaxeFoundation/hashlink.git master libs/sdl
       - run: haxelib list
 
       # Run tests
