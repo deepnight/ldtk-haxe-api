@@ -1523,7 +1523,7 @@ typedef NeighbourLevel = {
 		Since 1.4.0, this value can also be `<` (neighbour depth is lower), `>` (neighbour depth is greater) or `o` (levels overlap and share the same world depth).
 		Since 1.5.3, this value can also be `nw`,`ne`,`sw` or `se` for levels only touching corners.
 	**/
-	@changed("1.4.0")
+	@changed("1.5.3")
 	var dir: String;
 }
 
