@@ -1178,7 +1178,7 @@ typedef EntityDefJson = {
 	var uiTileRect: Null<TilesetRect>;
 
 	/**
-		An enum describing how the the Entity tile is rendered inside the Entity bounds.
+		An enum describing how the Entity tile is rendered inside the Entity bounds.
 	**/
 	@changed("0.8.1")
 	var tileRenderMode: EntityTileRenderMode;
