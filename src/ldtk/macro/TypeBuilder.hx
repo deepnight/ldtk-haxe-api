@@ -326,7 +326,11 @@ class TypeBuilder {
 		}
 
 		externEnumResolverSwitch = {
-			expr: ESwitch( macro name, resolverCases, macro { ldtk.Project.error("Unknown external enum name: "+name); null; } ),
+			expr: ESwitch(
+				macro name,
+				resolverCases,
+				macro { ldtk.Project.error("Unknown external enum name: "+name); null; }
+			),
 			pos: curPos,
 		}
 
@@ -1219,6 +1223,7 @@ class TypeBuilder {
 					// return new $worldTypePath(project, arrayIndex, json);
 				}
 
+				@:haxe.warning("-WUnusedPattern")
 				override function _resolveExternalEnumValue<T>(name:String, enumValueId:String) : T {
 					return $externEnumResolverSwitch;
 				}
