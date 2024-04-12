@@ -32,7 +32,7 @@ haxelib install ldtk-haxe-api
 
 Please check the **full documentation and tutorials** here:
 
-https://deepnight.net/docs/ldtk/haxe-api/
+https://ldtk.io/docs/game-dev/haxe-in-game-api/
 
 ## Samples
 
