@@ -1,6 +1,8 @@
 package ldtk;
 
-class Tileset {
+typedef Tileset = TypedTileset<EnumValue>;
+
+class TypedTileset<TTag:EnumValue> {
 	var untypedProject: ldtk.Project;
 
 	/** Original parsed JSON object **/
@@ -85,6 +87,16 @@ class Tileset {
 		return Std.int( (pixelX-padding) / tileGridSize )  +  cWid * Std.int( pixelY / tileGridSize );
 	}
 
+	/** Return TRUE if the specifiied tile ID was tagged with given enum `tag`. **/
+	public inline function hasTag(tileId:Int, tag:TTag) {
+		final allTileIds = untypedTags.get( tag.getName() );
+		return allTileIds==null ? false : allTileIds.exists(tileId);
+	}
+
+	/** Return an array of all tags associated with give tile ID. WARNING: this allocates a new array on call. **/
+	public function getAllTags(tileId:Int) : Array<TTag> {
+		throw "getAllTags not implemented";
+	}
 
 	/***************************************************************************
 		HEAPS API
