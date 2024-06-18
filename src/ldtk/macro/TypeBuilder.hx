@@ -547,36 +547,45 @@ class TypeBuilder {
 		timer("tilesetClasses");
 		tilesets = new Map();
 		for(t in json.defs.tilesets) {
-			// Create tileset class
-			var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Tileset" }
-			var tilesetType : TypeDefinition = {
-				pos : curPos,
-				name : "Tileset_"+t.identifier,
-				pack : modPack,
-				doc: 'Tileset class of atlas "${t.relPath}"',
-				kind : TDClass(parentTypePath),
-				fields : (macro class {
-					override public function new(p,json) {
-						super(p,json);
-					}
-				}).fields,
-			}
-
 			// Enum tags
-			if( t.tagsSourceEnumUid!=null ) {
+			var tilesetType : TypeDefinition;
+			if( t.tagsSourceEnumUid==null ) {
+				// Create tileset class
+				var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Tileset" };
+				tilesetType = {
+					pos : curPos,
+					name : "Tileset_"+t.identifier,
+					pack : modPack,
+					doc: 'Tileset class of atlas "${t.relPath}"',
+					kind : TDClass(parentTypePath),
+					fields : (macro class {
+						override public function new(p,json) {
+							super(p,json);
+						}
+					}).fields,
+				}
+			} else {
 				var enumTypeDef = localEnums.get(t.tagsSourceEnumUid);
 				var enumComplexType = Context.getType(enumTypeDef.name).toComplexType();
+				// Create tileset class
+				var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Tileset", sub:"TypedTileset", params:[TPType(enumComplexType)] };
+				tilesetType = {
+					pos : curPos,
+					name : "Tileset_"+t.identifier,
+					pack : modPack,
+					doc: 'Tileset class of atlas "${t.relPath}"',
+					kind : TDClass(parentTypePath),
+					fields : (macro class {
+						override public function new(p,json) {
+							super(p,json);
+						}
+					}).fields,
+				}
 				var enumTypeExpr = { pos:curPos, expr:EConst(CIdent(enumTypeDef.name)) }
 				tilesetType.fields = tilesetType.fields.concat( (macro class {
 
-					/** Return TRUE if the specifiied tile ID was tagged with given enum `tag`. **/
-					public inline function hasTag(tileId:Int, tag:$enumComplexType) {
-						final allTileIds = untypedTags.get( tag.getName() );
-						return allTileIds==null ? false : allTileIds.exists(tileId);
-					}
-
 					/** Return an array of all tags associated with give tile ID. WARNING: this allocates a new array on call. **/
-					public function getAllTags(tileId:Int) : Array<$enumComplexType> {
+					override function getAllTags(tileId:Int) : Array<$enumComplexType> {
 						var all = [];
 						for(t in untypedTags.keys()) {
 							if( untypedTags.get(t).exists(tileId) )

@@ -1,11 +1,15 @@
 package ldtk;
 
-class Layer_Tiles extends ldtk.Layer {
+import ldtk.Tileset;
+
+typedef Layer_Tiles = TypedLayer_Tiles<EnumValue>;
+
+class TypedLayer_Tiles<TTag:EnumValue> extends ldtk.Layer {
 	var tiles : Map<Int, Array<{ tileId:Int, flipBits:Int }>>;
 
 	/** Getter to layer untyped Tileset instance. The typed value is created in macro. **/
-	var untypedTileset(get,never) : ldtk.Tileset;
-		inline function get_untypedTileset() return untypedProject._untypedTilesets.get(tilesetUid);
+	var untypedTileset(get,never) : TypedTileset<TTag>;
+	inline function get_untypedTileset() return cast untypedProject._untypedTilesets.get(tilesetUid);
 
 	/** Tileset UID **/
 	public var tilesetUid(default,null) : Int;
