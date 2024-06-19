@@ -9,11 +9,11 @@ class TypedLayer_Tiles<TTileset:TypedTileset<EnumValue>> extends ldtk.Layer {
 
 	/** Getter to layer untyped Tileset instance. **/
 	var untypedTileset(get,never) : TTileset;
-	inline function get_untypedTileset() return cast untypedProject._untypedTilesets.get(tilesetUid);
+		inline function get_untypedTileset() return cast untypedProject._untypedTilesets.get(tilesetUid);
 
 	/** Getter for this layer's tileset */
 	public var tileset(get,never) : TTileset;
-	inline function get_tileset() return untypedTileset;
+		inline function get_tileset() return untypedTileset;
 
 	/** Tileset UID **/
 	public var tilesetUid(default,null) : Int;
