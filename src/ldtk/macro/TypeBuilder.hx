@@ -765,8 +765,8 @@ class TypeBuilder {
 					if( l.tilesetDefUid==null || !tilesets.exists(l.tilesetDefUid) )
 						error('Missing default tileset in layer "${l.identifier}"');
 
-					var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_Tiles" }
 					var tilesetCT = Context.getType( tilesets.get(l.tilesetDefUid).typeName ).toComplexType();
+					var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_Tiles", sub:"TypedLayer_Tiles", params:[TPType(tilesetCT)] };
 					var layerType : TypeDefinition = {
 						pos : curPos,
 						name : "Layer_"+l.identifier,
@@ -774,10 +774,6 @@ class TypeBuilder {
 						doc: "Tile layer",
 						kind : TDClass(parentTypePath),
 						fields : (macro class {
-							public var tileset(get,never) : $tilesetCT;
-								inline function get_tileset() return cast untypedTileset;
-
-
 							override public function new(p,json) {
 								super(p,json);
 							}
