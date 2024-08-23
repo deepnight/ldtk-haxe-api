@@ -289,6 +289,7 @@ A `ldtkl` file is just a JSON file containing exactly what is described below.
 typedef LevelJson = {
 
 	/** Unique Int identifier **/
+	@uidRoot("level")
 	var uid: Int;
 
 	/**
@@ -460,9 +461,11 @@ typedef LayerInstanceJson = {
 	var iid : String;
 
 	/** Reference to the UID of the level containing this layer instance **/
+	@uidRef("level")
 	var levelId: Int;
 
 	/** Reference the Layer definition UID **/
+	@uidRef("layer")
 	var layerDefUid: Int;
 
 	/** Layer instance visibility **/
@@ -505,6 +508,7 @@ typedef LayerInstanceJson = {
 
 	/** This layer can use another tileset by overriding the tileset UID here. **/
 	@only("Tile layers")
+	@uidRef("tileset")
 	var overrideTilesetUid: Null<Int>;
 
 	/**
@@ -523,6 +527,7 @@ typedef LayerInstanceJson = {
 	/** An Array containing the UIDs of optional rules that were enabled in this specific layer instance. **/
 	@internal
 	@added("0.9.0")
+	@uidRef("rule")
 	var optionalRules: Array<Int>;
 }
 
@@ -581,6 +586,7 @@ typedef Tile = {
 typedef TilesetRect = {
 	/** UID of the tileset **/
 	@added("1.0.0")
+	@uidRef("tileset")
 	var tilesetUid : Int;
 
 	/** X pixels coordinate of the top-left corner in the Tileset image **/
@@ -657,6 +663,7 @@ typedef EntityInstanceJson = {
 	var iid : String;
 
 	/** Reference of the **Entity definition** UID **/
+	@uidRef("entity")
 	var defUid: Int;
 
 	/** Pixel coordinates (`[x,y]` format) in current level coordinate space. Don't forget optional layer offsets, if they exist! **/
@@ -704,6 +711,7 @@ typedef FieldInstanceJson = {
 	/**
 		Reference of the **Field definition** UID
 	**/
+	@uidRef("field")
 	var defUid: Int;
 
 	/**
@@ -759,6 +767,7 @@ typedef LayerDefJson = {
 	var type: LayerType;
 
 	/** Unique Int identifier **/
+	@uidRoot("layer")
 	var uid: Int;
 
 	/** User defined documentation for this element to provide help/tips to level designers. **/
@@ -860,6 +869,7 @@ typedef LayerDefJson = {
 	**/
 	@deprecation("1.0.0", "1.2.0", "tilesetDefUid")
 	@only("Auto-layers")
+	@uidRef("tileset")
 	var ?autoTilesetDefUid: Null<Int>;
 
 	/** Contains all the auto-layer rule definitions. **/
@@ -867,6 +877,7 @@ typedef LayerDefJson = {
 	@internal
 	var autoRuleGroups: Array<AutoLayerRuleGroupJson>;
 	@only("Auto-layers")
+	@uidRef("layer")
 	var autoSourceLayerDefUid: Null<Int>;
 
 	/** An array of tags to filter Entities that can be added to this layer **/
@@ -888,6 +899,7 @@ typedef LayerDefJson = {
 	**/
 	@changed("1.0.0")
 	@only("Tile layers, Auto-layers")
+	@uidRef("tileset")
 	var tilesetDefUid: Null<Int>;
 
 	/** If the tiles are smaller or larger than the layer grid, the pivot value will be used to position the tile relatively its grid cell. **/
@@ -902,11 +914,13 @@ typedef LayerDefJson = {
 
 	@added("1.5.0")
 	@internal
+	@uidRef("field")
 	var biomeFieldUid: Null<Int>;
 
 	@only("Auto layers")
 	@internal
 	@added("1.5.0")
+	@uidRef("layer")
 	var autoTilesKilledByOtherLayerUid: Null<Int>;
 
 	/** Asynchronous rendering option for large/complex layers **/
@@ -919,7 +933,9 @@ typedef LayerDefJson = {
 @inline
 @display("Auto-layer rule group")
 typedef AutoLayerRuleGroupJson = {
+	@uidRoot("ruleGroup")
 	var uid: Int;
+
 	var name: String;
 
 	@added("1.4.0")
@@ -956,6 +972,7 @@ typedef AutoLayerRuleGroupJson = {
 @display("Auto-layer rule definition")
 typedef AutoRuleDef = {
 	/** Unique Int identifier **/
+	@uidRoot("rule")
 	var uid: Int;
 
 	/** Pattern width & height. Should only be 1,3,5 or 7. **/
@@ -1065,6 +1082,7 @@ typedef EntityDefJson = {
 	var identifier: String;
 
 	/** Unique Int identifier **/
+	@uidRoot("entity")
 	var uid: Int;
 
 	/** User defined documentation for this element to provide help/tips to level designers. **/
@@ -1232,6 +1250,7 @@ typedef FieldDefJson = {
 	var doc: Null<String>;
 
 	/** Unique Int identifier **/
+	@uidRoot("field")
 	var uid: Int;
 
 	/**
@@ -1339,6 +1358,7 @@ typedef FieldDefJson = {
 
 	@internal
 	@added("1.3.0")
+	@uidRef("entity")
 	var allowedRefsEntityUid: Null<Int>;
 
 	@internal
@@ -1351,6 +1371,7 @@ typedef FieldDefJson = {
 	@only("Tile")
 	@internal
 	@added("1.0.0")
+	@uidRef("tileset")
 	var tilesetUid: Null<Int>;
 
 
@@ -1389,6 +1410,7 @@ typedef TilesetDefJson = {
 	var identifier: String;
 
 	/** Unique Intidentifier **/
+	@uidRoot("tileset")
 	var uid: Int;
 
 	/**
@@ -1423,6 +1445,7 @@ typedef TilesetDefJson = {
 
 	/** Optional Enum definition UID used for this tileset meta-data **/
 	@added("0.9.0")
+	@uidRef("enum")
 	var tagsSourceEnumUid: Null<Int>;
 
 	/** Tileset tags using Enum values specified by `tagsSourceEnumId`. This array contains 1 element per Enum value, which contains an array of all Tile IDs that are tagged with it. **/
@@ -1457,6 +1480,7 @@ typedef TilesetDefJson = {
 @display("Enum definition")
 typedef EnumDefJson = {
 	/** Unique Int identifier **/
+	@uidRoot("enum")
 	var uid: Int;
 
 	/** User defined unique identifier **/
@@ -1466,6 +1490,7 @@ typedef EnumDefJson = {
 	var values: Array<EnumDefValues>;
 
 	/** Tileset UID if provided **/
+	@uidRef("tileset")
 	var iconTilesetUid: Null<Int>;
 
 	/** Relative path to the external file providing this Enum **/
@@ -1516,6 +1541,7 @@ typedef NeighbourLevel = {
 	var levelIid : String;
 
 	@deprecation("1.0.0", "1.2.0", "levelIid")
+	@uidRef("level")
 	var ?levelUid: Int;
 
 	/**
@@ -1573,6 +1599,7 @@ typedef IntGridValueDef = {
 
 	/** Parent group identifier (0 if none)**/
 	@added("1.4.0")
+	@uidRef("intGroup")
 	var groupUid: Int;
 }
 
@@ -1583,6 +1610,7 @@ typedef IntGridValueDef = {
 @added("1.4.0")
 typedef IntGridValueGroupDef = {
 	/** Group unique ID **/
+	@uidRoot("intGroup")
 	var uid: Int;
 
 	/** User defined string identifier **/
@@ -1729,7 +1757,7 @@ enum FieldType {
 	F_Text;
 	F_Bool;
 	F_Color;
-	F_Enum(enumDefUid:Int);
+	F_Enum(enumDefUid:Int); // @uidRef("enum")
 	F_Point;
 	F_Path;
 
