@@ -147,6 +147,7 @@ If you want to start supporting this future update easily, please refer to this 
 
 	/** If TRUE, the Json is partially minified (no indentation, nor line breaks, default is FALSE) **/
 	@internal
+	@deprecation("1.5.4", "1.7", "jsonStyle")
 	var minifyJson: Bool;
 
 	/** JSON style **/
