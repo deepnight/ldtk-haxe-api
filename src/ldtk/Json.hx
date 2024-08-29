@@ -149,6 +149,10 @@ If you want to start supporting this future update easily, please refer to this 
 	@internal
 	var minifyJson: Bool;
 
+	/** JSON style **/
+	@internal
+	var jsonStyle: JsonStyle;
+
 	/** If TRUE, one file will be saved for the project (incl. all its definitions) and one file in a sub-folder for each level. **/
 	@added("0.7.0")
 	var externalLevels: Bool;
@@ -1892,4 +1896,12 @@ enum CustomCommandTrigger {
 	AfterLoad;
 	BeforeSave;
 	AfterSave;
+}
+
+
+@added("1.5.4")
+enum JsonStyle {
+	Minified;
+	Compact;
+	Full;
 }
