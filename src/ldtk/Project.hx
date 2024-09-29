@@ -265,6 +265,10 @@ class Project {
 		}
 	}
 
+	public function clearAssetCache() {
+		assetCache = new Map();
+	}
+
 
 	/**
 		Try to resolve the Project file location in the current Asset management system
