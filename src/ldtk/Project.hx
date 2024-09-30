@@ -33,7 +33,6 @@ class Project {
 		#if !macro
 			error("Should only be used in macros");
 		#else
-
 			return ldtk.macro.TypeBuilder.buildTypes(projectFilePath);
 		#end
 	}
