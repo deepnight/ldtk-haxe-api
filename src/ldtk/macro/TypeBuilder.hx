@@ -180,22 +180,49 @@ class TypeBuilder {
 	static function createLocalEnums() {
 		timer("localEnums");
 		for(e in json.defs.enums) {
-			var enumTypeDef : TypeDefinition = {
+			// Old naming convention
+			var legacyEnumTypeDef : TypeDefinition = {
 				name: "Enum_"+e.identifier,
 				pack: modPack,
 				doc: "Enumeration of all possible "+e.identifier+" values",
 				kind: TDEnum,
 				pos: curPos,
+				// meta: [
+				// 	{ name:":noCompletion", pos:curPos },
+				// 	{ name:":deprecated", params:[macro "Use "+modName+"_Enum_"+e.identifier], pos:curPos },
+				// ],
 				fields: e.values.map( function(json) : Field {
 					return {
 						name: sanitizeIdentifier(json.id),
 						pos: curPos,
 						kind: FVar(null, null),
+						// meta: [
+						// 	{ name:":noCompletion", pos:curPos },
+						// 	{ name:":deprecated", params:[macro "Use "+modName+"_Enum_"+e.identifier], pos:curPos },
+						// ],
 					}
 				}),
 			}
-			localEnums.set(e.uid, enumTypeDef);
-			registerTypeDefinitionModule(enumTypeDef, projectFilePath);
+			localEnums.set(e.uid, legacyEnumTypeDef);
+			registerTypeDefinitionModule(legacyEnumTypeDef, projectFilePath);
+
+			// // New naming convention
+			// var newEnumTypeDef : TypeDefinition = {
+			// 	name: modName+"_Enum_"+e.identifier,
+			// 	pack: modPack,
+			// 	doc: "Enumeration of all possible "+e.identifier+" values",
+			// 	kind: TDEnum,
+			// 	pos: curPos,
+			// 	fields: e.values.map( function(json) : Field {
+			// 		return {
+			// 			name: sanitizeIdentifier(json.id),
+			// 			pos: curPos,
+			// 			kind: FVar(null, null),
+			// 		}
+			// 	}),
+			// }
+			// localEnums.set(e.uid, newEnumTypeDef);
+			// registerTypeDefinitionModule(newEnumTypeDef, projectFilePath);
 		}
 	}
 
