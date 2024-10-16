@@ -609,7 +609,7 @@ class TypeBuilder {
 					// Create IntGrid abstract enum from values
 					var intType = macro : Int;
 					var enumTypeDef : TypeDefinition = {
-						name: l.identifier+"_IntGridValues",
+						name: modName+"_IntGridEnum_"+l.identifier,
 						pack: modPack,
 						doc: "IntGrid values from layer "+l.identifier+" available as an Abstract Enum of Int",
 						kind: TDAbstract(intType, [AbEnum, AbTo(intType)], [intType], [intType]),
@@ -618,8 +618,8 @@ class TypeBuilder {
 					}
 					for(v in l.intGridValues) {
 						var groupInf = l.intGridValuesGroups.filter( g->g.uid==v.groupUid )[0];
-						var groupId = groupInf!=null ? "_"+groupInf.identifier+"_" : "_";
-						var enumUid = l.identifier + groupId + ( v.identifier!=null ? v.identifier : Std.string(v.value) );
+						var groupId = groupInf!=null ? groupInf.identifier+"_" : "";
+						var enumUid = l.identifier + "_" + groupId + ( v.identifier!=null ? v.identifier : Std.string(v.value) );
 						enumTypeDef.fields.push({
 							name: sanitizeIdentifier(enumUid),
 							pos: curPos,
