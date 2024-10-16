@@ -606,6 +606,29 @@ class TypeBuilder {
 			switch type {
 				case IntGrid:
 
+					// Create IntGrid abstract enum from values
+					var intType = macro : Int;
+					var enumTypeDef : TypeDefinition = {
+						name: l.identifier+"_IntGridValues",
+						pack: modPack,
+						doc: "IntGrid values from layer "+l.identifier+" available as an Abstract Enum of Int",
+						kind: TDAbstract(intType, [AbEnum, AbTo(intType)], [intType], [intType]),
+						pos: curPos,
+						fields: [],
+					}
+					for(v in l.intGridValues) {
+						var groupInf = l.intGridValuesGroups.filter( g->g.uid==v.groupUid )[0];
+						var groupId = groupInf!=null ? "_"+groupInf.identifier+"_" : "_";
+						var enumUid = l.identifier + groupId + ( v.identifier!=null ? v.identifier : Std.string(v.value) );
+						enumTypeDef.fields.push({
+							name: sanitizeIdentifier(enumUid),
+							pos: curPos,
+							kind: FVar(intType, macro $v{v.value}),
+						});
+					}
+					registerTypeDefinitionModule(enumTypeDef, projectFilePath);
+
+
 					if( l.tilesetDefUid==null ) {
 						// IntGrid
 						var parentTypePath : TypePath = { pack: [APP_PACKAGE], name:"Layer_IntGrid" }
