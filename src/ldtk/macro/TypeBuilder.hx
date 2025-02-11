@@ -635,7 +635,7 @@ class TypeBuilder {
 
 					// Create IntGrid abstract enum from values
 					var intType = macro : Int;
-					var enumTypeDef : TypeDefinition = {
+					var valuesEnumTypeDef : TypeDefinition = {
 						name: modName+"_IntGridEnum_"+l.identifier,
 						pack: modPack,
 						doc: "IntGrid values from layer "+l.identifier+" available as an Abstract Enum of Int",
@@ -647,14 +647,36 @@ class TypeBuilder {
 						var groupInf = l.intGridValuesGroups.filter( g->g.uid==v.groupUid )[0];
 						var groupId = groupInf!=null ? groupInf.identifier+"_" : "";
 						var enumUid = l.identifier + "_" + groupId + ( v.identifier!=null ? v.identifier : Std.string(v.value) );
-						enumTypeDef.fields.push({
+						valuesEnumTypeDef.fields.push({
 							name: sanitizeIdentifier(enumUid),
 							pos: curPos,
 							kind: FVar(intType, macro $v{v.value}),
 						});
 					}
-					registerTypeDefinitionModule(enumTypeDef, projectFilePath);
+					registerTypeDefinitionModule(valuesEnumTypeDef, projectFilePath);
 
+					// Create IntGrid abstract enum from value groups
+					var valueGroupsEnumTypeDef : TypeDefinition = {
+						name: modName+"_IntGridGroupEnum_"+l.identifier,
+						pack: modPack,
+						doc: "IntGrid value groups from layer "+l.identifier+" available as an Abstract Enum of Int",
+						kind: TDAbstract(intType, [AbEnum, AbTo(intType)], [intType], [intType]),
+						pos: curPos,
+						fields: [],
+					}
+					var dones = new Map();
+					for(g in l.intGridValuesGroups) {
+						var enumUid = l.identifier + "_" + g.identifier;
+						if( dones.exists(enumUid) )
+							continue;
+						dones.set(enumUid, true);
+						valueGroupsEnumTypeDef.fields.push({
+							name: sanitizeIdentifier(enumUid),
+							pos: curPos,
+							kind: FVar(intType, macro $v{g.uid}),
+						});
+					}
+					registerTypeDefinitionModule(valueGroupsEnumTypeDef, projectFilePath);
 
 					if( l.tilesetDefUid==null ) {
 						// IntGrid
@@ -674,6 +696,7 @@ class TypeBuilder {
 											value: v.value,
 											identifier: v.identifier,
 											color: Std.parseInt( "0x"+v.color.substr(1) ),
+											groupUid: v.groupUid,
 										});
 									}
 								}
@@ -709,6 +732,7 @@ class TypeBuilder {
 											value: v.value,
 											identifier: v.identifier,
 											color: Std.parseInt( "0x"+v.color.substr(1) ),
+											groupUid: v.groupUid,
 										});
 									}
 								}

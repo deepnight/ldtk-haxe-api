@@ -1,7 +1,7 @@
 package ldtk;
 
 class Layer_IntGrid extends ldtk.Layer {
-	var valueInfos : Map<Int, { value:Int, identifier:Null<String>, color:UInt }> = new Map();
+	var valueInfos : Map<Int, { value:Int, identifier:Null<String>, color:UInt, groupUid:Int }> = new Map();
 
 	/**
 		IntGrid integer values, map is based on coordIds
@@ -31,6 +31,16 @@ class Layer_IntGrid extends ldtk.Layer {
 		Return -1 if none.
 	**/
 	public inline function getInt(cx:Int, cy:Int) {
+		return isCoordValid(cx,cy) ? intGrid.get( getCoordId(cx,cy) ) : 0;
+		// return !isCoordValid(cx,cy) || !intGrid.exists( getCoordId(cx,cy) ) ? 0 : intGrid.get( getCoordId(cx,cy) );
+	}
+
+	/**
+		Get the Integer value at selected coordinates
+
+		Return -1 if none.
+	**/
+	public inline function getIntGroup(cx:Int, cy:Int) {
 		return isCoordValid(cx,cy) ? intGrid.get( getCoordId(cx,cy) ) : 0;
 		// return !isCoordValid(cx,cy) || !intGrid.exists( getCoordId(cx,cy) ) ? 0 : intGrid.get( getCoordId(cx,cy) );
 	}
