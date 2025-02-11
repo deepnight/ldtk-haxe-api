@@ -41,8 +41,8 @@ class Layer_IntGrid extends ldtk.Layer {
 		Return -1 if none.
 	**/
 	public inline function getIntGroup(cx:Int, cy:Int) {
-		return isCoordValid(cx,cy) ? intGrid.get( getCoordId(cx,cy) ) : 0;
-		// return !isCoordValid(cx,cy) || !intGrid.exists( getCoordId(cx,cy) ) ? 0 : intGrid.get( getCoordId(cx,cy) );
+		var intGridValue = getInt(cx,cy);
+		return intGridValue!=0 && valueInfos.exists(intGridValue) ? valueInfos.get(intGridValue).groupUid  : 0;
 	}
 
 	/**
