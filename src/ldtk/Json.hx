@@ -933,6 +933,16 @@ typedef LayerDefJson = {
 	@internal
 	@added("1.5.0")
 	var useAsyncRender: Bool;
+
+	/** Color of the optional "guide" grid **/
+	@internal
+	@added("1.5.4")
+	var guideColor: Null<String>;
+
+	/** Opacity of the optional "guide" grid **/
+	@internal
+	@added("1.5.4")
+	var guideOpacity: Float;
 }
 
 @inline
