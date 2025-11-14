@@ -174,7 +174,7 @@ class Level {
 			fromJson(json);
 			return true;
 		}
-		catch(e:Dynamic) {
+		catch(e:haxe.Exception) {
 			Project.error('Failed to parse external level $identifier: $externalRelPath ($e)');
 			return false;
 		}
