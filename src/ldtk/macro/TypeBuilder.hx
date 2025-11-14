@@ -327,16 +327,23 @@ class TypeBuilder {
 					var ct : ComplexType = TPath({ name:cdbClassName, pack:cdbPack, sub:e.identifier+"Kind" });
 
 					// Create resolver expr
+					var pos = Context.currentPos();
 					var cdbExpr : Expr = {
 						expr: EConst( CIdent(cdbClassName) ),
-						pos: Context.currentPos(),
+						pos: pos,
 					}
 					resolverCases.push({
 						values: [ macro $v{e.identifier} ],
 						expr: macro {
 							var cdb : Dynamic = cast $cdbExpr; // CastleDB class
-							var cdbEnum : Dynamic = Reflect.field(cdb, $v{e.identifier}); // Sheet object
-							var byId : Map<String,Dynamic> = cdbEnum.byId; // ID resolver in sheet
+							var enumId = $v{e.identifier};
+							var cdbEnum : Dynamic = Reflect.field(cdb, enumId); // Sheet object
+							if( cdbEnum==null ) {
+								// Enum cannot be resolved to a sheet line (maybe a UniqueID from a sub list?)
+								// We try to just return the id as String
+								return cast enumValueId;
+							}
+							var byId : Map<String,Dynamic> = cdbEnum.byId; // use the ID resolver in sheet (private)
 							return byId.get(enumValueId).id;
 						},
 					});
