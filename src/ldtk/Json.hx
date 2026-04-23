@@ -925,8 +925,16 @@ typedef LayerDefJson = {
 	@only("Auto layers")
 	@internal
 	@added("1.5.0")
+	@removed("1.5.4")
+	@deprecation("1.5.4", "1.5.4", "layerUidsPreventingAutoTilingHere")
 	@uidRef("layer")
-	var autoTilesKilledByOtherLayerUid: Null<Int>;
+	var ?autoTilesKilledByOtherLayerUid: Null<Int>;
+
+	@only("Auto layers")
+	@internal
+	@added("1.5.4")
+	@uidRef("layer")
+	var layerUidsPreventingAutoTilingHere: Array<Int>;
 
 	/** Asynchronous rendering option for large/complex layers **/
 	@only("Tile layers, Auto-layers")
