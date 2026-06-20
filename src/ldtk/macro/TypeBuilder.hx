@@ -1,6 +1,6 @@
 package ldtk.macro;
 
-#if( !macro && !display )
+#if( !macro && !haxe.macro.Context.defined("display") )
 #error "This class should not be used outside of macros"
 #end
 
