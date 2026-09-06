@@ -1283,6 +1283,14 @@ class TypeBuilder {
 					return null;
 				}
 
+				/** Return a world instance from its IID **/
+				public function getWorld(iid:String) : Null<$worldCT> {
+					for(w in worlds)
+						if( w.iid==iid )
+							return w;
+					return null;
+				}
+
 
 				override function _instanciateTileset(project, json) {
 					var c = Type.resolveClass( $v{modPack.concat(["Tileset_"]).join(".")}+json.identifier );
