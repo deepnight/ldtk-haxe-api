@@ -1276,9 +1276,17 @@ class TypeBuilder {
 
 
 				/** Return a world instance from its IID **/
-				public function getWorld(iid:String) : Null<$worldCT> {
+				public function getWorldByIID(iid:String) : Null<$worldCT> {
 					for(w in worlds)
 						if( w.iid==iid )
+							return w;
+					return null;
+				}
+
+				/** Return a world instance from its identifier **/
+				public function getWorld(identifier:String) : Null<$worldCT> {
+					for(w in worlds)
+						if( w.identifier==identifier )
 							return w;
 					return null;
 				}
