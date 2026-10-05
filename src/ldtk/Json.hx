@@ -846,6 +846,12 @@ typedef LayerDefJson = {
 	@added("1.0.0")
 	var hideFieldsWhenInactive: Bool;
 
+	/** Entity depth sorting mode. **/
+	@internal
+	@only("Entities layer")
+	@added("1.5.4")
+	var entityDepthSorting: EntityDepthSorting;
+
 	/** Allow editor selections when the layer is not currently active. **/
 	@internal
 	@added("1.1.4")
@@ -1791,6 +1797,12 @@ enum FieldType {
 	F_Tile;
 }
 
+
+enum EntityDepthSorting {
+	Manual;
+	YAscending;
+	YDescending;
+}
 
 enum EntityRenderMode {
 	Rectangle;
